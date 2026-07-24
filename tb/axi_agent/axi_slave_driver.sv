@@ -290,9 +290,11 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
       do @(vif.slv_cb); while (!vif.slv_cb.rready);
       repeat ($urandom_range(0,2)) begin  // inter-beat gap
         vif.slv_cb.rvalid <= 1'b0; @(vif.slv_cb);
+        vif.slv_cb.rlast  <= 1'b0; @(vif.slv_cb);
       end
     end
-    vif.slv_cb.rvalid <= 1'b0; vif.slv_cb.rlast <= 1'b0;
+    vif.slv_cb.rvalid <= 1'b0; 
+    vif.slv_cb.rlast <= 1'b0;
   endtask
 
   // Interleave two read bursts beat-by-beat (exercises F-ILV-01).
@@ -341,6 +343,7 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
     vif.slv_cb.rlast  <= (beat == t.len);
     do @(vif.slv_cb); while (!vif.slv_cb.rready);
     vif.slv_cb.rvalid <= 1'b0;
+
   endtask
 
   // read 8 bytes from backing memory (unwritten => incrementing pattern)
