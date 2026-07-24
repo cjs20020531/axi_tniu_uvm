@@ -1080,7 +1080,7 @@ always @(*) begin
     if(next_state == SPEC_RSP) //当处于处理特殊响应（包括超时响应）时需反压rsp_trans模块
         rspo2rspt_ready = 1'b0;
     else
-        rspo2rspt_ready = 1'b1;
+        rspo2rspt_ready = rknp_xx2rspo_ready;
 end
 
 

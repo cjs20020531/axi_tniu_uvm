@@ -2,11 +2,11 @@ Magic 271485
 Revision Verdi_O-2018.09-SP2
 
 ; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
-viewPort 0 27 2560 572 522 329
+viewPort 0 27 2560 608 285 425
 
 ; File list:
 ; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
-openDirFile -d / "" "/home/ICer/RKNoC/axi_tniu_uvm_260708/sim/wave.fsdb"
+openDirFile -d / "" "/home/ICer/RKNoC/axi_tniu_uvm/sim/wave.fsdb"
 
 ; file time scale:
 ; fileTimeScale ### s|ms|us|ns|ps
@@ -16,8 +16,8 @@ signalSpacing 5
 
 ; windowTimeUnit is used for zoom, cursor & marker
 ; waveform viewport range
-zoom 0.000000 1275828.843750
-cursor 136000.000000
+zoom 7097749.750000 7763579.932927
+cursor 7330000.000000
 marker 0.000000
 
 ; user define markers
@@ -25,7 +25,7 @@ marker 0.000000
 ; visible top row signal index
 top 0
 ; marker line index
-markerPos 24
+markerPos 15
 
 ; event list
 ; addEvent event_name event_expression
@@ -45,32 +45,23 @@ COMPLEX_EVENT_END
 curSTATUS ByChange
 
 
-addGroup "U_RREQ_TRANS"
-activeDirFile "" "/home/ICer/RKNoC/axi_tniu_uvm_260708/sim/wave.fsdb"
-addSignal -h 15 /tb_top/dut/U_RREQ_TRANS/clk
+addGroup "U_WRAP_ADJUST"
+activeDirFile "" "/home/ICer/RKNoC/axi_tniu_uvm/sim/wave.fsdb"
+addSignal -h 15 /tb_top/dut/genblk1/U_WRAP_ADJUST/clk
 addSignal -h 15 -holdScope resetn
-addSignal -h 15 -holdScope am2rreqt_head
-addSignal -h 15 -holdScope am2rreqt_tail
-addSignal -h 15 -holdScope am2rreqt_valid
-addSignal -h 15 -holdScope rreqt2am_ready
-addSignal -h 15 -holdScope am2rreqt_araddr[39:0]
-addSignal -h 15 -holdScope am2rreqt_axid[3:0]
-addSignal -h 15 -holdScope am2rreqt_opc[1:0]
-addSignal -h 15 -holdScope am2rreqt_arlen[7:0]
-addSignal -h 15 -holdScope am2rreqt_user[9:0]
-addSignal -h 15 -holdScope am2rreqt_arqos[2:0]
-addSignal -h 15 -holdScope axi_m_arvalid
-addSignal -h 15 -holdScope axi_m_arready
-addSignal -h 15 -holdScope axi_m_arid[3:0]
-addSignal -h 15 -holdScope axi_m_araddr[39:0]
-addSignal -h 15 -holdScope axi_m_arlen[7:0]
-addSignal -h 15 -holdScope axi_m_arsize[2:0]
-addSignal -h 15 -holdScope axi_m_arburst[1:0]
-addSignal -h 15 -holdScope axi_m_arlock
-addSignal -h 15 -holdScope axi_m_arcache[3:0]
-addSignal -h 15 -holdScope axi_m_arprot[2:0]
-addSignal -h 15 -holdScope axi_m_arqos[2:0]
-addSignal -h 15 -holdScope axi_m_aruser[0:0]
+addSignal -h 15 -holdScope rspo2wad_head
+addSignal -h 15 -holdScope rspo2wad_tail
+addSignal -h 15 -holdScope rspo2wad_valid
+addSignal -h 15 -holdScope wad2rspo_ready
+addSignal -h 15 -UNSIGNED -HEX -holdScope rspo2wad_data[156:0]
+addSignal -h 15 -holdScope rspo2wad_offset_addr[7:0]
+addSignal -h 15 -holdScope rspo2wad_axid[3:0]
+addSignal -h 15 -holdScope wad2rknp_xx_head
+addSignal -h 15 -holdScope wad2rknp_xx_tail
+addSignal -h 15 -holdScope wad2rknp_xx_valid
+addSignal -h 15 -holdScope rknp_xx2wad_ready
+addSignal -h 15 -holdScope wad2rknp_xx_data[156:0]
+addSignal -h 15 -holdScope rwrap_rsp_fin
 addGroup "G2"
 
 ; getSignalForm Scope Hierarchy Status

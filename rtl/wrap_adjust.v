@@ -45,7 +45,7 @@ module wrap_adjust#(
 
     // The interface signals of rsp channel of rknp_xx
     ,output wire                         wad2rknp_xx_head
-    ,output wire                         wad2rknp_xx_tail
+    ,output reg                          wad2rknp_xx_tail
     ,output wire                         wad2rknp_xx_valid
     ,input                               rknp_xx2wad_ready
     ,output reg   [RSP_FLIT_WITH-1:0]    wad2rknp_xx_data
@@ -71,17 +71,23 @@ localparam BUFF_BODY_OFFSET = BUFF_AXID_OFFSET + AXID_WITH;
 // 寄存offset_addr、Opc与AXID，在tail时使用
 //------------------------------------------------------
 wire [1:0] rspo2wad_opc;
-reg [7:0] rspo2wad_offset_addr_d; //rspo2wad_offset_addr寄存
-reg [1:0] rspo2wad_opc_d;
-reg [AXID_WITH-1:0] rspo2wad_axid_d;
+wire       rspo2wad_lw;
+wire [1:0] rspo2wad_status;
+reg  [7:0] rspo2wad_offset_addr_d; //rspo2wad_offset_addr寄存
+reg  [1:0] rspo2wad_opc_d;
+reg        rspo2wad_lw_d;
+reg  [AXID_WITH-1:0] rspo2wad_axid_d;
 
 assign rspo2wad_opc = rspo2wad_data[RSP_OPC_OFFSET +: 2];
+assign rspo2wad_lw = rspo2wad_data[RSP_HEAD_LEN_OFFSET]; 
+assign rspo2wad_status = rspo2wad_data[RSP_STATUS_OFFSET +: 2];
 
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rspo2wad_offset_addr_d <= #DLY 8'd0;
         rspo2wad_opc_d <= #DLY R;
         rspo2wad_axid_d <= #DLY 'd0;
+        
     end else if(rspo2wad_head == 1'b1 && wad2rspo_ready == 1'b1) begin
         rspo2wad_offset_addr_d <= #DLY rspo2wad_offset_addr;
         rspo2wad_opc_d <= #DLY rspo2wad_opc;
@@ -89,7 +95,15 @@ always @(posedge clk or negedge resetn) begin
     end
 end
 
-
+always @(posedge clk or negedge resetn) begin
+    if(resetn == 1'b0) begin
+        rspo2wad_lw_d <= #DLY 1'b0;
+    end else if(rspo2wad_lw == 1'b1 && wad2rspo_ready == 1'b1) begin
+        rspo2wad_lw_d <= #DLY 1'b1;
+    end else if(rknp_xx2wad_ready == 1'b1) begin
+        rspo2wad_lw_d <= #DLY 1'b0;
+    end
+end
 
 
 
@@ -141,7 +155,7 @@ wire [INDEX_WITH-1:0] rwrap_buff_index;
 //索引spec_req_buffer对应单元
 generate
 	for(i = 0; i < RWRAP_CNT_MAX; i = i+1)begin 
-		assign rwrap_buff_index_hot[i] = ({rspo2wad_axid_d, 1'b1} == rwrap_buffer[i][0 +: AXID_WITH+1]) ? 1'b1 : 1'b0;
+		assign rwrap_buff_index_hot[i] = ({rspo2wad_axid, 1'b1} == rwrap_buffer[i][0 +: AXID_WITH+1]) ? 1'b1 : 1'b0;
 	end
 endgenerate
 
@@ -193,9 +207,9 @@ always @(posedge clk or negedge resetn) begin
         for(a = 0; a < RWRAP_CNT_MAX; a = a + 1) begin
             rwrap_buffer[a] <= #DLY 'd0;
         end
-    end else if(rspo2wad_head == 1'b1 && rspo2wad_data[RSP_OPC_OFFSET +: 2] == R && rspo2wad_offset_addr != 8'd0 && rspo2wad_data[RSP_STATUS_OFFSET +: 2] != CONT) begin
+    end else if(rspo2wad_head == 1'b1 && wad2rspo_ready == 1'b1 && rspo2wad_opc == R && rspo2wad_offset_addr != 8'd0 && rspo2wad_status != CONT) begin
         rwrap_buffer[idle_rwrap_buff_index] <= #DLY {rspo2wad_data[RSP_HEAD_LEN_OFFSET+1 +: NBYTEPERWORD*9], rspo2wad_axid, 1'b1}; 
-    end else if(rspo2wad_tail_d == 1'b1 && rspo2wad_data[RSP_OPC_OFFSET +: 2] == R && rspo2wad_offset_addr_d != 8'd0) begin
+    end else if(rspo2wad_lw_d == 1'b1 && rknp_xx2wad_ready == 1'b1 && rspo2wad_opc == R && rspo2wad_offset_addr_d != 8'd0) begin
         rwrap_buffer[rwrap_buff_index][0] <= #DLY 1'b0;    //删除该单元
     end
 end
@@ -215,14 +229,13 @@ assign lw_offset_body = (NBYTEPERWORD*9 - ((rspo2wad_offset_addr_d << 3) + rspo2
 //------------------------------------------------------
 //  生成body部分（不含LW位）
 //------------------------------------------------------
-reg [1:0] _______________;
+
 always @(*) begin
-    if(rspo2wad_tail_d == 1'b1 && rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0) begin //读WRAP非对齐响应调整后的最后一拍
+    if(rspo2wad_lw_d == 1'b1 && rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0) begin //读WRAP非对齐响应调整后的最后一拍
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET+1 +: 9*NBYTEPERWORD] = (rwrap_buffer[rwrap_buff_index][BUFF_BODY_OFFSET +: NBYTEPERWORD*9] << lw_offset_body) >> lw_offset_body; //body部分（不含LW位）
-    end else if(rspo2wad_head == 1'b1 && rspo2wad_data[RSP_OPC_OFFSET +: 2] == R && rspo2wad_offset_addr != 8'd0) begin      //读WRAP非对齐响应调整后的第一拍
+    end else if(rspo2wad_head == 1'b1 && rspo2wad_opc == R && rspo2wad_offset_addr != 8'd0 && rspo2wad_status != CONT) begin      //读WRAP非对齐响应调整后的第一拍,排除交织
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET+1 +: 9*NBYTEPERWORD] = (rspo2wad_data[RSP_HEAD_LEN_OFFSET+1 +: NBYTEPERWORD*9] >> fir_offset_body) << fir_offset_body; //body部分（不含LW位）
     end else begin
-        _______________ = 2;
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET+1 +: 9*NBYTEPERWORD] = rspo2wad_data[RSP_HEAD_LEN_OFFSET+1 +: NBYTEPERWORD*9]; //body部分（不含LW位）
     end
 end
@@ -232,29 +245,36 @@ end
 //------------------------------------------------------
 reg [ADDR_WITH-1:0] adjust_addr; //调整地址
 always @(*) begin
-    if(rspo2wad_data[RSP_OPC_OFFSET +: 2] == R)
+    if(rspo2wad_opc == R)
         adjust_addr = rspo2wad_data[RSP_ADDR_OFFSET +: ADDR_WITH] + rspo2wad_offset_addr;
     else
         adjust_addr = rspo2wad_data[RSP_ADDR_OFFSET +: ADDR_WITH] - rspo2wad_offset_addr;
 end
 
 //head字段打拍
-reg [RSP_HEAD_LEN_OFFSET : 0] rrsp_head_d; //head部分（含LW位）
+reg [RSP_HEAD_LEN_OFFSET-1 : 0] rrsp_head_d; //head部分（不含LW位）
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rrsp_head_d <= #DLY 'd0;
     end else begin
-        rrsp_head_d <= #DLY rspo2wad_data[RSP_HEAD_LEN_OFFSET : 0];
+        rrsp_head_d <= #DLY rspo2wad_data[RSP_HEAD_LEN_OFFSET-1 : 0];
     end
 end
 
 always @(*) begin
-    if(rspo2wad_head == 1'b1 && rspo2wad_offset_addr != 8'd0 && rspo2wad_data[RSP_STATUS_OFFSET +: 2] != CONT)       //若为交织则无需修正地址
-        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET : 0] = {rspo2wad_data[RSP_USER_OFFSET +: USER_WITH+4] , adjust_addr , rspo2wad_data[RSP_ADDR_OFFSET-1 : 0]}; //head部分（含LW位）
-    else if(rspo2wad_tail_d == 1'b1 && rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0) //读WRAP非对齐响应调整后的最后一拍
-        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET : 0] = rrsp_head_d;
-    else
-        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET : 0] = rspo2wad_data[RSP_HEAD_LEN_OFFSET : 0]; //head部分（含LW位）
+    if(rspo2wad_head == 1'b1 && wad2rspo_ready == 1'b1 && rspo2wad_offset_addr != 8'd0 && rspo2wad_status != CONT) begin      //若为交织则无需修正地址
+        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET-1 : 0] = {rspo2wad_data[RSP_USER_OFFSET +: USER_WITH+4] , adjust_addr , rspo2wad_data[RSP_ADDR_OFFSET-1 : 0]}; //head部分（含LW位）
+        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b0;
+    end else if(rspo2wad_lw_d == 1'b1 && rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0) begin//读WRAP非对齐响应调整后的最后一拍
+        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET-1 : 0] = rrsp_head_d;
+        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b1;
+    end else if(rspo2wad_lw == 1'b1 && rspo2wad_opc == R && rspo2wad_offset_addr != 8'd0)begin
+        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET-1 : 0] = rspo2wad_data[RSP_HEAD_LEN_OFFSET-1 : 0]; //head部分（不含LW位）
+        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b0;
+    end else begin
+        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET-1 : 0] = rspo2wad_data[RSP_HEAD_LEN_OFFSET-1 : 0]; //head部分（不含LW位）
+        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = rspo2wad_lw;
+    end
 end
 
 //------------------------------------------------------
@@ -265,8 +285,18 @@ assign wad2rknp_xx_head = rspo2wad_head;
 //------------------------------------------------------
 //  生成tail信号
 //------------------------------------------------------
-assign wad2rknp_xx_tail = (rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0 && rspo2wad_opc == R &&rspo2wad_offset_addr != 8'd0) ? rspo2wad_tail_d : rspo2wad_tail; //如果是读WRAP非对齐响应，则使用打拍的tail信号，否则使用原始的tail信号
-                           // 打了个补丁：rspo2wad_offset_addr != 8'd0，因为如果刚好隔一拍才变化成写响应或单拍读响，rspo2wad_opc_d\rspo2wad_offset_addr_d就会晚一拍变化，导致tail少拉高一次
+//如果是读WRAP非对齐响应，则使用打拍的tail信号，否则使用原始的tail信号
+                          
+always @(*) begin
+    if(rspo2wad_opc == R && rspo2wad_offset_addr != 8'd0 && rspo2wad_tail == 1'b1) begin
+        wad2rknp_xx_tail = 1'b0;
+    end else if(rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0 && rspo2wad_lw_d == 1'b1) begin
+        wad2rknp_xx_tail = 1'b1;
+    end else begin
+        wad2rknp_xx_tail = rspo2wad_tail;
+    end
+end
+
 //------------------------------------------------------
 //  生成valid信号
 //------------------------------------------------------
@@ -276,10 +306,10 @@ assign wad2rknp_xx_valid = (wad2rknp_xx_tail == 1'b1) ? 1'b1 : rspo2wad_valid;
 //------------------------------------------------------
 //  生成ready信号
 //------------------------------------------------------
-assign wad2rspo_ready = (rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0 && rspo2wad_tail_d == 1'b1) ? 1'b0 : rknp_xx2wad_ready; //如果是读WRAP非对齐响应的最后一拍，需要反压
+assign wad2rspo_ready = (rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0 && rspo2wad_lw_d == 1'b1) ? 1'b0 : rknp_xx2wad_ready; //如果是读WRAP非对齐响应的最后一拍，需要反压
 
 //------------------------------------------------------
 //  生成rwrap_rsp_fin信号
 //------------------------------------------------------
-assign rwrap_rsp_fin = (rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0 && wad2rknp_xx_tail == 1'b1 && rknp_xx2wad_ready == 1'b1) ? 1'b1 : 1'b0;
+assign rwrap_rsp_fin = (rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0 && rspo2wad_lw_d == 1'b1 && rknp_xx2wad_ready == 1'b1) ? 1'b1 : 1'b0;
 endmodule

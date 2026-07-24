@@ -213,6 +213,7 @@ wire [7:0]                        rspo2wad_offset_addr      ;
 wire [AXID_WITH-1:0]              rspo2wad_axid             ; 
 
 
+
 // rsp_order to watchdog
 wire [AXID_WITH-1:0]              wd2rspo_axid             ;       
 wire [1:0]                        wd2rspo_opc              ;    
