@@ -26,9 +26,18 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
   // simple sparse memory (byte addressable)
   byte unsigned mem[longint];
 
-  // outstanding read/write request queues (address phase accepted)
+  // Independently captured channel transactions.
+  //
+  // AW and W are independent AXI channels. In particular, a complete W burst
+  // may be accepted before its AW transfer. Keep separate FIFO queues and pair
+  // them only after both sides are available; never wait for AW from inside the
+  // W-handshake path.
   axi_seq_item  rd_q[$];
-  axi_seq_item  wr_q[$];
+  axi_seq_item  aw_q[$];
+  axi_seq_item  w_q[$];
+
+  // Write transactions whose AW and W sides have both completed.
+  axi_seq_item  b_pending[$];
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
@@ -43,11 +52,13 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
 
   task run_phase(uvm_phase phase);
     forever begin
+      clear_transaction_state();
       init_outputs();                 // drive ALL outputs to known 0 (also during reset)
       wait (vif.aresetn === 1'b1);    // proceed once reset is de-asserted
       fork : slave_procs
         aw_channel();      // accept write address
-        w_channel();       // accept write data + push B
+        w_channel();       // independently accept complete write-data bursts
+        write_matcher();   // pair captured AW and W, then schedule B
         ar_channel();      // accept read address
         r_engine();        // generate read data (with OOO + interleave)
         b_engine();        // generate write responses (with OOO)
@@ -56,6 +67,13 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
       disable slave_procs;          // kill channels; loop re-drives outputs to 0
     end
   endtask
+
+  function void clear_transaction_state();
+    rd_q.delete();
+    aw_q.delete();
+    w_q.delete();
+    b_pending.delete();
+  endfunction
 
   function void init_outputs();
     vif.awready = 0; vif.wready = 0; vif.arready = 0;
@@ -84,35 +102,129 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
         t.dir=AXI_WRITE; t.id=vif.slv_cb.awid; t.addr=vif.slv_cb.awaddr;
         t.len=vif.slv_cb.awlen; t.size=vif.slv_cb.awsize;
         t.burst=vif.slv_cb.awburst; t.cache=vif.slv_cb.awcache;
-        wr_q.push_back(t);
+        aw_q.push_back(t);
       end
     end
   endtask
 
-  // ---- W : accept write data, write memory, schedule B (ready HIGH default) --
+  // ---- W : independently capture one complete data burst --------------------
+  //
+  // Do not look at aw_q here. WREADY is independent of AWREADY, and every
+  // accepted W beat must be recorded immediately even when no AW has arrived.
   task w_channel();
-    bit          rdy;
-    axi_seq_item cur  = null;   // write burst currently being received
-    int          beat = 0;      // beat index within the burst
-    longint      a    = 0;      // base address of the burst
+    bit                                    rdy;
+    bit                                    have_id = 1'b0;
+    axi_tniu_protocol_pkg::axi_id_t        burst_id;
+    logic [63:0]                           data_q[$];
+    logic [7:0]                            strb_q[$];
+
     forever begin
       rdy = slv_ready();
       vif.slv_cb.wready <= rdy;
       @(vif.slv_cb);
+
       if (rdy && vif.slv_cb.wvalid) begin       // handshake this cycle
-        if (cur == null) begin
-          wait (wr_q.size() > 0);               // matching AW (already captured)
-          cur = wr_q[0]; wr_q.delete(0);
-          beat = 0; a = cur.addr;
+        if (!have_id) begin
+          burst_id = vif.slv_cb.wid;
+          have_id  = 1'b1;
         end
-        // commit strobed bytes to memory (INCR assumed for backing store)
-        for (int b = 0; b < 8; b++)
-          if (vif.slv_cb.wstrb[b]) mem[a + beat*8 + b] = vif.slv_cb.wdata[b*8 +: 8];
+        else if (vif.slv_cb.wid !== burst_id) begin
+          `uvm_error(
+            "AXI_WID",
+            $sformatf(
+              "WID changed within a write burst: first=0x%0h current=0x%0h",
+              burst_id,
+              vif.slv_cb.wid
+            )
+          )
+        end
+
+        data_q.push_back(vif.slv_cb.wdata);
+        strb_q.push_back(vif.slv_cb.wstrb);
+
         if (vif.slv_cb.wlast) begin
-          fork automatic axi_seq_item tt = cur; b_push(tt); join_none
-          cur = null;
+          axi_seq_item t = axi_seq_item::type_id::create("w");
+
+          t.dir  = AXI_WRITE;
+          t.id   = burst_id;
+          t.len  = data_q.size() - 1;
+          t.data = new[data_q.size()];
+          t.strb = new[strb_q.size()];
+
+          foreach (data_q[i])
+            t.data[i] = data_q[i];
+          foreach (strb_q[i])
+            t.strb[i] = strb_q[i];
+
+          w_q.push_back(t);
+
+          data_q.delete();
+          strb_q.delete();
+          have_id = 1'b0;
         end
-        else beat++;
+      end
+    end
+  endtask
+
+  // ---- AW/W matcher : pair independent channel captures in AXI order --------
+  //
+  // AXI4 does not permit write-data interleaving, so completed W bursts are
+  // paired with accepted AW transactions in FIFO order. The WID check is kept
+  // because this interface exposes WID and it makes a channel-ordering bug
+  // immediately visible.
+  task write_matcher();
+    forever begin
+      @(vif.slv_cb);
+
+      while (aw_q.size() > 0 && w_q.size() > 0) begin
+        axi_seq_item aw;
+        axi_seq_item w;
+
+        aw = aw_q.pop_front();
+        w  = w_q.pop_front();
+
+        if (w.id !== aw.id) begin
+          `uvm_error(
+            "AXI_WID",
+            $sformatf(
+              {
+                "AW/W FIFO pairing produced an ID mismatch: ",
+                "AWID=0x%0h WID=0x%0h AWADDR=0x%010h"
+              },
+              aw.id,
+              w.id,
+              aw.addr
+            )
+          )
+        end
+
+        if (w.data.size() != (int'(aw.len) + 1)) begin
+          `uvm_error(
+            "AXI_WLEN",
+            $sformatf(
+              {
+                "Write burst beat-count mismatch: ",
+                "AWID=0x%0h AWADDR=0x%010h AWLEN=%0d expects=%0d got=%0d"
+              },
+              aw.id,
+              aw.addr,
+              aw.len,
+              int'(aw.len) + 1,
+              w.data.size()
+            )
+          )
+        end
+
+        // Preserve the existing byte-addressable backing-store behaviour.
+        foreach (w.data[beat]) begin
+          for (int b = 0; b < 8; b++) begin
+            if (w.strb[beat][b])
+              mem[aw.addr + beat*8 + b] = w.data[beat][b*8 +: 8];
+          end
+        end
+
+        // Both sides are now complete. Queue exactly one B response.
+        b_pending.push_back(aw);
       end
     end
   endtask
@@ -134,18 +246,54 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
     end
   endtask
 
+  // Return 1 only when b_pending[idx] is the oldest completed write carrying
+  // its ID. B responses may be reordered across IDs, never within one ID.
+  function bit is_oldest_write_for_id(int idx);
+    if (idx < 0 || idx >= b_pending.size())
+      return 1'b0;
+
+    for (int i = 0; i < idx; i++) begin
+      if (b_pending[i].id == b_pending[idx].id)
+        return 1'b0;
+    end
+
+    return 1'b1;
+  endfunction
+
   // ---- B engine : serialize write responses (optionally out-of-order) -------
-  axi_seq_item b_pending[$];
-  task b_push(axi_seq_item t); b_pending.push_back(t); endtask
   task b_engine();
+    int eligible_idx[$];
+
     forever begin
       @(vif.slv_cb);
+
       if (b_pending.size() > 0) begin
-        // out-of-order: randomly pick an index when enabled
-        int idx = (cfg != null && cfg.axi_ooo_en && b_pending.size()>1)
-                  ? $urandom_range(0, b_pending.size()-1) : 0;
-        axi_seq_item t = b_pending[idx];
-        b_pending.delete(idx);
+        int          selected_pos;
+        int          selected_idx;
+        axi_seq_item t;
+
+        eligible_idx.delete();
+        foreach (b_pending[i]) begin
+          if (is_oldest_write_for_id(i))
+            eligible_idx.push_back(i);
+        end
+
+        if (eligible_idx.size() == 0) begin
+          `uvm_error(
+            "AXI_WR_ORDER",
+            "No legal B-response candidate found while b_pending is non-empty"
+          )
+          continue;
+        end
+
+        selected_pos =
+          (cfg != null && cfg.axi_ooo_en && eligible_idx.size() > 1)
+          ? $urandom_range(0, eligible_idx.size()-1) : 0;
+
+        selected_idx = eligible_idx[selected_pos];
+        t            = b_pending[selected_idx];
+        b_pending.delete(selected_idx);
+
         repeat ($urandom_range(0,4)) @(vif.slv_cb);
         vif.slv_cb.bvalid <= 1'b1;
         vif.slv_cb.bid    <= t.id;
@@ -359,4 +507,3 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
 endclass : axi_slave_driver
 
 `endif // AXI_SLAVE_DRIVER_SV
-

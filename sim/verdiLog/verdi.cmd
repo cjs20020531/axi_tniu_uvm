@@ -992,3 +992,72 @@ wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 10 )}
 wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 11 )} 
 wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 12 )} 
 wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 13 )} 
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 3 )} 
+wvSetCursor -win $_nWave9 6427289.783586 -snap {("axi_vif(axi_if)" 15)}
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 15 )} 
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 16 )} 
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 15 )} 
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 16 )} 
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 17 )} 
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 18 )} 
+wvSetCursor -win $_nWave9 6448570.699831 -snap {("axi_vif(axi_if)" 4)}
+wvSetCursor -win $_nWave9 6428662.745925 -snap {("axi_vif(axi_if)" 16)}
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvDisplayGridCount -win $_nWave7 -off
+wvGetSignalClose -win $_nWave7
+wvDisplayGridCount -win $_nWave8 -off
+wvGetSignalClose -win $_nWave8
+wvDisplayGridCount -win $_nWave9 -off
+wvGetSignalClose -win $_nWave9
+wvReloadFile -win $_nWave9
+wvScrollDown -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+wvScrollUp -win $_nWave9 5
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 23 )} 
