@@ -1,0 +1,73 @@
+sidCmdLineBehaviorAnalysisOpt -incr -clockSkew 0 -loopUnroll 0 -bboxEmptyModule 0  -cellModel 0 -bboxIgnoreProtected 0 
+debImport "-sv" "-ntb_opts" "uvm-1.2" "-f" "axi_tniu.f" "-top" "tb_top"
+debLoadSimResult /home/ICer/RKNoC/axi_tniu_uvm_260708/sim/wave.fsdb
+wvCreateWindow
+srcHBSelect "tb_top.dut.U_ADDR_MAP" -win $_nTrace1
+srcHBSelect "tb_top.dut.U_ADDR_MAP" -win $_nTrace1
+wvCreateWindow
+wvSetPosition -win $_nWave3 {("G1" 0)}
+wvOpenFile -win $_nWave3 {/home/ICer/RKNoC/axi_tniu_uvm_260708/sim/wave.fsdb}
+srcHBAddObjectToWave -clipboard
+wvDrop -win $_nWave3
+srcHBSelect "tb_top.dut.U_ADDR_MAP" -win $_nTrace1
+srcSetScope -win $_nTrace1 "tb_top.dut.U_ADDR_MAP" -delim "."
+srcHBSelect "tb_top.dut.U_ADDR_MAP" -win $_nTrace1
+srcDeselectAll -win $_nTrace1
+srcSelect -signal "addr_offset" -line 107 -pos 1 -win $_nTrace1
+srcDeselectAll -win $_nTrace1
+srcSelect -signal "total_flit" -line 111 -pos 1 -win $_nTrace1
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 22)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 23)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 24)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 25)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 26)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 27)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 28)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 27)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 28)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 29)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 28)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 27)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 26)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 25)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 24)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 23)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 22)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 21)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 20)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 19)}
+wvAddSignal -win $_nWave3 "/tb_top/dut/U_ADDR_MAP/total_flit\[7:0\]"
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 19)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 20)}
+srcDeselectAll -win $_nTrace1
+srcSelect -signal "addr_offset" -line 107 -pos 1 -win $_nTrace1
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 18)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 19)}
+wvAddSignal -win $_nWave3 "/tb_top/dut/U_ADDR_MAP/addr_offset\[2:0\]"
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 19)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 20)}
+srcDeselectAll -win $_nTrace1
+srcDeselectAll -win $_nTrace1
+srcSelect -signal "beat_count" -line 109 -pos 1 -win $_nTrace1
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 18)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 19)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 20)}
+wvAddSignal -win $_nWave3 "/tb_top/dut/U_ADDR_MAP/beat_count\[8:0\]"
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 20)}
+wvSetPosition -win $_nWave3 {("U_ADDR_MAP" 21)}
+wvSetCursor -win $_nWave3 57484.965636 -snap {("U_ADDR_MAP" 22)}
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvSetCursor -win $_nWave3 66586.751861 -snap {("U_ADDR_MAP" 19)}
+wvSetCursor -win $_nWave3 20023.929696 -snap {("U_ADDR_MAP" 19)}
+wvSetCursor -win $_nWave3 56622.691151 -snap {("U_ADDR_MAP" 21)}
+wvSelectSignal -win $_nWave3 {( "U_ADDR_MAP" 17 )} 
+wvSelectSignal -win $_nWave3 {( "U_ADDR_MAP" 18 )} 
+wvSelectSignal -win $_nWave3 {( "U_ADDR_MAP" 19 )} 
+wvSelectSignal -win $_nWave3 {( "U_ADDR_MAP" 20 )} 
+wvSelectSignal -win $_nWave3 {( "U_ADDR_MAP" 21 )} 
+wvSelectSignal -win $_nWave3 {( "U_ADDR_MAP" 20 )} 

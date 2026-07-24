@@ -1,0 +1,43 @@
+*design* DebussyLib (btIdent Verdi_O-2018.09-SP2)
+Command arguments:
+    +define+verilog
+    -sv
+    -ntb_opts uvm-1.2
+    -f axi_tniu.f
+        -f rtl.f
+            +incdir+/home/ICer/RKNoC/axi_tniu_uvm_260708/rtl
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/axi_tniu.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/wrap_align.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/wrap_adjust.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/req_order.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/rsp_order.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/addr_map.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/rreq_trans.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/wreq_trans.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/rsp_trans.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/watchdog.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/ely_rsp_detect.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/addr_border_count.v
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/rtl/syn_fifo.v
+        -f tb.f
+            +incdir+/home/ICer/RKNoC/axi_tniu_uvm_260708/tb/common
+            +incdir+/home/ICer/RKNoC/axi_tniu_uvm_260708/tb/rknp_agent
+            +incdir+/home/ICer/RKNoC/axi_tniu_uvm_260708/tb/axi_agent
+            +incdir+/home/ICer/RKNoC/axi_tniu_uvm_260708/tb/env
+            +incdir+/home/ICer/RKNoC/axi_tniu_uvm_260708/tb/seq_lib
+            +incdir+/home/ICer/RKNoC/axi_tniu_uvm_260708/tb/test
+            +incdir+/home/ICer/RKNoC/axi_tniu_uvm_260708/tb/top
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/tb/common/axi_tniu_protocol_pkg.sv
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/tb/common/rknp_if.sv
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/tb/common/axi_if.sv
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/tb/top/axi_tniu_pkg.sv
+            /home/ICer/RKNoC/axi_tniu_uvm_260708/tb/top/tb_top.sv
+    -top
+    tb_top
+
+Highest level modules:
+uvm_custom_install_recording
+uvm_custom_install_verdi_recording
+tb_top
+
+Total	0 error(s),   0 warning(s)
