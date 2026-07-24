@@ -89,8 +89,8 @@ end
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rlast <= #DLY 1'b0;
-    end else if(axi_m_rready == 1'b1 && axi_m_rvalid == 1'b1)begin
-        rlast <= #DLY axi_m_rlast;
+    end else if(axi_m_rready == 1'b1 && axi_m_rlast == 1'b1)begin
+        rlast <= #DLY 1'b1;
     end else if(rspo2rspt_ready == 1'b1) begin
         rlast <= #DLY 1'b0;
     end

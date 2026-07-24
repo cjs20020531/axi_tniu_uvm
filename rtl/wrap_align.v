@@ -132,18 +132,18 @@ reg rknp_xx2wa_head_d;
 always @(posedge clk or negedge resetn) begin
     if (resetn == 1'b0) 
         rknp_xx2wa_head_d <= #DLY 1'b0;
-    else if (rknp_xx2wa_head == 1'b1 && wa2rknp_xx_ready == 1'b1 && opc == WRW && len[7:3] != 5'd0) // 必须是需要对齐的写WRAP才能拉高head_d
+    else if (rknp_xx2wa_head == 1'b1 && wa2rknp_xx_ready == 1'b1 && opc == WRW && wa2reqo_offset_addr != 8'd0) // 必须是需要对齐的写WRAP才能拉高head_d
         rknp_xx2wa_head_d <= #DLY 1'b1;
     else if(reqo2wa_ready == 1'b1)
-        rknp_xx2wa_head_d <= 1'b0;
+        rknp_xx2wa_head_d <= #DLY 1'b0;
 end
 //------------------------------------------------------
 // head signal generation
 //------------------------------------------------------
 always @(*) begin
-    if(opc == WRW && offset_addr != 8'd0 && rknp_xx2wa_head_d == 1'b1 && wa2rknp_xx_ready == 1'b1)
+    if(opc == WRW && wa2reqo_offset_addr != 8'd0 && rknp_xx2wa_head_d == 1'b1 && wa2rknp_xx_ready == 1'b1)
         wa2reqo_head = rknp_xx2wa_head_d;
-    else if(opc == WRW && offset_addr != 8'd0 && rknp_xx2wa_head == 1'b1 && wa2rknp_xx_ready == 1'b1)
+    else if(opc == WRW && wa2reqo_offset_addr != 8'd0 && rknp_xx2wa_head == 1'b1 && wa2rknp_xx_ready == 1'b1)
         wa2reqo_head = 1'd0;
     else if(rknp_xx2wa_head == 1'b1 && wa2rknp_xx_ready == 1'b1)
         wa2reqo_head = rknp_xx2wa_head;
@@ -171,15 +171,15 @@ always @(*) begin
         wa2reqo_data = {rknp_xx2wa_data[REQ_FLIT_WITH-1:REQ_STATUS_OFFSET] , opc[3:2], 2'b00 , rknp_xx2wa_data[REQ_OPC_OFFSET-1:0]};
 
     end else begin
-        if(opc == WRW && offset_addr != 8'd0 && rknp_xx2wa_head_d == 1'b1 && wa2rknp_xx_ready == 1'b1) begin // the first beat after aligning the Write WRAP misaligned request
-            wa2reqo_data = {body, wwrap_buffer[REQ_HEAD_LEN_OFFSET : 0]}; 
-    
-        end else if(opc == WRW && offset_addr != 8'd0 && rknp_xx2wa_tail == 1'b1 && wa2rknp_xx_ready == 1'b1) begin // The last beat of the Write WRAP misalignment request after alignment.
+        if(opc == WRW && offset_addr != 8'd0 && rknp_xx2wa_tail == 1'b1 && wa2rknp_xx_ready == 1'b1) begin // The last beat of the Write WRAP misalignment request after alignment.
             wa2reqo_data[REQ_HEAD_LEN_OFFSET+1 +: 9*NBYTEPERWORD] = ((wwrap_buffer[REQ_HEAD_LEN_OFFSET+1 +: 9*NBYTEPERWORD] >> (9*NBYTEPERWORD - offset_body)) << (9*NBYTEPERWORD - offset_body))  //The body part (excluding the LW bit)
                                                                     | ((body[0 +: 9*NBYTEPERWORD] << offset_body) >> offset_body);
             wa2reqo_data[REQ_HEAD_LEN_OFFSET-1 : 0] = wwrap_buffer[REQ_HEAD_LEN_OFFSET-1 : 0];  //The head part (excluding the LW bit)
             wa2reqo_data[REQ_HEAD_LEN_OFFSET] = 1'b1; // LW bit at high level
 
+        end else if(opc == WRW && offset_addr != 8'd0 && rknp_xx2wa_head_d == 1'b1 && wa2rknp_xx_ready == 1'b1) begin // the first beat after aligning the Write WRAP misaligned request
+            wa2reqo_data = {body, wwrap_buffer[REQ_HEAD_LEN_OFFSET : 0]}; 
+        
         end else if(opc == WRW && offset_addr != 8'd0 && rknp_xx2wa_valid == 1'b1 && wa2rknp_xx_ready == 1'b1) begin // the middle beat after aligning the Write WRAP misaligned request
             wa2reqo_data[REQ_HEAD_LEN_OFFSET+1 +: 9*NBYTEPERWORD] = body;
             wa2reqo_data[REQ_HEAD_LEN_OFFSET : 0] = wwrap_buffer[REQ_HEAD_LEN_OFFSET : 0];     // including the LW bit
@@ -200,7 +200,7 @@ end
 // Generate valid signals
 //------------------------------------------------------
 always @(*) begin
-    if(opc == WRW && offset_addr != 8'd0 && rknp_xx2wa_head == 1'b1 && wa2rknp_xx_ready == 1'b1)
+    if(opc == WRW && wa2reqo_offset_addr != 8'd0 && rknp_xx2wa_head == 1'b1 && wa2rknp_xx_ready == 1'b1)
         wa2reqo_valid = 1'b0;
     else
         wa2reqo_valid = rknp_xx2wa_valid && wa2rknp_xx_ready;
