@@ -282,8 +282,8 @@ argv[3]=+ntb_random_seed=1
 argv[4]=-l
 argv[5]=test_sanity_1.log
 283 profile - 100
-          CPU/Mem usage: 0.050 sys,  0.120 user,  289.91M mem
-284 Fri Jul 24 17:27:16 2026
+          CPU/Mem usage: 0.040 sys,  0.140 user,  290.02M mem
+284 Fri Jul 24 19:29:30 2026
 285 pliAppInit
 286 FSDB_GATE is set.
 287 FSDB_RTL is set.
@@ -310,61 +310,61 @@ argv[5]=test_sanity_1.log
 308 *Verdi* : Enable +all dumping.
 309 *Verdi* : End of traversing.
 310 pliAppHDL_DumpVarComplete traverse var: profile - 
-          CPU/Mem usage: 0.060 sys,  0.160 user,  403.08M mem
-                   incr: 0.010 sys,  0.010 user,  8.60M mem
-                   accu: 0.010 sys,  0.010 user,  8.60M mem
-              accu incr: 0.010 sys,  0.010 user,  8.60M mem
+          CPU/Mem usage: 0.060 sys,  0.170 user,  403.20M mem
+                   incr: 0.010 sys,  0.000 user,  8.59M mem
+                   accu: 0.010 sys,  0.000 user,  8.59M mem
+              accu incr: 0.010 sys,  0.000 user,  8.59M mem
 
-          Count usage: 1210 var,  1665 idcode,  455 callback
-                 incr: 1210 var,  1665 idcode,  455 callback
-                 accu: 1210 var,  1665 idcode,  455 callback
-            accu incr: 1210 var,  1665 idcode,  455 callback
-311 Fri Jul 24 17:27:16 2026
+          Count usage: 1212 var,  1667 idcode,  455 callback
+                 incr: 1212 var,  1667 idcode,  455 callback
+                 accu: 1212 var,  1667 idcode,  455 callback
+            accu incr: 1212 var,  1667 idcode,  455 callback
+311 Fri Jul 24 19:29:30 2026
 312 pliAppHDL_DumpVarComplete: profile - 
-          CPU/Mem usage: 0.060 sys,  0.160 user,  404.28M mem
+          CPU/Mem usage: 0.060 sys,  0.170 user,  404.39M mem
                    incr: 0.000 sys,  0.000 user,  1.19M mem
-                   accu: 0.010 sys,  0.010 user,  9.79M mem
+                   accu: 0.010 sys,  0.000 user,  9.78M mem
               accu incr: 0.000 sys,  0.000 user,  1.19M mem
 
-          Count usage: 1210 var,  1665 idcode,  455 callback
+          Count usage: 1212 var,  1667 idcode,  455 callback
                  incr: 0 var,  0 idcode,  0 callback
-                 accu: 1210 var,  1665 idcode,  455 callback
+                 accu: 1212 var,  1667 idcode,  455 callback
             accu incr: 0 var,  0 idcode,  0 callback
-313 Fri Jul 24 17:27:16 2026
+313 Fri Jul 24 19:29:30 2026
 314 sps_call_fsdbDumpMDA_vd_main at 0 : /home/ICer/RKNoC/axi_tniu_uvm/tb/top/tb_top.sv(275)
 315 *Verdi* : Begin traversing the MDAs, layer (0).
 316 *Verdi* : Enable +mda and +packedmda dumping.
 317 *Verdi* : End of traversing the MDAs.
 318 pliAppHDL_DumpVarComplete traverse var: profile - 
-          CPU/Mem usage: 0.060 sys,  0.180 user,  404.28M mem
-                   incr: 0.000 sys,  0.020 user,  0.00M mem
-                   accu: 0.000 sys,  0.020 user,  0.00M mem
-              accu incr: 0.000 sys,  0.020 user,  0.00M mem
+          CPU/Mem usage: 0.060 sys,  0.200 user,  404.39M mem
+                   incr: 0.000 sys,  0.030 user,  0.00M mem
+                   accu: 0.000 sys,  0.030 user,  0.00M mem
+              accu incr: 0.000 sys,  0.030 user,  0.00M mem
 
-          Count usage: 1538 var,  1665 idcode,  455 callback
+          Count usage: 1540 var,  1667 idcode,  455 callback
                  incr: 328 var,  0 idcode,  0 callback
                  accu: 328 var,  0 idcode,  0 callback
             accu incr: 328 var,  0 idcode,  0 callback
-319 Fri Jul 24 17:27:16 2026
+319 Fri Jul 24 19:29:30 2026
 320 pliAppHDL_DumpVarComplete: profile - 
-          CPU/Mem usage: 0.060 sys,  0.180 user,  404.28M mem
+          CPU/Mem usage: 0.060 sys,  0.200 user,  404.39M mem
                    incr: 0.000 sys,  0.000 user,  0.00M mem
-                   accu: 0.000 sys,  0.020 user,  0.00M mem
+                   accu: 0.000 sys,  0.030 user,  0.00M mem
               accu incr: 0.000 sys,  0.000 user,  0.00M mem
 
-          Count usage: 1538 var,  1665 idcode,  455 callback
+          Count usage: 1540 var,  1667 idcode,  455 callback
                  incr: 0 var,  0 idcode,  0 callback
                  accu: 328 var,  0 idcode,  0 callback
             accu incr: 0 var,  0 idcode,  0 callback
-321 Fri Jul 24 17:27:16 2026
-322 End of simulation at 107615000
-323 Fri Jul 24 17:27:16 2026
+321 Fri Jul 24 19:29:30 2026
+322 End of simulation at 107795000
+323 Fri Jul 24 19:29:30 2026
 324 Begin FSDB profile info:
-325 FSDB Writer : bc1(117666) bcn(34639) mtf/stf(0/0)
-FSDB Writer elapsed time : flush(0.027822) io wait(0.000000) theadpool wait(0.000000) target functin(0.000000)
+325 FSDB Writer : bc1(132354) bcn(46460) mtf/stf(0/0)
+FSDB Writer elapsed time : flush(0.021119) io wait(0.000000) theadpool wait(0.000000) target functin(0.000000)
 FSDB Writer cpu time : MT Compression : 0
 326 End FSDB profile info
 327 Parallel profile    -  Flush:4 Expand:0 ProduceWait:0 ConsumerWait:1 BlockUsed:1
-328                        ProduceTime:0.467856392 ConsumerTime:0.005120451 Buffer:64MB
+328                        ProduceTime:0.452726120 ConsumerTime:0.005347617 Buffer:64MB
 329 SimExit
 330 Sim process exit

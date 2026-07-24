@@ -403,21 +403,30 @@ assign tag_cnt2rspo = (tag_name_index_hot == 'd0) ? tag_cnt[idle_tag_name_index]
 //  2、tag_name删除操作
 //----------------------------------------------------------------------------------
 
+//-----------------
+wire req_head_hs;
+wire keep_tag_for_same_type;
+
+assign req_head_hs = rknp_xx2reqo_head && reqo2rknp_xx_ready;
+
+assign keep_tag_for_same_type = req_head_hs && (tag_name_index_hot != '0) && (tag_name_index_hot == del_tag_name_index_hot);
+//================
+
 wire uniq_type_flag; //rsp_order检索head条目类型是否唯一标志位，唯一则拉高
 integer b;
 always @(posedge clk or negedge resetn) begin
-    if (resetn == 1'b0) begin
-        for (b = 0; b < HEAD_BUFF_DEEP; b = b + 1)
-            tag_name[b] <= #DLY 'd0;
-    end else begin
-        if(rknp_xx2reqo_head == 1'b1 && reqo2rknp_xx_ready == 1'b1) begin
-            if (tag_name_index_hot == 'd0)              //没有找到对应的tag_name
-                tag_name[idle_tag_name_index] <= #DLY {axid , opc[3:2] , 1'b1};
-            else                                        //找到对应的tag_name
-                tag_name[tag_name_index] <= #DLY tag_name[tag_name_index];
+    if (!resetn) begin
+        for (b = 0; b < HEAD_BUFF_DEEP; b++)
+            tag_name[b] <= #DLY '0;
+    end
+    else begin
+        if (req_head_hs) begin
+            if (tag_name_index_hot == '0)
+                tag_name[idle_tag_name_index] <= #DLY {axid, opc[3:2], 1'b1};
         end
-        if(del_head_en == 1'b1 && uniq_type_flag == 1'b1 && tag_name_index_hot != del_tag_name_index_hot)
-            tag_name[del_tag_name_index][0] <= #DLY 'd0;     //将del_tag_name_index的used位清0
+
+        if (del_head_en && uniq_type_flag && !keep_tag_for_same_type)
+            tag_name[del_tag_name_index][0] <= #DLY 1'b0;
     end
 end
 

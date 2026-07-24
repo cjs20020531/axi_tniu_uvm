@@ -1061,3 +1061,366 @@ wvZoomOut -win $_nWave9
 wvZoomOut -win $_nWave9
 wvScrollUp -win $_nWave9 5
 wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 23 )} 
+wvSetCursor -win $_nWave9 9193355.817875 -snap {("axi_vif(axi_if)" 22)}
+wvSetCursor -win $_nWave9 7183338.954469 -snap {("axi_vif(axi_if)" 26)}
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+srcHBSelect "tb_top.dut.U_REQ_ORDER" -win $_nTrace1
+srcHBSelect "tb_top.dut.U_REQ_ORDER" -win $_nTrace1
+wvCreateWindow
+wvSetPosition -win $_nWave10 {("G1" 0)}
+wvOpenFile -win $_nWave10 {/home/ICer/RKNoC/axi_tniu_uvm/sim/wave.fsdb}
+srcHBAddObjectToWave -clipboard
+wvDrop -win $_nWave10
+wvSetCursor -win $_nWave10 2795554.269547 -snap {("U_REQ_ORDER" 31)}
+wvSelectSignal -win $_nWave10 {( "U_REQ_ORDER" 33 )} 
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollDown -win $_nWave10 0
+wvScrollDown -win $_nWave10 0
+wvScrollDown -win $_nWave10 0
+wvScrollDown -win $_nWave10 0
+wvScrollDown -win $_nWave10 0
+wvScrollDown -win $_nWave10 0
+wvScrollDown -win $_nWave10 0
+wvScrollDown -win $_nWave10 0
+wvScrollDown -win $_nWave10 0
+wvSetCursor -win $_nWave10 5456921.934156 -snap {("U_REQ_ORDER" 4)}
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollUp -win $_nWave10 1
+wvScrollDown -win $_nWave10 0
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 1
+wvScrollDown -win $_nWave10 0
+wvScrollDown -win $_nWave10 0
+srcHBSelect "tb_top.dut.U_RREQ_TRANS" -win $_nTrace1
+srcHBSelect "tb_top.dut.genblk2.U_RSP_ORDER" -win $_nTrace1
+srcHBSelect "tb_top.dut.genblk2.U_RSP_ORDER" -win $_nTrace1
+wvCreateWindow
+wvSetPosition -win $_nWave11 {("G1" 0)}
+wvOpenFile -win $_nWave11 {/home/ICer/RKNoC/axi_tniu_uvm/sim/wave.fsdb}
+srcHBAddObjectToWave -clipboard
+wvDrop -win $_nWave11
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 66 )} 
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 0
+wvScrollDown -win $_nWave11 0
+wvScrollDown -win $_nWave11 0
+wvScrollDown -win $_nWave11 0
+wvScrollDown -win $_nWave11 0
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvSetCursor -win $_nWave11 5449661.884380 -snap {("U_RSP_ORDER" 46)}
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 56 )} 
+wvScrollUp -win $_nWave11 33
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 14 )} 
+wvScrollUp -win $_nWave11 5
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 10 )} 
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 10 )} 
+wvSetCursor -win $_nWave11 5437578.376876 -snap {("U_RSP_ORDER" 10)}
+wvZoomIn -win $_nWave11
+wvZoomIn -win $_nWave11
+wvZoomIn -win $_nWave11
+wvZoomIn -win $_nWave11
+wvZoomIn -win $_nWave11
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollDown -win $_nWave11 7
+wvScrollDown -win $_nWave11 16
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 32 )} 
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 33 )} 
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 35 )} 
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 36 )} 
+wvSetCursor -win $_nWave11 5695438.538966 -snap {("U_RSP_ORDER" 36)}
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 38 )} 
+wvSetCursor -win $_nWave11 5704878.779204 -snap {("U_RSP_ORDER" 36)}
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 32 )} 
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 33 )} 
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 34 )} 
+wvSetCursor -win $_nWave11 5676746.863296 -snap {("U_RSP_ORDER" 34)}
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 44 )} 
+wvSetCursor -win $_nWave11 5736031.571988 -snap {("U_RSP_ORDER" 44)}
+wvSetCursor -win $_nWave11 5725269.698117 -snap {("U_RSP_ORDER" 44)}
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvSetCursor -win $_nWave11 5765824.970178 -snap {("U_RSP_ORDER" 36)}
+wvScrollUp -win $_nWave11 1
+wvScrollDown -win $_nWave11 3
+verdiDockWidgetSetCurTab -dock windowDock_nWave_10
+verdiDockWidgetSetCurTab -dock windowDock_nWave_9
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+wvScrollDown -win $_nWave9 0
+verdiDockWidgetSetCurTab -dock windowDock_nWave_11
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvSetCursor -win $_nWave11 5696184.317946 -snap {("U_RSP_ORDER" 36)}
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvSetCursor -win $_nWave11 5805313.495093 -snap {("U_RSP_ORDER" 44)}
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 36 )} 
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 44 )} 
+wvSetCursor -win $_nWave11 5695995.513141 -snap {("U_RSP_ORDER" 36)}
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+wvScrollUp -win $_nWave11 1
+verdiDockWidgetSetCurTab -dock windowDock_nWave_10
+verdiDockWidgetSetCurTab -dock windowDock_nWave_9
+verdiDockWidgetSetCurTab -dock windowDock_nWave_8
+verdiDockWidgetSetCurTab -dock windowDock_nWave_7
+verdiDockWidgetSetCurTab -dock windowDock_nWave_8
+wvTpfCloseForm -win $_nWave8
+wvGetSignalClose -win $_nWave8
+wvCloseWindow -win $_nWave8
+wvSetCursor -win $_nWave9 5700539.629005 -snap {("axi_vif(axi_if)" 3)}
+wvZoomIn -win $_nWave9
+wvZoomIn -win $_nWave9
+wvZoomIn -win $_nWave9
+wvZoomIn -win $_nWave9
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+wvZoomIn -win $_nWave9
+wvSetCursor -win $_nWave9 5544468.135188 -snap {("axi_vif(axi_if)" 1)}
+wvZoomIn -win $_nWave9
+wvSetCursor -win $_nWave9 5483371.311130 -snap {("axi_vif(axi_if)" 5)}
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 5 )} 
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 18 )} 
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 23 )} 
+wvSetCursor -win $_nWave9 5807459.071107 -snap {("axi_vif(axi_if)" 23)}
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 21 )} 
+wvSelectSignal -win $_nWave9 {( "axi_vif(axi_if)" 22 )} 
+wvSetCursor -win $_nWave9 6755043.353007 -snap {("axi_vif(axi_if)" 22)}
+wvSetCursor -win $_nWave9 6763967.608207 -snap {("axi_vif(axi_if)" 21)}
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollDown -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvScrollUp -win $_nWave9 1
+wvZoom -win $_nWave9 6757630.304467 6761749.191482
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+wvZoomOut -win $_nWave9
+verdiDockWidgetSetCurTab -dock windowDock_nWave_11
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 36 )} 
+wvSetCursor -win $_nWave11 6766254.429362 -snap {("U_RSP_ORDER" 36)}
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvScrollDown -win $_nWave11 1
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 44 )} 
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 45 )} 
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 35 )} 
+wvSelectSignal -win $_nWave11 {( "U_RSP_ORDER" 36 )} 
+wvSetCursor -win $_nWave11 5806946.656653 -snap {("U_RSP_ORDER" 34)}
