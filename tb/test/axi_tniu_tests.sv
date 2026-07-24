@@ -111,7 +111,7 @@ class test_sanity extends axi_tniu_base_test;
   function new(string name, uvm_component parent); super.new(name,parent); endfunction
   task run_phase(uvm_phase phase);
     vseq_mix v = vseq_mix::type_id::create("v");
-    phase_ph = phase; num_txn = 10;
+    phase_ph = phase; num_txn = 20;
     run_vseq(v);
   endtask
 endclass
