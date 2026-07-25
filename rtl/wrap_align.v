@@ -146,13 +146,13 @@ always @(*) begin
     else if(opc == WRW && wa2reqo_offset_addr != 8'd0 && rknp_xx2wa_head == 1'b1)
         wa2reqo_head = 1'd0;
     else
-        wa2reqo_head = rknp_xx2wa_head;
+        wa2reqo_head = rknp_xx2wa_head & wa2rknp_xx_ready;
 end
 
 //------------------------------------------------------
 // tail signal generation
 //------------------------------------------------------
-assign wa2reqo_tail = rknp_xx2wa_tail;
+assign wa2reqo_tail = rknp_xx2wa_tail & wa2rknp_xx_ready;
 
 
 //------------------------------------------------------
@@ -201,7 +201,7 @@ always @(*) begin
     if(opc == WRW && wa2reqo_offset_addr != 8'd0 && rknp_xx2wa_head == 1'b1)
         wa2reqo_valid = 1'b0;
     else
-        wa2reqo_valid = rknp_xx2wa_valid;
+        wa2reqo_valid = rknp_xx2wa_valid & wa2rknp_xx_ready;
 end
 
 
