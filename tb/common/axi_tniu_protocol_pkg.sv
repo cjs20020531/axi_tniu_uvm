@@ -101,7 +101,7 @@ package axi_tniu_protocol_pkg;
 
   parameter int SUP_REQ_NUM     = 8;  //支持最大请求个数
   parameter int ADDR_BLOCK_SIZE = 64;
-  parameter int ADDR_BP_TYPE    = 1;  // 0:无同地址反压  1:写后读/写后写同地址反压   2:写后读/写后写/读后写同地址反压
+  parameter int ADDR_BP_TYPE    = 0;  // 0:无同地址反压  1:写后读/写后写同地址反压   2:写后读/写后写/读后写同地址反压
   parameter int EARLY_RSP_MODE  = 1;  // 0：关闭early response模式    1：开启early response模式
   parameter int WRAP_ALIGN_MODE = 1;  // 0：关闭wrap align模式    1：开启wrap align模式
   parameter int RWRAP_CNT_MAX   = 4;
