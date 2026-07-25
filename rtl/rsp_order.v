@@ -588,9 +588,11 @@ reg rspt2rspo_lw_d;
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rspt2rspo_lw_d <= #DLY 1'b0;
-    end else begin
-        rspt2rspo_lw_d <= #DLY rspt2rspo_lw;
-    end 
+    end else if(rspt2rspo_lw == 1'b1 && rspo2rspt_ready == 1'b1)begin
+        rspt2rspo_lw_d <= #DLY 1'b1;
+    end else if(rknp_xx2rspo_ready == 1'b1) begin
+        rspt2rspo_lw_d <= #DLY 1'b0;
+    end
 end
 
 
@@ -625,7 +627,7 @@ always @(posedge clk or negedge resetn) begin
     end
 end
 
-assign low_byte_disable_position = (rhead_en_d == 1'b1) ? reqo2rspo_rsp_addr[$clog2(NBYTEPERWORD)-1:0] : 0;
+assign low_byte_disable_position = (rhead_en_d == 1'b1) ? reqo2rspo_rsp_addr[$clog2(NBYTEPERWORD)-1:0] : low_byte_disable_position_d;
 assign high_byte_disable_position = (rhead_en_d == 1'b1) ? reqo2rspo_rsp_addr[$clog2(NBYTEPERWORD)-1:0] + reqo2rspo_rsp_len : high_byte_disable_position_d;
 
 generate 
@@ -780,7 +782,7 @@ end
 always @(*) begin
     case(cur_state)
         NORM_RSP: begin
-            if(rspo2rknp_xx_valid == 1'b1 && rknp_xx2rspo_ready == 1'b1 && reqo2rspo_timout == 1'b0 && buff_rsp_flag == 1'b0) begin  //对常规响应，忽略超时响应与bufferable响应
+            if(rspo2rknp_xx_valid == 1'b1 && reqo2rspo_timout == 1'b0 && buff_rsp_flag == 1'b0) begin  //对常规响应，忽略超时响应与bufferable响应
 
                 rspo2rknp_xx_data = {
                     norm_rsp_data,
@@ -801,7 +803,7 @@ always @(*) begin
             end
         end
         SPEC_RSP: begin
-            if(rspo2rknp_xx_valid == 1'b1 && rknp_xx2rspo_ready == 1'b1) begin
+            if(rspo2rknp_xx_valid == 1'b1) begin
                 rspo2rknp_xx_data = {
                     spec_rsp_data,
                     spec_rsp_errcode,

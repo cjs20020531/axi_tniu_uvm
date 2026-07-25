@@ -1770,3 +1770,17 @@ wvZoomOut -win $_nWave7
 wvZoomOut -win $_nWave7
 wvZoomOut -win $_nWave7
 wvZoomOut -win $_nWave7
+wvSetCursor -win $_nWave7 3071985.241581 -snap {("G2" 0)}
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvDisplayGridCount -win $_nWave7 -off
+wvGetSignalClose -win $_nWave7
+wvReloadFile -win $_nWave7
