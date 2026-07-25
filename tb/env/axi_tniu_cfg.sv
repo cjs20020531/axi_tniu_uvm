@@ -32,7 +32,7 @@ class axi_tniu_cfg extends uvm_object;
   bit axi_interleave_en = 1;  // allow read-data interleaving when permitted
 
   bit axi_ready_bp_en = 1;    // AWREADY/WREADY/ARREADY stalls
-  bit rsp_ready_bp_en = 0;    // RKNP txrsp_ready stalls
+  bit rsp_ready_bp_en = 1;    // RKNP txrsp_ready stalls
 
   int unsigned axi_min_addr_delay = 0;
   int unsigned axi_max_addr_delay = 4;

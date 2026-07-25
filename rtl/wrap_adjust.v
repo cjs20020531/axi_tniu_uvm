@@ -68,47 +68,15 @@ localparam BUFF_BODY_OFFSET = BUFF_AXID_OFFSET + AXID_WITH;
 
 
 //------------------------------------------------------
-// 寄存offset_addr、Opc与AXID，在tail时使用
+// 解析当前输入flit
 //------------------------------------------------------
 wire [1:0] rspo2wad_opc;
 wire       rspo2wad_lw;
 wire [1:0] rspo2wad_status;
-reg  [7:0] rspo2wad_offset_addr_d; //rspo2wad_offset_addr寄存
-reg  [1:0] rspo2wad_opc_d;
-reg        rspo2wad_lw_d;
-reg  [AXID_WITH-1:0] rspo2wad_axid_d;
 
 assign rspo2wad_opc = rspo2wad_data[RSP_OPC_OFFSET +: 2];
-assign rspo2wad_lw = rspo2wad_data[RSP_HEAD_LEN_OFFSET]; 
+assign rspo2wad_lw = rspo2wad_data[RSP_HEAD_LEN_OFFSET];
 assign rspo2wad_status = rspo2wad_data[RSP_STATUS_OFFSET +: 2];
-
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0) begin
-        rspo2wad_offset_addr_d <= #DLY 8'd0;
-        rspo2wad_opc_d <= #DLY R;
-        rspo2wad_axid_d <= #DLY 'd0;
-        
-    end else if(rspo2wad_head == 1'b1 && wad2rspo_ready == 1'b1) begin
-        rspo2wad_offset_addr_d <= #DLY rspo2wad_offset_addr;
-        rspo2wad_opc_d <= #DLY rspo2wad_opc;
-        rspo2wad_axid_d <= #DLY rspo2wad_axid;
-    end
-end
-
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0) begin
-        rspo2wad_lw_d <= #DLY 1'b0;
-    end else if(rspo2wad_lw == 1'b1 && wad2rspo_ready == 1'b1) begin
-        rspo2wad_lw_d <= #DLY 1'b1;
-    end else if(rknp_xx2wad_ready == 1'b1) begin
-        rspo2wad_lw_d <= #DLY 1'b0;
-    end
-end
-
-
-
-
-
 
 //------------------------------------------------------
 //  生成idle_rwrap_buff_index值
@@ -148,14 +116,70 @@ generate
 endgenerate
 
 //------------------------------------------------------
+// 补拍状态及其上下文
+//
+// append_pending=1表示原始AXI RLAST flit已经输出，但非对齐WRAP
+// 缓存在首拍低地址lane中的数据还需要额外输出一个flit。
+//------------------------------------------------------
+reg                         append_pending;
+reg [7:0]                   pending_offset;
+reg [AXID_WITH-1:0]         pending_axid;
+reg [RSP_HEAD_LEN_OFFSET-1:0] pending_rsp_head;
+
+wire append_hs;
+wire first_wrap_flit;
+wire first_wrap_hs;
+wire cur_wrap_final;
+wire cur_wrap_final_hs;
+
+// status=CONT的head来自读交织恢复，不能再次缓存首拍。
+assign first_wrap_flit =
+       rspo2wad_valid
+    && rspo2wad_head
+    && (rspo2wad_opc == R)
+    && (rspo2wad_offset_addr != 8'd0)
+    && (rspo2wad_status != CONT);
+
+assign first_wrap_hs = first_wrap_flit && wad2rspo_ready;
+
+// tail=1、LW=0仅表示交织packet结束；只有tail和LW同时为1
+// 才是需要执行WRAP补拍的事务最终flit。
+assign cur_wrap_final =
+       rspo2wad_valid
+    && rspo2wad_tail
+    && rspo2wad_lw
+    && (rspo2wad_opc == R)
+    && (rspo2wad_offset_addr != 8'd0);
+
+assign cur_wrap_final_hs = cur_wrap_final && wad2rspo_ready;
+assign append_hs = append_pending && rknp_xx2wad_ready;
+
+always @(posedge clk or negedge resetn) begin
+    if(resetn == 1'b0) begin
+        append_pending  <= #DLY 1'b0;
+        pending_offset  <= #DLY 8'd0;
+        pending_axid    <= #DLY 'd0;
+        pending_rsp_head <= #DLY 'd0;
+    end else if(append_pending == 1'b1) begin
+        if(rknp_xx2wad_ready == 1'b1)
+            append_pending <= #DLY 1'b0;
+    end else if(cur_wrap_final_hs == 1'b1) begin
+        append_pending   <= #DLY 1'b1;
+        pending_offset   <= #DLY rspo2wad_offset_addr;
+        pending_axid     <= #DLY rspo2wad_axid;
+        pending_rsp_head <= #DLY rspo2wad_data[RSP_HEAD_LEN_OFFSET-1:0];
+    end
+end
+
+//------------------------------------------------------
 //  生成rwrap_buff_index值
 //------------------------------------------------------
 wire [RWRAP_CNT_MAX-1:0] rwrap_buff_index_hot;
 wire [INDEX_WITH-1:0] rwrap_buff_index;
 //索引spec_req_buffer对应单元
 generate
-	for(i = 0; i < RWRAP_CNT_MAX; i = i+1)begin 
-		assign rwrap_buff_index_hot[i] = ({rspo2wad_axid, 1'b1} == rwrap_buffer[i][0 +: AXID_WITH+1]) ? 1'b1 : 1'b0;
+	for(i = 0; i < RWRAP_CNT_MAX; i = i+1)begin
+		assign rwrap_buff_index_hot[i] = ({pending_axid, 1'b1} == rwrap_buffer[i][0 +: AXID_WITH+1]) ? 1'b1 : 1'b0;
 	end
 endgenerate
 
@@ -179,24 +203,6 @@ generate
 		assign rwrap_buff_index[j] = |rwrap_buff_index_hot2bin_temp2[j];
 	end
 endgenerate
-
-
-
-//------------------------------------------------------
-//  对tail信号打拍
-//------------------------------------------------------
-reg rspo2wad_tail_d;
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0)
-        rspo2wad_tail_d <= #DLY 1'b0;
-    else if(rspo2wad_tail == 1'b1 && wad2rspo_ready == 1'b1)
-        rspo2wad_tail_d <= #DLY 1'b1;
-    else if(rknp_xx2wad_ready == 1'b1)
-        rspo2wad_tail_d <= #DLY 1'b0;
-end
-
-
-
 //------------------------------------------------------
 //  1、写入rwrap_buffer操作
 //  2、删除rwrap_buffer操作
@@ -207,10 +213,18 @@ always @(posedge clk or negedge resetn) begin
         for(a = 0; a < RWRAP_CNT_MAX; a = a + 1) begin
             rwrap_buffer[a] <= #DLY 'd0;
         end
-    end else if(rspo2wad_head == 1'b1 && wad2rspo_ready == 1'b1 && rspo2wad_opc == R && rspo2wad_offset_addr != 8'd0 && rspo2wad_status != CONT) begin
-        rwrap_buffer[idle_rwrap_buff_index] <= #DLY {rspo2wad_data[RSP_HEAD_LEN_OFFSET+1 +: NBYTEPERWORD*9], rspo2wad_axid, 1'b1}; 
-    end else if(rspo2wad_lw_d == 1'b1 && rknp_xx2wad_ready == 1'b1 && rspo2wad_opc == R && rspo2wad_offset_addr_d != 8'd0) begin
-        rwrap_buffer[rwrap_buff_index][0] <= #DLY 1'b0;    //删除该单元
+    end else begin
+        if(first_wrap_hs == 1'b1) begin
+            rwrap_buffer[idle_rwrap_buff_index] <= #DLY {
+                rspo2wad_data[RSP_HEAD_LEN_OFFSET+1 +: NBYTEPERWORD*9],
+                rspo2wad_axid,
+                1'b1
+            };
+        end
+        // 只有补拍flit真正被下游接收后才能释放缓存。
+        if(append_hs == 1'b1 && rwrap_buff_index_hot != 'd0) begin
+            rwrap_buffer[rwrap_buff_index][0] <= #DLY 1'b0;
+        end
     end
 end
 
@@ -224,16 +238,16 @@ assign fir_offset_body = (rspo2wad_offset_addr << 3) + rspo2wad_offset_addr; //�
 //  生成最后一笔body偏移量
 //------------------------------------------------------
 wire [9:0] lw_offset_body;  //body偏移长度
-assign lw_offset_body = (NBYTEPERWORD*9 - ((rspo2wad_offset_addr_d << 3) + rspo2wad_offset_addr_d)); //反向偏移长度
+assign lw_offset_body = (NBYTEPERWORD*9 - ((pending_offset << 3) + pending_offset)); //反向偏移长度
 
 //------------------------------------------------------
 //  生成body部分（不含LW位）
 //------------------------------------------------------
 
 always @(*) begin
-    if(rspo2wad_lw_d == 1'b1 && rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0) begin //读WRAP非对齐响应调整后的最后一拍
+    if(append_pending == 1'b1) begin //读WRAP非对齐响应调整后的补拍
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET+1 +: 9*NBYTEPERWORD] = (rwrap_buffer[rwrap_buff_index][BUFF_BODY_OFFSET +: NBYTEPERWORD*9] << lw_offset_body) >> lw_offset_body; //body部分（不含LW位）
-    end else if(rspo2wad_head == 1'b1 && rspo2wad_opc == R && rspo2wad_offset_addr != 8'd0 && rspo2wad_status != CONT) begin      //读WRAP非对齐响应调整后的第一拍,排除交织
+    end else if(first_wrap_flit == 1'b1) begin      //读WRAP非对齐响应调整后的第一拍,排除交织
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET+1 +: 9*NBYTEPERWORD] = (rspo2wad_data[RSP_HEAD_LEN_OFFSET+1 +: NBYTEPERWORD*9] >> fir_offset_body) << fir_offset_body; //body部分（不含LW位）
     end else begin
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET+1 +: 9*NBYTEPERWORD] = rspo2wad_data[RSP_HEAD_LEN_OFFSET+1 +: NBYTEPERWORD*9]; //body部分（不含LW位）
@@ -251,24 +265,14 @@ always @(*) begin
         adjust_addr = rspo2wad_data[RSP_ADDR_OFFSET +: ADDR_WITH] - rspo2wad_offset_addr;
 end
 
-//head字段打拍
-reg [RSP_HEAD_LEN_OFFSET-1 : 0] rrsp_head_d; //head部分（不含LW位）
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0) begin
-        rrsp_head_d <= #DLY 'd0;
-    end else begin
-        rrsp_head_d <= #DLY rspo2wad_data[RSP_HEAD_LEN_OFFSET-1 : 0];
-    end
-end
-
 always @(*) begin
-    if(rspo2wad_head == 1'b1 && wad2rspo_ready == 1'b1 && rspo2wad_offset_addr != 8'd0 && rspo2wad_status != CONT) begin      //若为交织则无需修正地址
+    if(append_pending == 1'b1) begin
+        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET-1 : 0] = pending_rsp_head;
+        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b1;
+    end else if(first_wrap_flit == 1'b1) begin      //若为交织则无需修正地址
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET-1 : 0] = {rspo2wad_data[RSP_USER_OFFSET +: USER_WITH+4] , adjust_addr , rspo2wad_data[RSP_ADDR_OFFSET-1 : 0]}; //head部分（含LW位）
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b0;
-    end else if(rspo2wad_lw_d == 1'b1 && rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0) begin//读WRAP非对齐响应调整后的最后一拍
-        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET-1 : 0] = rrsp_head_d;
-        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b1;
-    end else if(rspo2wad_lw == 1'b1 && rspo2wad_opc == R && rspo2wad_offset_addr != 8'd0)begin
+    end else if(cur_wrap_final == 1'b1)begin
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET-1 : 0] = rspo2wad_data[RSP_HEAD_LEN_OFFSET-1 : 0]; //head部分（不含LW位）
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b0;
     end else begin
@@ -280,18 +284,20 @@ end
 //------------------------------------------------------
 //  生成head信号
 //------------------------------------------------------
-assign wad2rknp_xx_head = rspo2wad_head;
+// 补拍属于前一个packet，不能再次带head。
+assign wad2rknp_xx_head = append_pending ? 1'b0 : rspo2wad_head;
 
 //------------------------------------------------------
 //  生成tail信号
 //------------------------------------------------------
-//如果是读WRAP非对齐响应，则使用打拍的tail信号，否则使用原始的tail信号
-                          
+// 优先级必须是：补拍 > 当前WRAP最终flit > 普通透传。
+// 补拍期间上游被反压，原始final flit会保持在输入端，因此如果先判断
+// 当前输入final，补拍的tail将永远无法拉高。
 always @(*) begin
-    if(rspo2wad_opc == R && rspo2wad_offset_addr != 8'd0 && rspo2wad_tail == 1'b1) begin
-        wad2rknp_xx_tail = 1'b0;
-    end else if(rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0 && rspo2wad_lw_d == 1'b1) begin
+    if(append_pending == 1'b1) begin
         wad2rknp_xx_tail = 1'b1;
+    end else if(cur_wrap_final == 1'b1) begin
+        wad2rknp_xx_tail = 1'b0;
     end else begin
         wad2rknp_xx_tail = rspo2wad_tail;
     end
@@ -300,16 +306,17 @@ end
 //------------------------------------------------------
 //  生成valid信号
 //------------------------------------------------------
-assign wad2rknp_xx_valid = (wad2rknp_xx_tail == 1'b1) ? 1'b1 : rspo2wad_valid; 
+// tail是valid的伴随信号，不能用tail反向生成valid。
+assign wad2rknp_xx_valid = append_pending ? 1'b1 : rspo2wad_valid;
 
 
 //------------------------------------------------------
 //  生成ready信号
 //------------------------------------------------------
-assign wad2rspo_ready = (rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0 && rspo2wad_lw_d == 1'b1) ? 1'b0 : rknp_xx2wad_ready; //如果是读WRAP非对齐响应的最后一拍，需要反压
+assign wad2rspo_ready = append_pending ? 1'b0 : rknp_xx2wad_ready;
 
 //------------------------------------------------------
 //  生成rwrap_rsp_fin信号
 //------------------------------------------------------
-assign rwrap_rsp_fin = (rspo2wad_opc_d == R && rspo2wad_offset_addr_d != 8'd0 && rspo2wad_lw_d == 1'b1 && rknp_xx2wad_ready == 1'b1) ? 1'b1 : 1'b0;
+assign rwrap_rsp_fin = append_hs;
 endmodule

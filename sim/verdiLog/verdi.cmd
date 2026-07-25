@@ -1260,3 +1260,513 @@ wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 22)}
 wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 23)}
 wvMoveSelected -win $_nWave3
 wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 23)}
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvSetCursor -win $_nWave3 8184570.873757 -snap {("U_WRAP_ADJUST" 25)}
+wvSetCursor -win $_nWave3 8194704.505093 -snap {("U_WRAP_ADJUST" 25)}
+wvSetCursor -win $_nWave3 8186501.089249 -snap {("U_WRAP_ADJUST" 25)}
+wvSetCursor -win $_nWave3 8195187.058966 -snap {("U_WRAP_ADJUST" 25)}
+wvSetCursor -win $_nWave3 8188431.304742 -snap {("U_WRAP_ADJUST" 25)}
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvSetCursor -win $_nWave3 8176850.011786 -snap {("U_WRAP_ADJUST" 21)}
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvSetCursor -win $_nWave3 8185053.427630 -snap {("U_WRAP_ADJUST" 10)}
+wvSetCursor -win $_nWave3 8173954.688548 -snap {("U_WRAP_ADJUST" 10)}
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvSetCursor -win $_nWave3 8178780.227279 -snap {("U_WRAP_ADJUST" 1)}
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 25 )} 
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 25 26 )} 
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 25 26 27 )} 
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 25 26 27 28 )} 
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 25 26 27 28 29 )} 
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 25 26 27 28 29 30 )} 
+wvCut -win $_nWave3
+wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 23)}
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave3
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 11 )} 
+wvSetCursor -win $_nWave3 8194704.505094 -snap {("U_WRAP_ADJUST" 7)}
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 20 )} 
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 21 )} 
+srcDeselectAll -win $_nTrace1
+srcSelect -signal "rspo2wad_lw_d" -line 235 -pos 1 -win $_nTrace1
+srcSelect -win $_nTrace1 -range {235 255 4 1 7 1}
+srcDeselectAll -win $_nTrace1
+srcDeselectAll -win $_nTrace1
+srcSelect -signal "rspo2wad_lw_d" -line 235 -pos 1 -win $_nTrace1
+wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 19)}
+wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 20)}
+wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 21)}
+wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 22)}
+wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 21)}
+wvAddSignal -win $_nWave3 "/tb_top/dut/genblk1/U_WRAP_ADJUST/rspo2wad_lw_d"
+wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 21)}
+wvSetPosition -win $_nWave3 {("U_WRAP_ADJUST" 22)}
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave3
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave3
+wvSetCursor -win $_nWave3 7812893.422773 -snap {("U_WRAP_ADJUST" 19)}
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave3
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave3
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave3
+wvSetCursor -win $_nWave3 0.001718 -snap {("U_WRAP_ADJUST" 7)}
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvSetCursor -win $_nWave3 8099700.206186 -snap {("U_WRAP_ADJUST" 7)}
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 6 )} 
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 24 )} 
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 19 )} 
+wvSelectSignal -win $_nWave3 {( "U_WRAP_ADJUST" 20 )} 
+srcHBSelect "tb_top.dut.genblk2.U_RSP_ORDER" -win $_nTrace1
+srcHBSelect "tb_top.dut.genblk2.U_ELY_RSP_DETECT" -win $_nTrace1
+srcHBSelect "tb_top.dut.genblk2.U_RSP_TRANS" -win $_nTrace1
+srcHBSelect "tb_top.rknp_vif" -win $_nTrace1
+srcHBSelect "tb_top.rknp_vif" -win $_nTrace1
+wvCreateWindow
+wvSetPosition -win $_nWave7 {("G1" 0)}
+wvOpenFile -win $_nWave7 {/home/ICer/RKNoC/axi_tniu_uvm/sim/wave.fsdb}
+srcHBAddObjectToWave -clipboard
+wvDrop -win $_nWave7
+wvZoomOut -win $_nWave7
+wvZoomOut -win $_nWave7
+wvZoomOut -win $_nWave7
+wvZoomOut -win $_nWave7
+wvZoomOut -win $_nWave7
+wvSelectSignal -win $_nWave7 {( "rknp_vif(rknp_if)" 11 )} 
+wvZoomOut -win $_nWave7
+wvZoomOut -win $_nWave7
+wvZoomOut -win $_nWave7
+wvZoomOut -win $_nWave7
+wvZoomOut -win $_nWave7
+wvZoomOut -win $_nWave7
