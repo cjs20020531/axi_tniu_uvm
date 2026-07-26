@@ -335,11 +335,13 @@ generate
                     end
                 end
                 
-                if(rspo2reqo_rhead_en == 1'b1) begin // 删除操作
-                    if(follo_err_en == 1'b1 || fir_err_en == 1'b1)
-                        spec_req_buffer[buff_index][1:0] <= #DLY 2'b00;
-                    
-                end
+                // 只有真正为特殊响应读取head时，才能释放对应的特殊请求。
+                // 普通响应同样会拉高rspo2reqo_rhead_en，不能据此误删尚未发送的ERR。
+                if(rspo2reqo_rhead_en == 1'b1 &&
+                   next_state == SPEC_RSP &&
+                   timout_fifo_rden == 1'b0 &&
+                   (follo_err_en == 1'b1 || fir_err_en == 1'b1))
+                    spec_req_buffer[buff_index][1:0] <= #DLY 2'b00;
             end
         end
 
@@ -375,10 +377,12 @@ generate
                     end
                 end
                 
-                if(rspo2reqo_rhead_en == 1'b1) begin // 删除操作
-                    if(follo_err_en == 1'b1 || fir_err_en == 1'b1)
-                        spec_req_buffer[buff_index][1:0] <= #DLY 2'b00;
-                end
+                // early response模式也必须区分普通rhead与特殊rhead。
+                if(rspo2reqo_rhead_en == 1'b1 &&
+                   next_state == SPEC_RSP &&
+                   timout_fifo_rden == 1'b0 &&
+                   (follo_err_en == 1'b1 || fir_err_en == 1'b1))
+                    spec_req_buffer[buff_index][1:0] <= #DLY 2'b00;
             end
         end
     end
