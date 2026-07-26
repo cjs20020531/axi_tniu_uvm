@@ -231,5 +231,218 @@ class rknp_random_seq extends rknp_base_seq;
   endtask
 endclass
 
-`endif // RKNP_SEQUENCES_SV
 
+// -----------------------------------------------------------------------------
+// Exact-ratio mixed traffic
+//
+// One sequence instance generates a single randomly ordered stream containing:
+//   normal: INCR RD/WR and WRAP RD/WR
+//   error : INCR RD/WR and WRAP RD/WR
+//
+// error_pct controls the exact number of ST_ERR requests. For an exact 30%
+// ratio, num must be a multiple of 10. The sequence first constructs a balanced
+// category queue and then shuffles the whole queue, so the count is deterministic
+// while the issue order remains random.
+// -----------------------------------------------------------------------------
+typedef enum int unsigned {
+  MIX_INCR_RD,
+  MIX_INCR_WR,
+  MIX_WRAP_RD,
+  MIX_WRAP_WR,
+  MIX_ERR_INCR_RD,
+  MIX_ERR_INCR_WR,
+  MIX_ERR_WRAP_RD,
+  MIX_ERR_WRAP_WR
+} rknp_mix_kind_e;
+
+class rknp_mixed_traffic_seq extends rknp_base_seq;
+  int unsigned error_pct = 30;
+
+  `uvm_object_utils_begin(rknp_mixed_traffic_seq)
+    `uvm_field_int(error_pct, UVM_ALL_ON | UVM_DEC)
+  `uvm_object_utils_end
+
+  function new(string name = "rknp_mixed_traffic_seq");
+    super.new(name);
+  endfunction
+
+  protected function rknp_mix_kind_e get_normal_kind(int unsigned index);
+    case (index % 4)
+      0:       return MIX_INCR_RD;
+      1:       return MIX_INCR_WR;
+      2:       return MIX_WRAP_RD;
+      default: return MIX_WRAP_WR;
+    endcase
+  endfunction
+
+  protected function rknp_mix_kind_e get_error_kind(int unsigned index);
+    case (index % 4)
+      0:       return MIX_ERR_INCR_RD;
+      1:       return MIX_ERR_INCR_WR;
+      2:       return MIX_ERR_WRAP_RD;
+      default: return MIX_ERR_WRAP_WR;
+    endcase
+  endfunction
+
+  protected task randomize_item(rknp_seq_item it, rknp_mix_kind_e kind);
+    bit randomize_ok;
+
+    randomize_ok = 1'b0;
+
+    case (kind)
+      MIX_INCR_RD:
+        randomize_ok = it.randomize() with {
+          opc      == axi_tniu_protocol_pkg::OPC_RD;
+          status   == axi_tniu_protocol_pkg::ST_OK;
+          errcode  == axi_tniu_protocol_pkg::EC_TARGET;
+          axcache[0] == 1'b0;
+          len inside {[0:127]};
+        };
+
+      MIX_INCR_WR:
+        randomize_ok = it.randomize() with {
+          opc      == axi_tniu_protocol_pkg::OPC_WR;
+          status   == axi_tniu_protocol_pkg::ST_OK;
+          errcode  == axi_tniu_protocol_pkg::EC_TARGET;
+          axcache[0] == 1'b0;
+          len inside {[0:127]};
+        };
+
+      MIX_WRAP_RD:
+        randomize_ok = it.randomize() with {
+          opc      == axi_tniu_protocol_pkg::OPC_RDW;
+          status   == axi_tniu_protocol_pkg::ST_OK;
+          errcode  == axi_tniu_protocol_pkg::EC_TARGET;
+          axcache[0] == 1'b0;
+        };
+
+      MIX_WRAP_WR:
+        randomize_ok = it.randomize() with {
+          opc      == axi_tniu_protocol_pkg::OPC_WRW;
+          status   == axi_tniu_protocol_pkg::ST_OK;
+          errcode  == axi_tniu_protocol_pkg::EC_TARGET;
+          axcache[0] == 1'b0;
+        };
+
+      MIX_ERR_INCR_RD:
+        randomize_ok = it.randomize() with {
+          opc      == axi_tniu_protocol_pkg::OPC_RD;
+          status   == axi_tniu_protocol_pkg::ST_ERR;
+          axcache[0] == 1'b0;
+          errcode inside {
+            axi_tniu_protocol_pkg::EC_ADDR_DEC,
+            axi_tniu_protocol_pkg::EC_UNSUP,
+            axi_tniu_protocol_pkg::EC_SEC,
+            axi_tniu_protocol_pkg::EC_TIMEOUT
+          };
+          len inside {[0:127]};
+        };
+
+      MIX_ERR_INCR_WR:
+        randomize_ok = it.randomize() with {
+          opc      == axi_tniu_protocol_pkg::OPC_WR;
+          status   == axi_tniu_protocol_pkg::ST_ERR;
+          axcache[0] == 1'b0;
+          errcode inside {
+            axi_tniu_protocol_pkg::EC_ADDR_DEC,
+            axi_tniu_protocol_pkg::EC_UNSUP,
+            axi_tniu_protocol_pkg::EC_SEC,
+            axi_tniu_protocol_pkg::EC_TIMEOUT
+          };
+          len inside {[0:127]};
+        };
+
+      MIX_ERR_WRAP_RD:
+        randomize_ok = it.randomize() with {
+          opc      == axi_tniu_protocol_pkg::OPC_RDW;
+          status   == axi_tniu_protocol_pkg::ST_ERR;
+          axcache[0] == 1'b0;
+          errcode inside {
+            axi_tniu_protocol_pkg::EC_ADDR_DEC,
+            axi_tniu_protocol_pkg::EC_UNSUP,
+            axi_tniu_protocol_pkg::EC_SEC,
+            axi_tniu_protocol_pkg::EC_TIMEOUT
+          };
+        };
+
+      MIX_ERR_WRAP_WR:
+        randomize_ok = it.randomize() with {
+          opc      == axi_tniu_protocol_pkg::OPC_WRW;
+          status   == axi_tniu_protocol_pkg::ST_ERR;
+          axcache[0] == 1'b0;
+          errcode inside {
+            axi_tniu_protocol_pkg::EC_ADDR_DEC,
+            axi_tniu_protocol_pkg::EC_UNSUP,
+            axi_tniu_protocol_pkg::EC_SEC,
+            axi_tniu_protocol_pkg::EC_TIMEOUT
+          };
+        };
+
+      default:
+        `uvm_fatal("MIX_SEQ_KIND",
+                   $sformatf("Unsupported mixed-traffic kind %0d", kind))
+    endcase
+
+    if (!randomize_ok)
+      `uvm_fatal("MIX_SEQ_RAND",
+                 $sformatf("Randomization failed for traffic kind %s",
+                           kind.name()))
+  endtask
+
+  task body();
+    rknp_mix_kind_e kind_q[$];
+    int unsigned    error_num;
+    int unsigned    normal_num;
+
+    if (error_pct > 100)
+      `uvm_fatal("MIX_SEQ_CFG",
+                 $sformatf("error_pct=%0d must be in 0..100", error_pct))
+
+    if (((num * error_pct) % 100) != 0)
+      `uvm_fatal("MIX_SEQ_CFG",
+                 $sformatf({"num=%0d cannot represent error_pct=%0d exactly; ",
+                            "for 30 percent, use a multiple of 10"},
+                           num, error_pct))
+
+    error_num  = (num * error_pct) / 100;
+    normal_num = num - error_num;
+
+    // The requested testcase contains four normal and four error categories.
+    // Reject too-small configurations instead of silently omitting a category.
+    if (normal_num < 4)
+      `uvm_fatal("MIX_SEQ_CFG",
+                 $sformatf("normal request count %0d is too small; need at least 4",
+                           normal_num))
+
+    if (error_num < 4)
+      `uvm_fatal("MIX_SEQ_CFG",
+                 $sformatf("error request count %0d is too small; need at least 4",
+                           error_num))
+
+    for (int unsigned i = 0; i < normal_num; i++)
+      kind_q.push_back(get_normal_kind(i));
+
+    for (int unsigned i = 0; i < error_num; i++)
+      kind_q.push_back(get_error_kind(i));
+
+    kind_q.shuffle();
+
+    `uvm_info("MIX_SEQ_CFG",
+              $sformatf({"Generating %0d randomly ordered requests: ",
+                         "normal=%0d, error=%0d (%0d%%)"},
+                        num, normal_num, error_num, error_pct),
+              UVM_LOW)
+
+    foreach (kind_q[i]) begin
+      rknp_seq_item it;
+
+      it = rknp_seq_item::type_id::create($sformatf("it_%0d", i));
+      start_item(it);
+      randomize_item(it, kind_q[i]);
+      finalize_item(it);
+      finish_item(it);
+    end
+  endtask
+endclass : rknp_mixed_traffic_seq
+
+`endif // RKNP_SEQUENCES_SV
