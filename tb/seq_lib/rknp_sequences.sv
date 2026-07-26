@@ -329,12 +329,7 @@ class rknp_mixed_traffic_seq extends rknp_base_seq;
           opc      == axi_tniu_protocol_pkg::OPC_RD;
           status   == axi_tniu_protocol_pkg::ST_ERR;
           axcache[0] == 1'b0;
-          errcode inside {
-            axi_tniu_protocol_pkg::EC_ADDR_DEC,
-            axi_tniu_protocol_pkg::EC_UNSUP,
-            axi_tniu_protocol_pkg::EC_SEC,
-            axi_tniu_protocol_pkg::EC_TIMEOUT
-          };
+          errcode == axi_tniu_protocol_pkg::EC_ADDR_DEC;
           len inside {[0:127]};
         };
 
@@ -343,12 +338,7 @@ class rknp_mixed_traffic_seq extends rknp_base_seq;
           opc      == axi_tniu_protocol_pkg::OPC_WR;
           status   == axi_tniu_protocol_pkg::ST_ERR;
           axcache[0] == 1'b0;
-          errcode inside {
-            axi_tniu_protocol_pkg::EC_ADDR_DEC,
-            axi_tniu_protocol_pkg::EC_UNSUP,
-            axi_tniu_protocol_pkg::EC_SEC,
-            axi_tniu_protocol_pkg::EC_TIMEOUT
-          };
+          errcode == axi_tniu_protocol_pkg::EC_ADDR_DEC;
           len inside {[0:127]};
         };
 
@@ -357,12 +347,8 @@ class rknp_mixed_traffic_seq extends rknp_base_seq;
           opc      == axi_tniu_protocol_pkg::OPC_RDW;
           status   == axi_tniu_protocol_pkg::ST_ERR;
           axcache[0] == 1'b0;
-          errcode inside {
-            axi_tniu_protocol_pkg::EC_ADDR_DEC,
-            axi_tniu_protocol_pkg::EC_UNSUP,
-            axi_tniu_protocol_pkg::EC_SEC,
-            axi_tniu_protocol_pkg::EC_TIMEOUT
-          };
+          errcode == axi_tniu_protocol_pkg::EC_ADDR_DEC;
+
         };
 
       MIX_ERR_WRAP_WR:
@@ -370,12 +356,7 @@ class rknp_mixed_traffic_seq extends rknp_base_seq;
           opc      == axi_tniu_protocol_pkg::OPC_WRW;
           status   == axi_tniu_protocol_pkg::ST_ERR;
           axcache[0] == 1'b0;
-          errcode inside {
-            axi_tniu_protocol_pkg::EC_ADDR_DEC,
-            axi_tniu_protocol_pkg::EC_UNSUP,
-            axi_tniu_protocol_pkg::EC_SEC,
-            axi_tniu_protocol_pkg::EC_TIMEOUT
-          };
+          errcode == axi_tniu_protocol_pkg::EC_ADDR_DEC;
         };
 
       default:

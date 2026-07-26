@@ -465,3 +465,18 @@ wvScrollDown -win $_nWave3 1
 wvScrollDown -win $_nWave3 1
 wvScrollDown -win $_nWave3 1
 wvZoomOut -win $_nWave3
+wvSetCursor -win $_nWave3 152515.206186 -snap {("U_RSP_ORDER" 65)}
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvReloadFile -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvSetCursor -win $_nWave3 1392272.852234 -snap {("U_RSP_ORDER" 67)}
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvReloadFile -win $_nWave3

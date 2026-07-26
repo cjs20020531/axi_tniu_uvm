@@ -311,20 +311,33 @@ generate
                 for(a=0; a<SPEC_REQ_BUFF_DEEP; a=a+1)
                     spec_req_buffer[a] <= #DLY 'd0;
             end else begin
-                if(reqo2rspo_tail == 1'b1 && rspo2reqo_ready == 1'b1 && reqo2rspo_status == ERR) begin  //写入操作
-                    spec_req_buffer[idle_buff_index] <= #DLY {
-                        reqo2rspo_axid_d,
-                        reqo2rspo_opc_d[3:2],
-                        reqo2rspo_tag_cnt_d,
-                        reqo2rspo_errcode_d,
-                        reqo2rspo_status_d,
-                        fir_req_flag_d,
-                        1'b1
+                if(reqo2rspo_status == ERR) begin
+                    if(reqo2rspo_head == 1'b1 && reqo2rspo_tail == 1'b1 && rspo2reqo_ready == 1'b1) begin
+                        spec_req_buffer[idle_buff_index] <= #DLY {
+                            reqo2rspo_axid,
+                            reqo2rspo_opc[3:2],
+                            reqo2rspo_tag_cnt,
+                            reqo2rspo_errcode,
+                            reqo2rspo_status,
+                            fir_req_flag,
+                            1'b1
                         };
+                    end else if(reqo2rspo_tail == 1'b1 && rspo2reqo_ready == 1'b1) begin  //写入操作
+                        spec_req_buffer[idle_buff_index] <= #DLY {
+                            reqo2rspo_axid_d,
+                            reqo2rspo_opc_d[3:2],
+                            reqo2rspo_tag_cnt_d,
+                            reqo2rspo_errcode_d,
+                            reqo2rspo_status_d,
+                            fir_req_flag_d,
+                            1'b1
+                        };
+                    end
                 end
+                
                 if(rspo2reqo_rhead_en == 1'b1) begin // 删除操作
                     if(follo_err_en == 1'b1 || fir_err_en == 1'b1)
-                        spec_req_buffer[buff_index][0] <= #DLY 1'b0;
+                        spec_req_buffer[buff_index][1:0] <= #DLY 1'b00;
                     
                 end
             end
@@ -337,17 +350,31 @@ generate
                 for(a=0; a<SPEC_REQ_BUFF_DEEP; a=a+1)
                     spec_req_buffer[a] <= #DLY 'd0;
             end else begin                                                  // 暂时规定用user的第零位表示bufferable
-                if(reqo2rspo_tail == 1'b1 && rspo2reqo_ready == 1'b1 && (reqo2rspo_status == ERR || reqo2rspo_user[0] == 1'b1 )) begin  //写入操作
-                    spec_req_buffer[idle_buff_index] <= #DLY {
-                        reqo2rspo_axid_d,
-                        reqo2rspo_opc_d[3:2],
-                        reqo2rspo_tag_cnt_d,
-                        reqo2rspo_errcode_d,
-                        reqo2rspo_status_d,
-                        fir_req_flag_d,
-                        1'b1
+                if(reqo2rspo_status == ERR || reqo2rspo_user[0] == 1'b1) begin
+                    
+                    if(reqo2rspo_head == 1'b1 && reqo2rspo_tail == 1'b1 && rspo2reqo_ready == 1'b1) begin
+                        spec_req_buffer[idle_buff_index] <= #DLY {
+                            reqo2rspo_axid,
+                            reqo2rspo_opc[3:2],
+                            reqo2rspo_tag_cnt,
+                            reqo2rspo_errcode,
+                            reqo2rspo_status,
+                            fir_req_flag,
+                            1'b1
                         };
-                end 
+                    end else if(reqo2rspo_tail == 1'b1 && rspo2reqo_ready == 1'b1) begin  //写入操作
+                        spec_req_buffer[idle_buff_index] <= #DLY {
+                            reqo2rspo_axid_d,
+                            reqo2rspo_opc_d[3:2],
+                            reqo2rspo_tag_cnt_d,
+                            reqo2rspo_errcode_d,
+                            reqo2rspo_status_d,
+                            fir_req_flag_d,
+                            1'b1
+                        };
+                    end
+                end
+                
                 if(rspo2reqo_rhead_en == 1'b1) begin // 删除操作
                     if(follo_err_en == 1'b1 || fir_err_en == 1'b1)
                         spec_req_buffer[buff_index][1:0] <= #DLY 2'b00;
