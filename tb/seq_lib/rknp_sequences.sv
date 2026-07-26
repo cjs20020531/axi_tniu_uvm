@@ -52,7 +52,8 @@ class rknp_rd_seq extends rknp_base_seq;
       start_item(it);
       if (!it.randomize() with { opc == axi_tniu_protocol_pkg::OPC_RD;
                                  status == axi_tniu_protocol_pkg::ST_OK;
-                                 len inside {[0:63]}; })
+                                 len inside {[0:63]}; 
+                                 axcache[0] == 0;})
         `uvm_error("RD_SEQ", "randomize failed")
       // finalize_item(it);
 
@@ -80,7 +81,8 @@ class rknp_wr_seq extends rknp_base_seq;
       start_item(it);
       if (!it.randomize() with { opc == axi_tniu_protocol_pkg::OPC_WR;
                                  status == axi_tniu_protocol_pkg::ST_OK;
-                                 len inside {[0:63]}; })
+                                 len inside {[0:63]}; 
+                                 axcache[0] == 0; })
         `uvm_error("WR_SEQ", "randomize failed")
       finalize_item(it);
       finish_item(it);
@@ -101,7 +103,8 @@ class rknp_wrap_seq extends rknp_base_seq;
       start_item(it);
       // WRAP requires len = 2^n - 1; constraint c_wrap_len enforces the set.
       if (!it.randomize() with { opc inside {axi_tniu_protocol_pkg::OPC_RDW, axi_tniu_protocol_pkg::OPC_WRW};
-                                 status == axi_tniu_protocol_pkg::ST_OK; })
+                                 status == axi_tniu_protocol_pkg::ST_OK; 
+                                 axcache[0] == 0; })
         `uvm_error("WRAP_SEQ", "randomize failed")
       finalize_item(it);
       finish_item(it);
@@ -121,7 +124,8 @@ class rknp_err_seq extends rknp_base_seq;
       rknp_seq_item it = rknp_seq_item::type_id::create("it");
       start_item(it);
       if (!it.randomize() with { status == axi_tniu_protocol_pkg::ST_ERR;
-                                 errcode == axi_tniu_protocol_pkg::EC_ADDR_DEC;})
+                                 errcode == axi_tniu_protocol_pkg::EC_ADDR_DEC;
+                                 axcache[0] == 0; })
         `uvm_error("ERR_SEQ", "randomize failed")
       finalize_item(it);
       finish_item(it);
@@ -144,11 +148,11 @@ class rknp_same_addr_seq extends rknp_base_seq;
     repeat (num) begin
       rknp_seq_item it = rknp_seq_item::type_id::create("it");
       start_item(it);
-      if (!it.randomize() with { opc inside {axi_tniu_protocol_pkg::OPC_RD, axi_tniu_protocol_pkg::OPC_WR};
-                                 status == axi_tniu_protocol_pkg::ST_OK;
+      if (!it.randomize() with { status == axi_tniu_protocol_pkg::ST_OK;
                                  addr == fixed_addr;
                                  orderkey == fixed_key;
-                                 len inside {[0:31]}; })
+                                 len inside {[0:31]}; 
+                                 axcache[0] == 0; })
         `uvm_error("ADDR_SEQ", "randomize failed")
       finalize_item(it);
       finish_item(it);

@@ -2,7 +2,7 @@ Magic 271485
 Revision Verdi_O-2018.09-SP2
 
 ; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
-viewPort 0 27 2560 608 268 483
+viewPort 0 27 2560 678 273 420
 
 ; File list:
 ; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
@@ -16,8 +16,8 @@ signalSpacing 5
 
 ; windowTimeUnit is used for zoom, cursor & marker
 ; waveform viewport range
-zoom 6981508.801115 7401879.894865
-cursor 7280000.000000
+zoom 0.000000 1.000000
+cursor 7180000.000000
 marker 0.000000
 
 ; user define markers
@@ -52,7 +52,7 @@ addSignal -h 15 -holdScope resetn
 addSignal -h 15 -holdScope rknp_xx2wa_head
 addSignal -h 15 -holdScope rknp_xx2wa_tail
 addSignal -h 15 -holdScope rknp_xx2wa_valid
-addSignal -h 15 -UNSIGNED -HEX -holdScope rknp_xx2wa_data[174:0]
+addSignal -h 15 -holdScope rknp_xx2wa_data[174:0]
 addSignal -h 15 -holdScope wa2rknp_xx_ready
 addSignal -h 15 -holdScope wa2reqo_head
 addSignal -h 15 -holdScope wa2reqo_tail

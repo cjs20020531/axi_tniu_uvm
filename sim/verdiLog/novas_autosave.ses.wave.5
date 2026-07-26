@@ -2,7 +2,7 @@ Magic 271485
 Revision Verdi_O-2018.09-SP2
 
 ; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
-viewPort 0 27 2560 608 250 505
+viewPort 0 27 2560 678 245 240
 
 ; File list:
 ; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
@@ -16,16 +16,16 @@ signalSpacing 5
 
 ; windowTimeUnit is used for zoom, cursor & marker
 ; waveform viewport range
-zoom 6494549.323692 7548984.399577
-cursor 6766000.000000
+zoom 0.000000 712050.000000
+cursor 46000.000000
 marker 0.000000
 
 ; user define markers
 ; userMarker time_pos marker_name color linestyle
 ; visible top row signal index
-top 9
+top 0
 ; marker line index
-markerPos 45
+markerPos 13
 
 ; event list
 ; addEvent event_name event_expression
@@ -45,52 +45,20 @@ COMPLEX_EVENT_END
 curSTATUS ByChange
 
 
-addGroup "axi_vif(axi_if)"
+addGroup "rknp_vif(rknp_if)"
 activeDirFile "" "/home/ICer/RKNoC/axi_tniu_uvm/sim/wave.fsdb"
-addSignal -h 15 /tb_top/axi_vif/aclk
+addSignal -h 15 /tb_top/rknp_vif/aclk
 addSignal -h 15 -holdScope aresetn
-addSignal -h 15 -holdScope awvalid
-addSignal -h 15 -holdScope awready
-addSignal -h 15 -holdScope awid[3:0]
-addSignal -h 15 -holdScope awaddr[39:0]
-addSignal -h 15 -holdScope awlen[7:0]
-addSignal -h 15 -holdScope awsize[2:0]
-addSignal -h 15 -holdScope awburst[1:0]
-addSignal -h 15 -holdScope awlock
-addSignal -h 15 -holdScope awcache[3:0]
-addSignal -h 15 -holdScope awprot[2:0]
-addSignal -h 15 -holdScope awqos[2:0]
-addSignal -h 15 -holdScope awuser[0:0]
-addSignal -h 15 -holdScope wvalid
-addSignal -h 15 -holdScope wready
-addSignal -h 15 -holdScope wlast
-addSignal -h 15 -holdScope wid[3:0]
-addSignal -h 15 -holdScope wdata[63:0]
-addSignal -h 15 -holdScope wstrb[7:0]
-addSignal -h 15 -holdScope bvalid
-addSignal -h 15 -holdScope bready
-addSignal -h 15 -holdScope bid[3:0]
-addSignal -h 15 -holdScope bresp[1:0]
-addSignal -h 15 -holdScope buser[0:0]
-addSignal -h 15 -holdScope arvalid
-addSignal -h 15 -holdScope arready
-addSignal -h 15 -holdScope arid[3:0]
-addSignal -h 15 -holdScope araddr[39:0]
-addSignal -h 15 -holdScope arlen[7:0]
-addSignal -h 15 -holdScope arsize[2:0]
-addSignal -h 15 -holdScope arburst[1:0]
-addSignal -h 15 -holdScope arlock
-addSignal -h 15 -holdScope arcache[3:0]
-addSignal -h 15 -holdScope arprot[2:0]
-addSignal -h 15 -holdScope arqos[2:0]
-addSignal -h 15 -holdScope aruser[0:0]
-addSignal -h 15 -holdScope rvalid
-addSignal -h 15 -holdScope rready
-addSignal -h 15 -holdScope rid[3:0]
-addSignal -h 15 -holdScope rdata[63:0]
-addSignal -h 15 -holdScope rresp[1:0]
-addSignal -h 15 -holdScope ruser[0:0]
-addSignal -h 15 -holdScope rlast
+addSignal -h 15 -holdScope rxreq_head
+addSignal -h 15 -holdScope rxreq_tail
+addSignal -h 15 -holdScope rxreq_valid
+addSignal -h 15 -holdScope rxreq_ready
+addSignal -h 15 -holdScope rxreq_data[174:0]
+addSignal -h 15 -holdScope txrsp_head
+addSignal -h 15 -holdScope txrsp_tail
+addSignal -h 15 -holdScope txrsp_valid
+addSignal -h 15 -holdScope txrsp_ready
+addSignal -h 15 -holdScope txrsp_data[156:0]
 addGroup "G2"
 
 ; getSignalForm Scope Hierarchy Status

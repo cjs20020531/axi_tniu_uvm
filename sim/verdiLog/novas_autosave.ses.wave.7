@@ -2,7 +2,7 @@ Magic 271485
 Revision Verdi_O-2018.09-SP2
 
 ; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
-viewPort 0 27 2560 608 276 459
+viewPort 0 27 2560 678 250 505
 
 ; File list:
 ; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
@@ -16,16 +16,16 @@ signalSpacing 5
 
 ; windowTimeUnit is used for zoom, cursor & marker
 ; waveform viewport range
-zoom 5655336.398438 5994996.242188
-cursor 5806000.000000
+zoom 0.000000 712050.000000
+cursor 436000.000000
 marker 0.000000
 
 ; user define markers
 ; userMarker time_pos marker_name color linestyle
 ; visible top row signal index
-top 32
+top 15
 ; marker line index
-markerPos 79
+markerPos 30
 
 ; event list
 ; addEvent event_name event_expression
@@ -66,6 +66,18 @@ addSignal -h 15 -holdScope reqo2rspo_data[72:0]
 addSignal -h 15 -holdScope reqo2rspo_tag_cnt[2:0]
 addSignal -h 15 -holdScope fir_req_flag
 addSignal -h 15 -holdScope reqo2rspo_tag_name[55:0]
+addSignal -h 15 -holdScope idle_buff_index[2:0]
+addSignal -expanded -h 15 -holdScope spec_req_buffer[7:0]
+addSignal -h 15 -holdScope spec_req_buffer[7][15:0]
+addSignal -h 15 -holdScope spec_req_buffer[6][15:0]
+addSignal -h 15 -holdScope spec_req_buffer[5][15:0]
+addSignal -h 15 -holdScope spec_req_buffer[4][15:0]
+addSignal -h 15 -holdScope spec_req_buffer[3][15:0]
+addSignal -h 15 -holdScope spec_req_buffer[2][15:0]
+addSignal -h 15 -holdScope spec_req_buffer[1][15:0]
+addSignal -h 15 -holdScope spec_req_buffer[0][15:0]
+addSignal -h 15 -holdScope fir_req_flag
+addSignal -h 15 -holdScope fir_err_en
 addSignal -h 15 -holdScope rspo2am_head
 addSignal -h 15 -holdScope rspo2am_tail
 addSignal -h 15 -holdScope rspo2am_valid
@@ -99,6 +111,8 @@ addSignal -h 15 -holdScope reqo2rspo_rsp_tid[9:0]
 addSignal -h 15 -holdScope reqo2rspo_rsp_status[1:0]
 addSignal -h 15 -holdScope reqo2rspo_rsp_offset_addr[7:0]
 addSignal -h 15 -holdScope rspo2reqo_head_index[8:0]
+addSignal -h 15 -holdScope cur_state
+addSignal -h 15 -holdScope next_state
 addSignal -h 15 -holdScope rspo2reqo_rhead_en
 addSignal -h 15 -holdScope rspo2reqo_rsp_valid
 addSignal -h 15 -holdScope del_head_en

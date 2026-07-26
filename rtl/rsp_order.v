@@ -172,7 +172,7 @@ localparam BUFF_FIR_FLAG_OFFSET = 1;
 localparam BUFF_STAT_OFFSET = BUFF_FIR_FLAG_OFFSET + 1;
 localparam BUFF_ERRC_OFFSET = BUFF_STAT_OFFSET + 2;
 localparam BUFF_TAGCNT_OFFSET = BUFF_ERRC_OFFSET + 3;
-localparam BUFF_OPC_OFFSET = BUFF_ERRC_OFFSET + TAG_CNT_WITH;
+localparam BUFF_OPC_OFFSET = BUFF_TAGCNT_OFFSET + TAG_CNT_WITH;
 localparam BUFF_AXID_OFFSET = BUFF_OPC_OFFSET + 2;
 
 
@@ -274,6 +274,34 @@ endgenerate
 // 3、判断为ERR或bufferable类型则写入buffer
 // 4、buffer删除操作
 //------------------------------------------------------
+
+reg [AXID_WITH-1:0] reqo2rspo_axid_d;  // tail拉高时spec请求才能存入spec buffer，所以要寄存
+reg [3:0]           reqo2rspo_opc_d;
+reg [2:0]           reqo2rspo_tag_cnt_d;
+reg [2:0]           reqo2rspo_errcode_d;
+reg [1:0]           reqo2rspo_status_d;
+reg                 fir_req_flag_d;
+always @(posedge clk or negedge resetn) begin
+    if(resetn == 1'b0) begin
+        reqo2rspo_axid_d    <= #DLY 'd0;      
+        reqo2rspo_opc_d     <= #DLY 4'd0;         
+        reqo2rspo_tag_cnt_d <= #DLY 3'd0;            
+        reqo2rspo_errcode_d <= #DLY 3'd0;           
+        reqo2rspo_status_d  <= #DLY 2'd0;           
+        fir_req_flag_d      <= #DLY 1'b0;          
+    end else if(reqo2rspo_head == 1'b1 && rspo2reqo_ready == 1'b1)begin
+        reqo2rspo_axid_d    <= #DLY reqo2rspo_axid;      
+        reqo2rspo_opc_d     <= #DLY reqo2rspo_opc;         
+        reqo2rspo_tag_cnt_d <= #DLY reqo2rspo_tag_cnt;            
+        reqo2rspo_errcode_d <= #DLY reqo2rspo_errcode;           
+        reqo2rspo_status_d  <= #DLY reqo2rspo_status;           
+        fir_req_flag_d      <= #DLY fir_req_flag;  
+    end else if(reqo2rspo_tail == 1'b1 && rspo2reqo_ready == 1'b1) begin
+        fir_req_flag_d      <= #DLY 1'b0;  
+    end
+end
+
+
 integer a;
 generate 
     if(EARLY_RSP_MODE == 0) begin  //关闭early response功能
@@ -283,14 +311,14 @@ generate
                 for(a=0; a<SPEC_REQ_BUFF_DEEP; a=a+1)
                     spec_req_buffer[a] <= #DLY 'd0;
             end else begin
-                if(reqo2rspo_head == 1'b1 && rspo2reqo_ready == 1'b1 && reqo2rspo_status == ERR) begin  //写入操作
+                if(reqo2rspo_tail == 1'b1 && rspo2reqo_ready == 1'b1 && reqo2rspo_status == ERR) begin  //写入操作
                     spec_req_buffer[idle_buff_index] <= #DLY {
-                        reqo2rspo_axid,
-                        reqo2rspo_opc[3:2],
-                        reqo2rspo_tag_cnt,
-                        reqo2rspo_errcode,
-                        reqo2rspo_status,
-                        fir_req_flag,
+                        reqo2rspo_axid_d,
+                        reqo2rspo_opc_d[3:2],
+                        reqo2rspo_tag_cnt_d,
+                        reqo2rspo_errcode_d,
+                        reqo2rspo_status_d,
+                        fir_req_flag_d,
                         1'b1
                         };
                 end
@@ -309,20 +337,20 @@ generate
                 for(a=0; a<SPEC_REQ_BUFF_DEEP; a=a+1)
                     spec_req_buffer[a] <= #DLY 'd0;
             end else begin                                                  // 暂时规定用user的第零位表示bufferable
-                if(reqo2rspo_head == 1'b1 && rspo2reqo_ready == 1'b1 && (reqo2rspo_status == ERR || reqo2rspo_user[0] == 1'b1 )) begin  //写入操作
+                if(reqo2rspo_tail == 1'b1 && rspo2reqo_ready == 1'b1 && (reqo2rspo_status == ERR || reqo2rspo_user[0] == 1'b1 )) begin  //写入操作
                     spec_req_buffer[idle_buff_index] <= #DLY {
-                        reqo2rspo_axid,
-                        reqo2rspo_opc[3:2],
-                        reqo2rspo_tag_cnt,
-                        reqo2rspo_errcode,
-                        reqo2rspo_status,
-                        fir_req_flag,
+                        reqo2rspo_axid_d,
+                        reqo2rspo_opc_d[3:2],
+                        reqo2rspo_tag_cnt_d,
+                        reqo2rspo_errcode_d,
+                        reqo2rspo_status_d,
+                        fir_req_flag_d,
                         1'b1
                         };
                 end 
                 if(rspo2reqo_rhead_en == 1'b1) begin // 删除操作
                     if(follo_err_en == 1'b1 || fir_err_en == 1'b1)
-                        spec_req_buffer[buff_index][0] <= #DLY 1'b0;
+                        spec_req_buffer[buff_index][1:0] <= #DLY 2'b00;
                 end
             end
         end
@@ -557,9 +585,9 @@ reg [7:0] flit_cnt;
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         flit_cnt <= #DLY 'd0;
-    end else if(rspo2rknp_xx_tail == 1'b1) begin
+    end else if(rspo2rknp_xx_tail == 1'b1 && rknp_xx2rspo_ready == 1'b1) begin
         flit_cnt <= #DLY 'd0;
-    end else if(rspo2rknp_xx_valid == 1'b1) begin
+    end else if(rspo2rknp_xx_valid == 1'b1 && rknp_xx2rspo_ready == 1'b1) begin
         flit_cnt <= #DLY flit_cnt + 1'b1;
     end
 end
@@ -748,6 +776,38 @@ end
 //------------------------------------------------------
 //  RKNP协议组包输出
 //------------------------------------------------------
+reg rsp_phase; // 为0表示响应通道空闲
+reg rsp_phase_temp; 
+reg rspt2rspo_lw_d2; // 用于捕捉rspt2rspo_lw_d的下降沿
+wire rspo2rknp_xx_lw_neg; // rspt2rspo_lw_d的下降沿
+always @(posedge clk or negedge resetn) begin
+    if(resetn == 1'b0) begin
+        rspt2rspo_lw_d2 <= #DLY 1'b0;
+    end else begin
+        rspt2rspo_lw_d2 <= #DLY rspt2rspo_lw_d;
+    end
+end
+
+assign rspo2rknp_xx_lw_neg = (~rspt2rspo_lw_d) & rspt2rspo_lw_d2;
+
+always @(posedge clk or negedge resetn) begin
+    if(resetn == 1'b0) begin
+        rsp_phase_temp <= #DLY 1'b0;
+    end else if(rspo2rknp_xx_valid == 1'b1) begin
+        rsp_phase_temp <= #DLY 1'b1; 
+    end else if(rspt2rspo_lw_d == 1'b1) begin
+        rsp_phase_temp <= #DLY 1'b0;
+    end
+end
+
+always @(*) begin
+    if(rspo2rknp_xx_lw_neg == 1'b1) begin
+        rsp_phase = 1'b0;
+    end else begin
+        rsp_phase = rspo2rknp_xx_valid | rsp_phase_temp;
+    end
+end
+
 
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
@@ -763,6 +823,8 @@ always @(*) begin
             if((rspo2reqo_rhead_en == 1'b1 && rspo2rspt_ready == 1'b0)&& (follo_err_en == 1'b1 || fir_err_en == 1'b1 || timout_fifo_rden == 1'b1)) begin
                 next_state = SPEC_RSP;
             end else if((rspt2rspo_lw == 1'b1 && rspo2rspt_ready == 1'b0)&& (follo_err_en == 1'b1 || fir_err_en == 1'b1 || timout_fifo_rden == 1'b1)) begin
+                next_state = SPEC_RSP;
+            end else if(fir_err_en == 1'b1 && rsp_phase == 1'b0) begin
                 next_state = SPEC_RSP;
             end else begin
                 next_state = NORM_RSP;
@@ -867,7 +929,16 @@ always @(posedge clk or negedge resetn) begin
     end
 end
 
-
+reg spec_rsp_phase; // 特殊响应恢复区间
+always @(posedge clk or negedge resetn) begin
+    if(resetn == 1'b0) begin
+        spec_rsp_phase <= #DLY 1'b0;
+    end else if(rspo2reqo_rhead_en == 1'b1) begin
+        spec_rsp_phase <= #DLY 1'b1;
+    end else if(rspo2rknp_xx_tail == 1'b1 && rknp_xx2rspo_ready == 1'b1) begin
+        spec_rsp_phase <= #DLY 1'b0;
+    end
+end
 
 
 always @(*) begin
@@ -885,24 +956,31 @@ always @(*) begin
             end
         end
         SPEC_RSP: begin
-            if(rspo2rknp_xx_data[RSP_OPC_OFFSET +: 2] == RD || reqo2rspo_rsp_len != 'd0) begin
-                if(flit_cnt == 'd0) begin
-                    rspo2rknp_xx_head = 1'b1;
-                    rspo2rknp_xx_tail = 1'b0;
-                    rspo2rknp_xx_valid = 1'b0;
-                end else if(flit_cnt == total_flit)begin
-                    rspo2rknp_xx_head = 1'b0;
-                    rspo2rknp_xx_tail = 1'b1;
-                    rspo2rknp_xx_valid = 1'b0;
+            if(spec_rsp_phase == 1'b1) begin
+                if(rspo2rknp_xx_data[RSP_OPC_OFFSET +: 2] == RD) begin
+                    if(flit_cnt == 'd0) begin
+                        rspo2rknp_xx_head = 1'b1;
+                        rspo2rknp_xx_tail = 1'b0;
+                        rspo2rknp_xx_valid = 1'b1;
+                    end else if(flit_cnt == total_flit)begin
+                        rspo2rknp_xx_head = 1'b0;
+                        rspo2rknp_xx_tail = 1'b1;
+                        rspo2rknp_xx_valid = 1'b1;
+                    end else begin
+                        rspo2rknp_xx_head = 1'b0;
+                        rspo2rknp_xx_tail = 1'b0;
+                        rspo2rknp_xx_valid = 1'b1;
+                    end
                 end else begin
-                    rspo2rknp_xx_head = 1'b0;
+                    rspo2rknp_xx_head = 1'b1;
                     rspo2rknp_xx_tail = 1'b1;
-                    rspo2rknp_xx_valid = 1'b0;
+                    rspo2rknp_xx_valid = 1'b1;
+
                 end
             end else begin
-                rspo2rknp_xx_head = 1'b1;
-                rspo2rknp_xx_tail = 1'b1;
-                rspo2rknp_xx_valid = 1'b1;
+                rspo2rknp_xx_head = 1'b0;
+                rspo2rknp_xx_tail = 1'b0;
+                rspo2rknp_xx_valid = 1'b0;
             end
         end
     endcase
@@ -916,7 +994,7 @@ end
 //assign norm_rsp_data[0] = (flit_cnt == total_flit) ? 1'b1 : 1'b0;  //交织时这个是错的,flit_cnt只能给特殊响应用
 
 assign norm_rsp_data[0] = (rspt2rspo_lw_d == 1'b1) ? 1'b1 : 1'b0;
-assign spec_rsp_data[0] = (flit_cnt == total_flit) ? 1'b1 : 1'b0;
+assign spec_rsp_data[0] = (spec_rsp_opc == WR || flit_cnt == total_flit) ? 1'b1 : 1'b0;
 
 
 //------------------------------------------------------
@@ -978,6 +1056,7 @@ endgenerate
 //  3、rsp_order提示req_order更改head addr信息
 //  4、分eraly response模式和非early response模式
 //------------------------------------------------------
+reg [2:0] a;
 generate
     if(EARLY_RSP_MODE == 0) begin
         always @(*) begin
@@ -1002,7 +1081,7 @@ generate
                         rspo2reqo_head_index = {spec_req_buffer[buff_index][BUFF_TAGCNT_OFFSET +: AXID_WITH+TAG_CNT_WITH+2]};
                         rspo2reqo_rhead_en = 1'b1;
                         del_head_en = 1'b1;
-                    end else if(rspo2rknp_xx_valid == 1'b0 && fir_err_en == 1'b1) begin  // 当前模块未在传输响应，且存在fir_err时
+                    end else if(rsp_phase == 1'b0 && fir_err_en == 1'b1) begin  // 当前模块未在传输响应，且存在fir_err时
                         rspo2reqo_head_index = {spec_req_buffer[buff_index][BUFF_TAGCNT_OFFSET +: AXID_WITH+TAG_CNT_WITH+2]};
                         rspo2reqo_rhead_en = 1'b1;
                         del_head_en = 1'b1;
@@ -1037,24 +1116,29 @@ generate
                         rspo2reqo_head_index = {wd2rspo_axid,wd2rspo_opc,tag_cnt[tag_name_index]};
                         rspo2reqo_rhead_en = 1'b1;
                         del_head_en = 1'b0;
+                        a = 1;
                     end else if(rspo2rknp_xx_tail == 1'b1 && rknp_xx2rspo_ready == 1'b1 && conflict_flag == 1'b1) begin  // 当前模块正在传输响应，并且同时接收一笔同类型的请求时，需判断此请求是不是此响应的下一笔请求
                         rspo2reqo_head_index = {reqo2rspo_axid,reqo2rspo_opc,reqo2rspo_tag_cnt};
                         rspo2reqo_rhead_en = 1'b1;
                         del_head_en = 1'b1;
+                        a = 2;
                     end else if(rspo2rknp_xx_tail == 1'b1 && rknp_xx2rspo_ready == 1'b1 && (follo_err_en == 1'b1 || fir_err_en == 1'b1)) begin  // 当前模块正在传输响应，且存在follo_req\fir_req时
                         rspo2reqo_head_index = {spec_req_buffer[buff_index][BUFF_TAGCNT_OFFSET +: AXID_WITH+TAG_CNT_WITH+2]};
                         rspo2reqo_rhead_en = 1'b1;
+                        a = 3;
                         if(spec_req_buffer[buff_index][BUFF_STAT_OFFSET] == OK) del_head_en = 1'b0; //若该请求为bufferable，则不删除
                         else                                                    del_head_en = 1'b1; //若该请求本身为ERR请求，则删除
-                    end else if(rspo2rknp_xx_valid == 1'b0 && fir_err_en == 1'b1) begin  // 当前模块未在传输响应，且存在fir_err时
+                    end else if(rsp_phase == 1'b0 && fir_err_en == 1'b1) begin  // 当前模块未在传输响应，且存在fir_err时
                         rspo2reqo_head_index = {spec_req_buffer[buff_index][BUFF_TAGCNT_OFFSET +: AXID_WITH+TAG_CNT_WITH+2]};
                         rspo2reqo_rhead_en = 1'b1;
+                        a = 4;
                         if(spec_req_buffer[buff_index][BUFF_STAT_OFFSET] == OK) del_head_en = 1'b0; //若该请求为bufferable，则不删除
                         else                                                    del_head_en = 1'b1; //若该请求本身为ERR请求，则删除
                     end else begin
                         rspo2reqo_head_index = 'd0;
                         rspo2reqo_rhead_en = 1'b0;
                         del_head_en = 1'b0;
+                        a = 5;
                     end
                 end
             endcase

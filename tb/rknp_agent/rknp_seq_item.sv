@@ -345,14 +345,14 @@ endfunction
     }
   }
 
-  // ErrorCode only meaningful when status==ERR
-  constraint c_errc { (status != axi_tniu_protocol_pkg::ST_ERR) -> (errcode == axi_tniu_protocol_pkg::EC_TARGET); }
-  constraint c_status { (status == axi_tniu_protocol_pkg::ST_OK); }
+  // // ErrorCode only meaningful when status==ERR
+  // constraint c_errc { (status != axi_tniu_protocol_pkg::ST_ERR) -> (errcode == axi_tniu_protocol_pkg::EC_TARGET); }
+  // constraint c_status { (status == axi_tniu_protocol_pkg::ST_OK); }
 
-  // bufferable range : no bufferable 
-  constraint c_axcache_range {
-    axcache == 0;
-  }
+  // // bufferable range : no bufferable 
+  // constraint c_axcache_range {
+  //   axcache == 0;
+  // }
 
   // localparam int NBPW = axi_tniu_protocol_pkg::NBYTEPERWORD;   // 2 的幂,每拍字节数
   // // 不支持窄传输读与非对齐读
