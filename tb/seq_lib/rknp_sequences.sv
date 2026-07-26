@@ -121,11 +121,7 @@ class rknp_err_seq extends rknp_base_seq;
       rknp_seq_item it = rknp_seq_item::type_id::create("it");
       start_item(it);
       if (!it.randomize() with { status == axi_tniu_protocol_pkg::ST_ERR;
-                                 errcode inside {axi_tniu_protocol_pkg::EC_ADDR_DEC,
-                                                 axi_tniu_protocol_pkg::EC_UNSUP,
-                                                 axi_tniu_protocol_pkg::EC_DISCONN,
-                                                 axi_tniu_protocol_pkg::EC_SEC};
-                                 len inside {[0:31]}; })
+                                 errcode == axi_tniu_protocol_pkg::EC_ADDR_DEC;})
         `uvm_error("ERR_SEQ", "randomize failed")
       finalize_item(it);
       finish_item(it);

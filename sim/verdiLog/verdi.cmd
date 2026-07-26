@@ -1784,3 +1784,26 @@ wvGetSignalClose -win $_nWave6
 wvDisplayGridCount -win $_nWave7 -off
 wvGetSignalClose -win $_nWave7
 wvReloadFile -win $_nWave7
+wvSetCursor -win $_nWave7 3154019.521718 -snap {("G2" 0)}
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvDisplayGridCount -win $_nWave7 -off
+wvGetSignalClose -win $_nWave7
+wvReloadFile -win $_nWave7
+wvZoomOut -win $_nWave7
+wvZoomOut -win $_nWave7
+wvSelectSignal -win $_nWave7 {( "rknp_vif(rknp_if)" 10 )} 
+wvSelectSignal -win $_nWave7 {( "rknp_vif(rknp_if)" 11 )} 
+wvSetCursor -win $_nWave7 721284.919473 -snap {("rknp_vif(rknp_if)" 11)}
+wvSetCursor -win $_nWave7 2659738.140556 -snap {("rknp_vif(rknp_if)" 11)}
+wvSetCursor -win $_nWave7 5602838.213763 -snap {("rknp_vif(rknp_if)" 11)}
+wvSetCursor -win $_nWave7 7521971.303075 -snap {("rknp_vif(rknp_if)" 10)}
+wvSetCursor -win $_nWave7 8777779.868228 -snap {("rknp_vif(rknp_if)" 10)}

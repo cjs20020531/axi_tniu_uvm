@@ -2,7 +2,7 @@
 // Copyright(c) 2011, Rockchips Electronics Co, Ltd
 // Filename          : wrap_align.v
 // Author            : cjs
-// Email             : 
+// Email             :
 // Created On        : 2025-08-02
 // Abstract          : synchronous FIFO
 // Parameter         : COUNT_MODE = 1,表示计算的是对齐地址边界; COUNT_MODE = 0,表示计算的是原始地址边界
@@ -20,97 +20,51 @@ module addr_border_cout#(
     ,input      [LEN_WITH-1:0]  len
     ,output reg [ADDR_WITH-$clog2(ADDR_BLOCK_SIZE)-1:0] addr_begin
     ,output reg [ADDR_WITH-$clog2(ADDR_BLOCK_SIZE)-1:0] addr_end
-); 
-localparam BIN_WITH = $clog2(LEN_WITH+1);
-//----------------------------------------------------------------------------------
-// Calculate len right-shifted by log2(ADDR_BLOCK_SIZE)
-//----------------------------------------------------------------------------------
-wire [LEN_WITH-$clog2(ADDR_BLOCK_SIZE):0] len_rshift;
-assign len_rshift = (len+1) >> $clog2(ADDR_BLOCK_SIZE);
+);
+localparam BLOCK_SHIFT = $clog2(ADDR_BLOCK_SIZE);
+localparam WORD_SHIFT  = $clog2(NBYTEPERWORD);
 
-genvar i,j;
-//----------------------------------------------------------------------------------
-// Calculate log2(len)
-//----------------------------------------------------------------------------------
-wire [LEN_WITH:0] len_add_one; // len value plus one
-wire [BIN_WITH-1:0] len_add_one_temp1 [LEN_WITH:0];
-wire [LEN_WITH:0] len_add_one_temp2 [BIN_WITH-1:0];
-wire [BIN_WITH-1:0] log2_len;
-assign len_add_one = len + 1'b1;
-// Convert one-hot code to binary code
-generate
-    for(i = 0; i <= LEN_WITH; i = i+1)begin 
-        assign len_add_one_temp1[i] = len_add_one[i]? i:'b0;
-    end
-endgenerate
-generate
-    for(i = 0; i <= LEN_WITH; i = i+1)begin 
-        for(j = 0; j < BIN_WITH; j = j+1) begin  
-            assign len_add_one_temp2[j][i] = len_add_one_temp1[i][j];
-        end
-    end
-endgenerate
-generate
-    for(j = 0; j < BIN_WITH; j = j+1)begin 
-        assign log2_len[j] = |len_add_one_temp2[j];
-    end
-endgenerate
+// len is encoded as "number of bytes - 1". Calculate byte addresses first,
+// then convert both ends to ADDR_BLOCK_SIZE units. The old implementation
+// shifted len independently of addr, which missed a block crossing when an
+// unaligned INCR request started near the end of a block.
+reg [ADDR_WITH-1:0] incr_first_addr;
+reg [ADDR_WITH-1:0] wrap_first_addr;
+reg [ADDR_WITH-1:0] wrap_mask;
+reg [ADDR_WITH:0]   first_byte_addr;
+reg [ADDR_WITH:0]   last_byte_addr;
+reg [ADDR_WITH:0]   len_ext;
 
-//----------------------------------------------------------------------------------
-// Calculate log2(len_rshift)
-//----------------------------------------------------------------------------------
+always @(*) begin
+    // Assignment performs the required zero extension without assuming that
+    // ADDR_WITH is larger than LEN_WITH.
+    len_ext = len;
 
-wire [BIN_WITH-1:0] len_rshift_temp1 [LEN_WITH-$clog2(ADDR_BLOCK_SIZE):0];
-wire [LEN_WITH-$clog2(ADDR_BLOCK_SIZE):0] len_rshift_temp2 [BIN_WITH-1:0];
-wire [BIN_WITH-1:0] log2_len_rshift;
-// Convert one-hot code to binary code
-generate
-    for(i = 0; i <= LEN_WITH-$clog2(ADDR_BLOCK_SIZE); i = i+1)begin 
-        assign len_rshift_temp1[i] = len_rshift[i]? i:'b0;
-    end
-endgenerate
-generate
-    for(i = 0; i <= LEN_WITH-$clog2(ADDR_BLOCK_SIZE); i = i+1)begin 
-        for(j = 0; j < BIN_WITH; j = j+1) begin  
-            assign len_rshift_temp2[j][i] = len_rshift_temp1[i][j];
-        end
-    end
-endgenerate
-generate
-    for(j = 0; j < BIN_WITH; j = j+1)begin 
-        assign log2_len_rshift[j] = |len_rshift_temp2[j];
-    end
-endgenerate
+    // COUNT_MODE=1 is used by the response path and aligns an INCR request to
+    // the local data-word boundary before calculating its byte range.
+    if (COUNT_MODE == 1)
+        incr_first_addr = (addr >> WORD_SHIFT) << WORD_SHIFT;
+    else
+        incr_first_addr = addr;
 
-//----------------------------------------------------------------------------------
-// Address boundary calculation functionality
-//----------------------------------------------------------------------------------
-generate if(COUNT_MODE == 0) 
-    always @(*) begin
-        if(burst == 2'b00) begin   // INCR burst
-            addr_begin = addr >> $clog2(ADDR_BLOCK_SIZE);
-            if(len_rshift == 'd0) addr_end = addr_begin;
-            else                  addr_end = addr_begin + len_rshift - 1;
-        end else begin    // WRAP burst
-            addr_begin = ((addr >> $clog2(ADDR_BLOCK_SIZE)) >> log2_len) << log2_len_rshift;
-            if(len_rshift == 'd0) addr_end = addr_begin;
-            else                  addr_end = addr_begin + len_rshift - 1;
-        end
-    end
-endgenerate
+    // Legal RKNP/AXI WRAP sizes are powers of two. Since len=size-1, len is
+    // also the low-bit mask used to obtain the wrap boundary.
+    wrap_mask       = len_ext[ADDR_WITH-1:0];
+    wrap_first_addr = addr & ~wrap_mask;
 
-generate if(COUNT_MODE == 1) 
-    always @(*) begin
-        if(burst == 2'b00) begin   // INCR burst
-            addr_begin = (addr >> $clog2(NBYTEPERWORD) << $clog2(NBYTEPERWORD)) >> $clog2(ADDR_BLOCK_SIZE);
-            if(len_rshift == 'd0) addr_end = addr_begin;
-            else                  addr_end = addr_begin + len_rshift - 1;
-        end else begin    // WRAP burst
-            addr_begin = ((addr >> $clog2(ADDR_BLOCK_SIZE)) >> log2_len) << log2_len_rshift;
-            if(len_rshift == 'd0) addr_end = addr_begin;
-            else                  addr_end = addr_begin + len_rshift - 1;
-        end
+    if (burst == 2'b00) begin
+        // INCR: the last transferred byte is first byte + len.
+        first_byte_addr = {1'b0, incr_first_addr};
+        last_byte_addr  = {1'b0, incr_first_addr} + len_ext;
     end
-endgenerate
+    else begin
+        // WRAP: cover the complete wrap window [base, base+len].
+        first_byte_addr = {1'b0, wrap_first_addr};
+        last_byte_addr  = {1'b0, wrap_first_addr} + len_ext;
+    end
+
+    addr_begin = first_byte_addr >> BLOCK_SHIFT;
+    addr_end   = last_byte_addr  >> BLOCK_SHIFT;
+end
 
 endmodule

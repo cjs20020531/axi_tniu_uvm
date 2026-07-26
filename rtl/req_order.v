@@ -736,7 +736,7 @@ endgenerate
 //----------------------------------------------------------------------------------
 reg [ADDR_WITH-$clog2(ADDR_BLOCK_SIZE)-1:0] addr_begin_buffer [HEAD_BUFF_DEEP-1:0];
 reg [ADDR_WITH-$clog2(ADDR_BLOCK_SIZE)-1:0] addr_end_buffer [HEAD_BUFF_DEEP-1:0];
-// reg [URGE_WITH-1:0] urg_buffer [HEAD_BUFF_DEEP-1:0];
+reg [SUBR_WITH-1:0] subr_buffer [HEAD_BUFF_DEEP-1:0];
 generate 
     if(ADDR_BP_TYPE == 0)begin  //无同地址反压
 
@@ -752,7 +752,7 @@ generate
                 if(rknp_xx2reqo_head == 1'b1 && reqo2rknp_xx_ready == 1'b1) begin  //写入操作
                     addr_begin_buffer[idle_head_buff_index] <= #DLY req_addr_begin;
                     addr_end_buffer[idle_head_buff_index] <= #DLY req_addr_end;
-                    // urg_buffer[idle_head_buff_index] <= #DLY urg;
+                    subr_buffer[idle_head_buff_index] <= #DLY subr;
                 end
             end
         end
@@ -771,8 +771,8 @@ generate
         for(i=0 ; i < HEAD_BUFF_DEEP; i=i+1) begin
             always @(*) begin
                 if(head_buffer[i][BUFF_OPC_OFFSET +: 2] == 2'b01 && head_buffer[i][0] == 1'b1)                              //写后读，写后写保序
-                    // overlop_temp[i] = (req_addr_end < addr_begin_buffer[i] || req_addr_begin > addr_end_buffer[i] || urg_buffer[i] != subr) ? 1'b0 : 1'b1;
-                    overlop_temp[i] = (req_addr_end < addr_begin_buffer[i] || req_addr_begin > addr_end_buffer[i]) ? 1'b0 : 1'b1;
+                    overlop_temp[i] = (req_addr_end < addr_begin_buffer[i] || req_addr_begin > addr_end_buffer[i] || subr_buffer[i] != subr) ? 1'b0 : 1'b1;
+                    
                 else 
                     overlop_temp[i] = 1'b0;
                 
@@ -785,11 +785,11 @@ generate
         for(i=0 ; i < HEAD_BUFF_DEEP; i=i+1) begin
             always @(*) begin
                 if(head_buffer[i][BUFF_OPC_OFFSET +: 2] == 2'b01 && head_buffer[i][0] == 1'b1)                               //写后写，写后读保序
-                    // overlop_temp[i] = ((req_addr_end < addr_begin_buffer[i] || req_addr_begin > addr_end_buffer[i]) || urg_buffer[i] != subr) ? 1'b0 : 1'b1;
-                    overlop_temp[i] = (req_addr_end < addr_begin_buffer[i] || req_addr_begin > addr_end_buffer[i]) ? 1'b0 : 1'b1;
+                    overlop_temp[i] = ((req_addr_end < addr_begin_buffer[i] || req_addr_begin > addr_end_buffer[i]) || subr_buffer[i] != subr) ? 1'b0 : 1'b1;
+                    
                 else if(opc[3:2] == 2'b01 && head_buffer[i][BUFF_OPC_OFFSET +: 2] == 2'b00 && head_buffer[i][0] == 1'b1)     //读后写保序
-                    // overlop_temp[i] = ((req_addr_end < addr_begin_buffer[i] || req_addr_begin > addr_end_buffer[i]) || urg_buffer[i] != subr) ? 1'b0 : 1'b1;
-                    overlop_temp[i] = (req_addr_end < addr_begin_buffer[i] || req_addr_begin > addr_end_buffer[i]) ? 1'b0 : 1'b1;
+                    overlop_temp[i] = ((req_addr_end < addr_begin_buffer[i] || req_addr_begin > addr_end_buffer[i]) || subr_buffer[i] != subr) ? 1'b0 : 1'b1;
+                    
                 else
                     overlop_temp[i] = 1'b0;
             end

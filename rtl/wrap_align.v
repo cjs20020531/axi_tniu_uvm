@@ -2,10 +2,10 @@
 // Copyright(c) 2011, Rockchips Electronics Co, Ltd
 // Filename          : wrap_align.v
 // Auther            : cjs
-// Email             : 
+// Email             :
 // Created On        : 2025-07-27
-// Abstract          : When the local TNIU data bit width is larger than any AXI/AHB INIU data bit width in NoC, 
-//                     it may happen that the INIU WRAP request address is not aligned with the WRAP address of TNIU, 
+// Abstract          : When the local TNIU data bit width is larger than any AXI/AHB INIU data bit width in NoC,
+//                     it may happen that the INIU WRAP request address is not aligned with the WRAP address of TNIU,
 //                     and additional alignment operation is needed for the WRAP request address.
 // Parameter         :
 // Modified History  :
@@ -22,8 +22,8 @@ module wrap_align#(
     ,parameter REQ_ADDR_OFFSET = 57
     ,parameter REQ_USER_OFFSET = 89
 
-    ,parameter NBYTEPERWORD = 8   
-    ,parameter REQ_FLIT_WITH = 177 
+    ,parameter NBYTEPERWORD = 8
+    ,parameter REQ_FLIT_WITH = 177
 
     ,parameter RWRAP_CNT_MAX = 4
     ,parameter DLY = 1
@@ -64,12 +64,12 @@ wire [ADDR_WITH-1:0]    src_addr;    //Source address
 wire [NBYTEPERWORD*9-1:0]   body;    //The body does not contain LW bits
 assign src_addr = rknp_xx2wa_data[REQ_ADDR_OFFSET +: ADDR_WITH];
 assign opc = rknp_xx2wa_data[REQ_OPC_OFFSET +: 4];
-assign body = rknp_xx2wa_data[REQ_HEAD_LEN_OFFSET+1 +: NBYTEPERWORD*9]; 
+assign body = rknp_xx2wa_data[REQ_HEAD_LEN_OFFSET+1 +: NBYTEPERWORD*9];
 
 assign len = rknp_xx2wa_data[REQ_LEN_OFFSET +: 8];
 
 wire [ADDR_WITH-1:0]    jud_addr;    //The forward alignment address is used to determine whether the address is aligned
-reg  [ADDR_WITH-1:0]    align_addr;  //addresses of wrap aligns 
+reg  [ADDR_WITH-1:0]    align_addr;  //addresses of wrap aligns
 reg  [7:0]              offset_addr; //address offset of the wrap alignment
 
 
@@ -96,32 +96,58 @@ assign wa2reqo_offset_addr = (opc[1:0] == 2'b01 && len[7:2] != 6'd0) ? offset_ad
 // A counter for the number of unaligned read wrap requests is generated for out-of-gauge backpressure
 //------------------------------------------------------
 reg [RWRAP_CNT_WITH:0] rwrap_cnt;   // Unaligned read wrap request count counter
+wire unaligned_rwrap_head;
+wire rwrap_full;
+wire rwrap_allow;
+wire rknp_xx2wa_hs;
+wire rwrap_alloc;
+wire rwrap_free;
+
+assign unaligned_rwrap_head = rknp_xx2wa_valid
+                            && rknp_xx2wa_head
+                            && (opc == RDW)
+                            && (wa2reqo_offset_addr != 8'd0);
+assign rwrap_full = (rwrap_cnt >= RWRAP_CNT_MAX);
+// This local enable must not depend on reqo2wa_ready. Keeping it independent
+// breaks the ready -> head/valid -> overlap -> ready combinational loop.
+assign rwrap_allow = !(unaligned_rwrap_head && rwrap_full);
+assign rknp_xx2wa_hs = rknp_xx2wa_valid && wa2rknp_xx_ready;
+assign rwrap_alloc = rknp_xx2wa_hs
+                   && rknp_xx2wa_head
+                   && (opc == RDW)
+                   && (wa2reqo_offset_addr != 8'd0);
+assign rwrap_free = rwrap_rsp_fin;
+
 always @(posedge clk or negedge resetn) begin
-    if (resetn == 1'b0) 
+    if (resetn == 1'b0) begin
         rwrap_cnt <= #DLY 'd0;
-    else if(wa2reqo_head == 1'b1 && reqo2wa_ready == 1'b1 && wa2reqo_data[REQ_OPC_OFFSET +: 4] == RDW && wa2reqo_offset_addr != 8'd0)
-        rwrap_cnt <= #DLY rwrap_cnt + 1'b1;
-    else if(rwrap_rsp_fin == 1'b1)
-        rwrap_cnt <= #DLY rwrap_cnt - 1'b1;
+    end else begin
+        case ({rwrap_alloc, rwrap_free})
+            2'b10: rwrap_cnt <= #DLY rwrap_cnt + 1'b1;
+            2'b01: begin
+                if (rwrap_cnt != 'd0)
+                    rwrap_cnt <= #DLY rwrap_cnt - 1'b1;
+            end
+            // Allocate+free in the same cycle, or no activity: hold the count.
+            default: rwrap_cnt <= #DLY rwrap_cnt;
+        endcase
+    end
 end
 
 //------------------------------------------------------
 // Generate the ready signal
 //------------------------------------------------------
 always @(*) begin
-    if(opc == RDW && rwrap_cnt == RWRAP_CNT_MAX)
-        wa2rknp_xx_ready = 1'b0;
-    else
-        wa2rknp_xx_ready = reqo2wa_ready;
+    wa2rknp_xx_ready = reqo2wa_ready && rwrap_allow;
 end
 //------------------------------------------------------
 // The first beat data of the write wrap unaligned request is cached
 //------------------------------------------------------
 reg [REQ_FLIT_WITH-1:0]         wwrap_buffer;
 always @(posedge clk or negedge resetn) begin
-    if (resetn == 1'b0) 
+    if (resetn == 1'b0)
         wwrap_buffer <= #DLY 0;
-    else if (rknp_xx2wa_head == 1'b1)
+    else if (rknp_xx2wa_hs && rknp_xx2wa_head)
         wwrap_buffer <= #DLY {rknp_xx2wa_data[REQ_FLIT_WITH-1:REQ_USER_OFFSET] , align_addr , rknp_xx2wa_data[REQ_ADDR_OFFSET-1:0]};
 end
 
@@ -130,9 +156,9 @@ end
 //------------------------------------------------------
 reg rknp_xx2wa_head_d;
 always @(posedge clk or negedge resetn) begin
-    if (resetn == 1'b0) 
+    if (resetn == 1'b0)
         rknp_xx2wa_head_d <= #DLY 1'b0;
-    else if (rknp_xx2wa_head == 1'b1 && wa2rknp_xx_ready == 1'b1 && opc == WRW && wa2reqo_offset_addr != 8'd0) // 必须是需要对齐的写WRAP才能拉高head_d
+    else if (rknp_xx2wa_hs && rknp_xx2wa_head && opc == WRW && wa2reqo_offset_addr != 8'd0) // 必须是需要对齐的写WRAP才能拉高head_d
         rknp_xx2wa_head_d <= #DLY 1'b1;
     else if(reqo2wa_ready == 1'b1)
         rknp_xx2wa_head_d <= #DLY 1'b0;
@@ -141,18 +167,20 @@ end
 // head signal generation
 //------------------------------------------------------
 always @(*) begin
-    if(opc == WRW && wa2reqo_offset_addr != 8'd0 && rknp_xx2wa_head_d == 1'b1)
+    if(!rwrap_allow)
+        wa2reqo_head = 1'b0;
+    else if(opc == WRW && wa2reqo_offset_addr != 8'd0 && rknp_xx2wa_head_d == 1'b1)
         wa2reqo_head = rknp_xx2wa_head_d;
     else if(opc == WRW && wa2reqo_offset_addr != 8'd0 && rknp_xx2wa_head == 1'b1)
         wa2reqo_head = 1'd0;
     else
-        wa2reqo_head = rknp_xx2wa_head & wa2rknp_xx_ready;
+        wa2reqo_head = rknp_xx2wa_head;
 end
 
 //------------------------------------------------------
 // tail signal generation
 //------------------------------------------------------
-assign wa2reqo_tail = rknp_xx2wa_tail & wa2rknp_xx_ready;
+assign wa2reqo_tail = wa2reqo_valid && rknp_xx2wa_tail;
 
 
 //------------------------------------------------------
@@ -176,8 +204,8 @@ always @(*) begin
             wa2reqo_data[REQ_HEAD_LEN_OFFSET] = 1'b1; // LW bit at high level
 
         end else if(opc == WRW && offset_addr != 8'd0 && rknp_xx2wa_head_d == 1'b1) begin // the first beat after aligning the Write WRAP misaligned request
-            wa2reqo_data = {body, wwrap_buffer[REQ_HEAD_LEN_OFFSET : 0]}; 
-        
+            wa2reqo_data = {body, wwrap_buffer[REQ_HEAD_LEN_OFFSET : 0]};
+
         end else if(opc == WRW && offset_addr != 8'd0 && rknp_xx2wa_valid == 1'b1) begin // the middle beat after aligning the Write WRAP misaligned request
             wa2reqo_data[REQ_HEAD_LEN_OFFSET+1 +: 9*NBYTEPERWORD] = body;
             wa2reqo_data[REQ_HEAD_LEN_OFFSET : 0] = wwrap_buffer[REQ_HEAD_LEN_OFFSET : 0];     // including the LW bit
@@ -187,10 +215,10 @@ always @(*) begin
 
         end else if(rknp_xx2wa_valid == 1'b1) begin  //INCR type direct passthtrough
             wa2reqo_data = rknp_xx2wa_data;
-        end else 
+        end else
             wa2reqo_data = 'd0;
     end
-    
+
 end
 
 
@@ -198,10 +226,12 @@ end
 // Generate valid signals
 //------------------------------------------------------
 always @(*) begin
-    if(opc == WRW && wa2reqo_offset_addr != 8'd0 && rknp_xx2wa_head == 1'b1)
+    if(!rwrap_allow)  // 由于本模块的原因不能拉高valid，不能和ready绑定在一起，要单独列出
+        wa2reqo_valid = 1'b0;
+    else if(opc == WRW && wa2reqo_offset_addr != 8'd0 && rknp_xx2wa_head == 1'b1)
         wa2reqo_valid = 1'b0;
     else
-        wa2reqo_valid = rknp_xx2wa_valid & wa2rknp_xx_ready;
+        wa2reqo_valid = rknp_xx2wa_valid;
 end
 
 
