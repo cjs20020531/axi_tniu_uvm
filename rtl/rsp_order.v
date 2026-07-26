@@ -337,7 +337,7 @@ generate
                 
                 if(rspo2reqo_rhead_en == 1'b1) begin // 删除操作
                     if(follo_err_en == 1'b1 || fir_err_en == 1'b1)
-                        spec_req_buffer[buff_index][1:0] <= #DLY 1'b00;
+                        spec_req_buffer[buff_index][1:0] <= #DLY 2'b00;
                     
                 end
             end
@@ -820,8 +820,12 @@ assign rspo2rknp_xx_lw_neg = (~rspt2rspo_lw_d) & rspt2rspo_lw_d2;
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rsp_phase_temp <= #DLY 1'b0;
-    end else if(rspo2rknp_xx_valid == 1'b1) begin
-        rsp_phase_temp <= #DLY 1'b1; 
+    end else if(rspo2rknp_xx_tail == 1'b1 &&
+                rknp_xx2rspo_ready == 1'b1) begin
+        rsp_phase_temp <= #DLY 1'b0;
+    end else if(rspo2rknp_xx_valid == 1'b1 &&
+                rknp_xx2rspo_ready == 1'b1) begin
+        rsp_phase_temp <= #DLY 1'b1;
     end else if(rspt2rspo_lw_d == 1'b1) begin
         rsp_phase_temp <= #DLY 1'b0;
     end
@@ -858,7 +862,11 @@ always @(*) begin
             end
         end
         SPEC_RSP: begin
-            if(rspo2reqo_rhead_en == 1'b1 && follo_err_en == 1'b0 && fir_err_en == 1'b0 && timout_fifo_rden == 1'b0) begin
+            if(rspo2rknp_xx_tail == 1'b1 &&
+               rknp_xx2rspo_ready == 1'b1 &&
+               follo_err_en == 1'b0 &&
+               fir_err_en == 1'b0 &&
+               timout_fifo_rden == 1'b0) begin
                 next_state = NORM_RSP;
             end else begin
                 next_state = SPEC_RSP;
