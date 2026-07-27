@@ -174,6 +174,7 @@ localparam BUFF_ERRC_OFFSET = BUFF_STAT_OFFSET + 2;
 localparam BUFF_TAGCNT_OFFSET = BUFF_ERRC_OFFSET + 3;
 localparam BUFF_OPC_OFFSET = BUFF_TAGCNT_OFFSET + TAG_CNT_WITH;
 localparam BUFF_AXID_OFFSET = BUFF_OPC_OFFSET + 2;
+localparam INDEX_WITH = $clog2(SPEC_REQ_BUFF_DEEP);
 
 
 reg cur_state;
@@ -181,13 +182,18 @@ reg next_state;
 
 wire follo_err_en; //buffer中存在下一笔请求为err的有效标志位
 wire fir_err_en;   //buffer中存在第一笔该类型请求为err的有效标志位
-reg [SPEC_REQ_BUFF_DEEP-1:0] buff_index;  //选择特殊请求缓冲的索引值
+wire spec_dispatch_en; //本拍明确读取并启动一笔特殊响应
+wire rsp_tail_hs;
+wire spec_err_pending;
+wire spec_req_ready_en;
+reg [SPEC_REQ_BUFF_DEEP-1:0] spec_req_ready_hot;
+reg [INDEX_WITH-1:0] spec_req_ready_index;
+reg [INDEX_WITH-1:0] buff_index;  //选择特殊请求缓冲的索引值
 
 //------------------------------------------------------
 //  生成idle_buff_index值
 //------------------------------------------------------
 genvar i,j;
-localparam INDEX_WITH = $clog2(SPEC_REQ_BUFF_DEEP);
 wire [SPEC_REQ_BUFF_DEEP-1:0] buff_used; //生成idle_buff_index_hot的中间变量
 wire [SPEC_REQ_BUFF_DEEP-1:0] idle_buff_index_hot;
 wire [INDEX_WITH-1:0] idle_buff_index;
@@ -337,10 +343,9 @@ generate
                 
                 // 只有真正为特殊响应读取head时，才能释放对应的特殊请求。
                 // 普通响应同样会拉高rspo2reqo_rhead_en，不能据此误删尚未发送的ERR。
-                if(rspo2reqo_rhead_en == 1'b1 &&
-                   next_state == SPEC_RSP &&
+                if(spec_dispatch_en == 1'b1 &&
                    timout_fifo_rden == 1'b0 &&
-                   (follo_err_en == 1'b1 || fir_err_en == 1'b1))
+                   spec_req_ready_en == 1'b1)
                     spec_req_buffer[buff_index][1:0] <= #DLY 2'b00;
             end
         end
@@ -378,10 +383,9 @@ generate
                 end
                 
                 // early response模式也必须区分普通rhead与特殊rhead。
-                if(rspo2reqo_rhead_en == 1'b1 &&
-                   next_state == SPEC_RSP &&
+                if(spec_dispatch_en == 1'b1 &&
                    timout_fifo_rden == 1'b0 &&
-                   (follo_err_en == 1'b1 || fir_err_en == 1'b1))
+                   spec_req_ready_en == 1'b1)
                     spec_req_buffer[buff_index][1:0] <= #DLY 2'b00;
             end
         end
@@ -531,13 +535,61 @@ always @(posedge clk or negedge resetn) begin
         else
             tag_cnt[norm_rsp_tag_name_index] <= #DLY
                 tag_cnt[norm_rsp_tag_name_index] + 1'b1;
-    end else if(next_state == SPEC_RSP && rspo2reqo_rhead_en == 1'b1 && timout_fifo_rden == 1'b0) begin// 当传输特殊响应时，在索引head时就让cnt自增，对超时响应不自增
+    end else if(spec_dispatch_en == 1'b1 &&
+                timout_fifo_rden == 1'b0) begin// 启动特殊响应时推进对应类型tag，超时响应不推进
         if(tag_cnt[spec_tag_name_index] == SPEC_REQ_BUFF_DEEP-1)
             tag_cnt[spec_tag_name_index] <= #DLY 'd0;
         else
             tag_cnt[spec_tag_name_index] <= #DLY
                 tag_cnt[spec_tag_name_index] + 1'b1;
     end
+end
+
+//------------------------------------------------------
+//  对全部特殊请求逐项判断是否已经到达各自类型的响应顺序头
+//------------------------------------------------------
+integer spec_ready_i;
+integer spec_ready_tag_i;
+always @(*) begin
+    spec_req_ready_hot = 'd0;
+    for(spec_ready_i=0;
+        spec_ready_i<SPEC_REQ_BUFF_DEEP;
+        spec_ready_i=spec_ready_i+1) begin
+        if(spec_req_buffer[spec_ready_i][0] == 1'b1) begin
+            // fir_flag用于新类型首次分配时的快速路径。
+            if(spec_req_buffer[spec_ready_i][BUFF_FIR_FLAG_OFFSET] == 1'b1)
+                spec_req_ready_hot[spec_ready_i] = 1'b1;
+            else begin
+                // follower必须和该条目自己的{AXID,OPC,TAG}比较，
+                // 不能只依赖最后一笔普通响应的类型。
+                for(spec_ready_tag_i=0;
+                    spec_ready_tag_i<SPEC_REQ_BUFF_DEEP;
+                    spec_ready_tag_i=spec_ready_tag_i+1) begin
+                    if(tag_name[spec_ready_tag_i][0] == 1'b1 &&
+                       tag_name[spec_ready_tag_i][1 +: AXID_WITH+2] ==
+                           spec_req_buffer[spec_ready_i]
+                               [BUFF_OPC_OFFSET +: AXID_WITH+2] &&
+                       tag_cnt[spec_ready_tag_i] ==
+                           spec_req_buffer[spec_ready_i]
+                               [BUFF_TAGCNT_OFFSET +: TAG_CNT_WITH])
+                        spec_req_ready_hot[spec_ready_i] = 1'b1;
+                end
+            end
+        end
+    end
+end
+
+assign spec_req_ready_en = |spec_req_ready_hot;
+
+integer spec_ready_sel_i;
+always @(*) begin
+    spec_req_ready_index = 'd0;
+    // 从高到低覆盖，最终保留最低有效下标。
+    for(spec_ready_sel_i=SPEC_REQ_BUFF_DEEP-1;
+        spec_ready_sel_i>=0;
+        spec_ready_sel_i=spec_ready_sel_i-1)
+        if(spec_req_ready_hot[spec_ready_sel_i] == 1'b1)
+            spec_req_ready_index = spec_ready_sel_i;
 end
 
 
@@ -772,7 +824,7 @@ endgenerate
 //  索引值选择
 //------------------------------------------------------
 
-reg [SPEC_REQ_BUFF_DEEP-1:0] buff_index_d;
+reg [INDEX_WITH-1:0] buff_index_d;
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) 
         buff_index_d <= #DLY 'd0;
@@ -781,10 +833,8 @@ always @(posedge clk or negedge resetn) begin
 end
 
 always @(*) begin
-    if(follo_err_en == 1'b1) 
-        buff_index = follo_req_buff_index;
-    else if(fir_err_en == 1'b1)
-        buff_index = fir_req_buff_index;
+    if(spec_req_ready_en == 1'b1)
+        buff_index = spec_req_ready_index;
     else
         buff_index = buff_index_d; //其他情况保持
 end
@@ -800,8 +850,7 @@ always @(posedge clk or negedge resetn) begin
         spec_rsp_opc <= #DLY 2'd0;
         spec_rsp_axid <= #DLY 'd0;
         spec_rsp_tag_name_index <= #DLY 'd0;
-    end else if(rspo2reqo_rhead_en == 1'b1 &&
-                next_state == SPEC_RSP) begin
+    end else if(spec_dispatch_en == 1'b1) begin
         if(timout_fifo_rden == 1'b1) begin
             spec_rsp_errcode <= #DLY TIM_OUT;
             spec_rsp_status <= #DLY ERR;
@@ -878,6 +927,18 @@ always @(*) begin
     end
 end
 
+// 特殊响应只能由一个无组合环的dispatch事件启动：
+// 1) 普通响应通道空闲且存在可发送ERR；
+// 2) 当前响应尾拍握手，同时存在下一笔ERR或timeout。
+assign rsp_tail_hs = rspo2rknp_xx_tail &&
+                     rspo2rknp_xx_valid &&
+                     rknp_xx2rspo_ready;
+assign spec_err_pending = spec_req_ready_en;
+assign spec_dispatch_en =
+    ((cur_state == NORM_RSP) && (rsp_phase == 1'b0) &&
+     spec_err_pending) ||
+    (rsp_tail_hs && (spec_err_pending || timout_fifo_rden));
+
 
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
@@ -890,28 +951,20 @@ end
 always @(*) begin
     case(cur_state)
         NORM_RSP: begin
-            if((rspo2reqo_rhead_en == 1'b1 && rspo2rspt_ready == 1'b0)&& (follo_err_en == 1'b1 || fir_err_en == 1'b1 || timout_fifo_rden == 1'b1)) begin
+            if(spec_dispatch_en == 1'b1)
                 next_state = SPEC_RSP;
-            end else if((rspt2rspo_lw == 1'b1 && rspo2rspt_ready == 1'b0)&& (follo_err_en == 1'b1 || fir_err_en == 1'b1 || timout_fifo_rden == 1'b1)) begin
-                next_state = SPEC_RSP;
-            end else if((fir_err_en == 1'b1 || follo_err_en == 1'b1) &&
-                        rsp_phase == 1'b0) begin
-                next_state = SPEC_RSP;
-            end else begin
+            else
                 next_state = NORM_RSP;
-            end
         end
         SPEC_RSP: begin
-            if(rspo2rknp_xx_tail == 1'b1 &&
-               rknp_xx2rspo_ready == 1'b1 &&
-               follo_err_en == 1'b0 &&
-               fir_err_en == 1'b0 &&
-               timout_fifo_rden == 1'b0) begin
+            if(rsp_tail_hs == 1'b1 &&
+               spec_dispatch_en == 1'b0)
                 next_state = NORM_RSP;
-            end else begin
+            else
                 next_state = SPEC_RSP;
-            end
         end
+        default:
+            next_state = NORM_RSP;
     endcase
 end
 
@@ -1008,12 +1061,10 @@ reg spec_rsp_phase; // 特殊响应恢复区间
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         spec_rsp_phase <= #DLY 1'b0;
-    end else if(rspo2reqo_rhead_en == 1'b1 &&
-                next_state == SPEC_RSP) begin
-        // 仅特殊响应的rhead允许启动自组包。状态切回NORM_RSP时
-        // 同拍接收的普通响应HEAD不能重新置位该标志。
+    end else if(spec_dispatch_en == 1'b1) begin
+        // dispatch同时完成head读取、属性锁存和自组包启动。
         spec_rsp_phase <= #DLY 1'b1;
-    end else if(rspo2rknp_xx_tail == 1'b1 && rknp_xx2rspo_ready == 1'b1) begin
+    end else if(rsp_tail_hs == 1'b1) begin
         spec_rsp_phase <= #DLY 1'b0;
     end
 end
@@ -1113,91 +1164,78 @@ reg [2:0] a;
 generate
     if(EARLY_RSP_MODE == 0) begin
         always @(*) begin
-            case(next_state)
-                NORM_RSP: begin
-                    rspo2reqo_head_index = {rspt2rspo_axid , rspt2rspo_opc , tag_cnt[tag_name_index]};
-                    rspo2reqo_rhead_en = (rspt2rspo_head == 1'b1 && rspo2rspt_ready == 1'b1) ? 1'd1 : 1'b0;
-                    del_head_en = (rspt2rspo_lw == 1'b1 && rspo2rspt_ready == 1'b1) ? 1'd1 : 1'b0;
-                    rspo2reqo_rsp_valid = (rspt2rspo_valid == 1'b1 && rspo2rspt_ready == 1'b1) ? 1'd1 : 1'b0;
-                    
+            rspo2reqo_head_index = 'd0;
+            rspo2reqo_rhead_en = 1'b0;
+            del_head_en = 1'b0;
+
+            if(spec_dispatch_en == 1'b1) begin
+                if(timout_fifo_rden == 1'b1) begin
+                    rspo2reqo_head_index = {wd2rspo_axid,wd2rspo_opc,
+                                           tag_cnt[wd_tag_name_index]};
+                    rspo2reqo_rhead_en = 1'b1;
+                    del_head_en = 1'b0;
+                end else begin
+                    rspo2reqo_head_index =
+                        spec_req_buffer[buff_index]
+                            [BUFF_TAGCNT_OFFSET +:
+                             AXID_WITH+TAG_CNT_WITH+2];
+                    rspo2reqo_rhead_en = 1'b1;
+                    del_head_en = 1'b1;
                 end
-                SPEC_RSP: begin
-                    if(timout_fifo_rden == 1'b1) begin
-                        rspo2reqo_head_index = {wd2rspo_axid,wd2rspo_opc,
-                                               tag_cnt[wd_tag_name_index]};
-                        rspo2reqo_rhead_en = 1'b1;
-                        del_head_en = 1'b0;
-                    end else if(rspo2rknp_xx_tail == 1'b1 &&
-                                rknp_xx2rspo_ready == 1'b1 &&
-                                (follo_err_en == 1'b1 ||
-                                 fir_err_en == 1'b1)) begin  // 当前模块正在传输响应，且存在follo_req\fir_req时
-                        rspo2reqo_head_index = {spec_req_buffer[buff_index][BUFF_TAGCNT_OFFSET +: AXID_WITH+TAG_CNT_WITH+2]};
-                        rspo2reqo_rhead_en = 1'b1;
-                        del_head_en = 1'b1;
-                    end else if(rsp_phase == 1'b0 &&
-                                (fir_err_en == 1'b1 ||
-                                 follo_err_en == 1'b1)) begin  // 当前模块未在传输响应，且存在可发送的ERR时
-                        rspo2reqo_head_index = {spec_req_buffer[buff_index][BUFF_TAGCNT_OFFSET +: AXID_WITH+TAG_CNT_WITH+2]};
-                        rspo2reqo_rhead_en = 1'b1;
-                        del_head_en = 1'b1;
-                    end else begin
-                        rspo2reqo_head_index = 'd0;
-                        rspo2reqo_rhead_en = 1'b0;
-                        del_head_en = 1'b0;
-                    end
-                end
-            endcase
+            end else if(cur_state == NORM_RSP) begin
+                rspo2reqo_head_index =
+                    {rspt2rspo_axid, rspt2rspo_opc,
+                     tag_cnt[tag_name_index]};
+                rspo2reqo_rhead_en =
+                    rspt2rspo_head && rspo2rspt_ready;
+                del_head_en =
+                    rspt2rspo_lw && rspo2rspt_ready;
+            end
         end
     end else begin
         always @(*) begin
-            case(next_state)
-                NORM_RSP: begin
-                    if(buff_rsp_flag == 1'b0) begin
-                        rspo2reqo_head_index = {rspt2rspo_axid , rspt2rspo_opc , tag_cnt[tag_name_index]};
-                        rspo2reqo_rhead_en = (rspt2rspo_head == 1'b1 && rspo2rspt_ready == 1'b1) ? 1'd1 : 1'b0;
-                        del_head_en = (rspt2rspo_lw == 1'b1 && rspo2rspt_ready == 1'b1) ? 1'd1 : 1'b0;
-                        rspo2reqo_rsp_valid = (rspt2rspo_valid == 1'b1 && rspo2rspt_ready == 1'b1) ? 1'd1 : 1'b0;
-                        
-                    end else begin
-                        rspo2reqo_head_index = {rspt2rspo_axid , rspt2rspo_opc , erd2rspo_tag_cnt};
-                        rspo2reqo_rhead_en = 1'b0;     //仅删除，不读取
-                        del_head_en = (rspt2rspo_lw == 1'b1 && rspo2rspt_ready == 1'b1) ? 1'd1 : 1'b0;  //删除early response的real response
-                        rspo2reqo_rsp_valid = 1'b0;    //仅删除，无需修改地址
-                    end
-                    
+            rspo2reqo_head_index = 'd0;
+            rspo2reqo_rhead_en = 1'b0;
+            del_head_en = 1'b0;
+            a = 3'd5;
+
+            if(spec_dispatch_en == 1'b1) begin
+                if(timout_fifo_rden == 1'b1) begin
+                    rspo2reqo_head_index = {wd2rspo_axid,wd2rspo_opc,
+                                           tag_cnt[wd_tag_name_index]};
+                    rspo2reqo_rhead_en = 1'b1;
+                    del_head_en = 1'b0;
+                    a = 3'd1;
+                end else begin
+                    rspo2reqo_head_index =
+                        spec_req_buffer[buff_index]
+                            [BUFF_TAGCNT_OFFSET +:
+                             AXID_WITH+TAG_CNT_WITH+2];
+                    rspo2reqo_rhead_en = 1'b1;
+                    del_head_en =
+                        (spec_req_buffer[buff_index]
+                            [BUFF_STAT_OFFSET +: 2] == OK) ?
+                        1'b0 : 1'b1;
+                    a = 3'd3;
                 end
-                SPEC_RSP: begin
-                    if(timout_fifo_rden == 1'b1) begin
-                        rspo2reqo_head_index = {wd2rspo_axid,wd2rspo_opc,
-                                               tag_cnt[wd_tag_name_index]};
-                        rspo2reqo_rhead_en = 1'b1;
-                        del_head_en = 1'b0;
-                        a = 1;
-                    end else if(rspo2rknp_xx_tail == 1'b1 &&
-                                rknp_xx2rspo_ready == 1'b1 &&
-                                (follo_err_en == 1'b1 ||
-                                 fir_err_en == 1'b1)) begin  // 当前模块正在传输响应，且存在follo_req\fir_req时
-                        rspo2reqo_head_index = {spec_req_buffer[buff_index][BUFF_TAGCNT_OFFSET +: AXID_WITH+TAG_CNT_WITH+2]};
-                        rspo2reqo_rhead_en = 1'b1;
-                        a = 3;
-                        if(spec_req_buffer[buff_index][BUFF_STAT_OFFSET] == OK) del_head_en = 1'b0; //若该请求为bufferable，则不删除
-                        else                                                    del_head_en = 1'b1; //若该请求本身为ERR请求，则删除
-                    end else if(rsp_phase == 1'b0 &&
-                                (fir_err_en == 1'b1 ||
-                                 follo_err_en == 1'b1)) begin  // 当前模块未在传输响应，且存在可发送的ERR时
-                        rspo2reqo_head_index = {spec_req_buffer[buff_index][BUFF_TAGCNT_OFFSET +: AXID_WITH+TAG_CNT_WITH+2]};
-                        rspo2reqo_rhead_en = 1'b1;
-                        a = 4;
-                        if(spec_req_buffer[buff_index][BUFF_STAT_OFFSET] == OK) del_head_en = 1'b0; //若该请求为bufferable，则不删除
-                        else                                                    del_head_en = 1'b1; //若该请求本身为ERR请求，则删除
-                    end else begin
-                        rspo2reqo_head_index = 'd0;
-                        rspo2reqo_rhead_en = 1'b0;
-                        del_head_en = 1'b0;
-                        a = 5;
-                    end
+            end else if(cur_state == NORM_RSP) begin
+                if(buff_rsp_flag == 1'b0) begin
+                    rspo2reqo_head_index =
+                        {rspt2rspo_axid, rspt2rspo_opc,
+                         tag_cnt[tag_name_index]};
+                    rspo2reqo_rhead_en =
+                        rspt2rspo_head && rspo2rspt_ready;
+                    del_head_en =
+                        rspt2rspo_lw && rspo2rspt_ready;
+                end else begin
+                    rspo2reqo_head_index =
+                        {rspt2rspo_axid, rspt2rspo_opc,
+                         erd2rspo_tag_cnt};
+                    rspo2reqo_rhead_en = 1'b0;
+                    del_head_en =
+                        rspt2rspo_lw && rspo2rspt_ready;
                 end
-            endcase
+            end
         end
     end
 endgenerate
@@ -1205,21 +1243,17 @@ endgenerate
 
 
 always @(*) begin
-    case(next_state)
-        NORM_RSP: begin
-            rspo2reqo_rsp_valid = rspo2rknp_xx_valid;
-        end
-        SPEC_RSP: begin
-            rspo2reqo_rsp_valid = 1'b0;
-        end
-    endcase
+    if(cur_state == NORM_RSP && spec_dispatch_en == 1'b0)
+        rspo2reqo_rsp_valid = rspo2rknp_xx_valid;
+    else
+        rspo2reqo_rsp_valid = 1'b0;
 end
 
 //------------------------------------------------------
 //   生成rspo2rspt_ready信号
 //------------------------------------------------------
 always @(*) begin
-    if(next_state == SPEC_RSP) //当处于处理特殊响应（包括超时响应）时需反压rsp_trans模块
+    if(cur_state == SPEC_RSP || spec_dispatch_en == 1'b1)
         rspo2rspt_ready = 1'b0;
     else
         rspo2rspt_ready = rknp_xx2rspo_ready;
