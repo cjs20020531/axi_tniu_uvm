@@ -10,6 +10,12 @@ typedef enum bit {
   WRAP_LEN_FULL
 } wrap_len_mode_e;
 
+typedef enum bit {
+  WRAP_ADDR_NOALIGN,
+  WRAP_ADDR_ALIGN
+} wrap_addr_align_mode_e;
+
+
 class rknp_base_seq extends uvm_sequence #(rknp_seq_item);
   `uvm_object_utils(rknp_base_seq)
 
@@ -47,10 +53,8 @@ class rknp_base_seq extends uvm_sequence #(rknp_seq_item);
 
     candidate = 1;
     while (candidate <= MAX_LEN) begin
-      if (((wrap_len_mode == WRAP_LEN_NARROW) &&
-           (candidate < (NBPW - 1))) ||
-          ((wrap_len_mode == WRAP_LEN_FULL) &&
-           (candidate >= (NBPW - 1))))
+      if (((wrap_len_mode == WRAP_LEN_NARROW) && (candidate < (NBPW - 1))) ||
+           ((wrap_len_mode == WRAP_LEN_FULL) && (candidate >= (NBPW - 1))))
         legal_len.push_back(candidate);
       candidate = (candidate << 1) | 1;
     end

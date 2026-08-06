@@ -39,8 +39,11 @@ class axi_tniu_base_test extends uvm_test;
                "axi_tniu_base_test has no testcase; select a derived test")
   endtask
 
-  protected task start_rknp_sequence(rknp_base_seq seq,
-                                     int unsigned  transaction_count);
+  // The derived test owns sequence selection and default sequence
+  // configuration.  This helper only applies optional command-line overrides
+  // and starts the already-configured sequence.
+  protected task start_rknp_sequence(rknp_base_seq seq);
+    int unsigned plusarg_num_txn;
     int wrap_narrow;
     int wrap_flit_align;
 
@@ -50,8 +53,8 @@ class axi_tniu_base_test extends uvm_test;
         (env.rknp_agt.sqr == null))
       `uvm_fatal("TEST_NO_SQR", "RKNP sequencer is not available")
 
-    seq.num_txn = transaction_count;
-
+    if ($value$plusargs("num_txn=%d", plusarg_num_txn))
+      seq.num_txn = plusarg_num_txn;
     if ($value$plusargs("wrap_narrow=%d", wrap_narrow))
       seq.wrap_len_mode = wrap_narrow ? WRAP_LEN_NARROW : WRAP_LEN_FULL;
     if ($value$plusargs("wrap_flit_align=%d", wrap_flit_align))

@@ -6,13 +6,11 @@ class test_norm_rd extends axi_tniu_base_test;
     super.new(name, parent); 
   endfunction
 
-  function void configure_cfg(); 
-    cfg.num_txn = 4; 
-  endfunction
-
   task run_testcase();
     seq_norm_rd seq = seq_norm_rd::type_id::create("seq");
-    start_rknp_sequence(seq, cfg.num_txn);
+    // Sequence selection and configuration belong to this test.
+    seq.num_txn = 4;
+    start_rknp_sequence(seq);
   endtask
 
 endclass : test_norm_rd

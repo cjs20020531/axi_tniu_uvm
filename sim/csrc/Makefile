@@ -8,7 +8,7 @@ VSRC=..
 TARGET_ARCH=
 
 # Choose name of executable 
-PRODUCTBASE=$(VSRC)/simv
+PRODUCTBASE=/home/ICer/RKNoC/axi_tniu_uvm/sim/simv
 
 PRODUCT=$(PRODUCTBASE)
 
@@ -19,7 +19,7 @@ PRODUCT_TIMESTAMP=product_timestamp
 # Path to runtime library
 DEPLIBS=
 VCSUCLI=-lvcsucli
-RUNTIME=-lvcsnew -lsimprofile -luclinative /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_tls.o $(DEPLIBS) 
+RUNTIME=-lvcsnew -lsimprofile -lreader_common /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libBA.a -luclinative /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_tls.o $(DEPLIBS) 
 
 VCS_SAVE_RESTORE_OBJ=/home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_save_restore_new.o
 
@@ -111,6 +111,6 @@ $(PRODUCT_TIMESTAMP) : product_clean_order
 	@touch $(PRODUCT_TIMESTAMP)
 	@-if [ -d ./objs ]; then find ./objs -type d -empty -delete; fi
 
-$(PRODUCT) :  $(LD_VERSION_CHECK)  $(OBJS) $(DOTLIBS) $(DPI_STUB_OBJS) $(PLI_STUB_OBJS) $(CMODLIB) /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libvcsnew.so /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libsimprofile.so /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libuclinative.so /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_tls.o /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libvcsucli.so  $(VCS_SAVE_RESTORE_OBJ) 
+$(PRODUCT) :  $(LD_VERSION_CHECK)  $(OBJS) $(DOTLIBS) $(DPI_STUB_OBJS) $(PLI_STUB_OBJS) $(CMODLIB) /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libvcsnew.so /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libsimprofile.so /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libreader_common.so /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libBA.a /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libuclinative.so /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_tls.o /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libvcsucli.so  $(VCS_SAVE_RESTORE_OBJ) 
 	@touch $(PRODUCT)
 

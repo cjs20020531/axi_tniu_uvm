@@ -1,54 +1,57 @@
 # =============================================================================
 # File        : Makefile
-# Description : VCS + UVM build/run flow for the axi_tniu verification env.
-#               Targets:
-#                 make comp                compile + elaborate (build simv)
-#                 make run  TEST=test_rd   run one test (default test_sanity)
-#                 make all  TEST=...        comp + run
-#                 make cov                 merge + report coverage (urg)
-#                 make verdi               open the last FSDB in Verdi
-#                 make regress             run the built-in test list
-#                 make clean / cleanall    remove products
+# Description : axi_tniu UVM 的编译和单 testcase 仿真入口。
 #
-# Prerequisites (set in your shell or override on the command line):
-#                 RTL_HOME   directory holding axi_tniu.v + all sub-modules
-#                 TB_HOME    tb/ directory of this package (auto-detected)
-#                 VCS_HOME, VERDI_HOME, and a valid UVM install with VCS
+# 职责：
+#   - comp  : 编译 RTL/UVM testbench，生成 simv
+#   - run   : 运行一个由 TEST 指定的 testcase
+#   - cov   : 生成覆盖率报告
+#   - verdi : 打开波形
+#
+# 多 testcase 的顺序和回归汇总由 run_tests_in_order.sh 负责。
 # =============================================================================
 
-# ---- user-overridable knobs -------------------------------------------------
-TEST      ?= test_sanity
+# ---- 用户可覆盖参数 ---------------------------------------------------------
+TEST      ?= test_norm_rd
 SEED      ?= 1
 UVM_VERB  ?= UVM_MEDIUM
-WAVE      ?= 1                 # 1 => dump FSDB, 0 => no wave
-COV       ?= 1                 # 1 => enable coverage
+WAVE      ?= 1
+COV       ?= 1
+RUN_ARGS  ?=
 
-# ---- paths ------------------------------------------------------------------
+# ---- 工程路径 ---------------------------------------------------------------
 THIS_DIR  := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 TB_HOME   ?= $(abspath $(THIS_DIR)/../tb)
 RTL_HOME  ?= $(abspath $(THIS_DIR)/../rtl)
+LOG_DIR   ?= $(THIS_DIR)/log
+
 export TB_HOME RTL_HOME
 
-SIMV      := $(THIS_DIR)/simv
-FILELIST  := axi_tniu.f
-TOP       := tb_top
+SIMV       := $(THIS_DIR)/simv
+FILELIST   := axi_tniu.f
+TOP        := tb_top
+COMP_LOG   ?= $(LOG_DIR)/compile.log
+LOG_FILE   ?= $(LOG_DIR)/$(TEST).log
+COV_DIR    ?= $(THIS_DIR)/cov.vdb
+COV_REPORT ?= $(THIS_DIR)/cov_report
+WAVE_FILE  ?= $(THIS_DIR)/wave.fsdb
 
-# ---- coverage / wave switches ----------------------------------------------
+# ---- 编译/运行选项 ----------------------------------------------------------
 ifeq ($(WAVE),1)
-  WAVE_DEF := +define+FSDB
+  WAVE_COMPILE_OPTS := +define+FSDB
 else
-  WAVE_DEF :=
+  WAVE_COMPILE_OPTS :=
 endif
 
 ifeq ($(COV),1)
-  COV_CMP  := -cm line+cond+fsm+tgl+branch+assert -cm_dir $(THIS_DIR)/cov.vdb
-  COV_RUN  := -cm line+cond+fsm+tgl+branch+assert -cm_dir $(THIS_DIR)/cov.vdb -cm_name $(TEST)_$(SEED)
+  COV_COMPILE_OPTS := -cm line+cond+fsm+tgl+branch+assert -cm_dir $(COV_DIR)
+  COV_RUN_OPTS     := -cm line+cond+fsm+tgl+branch+assert \
+                      -cm_dir $(COV_DIR) -cm_name $(TEST)_$(SEED)
 else
-  COV_CMP  :=
-  COV_RUN  :=
+  COV_COMPILE_OPTS :=
+  COV_RUN_OPTS     :=
 endif
 
-# ---- VCS compile options ----------------------------------------------------
 VCS_OPTS := -full64 -sverilog -timescale=1ns/1ps \
             -ntb_opts uvm-1.2 \
             +vcs+lic+wait \
@@ -56,58 +59,68 @@ VCS_OPTS := -full64 -sverilog -timescale=1ns/1ps \
             -kdb \
             -lca \
             +define+UVM_NO_DEPRECATED \
-            $(WAVE_DEF) $(COV_CMP) \
-            -l comp.log
+            $(WAVE_COMPILE_OPTS) \
+            $(COV_COMPILE_OPTS)
 
-# ---- simv run options -------------------------------------------------------
 RUN_OPTS := +UVM_TESTNAME=$(TEST) \
             +UVM_VERBOSITY=$(UVM_VERB) \
             +ntb_random_seed=$(SEED) \
-            $(COV_RUN) \
-            -l $(TEST)_$(SEED).log
+            $(COV_RUN_OPTS) \
+            $(RUN_ARGS) \
+            -l "$(LOG_FILE)"
 
 # =============================================================================
 # Targets
 # =============================================================================
-.PHONY: all comp run regress cov verdi clean cleanall help
-
-all: comp run
+.PHONY: comp run cov verdi clean cleanall help
 
 comp:
-	@echo "==== VCS compile (RTL_HOME=$(RTL_HOME)) ===="
-	vcs $(VCS_OPTS) -f $(FILELIST) -top $(TOP) -o simv
+	@mkdir -p "$(LOG_DIR)"
+	@echo "==== compile: RTL_HOME=$(RTL_HOME), COV=$(COV), WAVE=$(WAVE) ===="
+	vcs $(VCS_OPTS) -f $(FILELIST) -top $(TOP) -o "$(SIMV)" -l "$(COMP_LOG)"
 
 run:
-	@echo "==== run $(TEST) (seed=$(SEED)) ===="
-	$(SIMV) $(RUN_OPTS)
+	@test -x "$(SIMV)" || { \
+	  echo "ERROR: $(SIMV) does not exist; run 'make comp' first." >&2; \
+	  exit 2; \
+	}
+	@mkdir -p "$(LOG_DIR)"
+	@echo "==== run: TEST=$(TEST), SEED=$(SEED), LOG=$(LOG_FILE) ===="
+	"$(SIMV)" $(RUN_OPTS)
 
-# run the built-in directed + random regression
-REGRESS_TESTS := test_sanity test_rd test_wr test_wrap test_err \
-                 test_same_addr test_axid test_ely test_mix test_random
-regress: comp
-	@for t in $(REGRESS_TESTS); do \
-	  echo "==== regress: $$t ===="; \
-	  $(SIMV) +UVM_TESTNAME=$$t +UVM_VERBOSITY=$(UVM_VERB) \
-	          +ntb_random_seed=$(SEED) $(COV_RUN) -l $$t.log ; \
-	done
-
-# merge coverage and produce an HTML/urg report
 cov:
-	@echo "==== coverage report ===="
-	urg -full64 -dir $(THIS_DIR)/cov.vdb -report $(THIS_DIR)/cov_report
+	@test -d "$(COV_DIR)" || { \
+	  echo "ERROR: coverage database not found: $(COV_DIR)" >&2; \
+	  exit 2; \
+	}
+	urg -full64 -dir "$(COV_DIR)" -report "$(COV_REPORT)"
 
-# open the most recent FSDB in Verdi (interactive)
 verdi:
-	@echo "==== launch Verdi ===="
-	verdi -sv -ntb_opts uvm-1.2 -f $(FILELIST) -top $(TOP) -ssf wave.fsdb &
+	@test -f "$(WAVE_FILE)" || { \
+	  echo "ERROR: wave file not found: $(WAVE_FILE)" >&2; \
+	  exit 2; \
+	}
+	verdi -sv -ntb_opts uvm-1.2 -f $(FILELIST) -top $(TOP) \
+	      -ssf "$(WAVE_FILE)" &
 
 clean:
-	rm -rf simv simv.daidir csrc *.log ucli.key vc_hdrs.h .vcsmx_rebuild novas.* verdiLog
+	rm -rf simv simv.daidir csrc ucli.key vc_hdrs.h .vcsmx_rebuild \
+	       novas.* verdiLog DVEfiles AN.DB
 
 cleanall: clean
-	rm -rf cov.vdb cov_report *.fsdb DVEfiles AN.DB
+	rm -rf "$(COV_DIR)" "$(COV_REPORT)" "$(WAVE_FILE)" "$(LOG_DIR)"
 
 help:
-	@echo "Targets: comp | run TEST=<name> | all | regress | cov | verdi | clean | cleanall"
-	@echo "Knobs  : TEST SEED UVM_VERB WAVE(0/1) COV(0/1) RTL_HOME TB_HOME"
-	@echo "Tests  : $(REGRESS_TESTS)"
+	@echo "Targets:"
+	@echo "  make comp                         Compile RTL and UVM testbench"
+	@echo "  make run TEST=<name>              Run one testcase"
+	@echo "  make cov                          Generate coverage report"
+	@echo "  make verdi                        Open $(WAVE_FILE)"
+	@echo "  make clean | make cleanall        Remove generated files"
+	@echo ""
+	@echo "Common variables:"
+	@echo "  TEST SEED UVM_VERB WAVE(0/1) COV(0/1) RUN_ARGS"
+	@echo "  RTL_HOME TB_HOME LOG_DIR LOG_FILE COMP_LOG"
+	@echo ""
+	@echo "Example:"
+	@echo "  make run TEST=test_norm_rd SEED=10 LOG_FILE=log/test_norm_rd.log"
