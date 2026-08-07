@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_buff_wr +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_buff_wr_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_buff_wr.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug  7 12:36 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug  7 13:03 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -157,17 +157,6 @@ RKNP-RSP
 	Offending '((($stable(awaddr) && $stable(awid)) && $stable(awlen)) && awvalid)'
 Error: "/home/ICer/RKNoC/axi_tniu_uvm/tb/common/axi_if.sv", 91: tb_top.axi_vif.a_aw_stable: at time 105000 ps
 [AXI_IF] AW payload changed while stalled
-UVM_WARNING /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(138) @ 125000: uvm_test_top.env.rknp_agt.mon [RKNP_TAG] Response label not found: iid=0x2bb tid=0x1a orderkey=0x3f status=ST_OK
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.0
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x2bb 
- tid=0x1a 
- ordkey=0x3f 
- lw=1
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(532) @ 125000: uvm_test_top.env.sb [C-LEAK-01] No.0 unexpected response iid=0x2bb tid=0x1a orderkey=0x3f
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 505000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
 
 RKNP-REQ 
@@ -235,17 +224,6 @@ RKNP-RSP
  tid=0x3a5 
  ordkey=0x78 
  lw=1
-UVM_WARNING /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(138) @ 575000: uvm_test_top.env.rknp_agt.mon [RKNP_TAG] Response label not found: iid=0x2b7 tid=0x3a5 orderkey=0x78 status=ST_OK
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 575000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.0
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x2b7 
- tid=0x3a5 
- ordkey=0x78 
- lw=1
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(532) @ 575000: uvm_test_top.env.sb [C-LEAK-01] No.0 unexpected response iid=0x2b7 tid=0x3a5 orderkey=0x78
 UVM_WARNING /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(138) @ 655000: uvm_test_top.env.rknp_agt.mon [RKNP_TAG] Response label not found: iid=0x2b7 tid=0x3a5 orderkey=0x78 status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 655000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.0
 
@@ -257,33 +235,33 @@ RKNP-RSP
  ordkey=0x78 
  lw=1
 UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(532) @ 655000: uvm_test_top.env.sb [C-LEAK-01] No.0 unexpected response iid=0x2b7 tid=0x3a5 orderkey=0x78
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(91) @ 755000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=4 response_packets=6 final_rsp=6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(91) @ 755000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=4 response_packets=4 final_rsp=4
 UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(629) @ 755000: uvm_test_top.env.sb [C-LEAK-01] 1 RKNP request expectation(s), key=0x7bd6c90, never got a final response
 UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(667) @ 755000: uvm_test_top.env.sb [C-LEAK-01] 1 AW-matched write expectation(s) never got a complete W burst
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(728) @ 755000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
-  REQ=4  RSP_PKT=6  RSP_FINAL(LW=1)=6
+  REQ=4  RSP_PKT=4  RSP_FINAL(LW=1)=4
   AW=4 AR=0 W=3 B=3 R=0
   ERR_req=0  AXI_SLVERR=0  WRAP=0  BUFFERABLE=4
   pending_AW=0 pending_AR=0
   pending_exp_W=1 pending_obs_W=0
-  PASS=10  FAIL=5
+  PASS=10  FAIL=3
 =====================================
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(113) @ 755000: uvm_test_top [RESULT] *** TEST FAILED ***
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 755000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
-UVM_INFO :   15
-UVM_WARNING :    3
-UVM_ERROR :    5
+UVM_INFO :   13
+UVM_WARNING :    1
+UVM_ERROR :    3
 UVM_FATAL :    0
 ** Report counts by id
-[C-LEAK-01]     5
+[C-LEAK-01]     3
 [RESULT]     1
 [RKNP_DRV_TX_PACKET]     4
-[RKNP_TAG]     3
-[RKNP_TXN]     6
+[RKNP_TAG]     1
+[RKNP_TXN]     4
 [RNTST]     1
 [RSP_DRAIN]     1
 [SB]     1
@@ -297,5 +275,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 755000 ps
-CPU Time:      0.330 seconds;       Data structure size:   0.9Mb
-Fri Aug  7 12:36:40 2026
+CPU Time:      0.370 seconds;       Data structure size:   0.9Mb
+Fri Aug  7 13:03:27 2026

@@ -969,10 +969,22 @@ always @(*) begin
 end
 
 
+reg buff_rsp_flag_d;
+always @(posedge clk or negedge resetn) begin
+    if(resetn == 1'b0) begin
+        buff_rsp_flag_d <= #DLY 1'b0;
+    end else begin
+        buff_rsp_flag_d <= #DLY buff_rsp_flag;
+    end
+end
+
+
+
+
 always @(*) begin
     case(cur_state)
         NORM_RSP: begin
-            if(rspo2rknp_xx_valid == 1'b1 && reqo2rspo_timout == 1'b0 && buff_rsp_flag == 1'b0) begin  //对常规响应，忽略超时响应与bufferable响应
+            if(rspo2rknp_xx_valid == 1'b1 && reqo2rspo_timout == 1'b0 && buff_rsp_flag_d == 1'b0) begin  //对常规响应，忽略超时响应与bufferable响应
 
                 rspo2rknp_xx_data = {
                     norm_rsp_data,
@@ -1074,7 +1086,7 @@ always @(*) begin
     case(cur_state)
         NORM_RSP: begin
             // if(reqo2rspo_timout == 1'b0 && reqo2rspo_rsp_status != CONT && rsp_opc == WR) begin //若该响应为已经超时响应或early response的real response，则不传输
-            if(reqo2rspo_timout == 1'b0 && buff_rsp_flag == 1'b0) begin //若该响应为已经超时响应或early response的real response，则不传输
+            if(reqo2rspo_timout == 1'b0 && buff_rsp_flag_d == 1'b0) begin //若该响应为已经超时响应或early response的real response，则不传输
                 rspo2rknp_xx_head = rspt2rspo_head_d;
                 rspo2rknp_xx_tail = rspt2rspo_tail_d;
                 rspo2rknp_xx_valid = rspt2rspo_valid_d;
