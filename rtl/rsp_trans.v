@@ -138,13 +138,17 @@ reg                         bvalid;
 reg  [AXID_WITH-1:0]        bid   ;
 reg  [1:0]                  bresp ;
 reg  [AUSER_WITH-1:0]       buser ;
+wire                        axi_b_hs;
+wire                        b_rsp_hs;
+
+assign axi_b_hs = axi_m_bvalid & axi_m_bready;
 
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         bid    <= #DLY 'd0;
         bresp  <= #DLY 2'd0;
         buser  <= #DLY 'd0;
-    end else if(axi_m_bready == 1'b1 && axi_m_bvalid == 1'b1)begin
+    end else if(axi_b_hs == 1'b1)begin
         bid    <= #DLY axi_m_bid;
         bresp  <= #DLY axi_m_bresp;
         buser  <= #DLY axi_m_buser;
@@ -154,9 +158,9 @@ end
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         bvalid <= #DLY 1'b0;
-    end else if(axi_m_bready == 1'b1 && axi_m_bvalid == 1'b1)begin
+    end else if(axi_b_hs == 1'b1)begin
         bvalid <= #DLY 1'b1;
-    end else if(rspo2rspt_ready == 1'b1)begin
+    end else if(b_rsp_hs == 1'b1)begin
         bvalid <= #DLY 1'b0;
     end
 end
@@ -165,10 +169,8 @@ end
 //  生成rrsp_phase信号
 //-----------------------------------------------------------------
 // read_active describes whether the last accepted AXI R beat says that more
-// beats are still expected.  Deriving this state directly from the AXI input
-// handshake avoids a one-cycle feedback dependency on the registered RLAST.
-// That dependency could leave rrsp_phase permanently high after the final
-// interleaved read beat, which in turn held BREADY low forever.
+// beats are still expected.  It keeps R selected across legal inter-beat gaps;
+// the independent B buffer below retains a B response while R has priority.
 reg  read_active;
 wire axi_r_hs;
 wire rrsp_phase;
@@ -189,7 +191,16 @@ assign rrsp_phase = rvalid | read_active;
 //-----------------------------------------------------------------
 //  生成bready信号
 //-----------------------------------------------------------------
-assign axi_m_bready = (~rrsp_phase) & (~axi_m_rvalid) & rspo2rspt_ready;
+// Keep one AXI B response in an independent buffer.  BREADY describes space
+// in this buffer; it must not depend on the transient R-channel arbitration or
+// directly on rsp_order's READY.  Most importantly, bvalid is retired only by
+// b_rsp_hs below, i.e. when B is actually selected and accepted downstream.
+// The old code cleared bvalid on any rspo2rspt_ready cycle.  If an R response
+// won arbitration while a B response was buffered, that silently discarded B
+// and left the corresponding request permanently resident in req_order.
+assign axi_m_bready = resetn & ~bvalid;
+
+assign b_rsp_hs = bvalid & ~rrsp_phase & rspo2rspt_ready;
 
 //-----------------------------------------------------------------
 //  生成rready信号
