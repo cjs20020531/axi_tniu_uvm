@@ -141,7 +141,7 @@ module rsp_order#(
     ,output        [AXID_WITH-1:0]        rspo2erd_axid
     ,output        [3:0]                  rspo2erd_opc
     ,output        [USER_WITH-1:0]        rspo2erd_user
-    ,input                                erd2rspo_tag_cnt
+    ,input         [TAG_CNT_WITH-1:0]     erd2rspo_tag_cnt
     ,input                                buff_rsp_flag
     ,output        [TAG_CNT_WITH-1:0]     rspo2erd_tag_cnt
 

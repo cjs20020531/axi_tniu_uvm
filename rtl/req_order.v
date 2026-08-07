@@ -691,8 +691,9 @@ always @(posedge clk or negedge resetn) begin
             fir_req_flag <= #DLY 1'b1;  //删除bvuffer中唯一一笔该类型请求的同时接收一笔该类型请求，也视为第一笔请求
         else
             fir_req_flag <= #DLY 1'b0;
-    end else
+    end else if(rspo2reqo_ready == 1'b1) begin
         fir_req_flag <= #DLY 1'b0; 
+    end
 end
 
 //----------------------------------------------------------------------------------
