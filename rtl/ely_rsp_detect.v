@@ -104,6 +104,9 @@ wire [ELYRSP_TABLE_DEEP-1:0] table_index_hot;
 wire [INDEX_WITH-1:0] table_index_hot2bin_temp1 [ELYRSP_TABLE_DEEP-1 : 0]; 
 wire [ELYRSP_TABLE_DEEP-1:0] table_index_hot2bin_temp2 [INDEX_WITH-1 : 0];
 wire [INDEX_WITH-1:0] table_index;
+wire                  table_match;
+wire                  buffered_write_rsp;
+wire                  real_write_rsp_hs;
 
 generate 
     for (i = 0 ; i < ELYRSP_TABLE_DEEP ; i = i + 1) begin 
@@ -126,10 +129,27 @@ generate
 	end
 endgenerate
 generate
-	for(j = 0; j < INDEX_WITH; j = j+1)begin 
+	for(j = 0; j < INDEX_WITH; j = j+1)begin
 		assign table_index[j] = |table_index_hot2bin_temp2[j];
 	end
 endgenerate
+
+// table_index defaults to zero when no entry matches.  Always qualify access
+// to ely_rsp_table[table_index] with table_match; otherwise an unrelated write
+// response can accidentally inherit entry zero's bufferable bit/tag.
+assign table_match = |table_index_hot;
+
+assign buffered_write_rsp =
+       table_match
+    && (ely_rsp_table[table_index][1] == 1'b1)
+    && (rspt2erd_opc == W);
+
+assign real_write_rsp_hs =
+       table_match
+    && rspt2erd_valid
+    && rspt2erd_tail
+    && erd2rspt_ready
+    && (rspt2erd_opc == W);
 
 
 //------------------------------------------------------
@@ -144,8 +164,10 @@ always @(posedge clk or negedge resetn) begin
         for(a = 0; a < ELYRSP_TABLE_DEEP; a = a + 1) begin
             ely_rsp_table[a] <= #DLY 'd0;
         end
-    end else if(rspo2erd_head == 1'b1 && rspo2erd_opc[3:2] == W && rspt2erd_head == 1'b1 && erd2rspt_ready == 1'b1 && rspt2erd_opc == W) begin //请求与响应同时到达且满足条件
-        for (b = 0; b < 8; b = b + 1) begin
+    end else if(rspo2erd_head == 1'b1 &&
+                rspo2erd_opc[3:2] == W &&
+                real_write_rsp_hs == 1'b1) begin //请求与响应同时到达且满足条件
+        for (b = 0; b < ELYRSP_TABLE_DEEP; b = b + 1) begin
             if (b >= table_index && b < (idle_table_index-1)) begin
                 // 将高位单元值赋给当前单元
                 ely_rsp_table[b] <= #DLY ely_rsp_table[b+1];
@@ -156,8 +178,8 @@ always @(posedge clk or negedge resetn) begin
         end
     end else if(rspo2erd_head == 1'b1 && rspo2erd_opc[3:2] == W) begin
         ely_rsp_table[idle_table_index] <= #DLY {rspo2erd_axid, rspo2erd_tag_cnt, rspo2erd_user[0],1'b1};
-    end else if(rspt2erd_tail == 1'b1 && erd2rspt_ready == 1'b1 && rspt2erd_opc == W) begin
-        for (c = 0; c < 8; c = c + 1) begin
+    end else if(real_write_rsp_hs == 1'b1) begin
+        for (c = 0; c < ELYRSP_TABLE_DEEP; c = c + 1) begin
             if (c >= table_index && c < ELYRSP_TABLE_DEEP-1) begin
                 // 将高位单元值赋给当前单元
                 ely_rsp_table[c] <= #DLY ely_rsp_table[c+1];
@@ -173,16 +195,21 @@ end
 //   判断当前响应是否为early response的real response
 //------------------------------------------------------
 
-// assign erd2rspo_head  = (ely_rsp_table[table_index][1] == 1'b1 && rspt2erd_opc == W) ? 1'b0 : rspt2erd_head;
-// assign erd2rspo_valid = (ely_rsp_table[table_index][1] == 1'b1 && rspt2erd_opc == W) ? 1'b0 : rspt2erd_valid;
-// assign erd2rspo_tail  = (ely_rsp_table[table_index][1] == 1'b1 && rspt2erd_opc == W) ? 1'b0 : rspt2erd_tail;
+// A bufferable write has already produced its RKNP early response.  Consume
+// the later AXI B response locally instead of registering it in rsp_order.
+// Masking the whole valid transaction here makes suppression independent of
+// RKNP response-channel back-pressure; a one-cycle sideband pulse alone is not
+// sufficient because rsp_order may retain the response for several cycles.
+assign erd2rspo_head  = buffered_write_rsp ? 1'b0 : rspt2erd_head;
+assign erd2rspo_valid = buffered_write_rsp ? 1'b0 : rspt2erd_valid;
+assign erd2rspo_tail  = buffered_write_rsp ? 1'b0 : rspt2erd_tail;
 
-
-assign erd2rspo_head  = rspt2erd_head;
-assign erd2rspo_valid = rspt2erd_valid;
-assign erd2rspo_tail  = rspt2erd_tail;
-
-assign buff_rsp_flag = (ely_rsp_table[table_index][1] == 1'b1 && rspt2erd_opc == W) ? rspt2erd_head : 1'b0;
+// rsp_order still needs a handshake-qualified pulse to retire the matching
+// request-head entry even though the B response itself is filtered above.
+assign buff_rsp_flag = buffered_write_rsp
+                     && rspt2erd_head
+                     && rspt2erd_valid
+                     && erd2rspt_ready;
 
 //------------------------------------------------------
 //   生成ready

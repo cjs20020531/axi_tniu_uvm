@@ -91,6 +91,15 @@ interface axi_if #(
   a_aw_stable : assert property (p_aw_stable)
     else $error("[AXI_IF] AW payload changed while stalled");
 
+  // W is independent of AW and obeys the same VALID/READY hold rule.
+  property p_w_stable;
+    @(posedge aclk) disable iff (!aresetn)
+      (wvalid && !wready) |=> $stable(wdata) && $stable(wstrb) &&
+                              $stable(wlast) && $stable(wid) && wvalid;
+  endproperty
+  a_w_stable : assert property (p_w_stable)
+    else $error("[AXI_IF] W payload changed while stalled");
+
   property p_ar_stable;
     @(posedge aclk) disable iff (!aresetn)
       (arvalid && !arready) |=> $stable(araddr) && $stable(arid) &&

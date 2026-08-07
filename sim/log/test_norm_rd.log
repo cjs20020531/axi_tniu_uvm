@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_norm_rd +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_norm_rd_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_rd.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug  7 13:03 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug  7 22:05 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -228,18 +228,18 @@ RD[63]:
     b0  af  ae  ad  ac  ab  aa  a9
     b8  b7  b6  b5  b4  b3  b2  b1
     c0  bf  be  bd  bc  bb  ba  b9
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(91) @ 1325000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=4 response_packets=5 final_rsp=4
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(728) @ 1325000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 1335000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=4 response_packets=5 final_rsp(raw/matched)=4/4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(777) @ 1335000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
-  REQ=4  RSP_PKT=5  RSP_FINAL(LW=1)=4
-  AW=0 AR=4 W=0 B=0 R=4
+  REQ=4  RSP_PKT=5  RSP_FINAL(raw/matched)=4/4
+  AW=0 AR=4 W=0 B=0/0 R=4/4
   ERR_req=0  AXI_SLVERR=0  WRAP=0  BUFFERABLE=0
   pending_AW=0 pending_AR=0
   pending_exp_W=0 pending_obs_W=0
   PASS=9  FAIL=0
 =====================================
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(111) @ 1325000: uvm_test_top [RESULT] *** TEST PASSED ***
-UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 1325000: reporter [UVM/REPORT/SERVER] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(125) @ 1335000: uvm_test_top [RESULT] *** TEST PASSED ***
+UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 1335000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
@@ -257,12 +257,12 @@ UVM_FATAL :    0
 [UVM/RELNOTES]     1
 
 $finish called from file "/home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh", line 527.
-$finish at simulation time              1325000
+$finish at simulation time              1335000
 
 ---------------------------------------------------------------------------
 VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 1325000 ps
-CPU Time:      0.570 seconds;       Data structure size:   0.9Mb
-Fri Aug  7 13:03:22 2026
+Time: 1335000 ps
+CPU Time:      0.310 seconds;       Data structure size:   0.9Mb
+Fri Aug  7 22:05:15 2026

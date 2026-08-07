@@ -529,7 +529,12 @@ always @(posedge clk or negedge resetn) begin
     if (resetn == 1'b0) begin
         for (b = 0; b < SPEC_REQ_BUFF_DEEP; b = b + 1)
             tag_cnt[b] <= #DLY 'd0;
-    end else if(rspt2rspo_lw == 1'b1 && rspo2rspt_ready == 1'b1) begin
+    // A bufferable write already advanced this ordering tag when its early
+    // response was dispatched.  Its later real B response only retires the
+    // request/watchdog state and must not advance the same tag a second time.
+    end else if(rspt2rspo_lw == 1'b1 &&
+                rspo2rspt_ready == 1'b1 &&
+                buff_rsp_flag == 1'b0) begin
         if(tag_cnt[norm_rsp_tag_name_index] == SPEC_REQ_BUFF_DEEP-1)
             tag_cnt[norm_rsp_tag_name_index] <= #DLY 'd0;
         else
@@ -1277,12 +1282,17 @@ end
 //------------------------------------------------------
 
 always @(*) begin
-    
-    if(rspt2rspo_head == 1'b1 && rspo2rspt_ready == 1'b1) begin
+
+    if((rspt2rspo_head == 1'b1 || buff_rsp_flag == 1'b1) &&
+       rspo2rspt_ready == 1'b1) begin
         rspo2wd_timoff_en = 1'b1;
         rspo2wd_axid = rspt2rspo_axid;
         rspo2wd_opc = rspt2rspo_opc;
-        rspo2wd_tag_cnt = tag_cnt[tag_name_index]; 
+        // ely_rsp_detect saved the original tag for a filtered bufferable B.
+        // The live tag counter has already advanced with the early response.
+        rspo2wd_tag_cnt = buff_rsp_flag
+                        ? erd2rspo_tag_cnt
+                        : tag_cnt[tag_name_index];
     end else begin
         rspo2wd_timoff_en = 1'b0;
         rspo2wd_axid = 'd0;

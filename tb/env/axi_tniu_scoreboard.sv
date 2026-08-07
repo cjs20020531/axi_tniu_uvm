@@ -88,7 +88,9 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
   // ---------------------------------------------------------------------------
   // Statistics
   // ---------------------------------------------------------------------------
-  int unsigned n_req, n_rsp, n_rsp_final, n_aw, n_ar, n_w, n_b, n_r;
+  int unsigned n_req, n_rsp, n_rsp_final, n_rsp_matched_final;
+  int unsigned n_aw, n_ar, n_w, n_b, n_r;
+  int unsigned n_exp_b, n_exp_r;
   int unsigned n_err_req, n_slverr, n_wrap, n_buf;
   int unsigned n_pass, n_fail;
 
@@ -141,6 +143,11 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
     // an RKNP error response without any AW/AR transfer.
     if (e.axi_valid) begin
       exp_axi_q[e.axid].push_back(e);
+
+      if (e.dir == AXI_WRITE)
+        n_exp_b++;
+      else
+        n_exp_r++;
 
       // An AW/AR observation may already be waiting because the DUT can emit
       // the AXI address before the RKNP request monitor publishes this request.
@@ -511,10 +518,10 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
     bit                                   upgraded;
     bit                                   check_pass;
 
-    // n_rsp counts response packets. A single RKNP transaction may produce
-    // multiple packets because read data can be split/interleaved. Only LW=1
-    // identifies the final packet of a transaction; n_rsp_final is therefore
-    // the completion count used by the test's drain logic.
+    // n_rsp counts every observed packet and n_rsp_final counts every observed
+    // LW=1 packet, including protocol violations such as a duplicate response.
+    // n_rsp_matched_final advances only after a final packet has matched and
+    // retired a real expectation; the test drain must use that qualified count.
     n_rsp++;
     if (t.rsp_lw)
       n_rsp_final++;
@@ -575,6 +582,7 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
 
     // Final response: remove expectation.
     void'(exp_rsp_q[key].pop_front());
+    n_rsp_matched_final++;
 
     if (exp_rsp_q[key].size() == 0)
       exp_rsp_q.delete(key);
@@ -677,6 +685,47 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
         obs_w_q.size()))
       n_fail++;
     end
+
+    if (n_b != n_exp_b) begin
+      `uvm_error("C-LEAK-01", $sformatf(
+        "AXI B completion count mismatch expected=%0d observed=%0d",
+        n_exp_b, n_b))
+      n_fail++;
+    end
+
+    if (n_r != n_exp_r) begin
+      `uvm_error("C-LEAK-01", $sformatf(
+        "AXI R-burst completion count mismatch expected=%0d observed=%0d",
+        n_exp_r, n_r))
+      n_fail++;
+    end
+  endfunction
+
+  // True only after every predicted response/address/data completion has been
+  // observed.  Bufferable writes require this extra AXI-side drain because
+  // their RKNP early response legitimately precedes the real B response.
+  function bit traffic_drained();
+    if ((n_b < n_exp_b) || (n_r < n_exp_r) ||
+        (exp_w_q.size() != 0) || (obs_w_q.size() != 0))
+      return 1'b0;
+
+    foreach (exp_rsp_q[k])
+      if (exp_rsp_q[k].size() != 0)
+        return 1'b0;
+
+    foreach (exp_axi_q[k])
+      if (exp_axi_q[k].size() != 0)
+        return 1'b0;
+
+    foreach (obs_aw_q[k])
+      if (obs_aw_q[k].size() != 0)
+        return 1'b0;
+
+    foreach (obs_ar_q[k])
+      if (obs_ar_q[k].size() != 0)
+        return 1'b0;
+
+    return 1'b1;
   endfunction
 
   // Return total pending AW observations across all AxIDs for the summary.
@@ -709,16 +758,16 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
     summary = $sformatf(
       {
         "\n==== axi_tniu scoreboard summary ====\n",
-        "  REQ=%0d  RSP_PKT=%0d  RSP_FINAL(LW=1)=%0d\n",
-        "  AW=%0d AR=%0d W=%0d B=%0d R=%0d\n",
+        "  REQ=%0d  RSP_PKT=%0d  RSP_FINAL(raw/matched)=%0d/%0d\n",
+        "  AW=%0d AR=%0d W=%0d B=%0d/%0d R=%0d/%0d\n",
         "  ERR_req=%0d  AXI_SLVERR=%0d  WRAP=%0d  BUFFERABLE=%0d\n",
         "  pending_AW=%0d pending_AR=%0d\n",
         "  pending_exp_W=%0d pending_obs_W=%0d\n",
         "  PASS=%0d  FAIL=%0d\n",
         "====================================="
       },
-      n_req, n_rsp, n_rsp_final,
-      n_aw, n_ar, n_w, n_b, n_r,
+      n_req, n_rsp, n_rsp_final, n_rsp_matched_final,
+      n_aw, n_ar, n_w, n_b, n_exp_b, n_r, n_exp_r,
       n_err_req, n_slverr, n_wrap, n_buf,
       count_pending_aw(), count_pending_ar(),
       exp_w_q.size(), obs_w_q.size(),

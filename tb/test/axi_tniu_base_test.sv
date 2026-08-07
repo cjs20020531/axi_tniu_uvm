@@ -72,8 +72,20 @@ class axi_tniu_base_test extends uvm_test;
 
     fork : response_drain
       begin
-        wait (env.sb.n_rsp_final >= expected_final_rsp);
-        drain_done = 1'b1;
+        forever begin
+          // An unexpected duplicate response must not make the test end early.
+          // In early-response mode, RKNP completion can also precede the real
+          // AXI B response, so wait for all predicted AXI traffic to drain.
+          if ((cfg.checks_enable &&
+               env.sb.n_rsp_matched_final >= expected_final_rsp &&
+               env.sb.traffic_drained()) ||
+              (!cfg.checks_enable &&
+               env.sb.n_rsp_final >= expected_final_rsp)) begin
+            drain_done = 1'b1;
+            break;
+          end
+          #10ns;
+        end
       end
       begin
         #(cfg.rsp_drain_timeout);
@@ -84,14 +96,16 @@ class axi_tniu_base_test extends uvm_test;
     if (!drain_done)
       `uvm_error("RSP_DRAIN_TIMEOUT", $sformatf(
         {"Timed out waiting for final RKNP responses: requests=%0d ",
-         "response_packets=%0d final_rsp(LW=1)=%0d timeout=%0t"},
+         "response_packets=%0d final_rsp(raw/matched)=%0d/%0d timeout=%0t"},
         expected_final_rsp, env.sb.n_rsp, env.sb.n_rsp_final,
+        env.sb.n_rsp_matched_final,
         cfg.rsp_drain_timeout))
     else
       `uvm_info("RSP_DRAIN", $sformatf(
         {"All final RKNP responses received: requests=%0d ",
-         "response_packets=%0d final_rsp=%0d"},
-        expected_final_rsp, env.sb.n_rsp, env.sb.n_rsp_final), UVM_LOW)
+         "response_packets=%0d final_rsp(raw/matched)=%0d/%0d"},
+        expected_final_rsp, env.sb.n_rsp, env.sb.n_rsp_final,
+        env.sb.n_rsp_matched_final), UVM_LOW)
   endtask
 
   task run_phase(uvm_phase phase);

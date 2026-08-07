@@ -3,10 +3,10 @@
 // Filename          : wreq_trans.v
 // Abstract          : RKNP write request to AXI AW/W bridge.
 //
-// AW and W are independent AXI channels.  The bridge keeps the current
-// addr_map flit stable until W is accepted and, for a head flit, AW is
-// accepted too.  This prevents a shared-ready/registered-valid race from
-// dropping a one-flit W burst when the slave applies back-pressure.
+// AW and W are independent AXI channels.  A head flit contains both the AW
+// payload and the first W beat, so each channel handshake is remembered until
+// the other channel also completes.  VALID never depends on READY; this is
+// required by AXI and keeps both payloads stable under independent stalls.
 //=============================================================================
 
 module wreq_trans#(
@@ -61,6 +61,8 @@ module wreq_trans#(
 
 wire [8*NBYTEPERWORD-1:0] wdata;
 wire [NBYTEPERWORD-1:0]   wstrb;
+reg                       head_aw_done;
+reg                       head_w_done;
 genvar i;
 generate
     for(i=0;i<NBYTEPERWORD;i=i+1) begin
@@ -69,18 +71,43 @@ generate
     end
 endgenerate
 
-// A head flit transfers AW and W together.  Body flits only require W.
-assign wreqt2am_ready = am2wreqt_head ? (axi_m_awready & axi_m_wready) : axi_m_wready;
+// Remember a partial head-flit transfer.  The upstream flit is released only
+// after both AW and the first W beat have handshaken.  When both handshakes
+// happen together, wreqt2am_ready is already high and the flags stay clear.
+always @(posedge clk or negedge resetn) begin
+    if(resetn == 1'b0) begin
+        head_aw_done <= #DLY 1'b0;
+    end else if(am2wreqt_valid == 1'b1 && wreqt2am_ready == 1'b1) begin
+        head_aw_done <= #DLY 1'b0;
+    end else if(axi_m_awvalid == 1'b1 && axi_m_awready == 1'b1) begin
+        head_aw_done <= #DLY 1'b1;
+    end
+end
 
-// The addr_map source is held whenever wreqt2am_ready is low, so the
-// combinational outputs below remain stable for an arbitrarily stalled AXI
-// channel and satisfy the ready/valid protocol.
+always @(posedge clk or negedge resetn) begin
+    if(resetn == 1'b0) begin
+        head_w_done <= #DLY 1'b0;
+    end else if(am2wreqt_valid == 1'b1 && wreqt2am_ready == 1'b1) begin
+        head_w_done <= #DLY 1'b0;
+    end else if(am2wreqt_head == 1'b1 &&
+                axi_m_wvalid == 1'b1 && axi_m_wready == 1'b1) begin
+        head_w_done <= #DLY 1'b1;
+    end
+end
+
+// A body flit carries W only.  A head flit becomes ready after each of its two
+// independent channel transfers has either completed earlier or can complete
+// in the current cycle.
+assign wreqt2am_ready = am2wreqt_head
+                      ? ((head_aw_done | axi_m_awready) &
+                         (head_w_done  | axi_m_wready))
+                      : axi_m_wready;
+
+// addr_map holds the current flit while wreqt2am_ready is low.  Therefore the
+// direct payload connections below remain stable until their own handshake.
 always @(*) begin
 
-    // For the head flit, do not let either AXI channel handshake alone:
-    // AWVALID waits for WREADY and WVALID waits for AWREADY.  This keeps
-    // the shared upstream flit stable until both channels can transfer.
-    axi_m_awvalid = am2wreqt_head & axi_m_wready;
+    axi_m_awvalid = am2wreqt_valid & am2wreqt_head & ~head_aw_done;
     axi_m_awid    = am2wreqt_axid;
     axi_m_awaddr  = am2wreqt_awaddr;
     axi_m_awlen   = am2wreqt_awlen;
@@ -92,7 +119,7 @@ always @(*) begin
     axi_m_awqos   = am2wreqt_awqos;
     axi_m_awuser  = am2wreqt_user[8];
 
-    axi_m_wvalid  = am2wreqt_valid & (~am2wreqt_head | axi_m_awready);
+    axi_m_wvalid  = am2wreqt_valid & (~am2wreqt_head | ~head_w_done);
     axi_m_wlast   = am2wreqt_tail & am2wreqt_valid;
     axi_m_wid     = am2wreqt_axid;
     axi_m_wdata   = wdata;

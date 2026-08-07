@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_norm_rdw_narrow_noalign +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_norm_rdw_narrow_noalign_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_rdw_narrow_noalign.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug  7 13:03 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug  7 22:05 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -136,10 +136,6 @@ RKNP-RSP
  tid=0x1a 
  ordkey=0x3f 
  lw=1
-"/home/ICer/RKNoC/axi_tniu_uvm/tb/common/axi_if.sv", 91: tb_top.axi_vif.a_aw_stable: started at 95000ps failed at 105000ps
-	Offending '((($stable(awaddr) && $stable(awid)) && $stable(awlen)) && awvalid)'
-Error: "/home/ICer/RKNoC/axi_tniu_uvm/tb/common/axi_if.sv", 91: tb_top.axi_vif.a_aw_stable: at time 105000 ps
-[AXI_IF] AW payload changed while stalled
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 125000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
 
 RKNP-REQ 
@@ -155,10 +151,6 @@ RKNP-REQ
  user=0x198(rknp=0 axi=1 lock=1 port=0x1 cache=0x8)
 WR[1]:
     00-  00-  00-  00-  18  7b  00-  00-
-"/home/ICer/RKNoC/axi_tniu_uvm/tb/common/axi_if.sv", 91: tb_top.axi_vif.a_aw_stable: started at 165000ps failed at 175000ps
-	Offending '((($stable(awaddr) && $stable(awid)) && $stable(awlen)) && awvalid)'
-Error: "/home/ICer/RKNoC/axi_tniu_uvm/tb/common/axi_if.sv", 91: tb_top.axi_vif.a_aw_stable: at time 175000 ps
-[AXI_IF] AW payload changed while stalled
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2
 
 RKNP-RSP 
@@ -394,10 +386,6 @@ RKNP-REQ
 WR[3]:
     30  2a  00-  00-  00-  00-  00-  00-
     00-  00-  00-  00-  00-  00-  e9  27
-"/home/ICer/RKNoC/axi_tniu_uvm/tb/common/axi_if.sv", 91: tb_top.axi_vif.a_aw_stable: started at 415000ps failed at 425000ps
-	Offending '((($stable(awaddr) && $stable(awid)) && $stable(awlen)) && awvalid)'
-Error: "/home/ICer/RKNoC/axi_tniu_uvm/tb/common/axi_if.sv", 91: tb_top.axi_vif.a_aw_stable: at time 425000 ps
-[AXI_IF] AW payload changed while stalled
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 475000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.12
 
 RKNP-RSP 
@@ -479,18 +467,18 @@ RKNP-RSP
  tid=0x20d 
  ordkey=0xfb 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(91) @ 825000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=16 response_packets=16 final_rsp=16
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(728) @ 825000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 835000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=16 response_packets=16 final_rsp(raw/matched)=16/16
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(777) @ 835000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
-  REQ=16  RSP_PKT=16  RSP_FINAL(LW=1)=16
-  AW=16 AR=0 W=16 B=16 R=0
+  REQ=16  RSP_PKT=16  RSP_FINAL(raw/matched)=16/16
+  AW=16 AR=0 W=16 B=16/16 R=0/0
   ERR_req=0  AXI_SLVERR=0  WRAP=16  BUFFERABLE=0
   pending_AW=0 pending_AR=0
   pending_exp_W=0 pending_obs_W=0
   PASS=48  FAIL=0
 =====================================
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(111) @ 825000: uvm_test_top [RESULT] *** TEST PASSED ***
-UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 825000: reporter [UVM/REPORT/SERVER] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(125) @ 835000: uvm_test_top [RESULT] *** TEST PASSED ***
+UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 835000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
@@ -508,12 +496,12 @@ UVM_FATAL :    0
 [UVM/RELNOTES]     1
 
 $finish called from file "/home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh", line 527.
-$finish at simulation time               825000
+$finish at simulation time               835000
 
 ---------------------------------------------------------------------------
 VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 825000 ps
-CPU Time:      0.330 seconds;       Data structure size:   0.9Mb
-Fri Aug  7 13:03:23 2026
+Time: 835000 ps
+CPU Time:      0.340 seconds;       Data structure size:   0.9Mb
+Fri Aug  7 22:05:16 2026
