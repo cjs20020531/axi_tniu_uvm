@@ -164,20 +164,27 @@ end
 //-----------------------------------------------------------------
 //  生成rrsp_phase信号
 //-----------------------------------------------------------------
-reg rvalid_temp;        //生成rrsp_phase的中间信号
-wire rrsp_phase;      //表示处于读响应期间的提示信号
+// read_active describes whether the last accepted AXI R beat says that more
+// beats are still expected.  Deriving this state directly from the AXI input
+// handshake avoids a one-cycle feedback dependency on the registered RLAST.
+// That dependency could leave rrsp_phase permanently high after the final
+// interleaved read beat, which in turn held BREADY low forever.
+reg  read_active;
+wire axi_r_hs;
+wire rrsp_phase;
 
+assign axi_r_hs = axi_m_rvalid & axi_m_rready;
 
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0)
-        rvalid_temp <= #DLY 1'b0;
-    else if(rlast == 1'b1 && axi_m_rready == 1'b1)
-        rvalid_temp <= #DLY 1'b0;
-    else if(rvalid == 1'b1)
-        rvalid_temp <= #DLY 1'b1;
+        read_active <= #DLY 1'b0;
+    else if(axi_r_hs == 1'b1)
+        read_active <= #DLY ~axi_m_rlast;
 end
 
-assign rrsp_phase = rvalid | rvalid_temp;
+// rvalid keeps read selection asserted while the accepted final beat is still
+// buffered for rsp_order; read_active covers gaps between non-final beats.
+assign rrsp_phase = rvalid | read_active;
 
 //-----------------------------------------------------------------
 //  生成bready信号
