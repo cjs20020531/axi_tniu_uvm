@@ -69,6 +69,10 @@ reg  [8*NBYTEPERWORD-1:0]  rdata ;
 reg  [1:0]                  rresp ;
 reg  [AUSER_WITH-1:0]       ruser ;
 reg                         rlast ;
+reg                         rhead ;
+reg                         prev_rbeat_seen;
+reg                         prev_rbeat_last;
+reg  [AXID_WITH-1:0]        prev_rid;
 
 
 
@@ -86,10 +90,34 @@ always @(posedge clk or negedge resetn) begin
     end
 end
 
+// Record packet-boundary information only when an AXI R beat is actually
+// accepted.  The previous implementation compared RID continuously, including
+// cycles with RVALID=0.  During an inter-beat gap that could create a false
+// HEAD pulse, make rsp_order read a non-existent {RID,tag}, and leave stale
+// request metadata attached to the following real read beat.
+always @(posedge clk or negedge resetn) begin
+    if(resetn == 1'b0) begin
+        rhead           <= #DLY 1'b0;
+        prev_rbeat_seen <= #DLY 1'b0;
+        prev_rbeat_last <= #DLY 1'b0;
+        prev_rid        <= #DLY 'd0;
+    end else if(axi_m_rready == 1'b1 && axi_m_rvalid == 1'b1) begin
+        rhead <= #DLY (!prev_rbeat_seen ||
+                       prev_rbeat_last ||
+                       (axi_m_rid != prev_rid));
+        prev_rbeat_seen <= #DLY 1'b1;
+        prev_rbeat_last <= #DLY axi_m_rlast;
+        prev_rid        <= #DLY axi_m_rid;
+    end else if(rspo2rspt_ready == 1'b1) begin
+        rhead <= #DLY 1'b0;
+    end
+end
+
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rlast <= #DLY 1'b0;
-    end else if(axi_m_rready == 1'b1 && axi_m_rlast == 1'b1)begin
+    end else if(axi_m_rready == 1'b1 && axi_m_rvalid == 1'b1 &&
+                axi_m_rlast == 1'b1)begin
         rlast <= #DLY 1'b1;
     end else if(rspo2rspt_ready == 1'b1) begin
         rlast <= #DLY 1'b0;
@@ -227,57 +255,28 @@ endgenerate
 //-----------------------------------------------------------------
 // 没有考虑到交织的情况，对于tail信号，应该表示一个flit上是否结束，所以交织了也需要拉高
 //assign rspt2rspo_tail = ((rrsp_phase == 1'b0 && bvalid == 1'b1) || (rrsp_phase == 1'b1 && rlast == 1'b1)) ? 1'b1 : 1'b0;
-assign rspt2rspo_lw = ((rrsp_phase == 1'b0 && bvalid == 1'b1) || (rrsp_phase == 1'b1 && rlast == 1'b1)) ? 1'b1 : 1'b0;
+assign rspt2rspo_lw = ((rrsp_phase == 1'b0 && bvalid == 1'b1) ||
+                       (rrsp_phase == 1'b1 && rvalid == 1'b1 &&
+                        rlast == 1'b1)) ? 1'b1 : 1'b0;
 
 //-----------------------------------------------------------------
 //  生成tail信号
 //-----------------------------------------------------------------
 
-assign rspt2rspo_tail = ((rrsp_phase == 1'b0 && bvalid == 1'b1) || (rrsp_phase == 1'b1 && (axi_m_rid != rid || rspt2rspo_lw == 1'b1))) ? 1'b1 : 1'b0;
+assign rspt2rspo_tail =
+       (rrsp_phase == 1'b0 && bvalid == 1'b1) ||
+       (rrsp_phase == 1'b1 && rvalid == 1'b1 &&
+        (rlast == 1'b1 ||
+         (axi_m_rvalid == 1'b1 && axi_m_rid != rid)));
 
 //-----------------------------------------------------------------
 //  生成head信号
 //-----------------------------------------------------------------
-reg head_temp; //生成head的中间信号
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0)
-        head_temp <= #DLY 1'b0;
-    else if(rlast == 1'b1)
-        head_temp <= #DLY 1'b0;
-    else if(axi_m_rready == 1'b1 && rvalid == 1'b1)
-        head_temp <= #DLY 1'b1;
-end
-
-// reg [AXID_WITH-1:0] rid_d; //rid打一拍信号
-// always @(posedge clk or negedge resetn) begin
-//     if(resetn == 1'b0)
-//         rid_d <= #DLY 'd0;
-//     else if(rvalid == 1'b1 && axi_m_rready == 1'b1)
-//         rid_d <= #DLY rid;
-// end
-
-
-reg intlev_flag; //交织检测标志
-// assign intlev_flag = (rid != axi_m_rid && head_temp == 1'b1) ? 1'b1 : 1'b0; //如果上一拍的ID与当前拍的ID不相同，则表示交织
-
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0) begin
-        intlev_flag <= #DLY 1'b0;
-    end else if(rid != axi_m_rid)begin
-        intlev_flag <= #DLY 1'b1;
-    end else begin
-        intlev_flag <= #DLY 1'b0;
-    end
-end
-
-
 always @(*) begin
     if(rrsp_phase == 1'b0)
         rspt2rspo_head = bvalid;
-    else if(intlev_flag == 1'b1 || (axi_m_rready == 1'b1 && rvalid == 1'b1 && head_temp == 1'b0))
-        rspt2rspo_head = 1'b1;
     else
-        rspt2rspo_head = 1'b0;
+        rspt2rspo_head = rvalid & rhead;
 end
 
 //-----------------------------------------------------------------

@@ -487,7 +487,8 @@ endgenerate
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0)
         tag_name_index_d <= #DLY 'd0;
-    else if(rspt2rspo_head == 1'b1 && rspo2rspt_ready == 1'b1)
+    else if(rspt2rspo_head == 1'b1 && rspt2rspo_valid == 1'b1 &&
+            rspo2rspt_ready == 1'b1)
         tag_name_index_d <= #DLY tag_name_index;
 end
 
@@ -532,7 +533,8 @@ always @(posedge clk or negedge resetn) begin
     // A bufferable write already advanced this ordering tag when its early
     // response was dispatched.  Its later real B response only retires the
     // request/watchdog state and must not advance the same tag a second time.
-    end else if(rspt2rspo_lw == 1'b1 &&
+    end else if(rspt2rspo_valid == 1'b1 &&
+                rspt2rspo_lw == 1'b1 &&
                 rspo2rspt_ready == 1'b1 &&
                 buff_rsp_flag == 1'b0) begin
         if(tag_cnt[norm_rsp_tag_name_index] == SPEC_REQ_BUFF_DEEP-1)
@@ -614,7 +616,8 @@ always @(posedge clk or negedge resetn) begin
         rsp_user <= #DLY 'd0;
         rsp_opc  <= #DLY 'd0;
         rsp_errcode <= #DLY 'd0;
-    end else if(rspt2rspo_head == 1'b1 && rspo2rspt_ready == 1'b1)begin
+    end else if(rspt2rspo_head == 1'b1 && rspt2rspo_valid == 1'b1 &&
+                rspo2rspt_ready == 1'b1)begin
         rsp_axid <= #DLY rspt2rspo_axid;
         rsp_user <= #DLY rspt2rspo_auser;
         rsp_opc  <= #DLY rspt2rspo_opc;
@@ -739,7 +742,8 @@ reg rspt2rspo_lw_d;
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rspt2rspo_lw_d <= #DLY 1'b0;
-    end else if(rspt2rspo_lw == 1'b1 && rspo2rspt_ready == 1'b1)begin
+    end else if(rspt2rspo_valid == 1'b1 && rspt2rspo_lw == 1'b1 &&
+                rspo2rspt_ready == 1'b1)begin
         rspt2rspo_lw_d <= #DLY 1'b1;
     end else if(rknp_xx2rspo_ready == 1'b1) begin
         rspt2rspo_lw_d <= #DLY 1'b0;
@@ -1049,7 +1053,8 @@ reg rspt2rspo_valid_d;
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rspt2rspo_head_d <= #DLY 1'b0;
-    end else if(rspt2rspo_head == 1'b1 && rspo2rspt_ready == 1'b1) begin
+    end else if(rspt2rspo_head == 1'b1 && rspt2rspo_valid == 1'b1 &&
+                rspo2rspt_ready == 1'b1) begin
         rspt2rspo_head_d <= #DLY 1'b1;
     end else if(rknp_xx2rspo_ready == 1'b1) begin
         rspt2rspo_head_d <= #DLY 1'b0;
@@ -1058,7 +1063,8 @@ end
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rspt2rspo_tail_d <= #DLY 1'b0;
-    end else if(rspt2rspo_tail == 1'b1 && rspo2rspt_ready == 1'b1) begin
+    end else if(rspt2rspo_tail == 1'b1 && rspt2rspo_valid == 1'b1 &&
+                rspo2rspt_ready == 1'b1) begin
         rspt2rspo_tail_d <= #DLY 1'b1;
     end else if(rknp_xx2rspo_ready == 1'b1) begin
         rspt2rspo_tail_d <= #DLY 1'b0;
@@ -1204,9 +1210,11 @@ generate
                     {rspt2rspo_axid, rspt2rspo_opc,
                      tag_cnt[tag_name_index]};
                 rspo2reqo_rhead_en =
-                    rspt2rspo_head && rspo2rspt_ready;
+                    rspt2rspo_head && rspt2rspo_valid &&
+                    rspo2rspt_ready;
                 del_head_en =
-                    rspt2rspo_lw && rspo2rspt_ready;
+                    rspt2rspo_lw && rspt2rspo_valid &&
+                    rspo2rspt_ready;
             end
         end
     end else begin
@@ -1241,16 +1249,19 @@ generate
                         {rspt2rspo_axid, rspt2rspo_opc,
                          tag_cnt[tag_name_index]};
                     rspo2reqo_rhead_en =
-                        rspt2rspo_head && rspo2rspt_ready;
+                        rspt2rspo_head && rspt2rspo_valid &&
+                        rspo2rspt_ready;
                     del_head_en =
-                        rspt2rspo_lw && rspo2rspt_ready;
+                        rspt2rspo_lw && rspt2rspo_valid &&
+                        rspo2rspt_ready;
                 end else begin
                     rspo2reqo_head_index =
                         {rspt2rspo_axid, rspt2rspo_opc,
                          erd2rspo_tag_cnt};
                     rspo2reqo_rhead_en = 1'b0;
-                    del_head_en =
-                        rspt2rspo_lw && rspo2rspt_ready;
+                    // buff_rsp_flag is already qualified by the real B
+                    // handshake; its LW has intentionally been masked.
+                    del_head_en = buff_rsp_flag;
                 end
             end
         end
@@ -1283,7 +1294,8 @@ end
 
 always @(*) begin
 
-    if((rspt2rspo_head == 1'b1 || buff_rsp_flag == 1'b1) &&
+    if(((rspt2rspo_head == 1'b1 && rspt2rspo_valid == 1'b1) ||
+        buff_rsp_flag == 1'b1) &&
        rspo2rspt_ready == 1'b1) begin
         rspo2wd_timoff_en = 1'b1;
         rspo2wd_axid = rspt2rspo_axid;

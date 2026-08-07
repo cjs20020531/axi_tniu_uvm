@@ -226,7 +226,9 @@ assign erd2rspo_opc = rspt2erd_opc;
 assign erd2rspo_errcode = rspt2erd_errcode;
 assign erd2rspo_status = rspt2erd_status;
 assign erd2rspo_data = rspt2erd_data;
-assign erd2rspo_lw = rspt2erd_lw;
+// LW is a control qualifier too.  Passing it while VALID/HEAD/TAIL are masked
+// lets rsp_order retire or advance an unrelated normal response.
+assign erd2rspo_lw = buffered_write_rsp ? 1'b0 : rspt2erd_lw;
 assign erd2rspo_tag_cnt = ely_rsp_table[table_index][TAG_CNT_WITH+1:2];
 
 endmodule
