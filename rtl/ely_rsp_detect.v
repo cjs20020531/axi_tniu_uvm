@@ -54,6 +54,10 @@ module ely_rsp_detect#(
 localparam INDEX_WITH = $clog2(ELYRSP_TABLE_DEEP); //二进制索引值的位宽
 localparam R = 2'b00;
 localparam W = 2'b01;
+localparam TABLE_USED_OFFSET       = 0;
+localparam TABLE_BUFFERABLE_OFFSET = TABLE_USED_OFFSET + 1;
+localparam TABLE_TAG_CNT_OFFSET    = TABLE_BUFFERABLE_OFFSET + 1;
+localparam TABLE_AXID_OFFSET       = TABLE_TAG_CNT_OFFSET + TAG_CNT_WITH;
 //------------------------------------------------------
 //  生成early response条目表
 //------------------------------------------------------
@@ -72,7 +76,8 @@ wire [INDEX_WITH-1:0] idle_table_index;
 genvar i,j;
 generate 
     for (i = 0 ; i < ELYRSP_TABLE_DEEP ; i = i + 1) begin 
-        assign table_used[i] = ~ely_rsp_table[i][0];
+        assign table_used[i] =
+            ~ely_rsp_table[i][TABLE_USED_OFFSET];
     end
 endgenerate
 //保留二进制最低位1操作-生成独热码
@@ -110,7 +115,15 @@ wire                  real_write_rsp_hs;
 
 generate 
     for (i = 0 ; i < ELYRSP_TABLE_DEEP ; i = i + 1) begin 
-        assign table_index_temp[i] = (rspt2erd_axid == ely_rsp_table[i][2 +: AXID_WITH] && rspt2erd_opc == W && ely_rsp_table[i][0] == 1'b1) ? 1'b1 : 1'b0;
+        // Entry layout is {AXID, TAG_CNT, bufferable, used}.  AXID therefore
+        // starts above the complete TAG_CNT field, not at bit 2.  Reading AXID
+        // from bit 2 mixed three tag bits into the comparison and made real-B
+        // suppression depend on an accidental partial match.
+        assign table_index_temp[i] =
+               (rspt2erd_axid ==
+                ely_rsp_table[i][TABLE_AXID_OFFSET +: AXID_WITH])
+            && (rspt2erd_opc == W)
+            && (ely_rsp_table[i][TABLE_USED_OFFSET] == 1'b1);
     end
 endgenerate
 //保留二进制最低位1操作-生成独热码
@@ -141,7 +154,7 @@ assign table_match = |table_index_hot;
 
 assign buffered_write_rsp =
        table_match
-    && (ely_rsp_table[table_index][1] == 1'b1)
+    && (ely_rsp_table[table_index][TABLE_BUFFERABLE_OFFSET] == 1'b1)
     && (rspt2erd_opc == W);
 
 assign real_write_rsp_hs =
@@ -229,6 +242,7 @@ assign erd2rspo_data = rspt2erd_data;
 // LW is a control qualifier too.  Passing it while VALID/HEAD/TAIL are masked
 // lets rsp_order retire or advance an unrelated normal response.
 assign erd2rspo_lw = buffered_write_rsp ? 1'b0 : rspt2erd_lw;
-assign erd2rspo_tag_cnt = ely_rsp_table[table_index][TAG_CNT_WITH+1:2];
+assign erd2rspo_tag_cnt =
+    ely_rsp_table[table_index][TABLE_TAG_CNT_OFFSET +: TAG_CNT_WITH];
 
 endmodule
