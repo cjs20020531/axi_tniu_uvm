@@ -51,7 +51,7 @@ reg [TIMER_CNT_WITH-1:0] timer_cnt; //计时器计数器
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) 
         timer_cnt <= #DLY 'd1;
-    else if(timer_interrupt == 1'b1) begin
+    else if(timer_interrupt == 1'b0) begin
         if(timer_cnt < TIMER_CNT_MAX)
             timer_cnt <= #DLY timer_cnt + 1'b1;
         else

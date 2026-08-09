@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_norm_wrw_narrow_noalign +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_norm_wrw_narrow_noalign_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_wrw_narrow_noalign.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug  8 00:27 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug  9 21:11 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -127,15 +127,6 @@ RKNP-REQ
  user=0x36c(rknp=1 axi=1 lock=0 port=0x6 cache=0xc)
 WR[1]:
     00-  00-  00-  00-  51  5c  00-  00-
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x2bb 
- tid=0x1a 
- ordkey=0x3f 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 125000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
 
 RKNP-REQ 
@@ -151,14 +142,14 @@ RKNP-REQ
  user=0x198(rknp=0 axi=1 lock=1 port=0x1 cache=0x8)
 WR[1]:
     00-  00-  00-  00-  18  7b  00-  00-
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
  status=ST_OK 
- iid=0x14b 
- tid=0x87 
- ordkey=0xa5 
+ iid=0x2bb 
+ tid=0x1a 
+ ordkey=0x3f 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 185000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.5
 
@@ -250,6 +241,15 @@ RKNP-REQ
  user=0x2ec(rknp=1 axi=0 lock=1 port=0x6 cache=0xc)
 WR[1]:
     00-  00-  00-  00-  00-  00-  d0  bf
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 245000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x14b 
+ tid=0x87 
+ ordkey=0xa5 
+ lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 245000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.11
 
 RKNP-REQ 
@@ -265,16 +265,16 @@ RKNP-REQ
  user=0x040(rknp=0 axi=0 lock=0 port=0x4 cache=0x0)
 WR[1]:
     00-  00-  00-  00-  00-  00-  b6  84
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 255000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 315000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.7
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
  status=ST_OK 
- iid=0x2b7 
- tid=0x3a5 
- ordkey=0x78 
+ iid=0x3ae 
+ tid=0x2cb 
+ ordkey=0xfa 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 255000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.12
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 335000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.12
 
 RKNP-REQ 
  opc=OPC_WRW 
@@ -289,16 +289,16 @@ RKNP-REQ
  user=0x0aa(rknp=0 axi=0 lock=1 port=0x2 cache=0xa)
 WR[3]:
     00-  00-  00-  00-  59  05  d2  03
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 275000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.9
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 375000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.10
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
  status=ST_OK 
- iid=0x1c4 
- tid=0x38 
- ordkey=0x92 
+ iid=0x3d5 
+ tid=0x2ad 
+ ordkey=0x42 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 275000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.13
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 375000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.13
 
 RKNP-REQ 
  opc=OPC_WRW 
@@ -313,16 +313,16 @@ RKNP-REQ
  user=0x334(rknp=1 axi=1 lock=0 port=0x3 cache=0x4)
 WR[3]:
     00-  00-  58  06  e4  39  00-  00-
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 325000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.5
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 445000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.8
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
  status=ST_OK 
- iid=0x23d 
- tid=0x310 
- ordkey=0x1f 
+ iid=0x3c8 
+ tid=0x279 
+ ordkey=0xad 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 325000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.14
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 455000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.14
 
 RKNP-REQ 
  opc=OPC_WRW 
@@ -337,16 +337,16 @@ RKNP-REQ
  user=0x08e(rknp=0 axi=0 lock=1 port=0x0 cache=0xe)
 WR[1]:
     00-  00-  00-  00-  00-  00-  99  df
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 385000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.7
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 545000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
  status=ST_OK 
- iid=0x3ae 
- tid=0x2cb 
- ordkey=0xfa 
+ iid=0x2b7 
+ tid=0x3a5 
+ ordkey=0x78 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 385000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.15
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 545000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.15
 
 RKNP-REQ 
  opc=OPC_WRW 
@@ -361,7 +361,7 @@ RKNP-REQ
  user=0x0ae(rknp=0 axi=0 lock=1 port=0x2 cache=0xe)
 WR[1]:
     00-  00-  00-  00-  ef  e6  00-  00-
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.13
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 615000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.13
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -370,7 +370,7 @@ RKNP-RSP
  tid=0x1c0 
  ordkey=0xa 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 405000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.16
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 615000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.16
 
 RKNP-REQ 
  opc=OPC_WRW 
@@ -386,61 +386,16 @@ RKNP-REQ
 WR[3]:
     30  2a  00-  00-  00-  00-  00-  00-
     00-  00-  00-  00-  00-  00-  e9  27
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 475000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.12
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 705000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.5
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
  status=ST_OK 
- iid=0x6a 
- tid=0xe7 
- ordkey=0xb8 
+ iid=0x23d 
+ tid=0x310 
+ ordkey=0x1f 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.14
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x13a 
- tid=0xf7 
- ordkey=0xe 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 545000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.8
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x3c8 
- tid=0x279 
- ordkey=0xad 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.15
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x2ba 
- tid=0x2bb 
- ordkey=0x12 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 625000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.10
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x3d5 
- tid=0x2ad 
- ordkey=0x42 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 665000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.16
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x343 
- tid=0x125 
- ordkey=0x83 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 715000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 815000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -449,16 +404,7 @@ RKNP-RSP
  tid=0x16c 
  ordkey=0x90 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 755000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.11
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x4b 
- tid=0x16d 
- ordkey=0x3e 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 815000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 895000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.6
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -467,8 +413,62 @@ RKNP-RSP
  tid=0x20d 
  ordkey=0xfb 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 825000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=16 response_packets=16 final_rsp(raw/matched)=16/16
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(777) @ 825000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 915000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.9
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x1c4 
+ tid=0x38 
+ ordkey=0x92 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 1005000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.12
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x6a 
+ tid=0xe7 
+ ordkey=0xb8 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 1015000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.14
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x13a 
+ tid=0xf7 
+ ordkey=0xe 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 1085000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.15
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x2ba 
+ tid=0x2bb 
+ ordkey=0x12 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 1185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.11
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x4b 
+ tid=0x16d 
+ ordkey=0x3e 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 1215000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.16
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x343 
+ tid=0x125 
+ ordkey=0x83 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 1225000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=16 response_packets=16 final_rsp(raw/matched)=16/16
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(777) @ 1225000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
   REQ=16  RSP_PKT=16  RSP_FINAL(raw/matched)=16/16
   AW=16 AR=0 W=16 B=16/16 R=0/0
@@ -477,8 +477,8 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(777) @ 8250
   pending_exp_W=0 pending_obs_W=0
   PASS=48  FAIL=0
 =====================================
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(125) @ 825000: uvm_test_top [RESULT] *** TEST PASSED ***
-UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 825000: reporter [UVM/REPORT/SERVER] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(125) @ 1225000: uvm_test_top [RESULT] *** TEST PASSED ***
+UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 1225000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
@@ -496,12 +496,12 @@ UVM_FATAL :    0
 [UVM/RELNOTES]     1
 
 $finish called from file "/home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh", line 527.
-$finish at simulation time               825000
+$finish at simulation time              1225000
 
 ---------------------------------------------------------------------------
 VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 825000 ps
-CPU Time:      0.370 seconds;       Data structure size:   0.9Mb
-Sat Aug  8 00:27:31 2026
+Time: 1225000 ps
+CPU Time:      0.320 seconds;       Data structure size:   0.9Mb
+Sun Aug  9 21:11:30 2026

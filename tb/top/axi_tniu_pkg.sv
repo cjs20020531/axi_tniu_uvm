@@ -88,6 +88,9 @@ package axi_tniu_pkg;
   `include "test_mix.sv"
   `include "test_norm_wrw_narrow_noalign.sv"
   `include "test_norm_rdw_narrow_noalign.sv"
+  `include "test_buff_mix_fixordkey.sv"
+  `include "test_err_mix_fixordkey.sv"
+  `include "test_norm_mix_stresstest.sv"
 
 endpackage : axi_tniu_pkg
 

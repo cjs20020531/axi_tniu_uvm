@@ -445,7 +445,7 @@ reg [HEAD_BUFF_WITH-1:0] head_buffer [HEAD_BUFF_DEEP-1:0];
 //----------------------------------------------------------------------------------
 //  buffer空闲单元索引操作
 //----------------------------------------------------------------------------------
-wire [HEAD_BUFF_DEEP-1:0] head_buffer_used; //生成idle_head_buffer_index_hot的中间变量
+wire [HEAD_BUFF_DEEP-1:0] head_buffer_used; //生成idle_head_buffer_index_hot的中间变量,被使用了则为0，没使用则为1,与buffer中的used位相反
 wire [HEAD_BUFF_DEEP-1:0] idle_head_buff_index_hot;
 wire [INDEX_WITH-1:0] idle_head_buff_index_hot2bin_temp1 [HEAD_BUFF_DEEP-1 : 0]; 
 wire [HEAD_BUFF_DEEP-1:0] idle_head_buff_index_hot2bin_temp2 [INDEX_WITH-1 : 0];
@@ -873,7 +873,7 @@ endgenerate
 //  提示watchdog模块TNIU处于无请求状态，需中断计时器计时
 //----------------------------------------------------------------------------------
 
-assign timer_interrupt = &head_buffer_used;
+assign timer_interrupt = &head_buffer_used;  //head_buffer_used全1表示buffer空了，当buffer空时中断计时
 
 
 //----------------------------------------------------------------------------------

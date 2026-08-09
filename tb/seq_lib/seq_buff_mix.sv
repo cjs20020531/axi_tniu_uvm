@@ -23,6 +23,8 @@ class seq_buff_mix extends rknp_base_seq;
             if (local::selected_bufferable)
               opc inside {axi_tniu_protocol_pkg::OPC_WR,
                           axi_tniu_protocol_pkg::OPC_WRW};
+            if (local::use_fixed_orderkey)
+              orderkey == local::fixed_orderkey;
           })
         `uvm_fatal("SEQ_BUFF_MIX", "Randomization failed")
       complete_item(it, "SEQ_BUFF_MIX");

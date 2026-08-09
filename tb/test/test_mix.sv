@@ -6,7 +6,7 @@ class test_mix extends axi_tniu_base_test;
   task run_testcase();
     seq_mix seq = seq_mix::type_id::create("seq");
     // Sequence selection and configuration belong to this test.
-    seq.num_txn = 1;
+    seq.num_txn = 400;
     start_rknp_sequence(seq);
   endtask
 endclass : test_mix

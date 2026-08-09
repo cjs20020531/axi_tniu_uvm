@@ -24,6 +24,8 @@ class seq_err_mix extends rknp_base_seq;
                          axi_tniu_protocol_pkg::ST_ERR := 30};
             errcode    == axi_tniu_protocol_pkg::EC_ADDR_DEC;
             axcache[0] == 1'b0;
+            if (local::use_fixed_orderkey)
+              orderkey == local::fixed_orderkey;
           })
         `uvm_fatal("SEQ_ERR_MIX", "Randomization failed")
       complete_item(it, "SEQ_ERR_MIX");

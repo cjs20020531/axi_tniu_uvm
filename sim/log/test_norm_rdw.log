@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_norm_rdw +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_norm_rdw_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_rdw.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug  8 00:27 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug  9 21:11 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -134,7 +134,7 @@ RKNP-REQ
  len=7(=8B) 
  addr=0x8a8a6af2 
  user=0x198(rknp=0 axi=1 lock=1 port=0x1 cache=0x8)
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 195000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 215000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -148,7 +148,7 @@ RD[31]:
     97  96  95  94  93  92  91  90
     9f  9e  9d  9c  9b  9a  99  98
     a7  a6  a5  a4  a3  a2  a1  a0
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 265000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 295000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -160,7 +160,7 @@ RKNP-RSP
 RD[15]:
     27  26  25  24  00-  00-  00-  00-
     00-  00-  00-  00-  23  22  21  20
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 295000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 375000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -172,7 +172,7 @@ RKNP-RSP
 RD[15]:
     f7  f6  f5  f4  f3  f2  00-  00-
     00-  00-  00-  00-  00-  00-  f1  f0
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 335000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 475000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -184,8 +184,8 @@ RKNP-RSP
 RD[15]:
     3f  3e  3d  3c  3b  3a  00-  00-
     00-  00-  00-  00-  00-  00-  39  38
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 345000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=4 response_packets=4 final_rsp(raw/matched)=4/4
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(777) @ 345000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 485000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=4 response_packets=4 final_rsp(raw/matched)=4/4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(777) @ 485000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
   REQ=4  RSP_PKT=4  RSP_FINAL(raw/matched)=4/4
   AW=0 AR=4 W=0 B=0/0 R=4/4
@@ -194,8 +194,8 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(777) @ 3450
   pending_exp_W=0 pending_obs_W=0
   PASS=8  FAIL=0
 =====================================
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(125) @ 345000: uvm_test_top [RESULT] *** TEST PASSED ***
-UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 345000: reporter [UVM/REPORT/SERVER] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(125) @ 485000: uvm_test_top [RESULT] *** TEST PASSED ***
+UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 485000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
@@ -213,12 +213,12 @@ UVM_FATAL :    0
 [UVM/RELNOTES]     1
 
 $finish called from file "/home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh", line 527.
-$finish at simulation time               345000
+$finish at simulation time               485000
 
 ---------------------------------------------------------------------------
 VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 345000 ps
-CPU Time:      0.320 seconds;       Data structure size:   0.9Mb
-Sat Aug  8 00:27:30 2026
+Time: 485000 ps
+CPU Time:      0.310 seconds;       Data structure size:   0.9Mb
+Sun Aug  9 21:11:29 2026

@@ -21,6 +21,8 @@ class seq_norm_mix extends rknp_base_seq;
                         axi_tniu_protocol_pkg::OPC_WRW};
             status     == axi_tniu_protocol_pkg::ST_OK;
             axcache[0] == 1'b0;
+            if (local::use_fixed_orderkey)
+              orderkey == local::fixed_orderkey;
           })
         `uvm_fatal("SEQ_NORM_MIX", "Randomization failed")
       complete_item(it, "SEQ_NORM_MIX");

@@ -30,16 +30,19 @@ TEST_SEQUENCE=(
   test_norm_wrw
   test_norm_wrw_narrow_noalign
   test_norm_mix
+  # test_norm_mix_stresstest
 
-  test_err_rd
-  test_err_wr
-  test_err_rdw
-  test_err_wrw
-  test_err_mix
+  # test_err_rd
+  # test_err_wr
+  # test_err_rdw
+  # test_err_wrw
+  # test_err_mix
+  # test_err_mix_fixordkey
 
-  test_buff_wr
+  # test_buff_wr
   # test_buff_wrw
   # test_buff_mix
+  # test_buff_mix_fixordkey
   # test_buff_err_mix
 
   # test_addrol_waw

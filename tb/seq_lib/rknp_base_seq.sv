@@ -22,6 +22,8 @@ class rknp_base_seq extends uvm_sequence #(rknp_seq_item);
   int unsigned    num_txn = 1;
   wrap_len_mode_e wrap_len_mode = WRAP_LEN_FULL;
   bit             force_flit_aligned_addr = 1'b0;
+  bit use_fixed_orderkey;
+  axi_tniu_protocol_pkg::ordkey_t fixed_orderkey;
 
   localparam int unsigned MAX_LEN = (1 << axi_tniu_protocol_pkg::LEN_WITH) - 1;
   localparam int unsigned NBPW    = axi_tniu_protocol_pkg::NBYTEPERWORD;

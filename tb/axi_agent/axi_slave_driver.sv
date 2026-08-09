@@ -260,6 +260,61 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
     return 1'b1;
   endfunction
 
+
+  function automatic int unsigned get_resp_delay();
+      if (cfg == null)
+          return $urandom_range(5, 0);
+
+      return $urandom_range(
+          cfg.axi_min_resp_delay,
+          cfg.axi_max_resp_delay
+      );
+  endfunction
+
+function automatic int unsigned get_beat_gap_delay();
+    int unsigned min_gap;
+    int unsigned max_gap;
+    int unsigned gap_count;
+    int unsigned total_weight;
+    int unsigned ticket;
+    int unsigned cumulative_weight;
+    int unsigned weight;
+
+    if (cfg == null)
+        return $urandom_range(2, 0);
+
+    min_gap = cfg.axi_min_beat_gap;
+    max_gap = cfg.axi_max_beat_gap;
+
+    // 防止配置错误
+    if (min_gap >= max_gap)
+        return min_gap;
+
+    // axi_min_beat_gap 占 60%
+    if ($urandom_range(99, 0) < 60)
+        return min_gap;
+
+    gap_count    = max_gap - min_gap;
+    total_weight = gap_count * (gap_count + 1) / 2;
+
+    // ticket 范围为 [1, total_weight]
+    ticket = $urandom_range(total_weight, 1);
+
+    cumulative_weight = 0;
+
+    for (int unsigned gap = min_gap + 1; gap <= max_gap; gap++) begin
+
+        weight = max_gap - gap + 1;
+        cumulative_weight += weight;
+
+        if (ticket <= cumulative_weight)
+            return gap;
+    end
+
+    return max_gap;
+endfunction
+
+
   // ---- B engine : serialize write responses (optionally out-of-order) -------
   task b_engine();
     int eligible_idx[$];
@@ -294,7 +349,7 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
         t            = b_pending[selected_idx];
         b_pending.delete(selected_idx);
 
-        repeat ($urandom_range(0,4)) @(vif.slv_cb);
+        repeat (get_resp_delay()) @(vif.slv_cb);
         vif.slv_cb.bvalid <= 1'b1;
         vif.slv_cb.bid    <= t.id;
         vif.slv_cb.bresp  <= 2'b00;   // OKAY
@@ -428,7 +483,7 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
 
   // send a full (non-interleaved) read burst
   task send_read_burst(axi_seq_item t, bit contiguous);
-    repeat ($urandom_range(0,5)) @(vif.slv_cb);
+    repeat (get_resp_delay()) @(vif.slv_cb);
     for (int beat = 0; beat <= t.len; beat++) begin
       vif.slv_cb.rvalid <= 1'b1;
       vif.slv_cb.rid    <= t.id;
@@ -436,8 +491,8 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
       vif.slv_cb.rresp  <= 2'b00;
       vif.slv_cb.rlast  <= (beat == t.len);
       do @(vif.slv_cb); while (!vif.slv_cb.rready);
-      repeat ($urandom_range(0,2)) begin  // inter-beat gap
-        vif.slv_cb.rvalid <= 1'b0; @(vif.slv_cb);
+      repeat (get_beat_gap_delay()) begin  // inter-beat gap
+        vif.slv_cb.rvalid <= 1'b0;
         vif.slv_cb.rlast  <= 1'b0; @(vif.slv_cb);
       end
     end
