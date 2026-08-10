@@ -584,9 +584,10 @@ always @(posedge clk or negedge resetn) begin
         for (c=0 ; c<HEAD_BUFF_DEEP ; c=c+1)
             head_buffer[c] <= #DLY 'd0;
     else begin
-        if(del_head_en == 1'b1)          //删除操作
+        if(del_head_en == 1'b1) begin         //删除操作
             head_buffer[rsp_head_buff_index][0] <= #DLY 1'b0; //将rsp_head_buff_index的used位清0
-
+            head_buffer[rsp_head_buff_index][BUFF_TIMOUT_OFFSET] <= #DLY 1'b0; 
+        end
         if(rspo2reqo_rhead_en == 1'b1) begin   //更新status/addr/len
             head_buffer[rsp_head_buff_index][BUFF_STAT_OFFSET +: 2] <= #DLY CONT; 
             if(rspo2reqo_timout == 1'b1) begin

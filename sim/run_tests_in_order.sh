@@ -32,6 +32,8 @@ TEST_SEQUENCE=(
   test_norm_mix
   test_watchdog_1023
   test_watchdog_1024
+  test_watchdog_1100
+  test_watchdog_normal_timeout
   # test_norm_mix_stresstest
 
   # test_err_rd

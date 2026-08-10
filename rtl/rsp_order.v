@@ -707,7 +707,7 @@ assign addr_end = reqo2rspo_rsp_addr + reqo2rspo_rsp_len;  // 0x07 + 28 = 0x23
 
 assign addr_end_align = (addr_end + (NBYTEPERWORD-1)) & ~(NBYTEPERWORD-1); 
 
-assign total_flit = (addr_end_align - addr_begin_align) >> $clog2(NBYTEPERWORD) - 1;
+assign total_flit = ((addr_end_align - addr_begin_align) >> $clog2(NBYTEPERWORD)) - 1;
 
 
 reg [7:0] flit_cnt;

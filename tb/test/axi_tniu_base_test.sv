@@ -112,6 +112,7 @@ class axi_tniu_base_test extends uvm_test;
     phase.raise_objection(this);
     run_testcase();
     drain_responses();
+    #10us;  // 收到全部响应后，再等待10us
     phase.drop_objection(this);
   endtask
 
