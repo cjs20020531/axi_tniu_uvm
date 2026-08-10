@@ -27,7 +27,7 @@ module watchdog#(
     
 );
 localparam TIMER_CNT_MAX = TIMOUT_VALUE*2;      //计数器最大值
-localparam TIMER_CNT_WITH = $clog2(TIMER_CNT_MAX);
+localparam TIMER_CNT_WITH = $clog2(TIMER_CNT_MAX)+1; 
 localparam INDEX_WITH = $clog2(TIMOUT_TABLE_DEEP);
 
 //----------------------------------------------------------------------------------
@@ -52,10 +52,10 @@ always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) 
         timer_cnt <= #DLY 'd1;
     else if(timer_interrupt == 1'b0) begin
-        if(timer_cnt < TIMER_CNT_MAX)
-            timer_cnt <= #DLY timer_cnt + 1'b1;
-        else
+        if(timer_cnt == TIMER_CNT_MAX)
             timer_cnt <= #DLY 'd1; 
+        else
+            timer_cnt <= #DLY timer_cnt + 1'b1;
     end
 end
 
