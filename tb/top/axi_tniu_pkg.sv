@@ -92,6 +92,12 @@ package axi_tniu_pkg;
   `include "test_err_mix_fixordkey.sv"
   `include "test_norm_mix_stresstest.sv"
 
+  `include "test_watchdog_1023.sv"
+  `include "test_watchdog_1024.sv"
+  `include "test_watchdog_1100.sv"
+  `include "test_watchdog_normal_timeout.sv"
+  `include "test_watchdog_bufferable_1100.sv"
+
 endpackage : axi_tniu_pkg
 
 `endif // AXI_TNIU_PKG_SV

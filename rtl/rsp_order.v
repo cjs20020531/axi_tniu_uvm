@@ -185,6 +185,9 @@ wire fir_err_en;   //buffer中存在第一笔该类型请求为err的有效标�
 wire spec_dispatch_en; //本拍明确读取并启动一笔特殊响应
 wire rsp_tail_hs;
 wire spec_err_pending;
+wire rsp_path_idle;    //响应通路空闲，可直接启动一笔特殊响应
+wire timeout_pending;  //timeout FIFO中存在待处理响应
+wire dispatch_boundary;//可以启动下一笔特殊响应的时机
 wire spec_req_ready_en;
 reg [SPEC_REQ_BUFF_DEEP-1:0] spec_req_ready_hot;
 reg [INDEX_WITH-1:0] spec_req_ready_index;
@@ -937,16 +940,21 @@ always @(*) begin
 end
 
 // 特殊响应只能由一个无组合环的dispatch事件启动：
-// 1) 普通响应通道空闲且存在可发送ERR；
-// 2) 当前响应尾拍握手，同时存在下一笔ERR或timeout。
+// 1) 普通响应通道空闲；
+// 2) 当前响应尾拍握手，可以无气泡衔接下一笔特殊响应。
 assign rsp_tail_hs = rspo2rknp_xx_tail &&
                      rspo2rknp_xx_valid &&
                      rknp_xx2rspo_ready;
+
+// rsp_phase会覆盖普通多拍响应的拍间空隙，因此不能只用valid判断空闲。
+assign rsp_path_idle = (cur_state == NORM_RSP) &&
+                       (rsp_phase == 1'b0);
+assign timeout_pending = ~timout_fifo_empty;
+assign dispatch_boundary = rsp_path_idle || rsp_tail_hs;
+
 assign spec_err_pending = spec_req_ready_en;
-assign spec_dispatch_en =
-    ((cur_state == NORM_RSP) && (rsp_phase == 1'b0) &&
-     spec_err_pending) ||
-    (rsp_tail_hs && (spec_err_pending || timout_fifo_rden));
+assign spec_dispatch_en = dispatch_boundary &&
+                          (spec_err_pending || timout_fifo_rden);
 
 
 always @(posedge clk or negedge resetn) begin
@@ -1152,22 +1160,10 @@ assign spec_rsp_data[0] = (spec_rsp_opc == WR || flit_cnt == total_flit) ? 1'b1 
 //------------------------------------------------------
 //  生成timout_fifo_rden
 //------------------------------------------------------
-wire timout_fifo_empty_neg;
-reg timout_fifo_empty_d;
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0)
-        timout_fifo_empty_d <= #DLY 1'b1;
-    else
-        timout_fifo_empty_d <= #DLY timout_fifo_empty;
-    
-end
-assign  timout_fifo_empty_neg = timout_fifo_empty_d & ~timout_fifo_empty;
-
 always @(*) begin
-    if(rspo2rknp_xx_tail == 1'b1 && rknp_xx2rspo_ready == 1'b1 && timout_fifo_empty == 1'b0)
+    // 空闲时立即读取timeout；忙时在当前响应tail握手时衔接读取。
+    if(timeout_pending == 1'b1 && dispatch_boundary == 1'b1)
         timout_fifo_rden = 1'b1;
-    // else if(timout_fifo_empty_neg == 1'b1) // bug,2026_07_07
-    //     timout_fifo_rden = 1'b1;
     else
         timout_fifo_rden = 1'b0;
 end
@@ -1333,15 +1329,6 @@ generate
         assign rspo2erd_tag_cnt = reqo2rspo_tag_cnt;
     end
 endgenerate
-
-
-
-
-
-
-
-
-
 
 
 endmodule
