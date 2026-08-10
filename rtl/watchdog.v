@@ -181,16 +181,21 @@ assign timout_flag = |timout_table_index_hot; //如果有超时标志，则为1
 //----------------------------------------------------------------------------------
 integer a;
 always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0) begin
-        for(a=0; a<TIMOUT_TABLE_DEEP; a=a+1) begin
+    if(!resetn) begin
+        for(a = 0; a < TIMOUT_TABLE_DEEP; a = a + 1)
             tim_not_table[a] <= #DLY 'd0;
-        end
-    end else if(reqo2wd_timon_en == 1'b1) begin
-        tim_not_table[timon_table_index] <= #DLY rsp_timnot;
-    end else if(rspo2wd_timoff_en == 1'b1) begin //结束计时的优先级高于超时的优先级
-        tim_not_table[timoff_table_index] <= #DLY 'd0;  //归零表示删除
-    end else if(timout_flag == 1'b1) begin
-        tim_not_table[timout_table_index] <= #DLY 'd0;  
+    end else begin
+        // 清除已经超时的旧条目
+        if(timout_flag)
+            tim_not_table[timout_table_index] <= #DLY 'd0;
+
+        // 完成响应的请求停止计时
+        if(rspo2wd_timoff_en)
+            tim_not_table[timoff_table_index] <= #DLY 'd0;
+
+        // 新请求最后写入；如果同一表项刚好被复用，新请求计时必须保留
+        if(reqo2wd_timon_en)
+            tim_not_table[timon_table_index] <= #DLY rsp_timnot;
     end
 end
 
