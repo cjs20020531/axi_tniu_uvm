@@ -100,7 +100,7 @@ module req_order#(
     ,output reg  [TAG_CNT_WITH-1:0]     reqo2wd_tag_cnt
     ,output reg                         reqo2wd_timon_en
     ,output wire                        timer_interrupt
-    ,output wire [HEAD_BUFF_DEEP*(AXID_WITH+2+TAG_CNT_WITH):0] reqo2wd_timout_table
+    ,output wire [HEAD_BUFF_DEEP*(AXID_WITH+2+TAG_CNT_WITH+1)-1:0] reqo2wd_timout_table
 
 
 );
@@ -882,7 +882,7 @@ assign timer_interrupt = &head_buffer_used;  //head_buffer_used全1表示buffer�
 //----------------------------------------------------------------------------------
 generate
     for(i=0; i<HEAD_BUFF_DEEP; i=i+1) begin
-        assign reqo2wd_timout_table[(TAG_CNT_WITH+2+AXID_WITH+1)*(i+1)-1:(TAG_CNT_WITH+2+AXID_WITH+1)*i] = head_buffer[i][0 +: TAG_CNT_WITH+2+AXID_WITH];
+        assign reqo2wd_timout_table[(TAG_CNT_WITH+2+AXID_WITH+1)*(i+1)-1:(TAG_CNT_WITH+2+AXID_WITH+1)*i] = head_buffer[i][0 +: TAG_CNT_WITH+2+AXID_WITH+1];
     end
 endgenerate
 

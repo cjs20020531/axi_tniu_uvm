@@ -4097,3 +4097,237 @@ wvScrollUp -win $_nWave6 1
 wvScrollUp -win $_nWave6 1
 wvScrollUp -win $_nWave6 1
 wvScrollUp -win $_nWave6 1
+srcDeselectAll -win $_nTrace1
+srcDeselectAll -win $_nTrace1
+srcDeselectAll -win $_nTrace1
+verdiDockWidgetSetCurTab -dock windowDock_nWave_5
+verdiDockWidgetSetCurTab -dock windowDock_nWave_6
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+verdiDockWidgetSetCurTab -dock windowDock_nWave_5
+verdiDockWidgetSetCurTab -dock windowDock_nWave_4
+verdiDockWidgetSetCurTab -dock windowDock_nWave_6
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 4 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 3 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 3 )} 
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave6
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 3 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 4 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 5 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 4 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 3 )} 
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 3)}
+wvExpandBus -win $_nWave6 {("U_WATCHDOG" 3)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 27)}
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 3 )} 
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 3)}
+wvCollapseBus -win $_nWave6 {("U_WATCHDOG" 3)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 3)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 19)}
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 12 )} 
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 12)}
+wvExpandBus -win $_nWave6 {("U_WATCHDOG" 12)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 27)}
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 12 )} 
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 12)}
+wvCollapseBus -win $_nWave6 {("U_WATCHDOG" 12)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 12)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 19)}
+wvScrollUp -win $_nWave6 6
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 3 )} 
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 3)}
+wvExpandBus -win $_nWave6 {("U_WATCHDOG" 3)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 27)}
+wvScrollDown -win $_nWave6 2
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 12 )} 
+wvScrollDown -win $_nWave6 5
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 12 13 14 15 16 17 18 19 )} 
+wvCut -win $_nWave6
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 27)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 19)}
+wvScrollUp -win $_nWave6 8
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 3 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 4 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 5 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 7 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 8 )} 
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvSetCursor -win $_nWave6 2216689.336678 -snap {("U_WATCHDOG" 11)}
+wvZoomIn -win $_nWave6
+wvZoomIn -win $_nWave6
+wvZoomIn -win $_nWave6
+wvZoomIn -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1

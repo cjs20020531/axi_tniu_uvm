@@ -14,7 +14,7 @@ module watchdog#(
     ,input       [TAG_CNT_WITH-1:0]     reqo2wd_tag_cnt
     ,input                              reqo2wd_timon_en
     ,input                              timer_interrupt
-    ,input       [TIMOUT_TABLE_DEEP*(AXID_WITH+2+TAG_CNT_WITH):0] reqo2wd_timout_table
+    ,input       [TIMOUT_TABLE_DEEP*(AXID_WITH+2+TAG_CNT_WITH+1)-1:0] reqo2wd_timout_table
     // The interface signals of watchdog
     ,input       [AXID_WITH-1:0]        rspo2wd_axid
     ,input       [1:0]                  rspo2wd_opc
