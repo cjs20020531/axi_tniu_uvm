@@ -1120,7 +1120,7 @@ always @(*) begin
                 if(rspo2rknp_xx_data[RSP_OPC_OFFSET +: 2] == RD) begin
                     if(flit_cnt == 'd0) begin
                         rspo2rknp_xx_head = 1'b1;
-                        rspo2rknp_xx_tail = 1'b0;
+                        rspo2rknp_xx_tail = (total_flit == 'd0);
                         rspo2rknp_xx_valid = 1'b1;
                     end else if(flit_cnt == total_flit)begin
                         rspo2rknp_xx_head = 1'b0;
