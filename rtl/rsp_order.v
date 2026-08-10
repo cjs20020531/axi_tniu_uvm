@@ -691,23 +691,18 @@ assign follo_err_en = (follo_req_buff_index_hot !='d0) ? 1'b1 : 1'b0;
 //------------------------------------------------------
 //  生成特殊请求自组包的body部分
 //------------------------------------------------------
-wire [ADDR_WITH-1:0] addr_begin_align;  //原地址的向下对齐地址
-wire [ADDR_WITH-1:0] addr_end_align;  //原地址的向下对齐地址
-wire [ADDR_WITH-1:0] addr_end;
-wire [7:0] valid_len_min;  //有效长度下限
-wire [7:0] valid_len_max;  //有效长度上限
-wire [7:0] total_flit;    //总flit数
+// reqo2rspo_rsp_len is the payload byte count minus one. Calculate all
+// positions relative to the first aligned response flit so that byte lanes
+// are never compared directly with a flit index.
+wire [LEN_WITH:0] first_valid_lane;
+wire [LEN_WITH:0] last_byte_offset;
+wire [LEN_WITH:0] last_valid_lane;
+wire [LEN_WITH:0] total_flit;       // Last flit index, starting from zero
 
-
-assign addr_begin_align = reqo2rspo_rsp_addr & ~(NBYTEPERWORD-1);
-assign valid_len_min = reqo2rspo_rsp_addr - addr_begin_align;
-assign valid_len_max = reqo2rspo_rsp_addr + reqo2rspo_rsp_len;
-
-assign addr_end = reqo2rspo_rsp_addr + reqo2rspo_rsp_len;  // 0x07 + 28 = 0x23
-
-assign addr_end_align = (addr_end + (NBYTEPERWORD-1)) & ~(NBYTEPERWORD-1); 
-
-assign total_flit = ((addr_end_align - addr_begin_align) >> $clog2(NBYTEPERWORD)) - 1;
+assign first_valid_lane = reqo2rspo_rsp_addr & (NBYTEPERWORD-1);
+assign last_byte_offset = first_valid_lane + {1'b0, reqo2rspo_rsp_len};
+assign last_valid_lane  = last_byte_offset & (NBYTEPERWORD-1);
+assign total_flit       = last_byte_offset >> $clog2(NBYTEPERWORD);
 
 
 reg [7:0] flit_cnt;
@@ -729,13 +724,18 @@ wire [9*NBYTEPERWORD:0] spec_rsp_data;  //自组织特殊响应的body部分
 reg [NBYTEPERWORD-1:0] be_temp;
 
 always @(*) begin
-    if(flit_cnt == 'd0) begin
-        be_temp = ({NBYTEPERWORD{1'b1}} >> valid_len_min) << valid_len_min;
-    end else if(flit_cnt == valid_len_max)begin
-        be_temp = ({NBYTEPERWORD{1'b1}} << valid_len_min) >> valid_len_min;
-    end else begin
-        be_temp = {NBYTEPERWORD{1'b1}};
-    end
+    be_temp = {NBYTEPERWORD{1'b1}};
+
+    // Mask the unused low lanes of the first flit.
+    if(flit_cnt == 'd0)
+        be_temp = be_temp & ({NBYTEPERWORD{1'b1}} << first_valid_lane);
+
+    // Mask the unused high lanes of the last flit. This is a separate if so
+    // that a single-flit response receives both the head and tail masks.
+    if(flit_cnt == total_flit)
+        be_temp = be_temp &
+                  ({NBYTEPERWORD{1'b1}} >>
+                   (NBYTEPERWORD - 1 - last_valid_lane));
 end
 //------------------------------------------------------
 //   1、填充byte位

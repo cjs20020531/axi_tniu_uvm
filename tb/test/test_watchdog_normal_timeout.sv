@@ -14,32 +14,36 @@ class test_watchdog_normal_timeout extends axi_tniu_base_test;
     cfg.axi_ready_bp_en     = 1'b0;
     cfg.rsp_ready_bp_en     = 1'b0;
     cfg.axi_slverr_pct      = 0;
-    cfg.axi_min_resp_delay  = 16;
-    cfg.axi_max_resp_delay  = 16;
+    cfg.axi_min_resp_delay  = 1100;
+    cfg.axi_max_resp_delay  = 1100;
     cfg.rsp_drain_timeout   = 200us;
   endfunction
 
   virtual task run_testcase();
-    seq_norm_rd normal_seq;
     seq_norm_rd timeout_seq;
-    int unsigned normal_r_count;
+    seq_norm_rd normal_seq;
+    int unsigned first_rsp_count;
 
-    normal_r_count = env.sb.n_r;
+    first_rsp_count = env.sb.n_rsp_matched_final;
 
-    normal_seq = seq_norm_rd::type_id::create("normal_seq");
-    normal_seq.num_txn = 1;
-    start_rknp_sequence(normal_seq);
-
-    // Wait until the first normal AXI read response has completed before
-    // changing the shared slave response-delay configuration.
-    wait (env.sb.n_r >= normal_r_count + 1);
-
-    cfg.axi_min_resp_delay = 1100;
-    cfg.axi_max_resp_delay = 1100;
-
+    // The first request is delayed for 1100 cycles and must therefore receive
+    // the DUT-generated watchdog timeout response.
     timeout_seq = seq_norm_rd::type_id::create("timeout_seq");
     timeout_seq.num_txn = 1;
-    start_rknp_sequence(timeout_seq);
+    timeout_seq.start(env.rknp_agt.sqr);
+
+    // Do not send the following requests until the timeout response has
+    // actually left the DUT. This keeps only the first request timed out.
+    // wait (env.sb.n_rsp_matched_final >= first_rsp_count + 1);
+
+    // get_resp_delay() for the first AXI request has already captured 1100.
+    // New requests use zero delay and return normally after the timeout packet.
+    cfg.axi_min_resp_delay = 0;
+    cfg.axi_max_resp_delay = 4;
+
+    normal_seq = seq_norm_rd::type_id::create("normal_seq");
+    normal_seq.num_txn = 80;
+    normal_seq.start(env.rknp_agt.sqr);
   endtask
 
 endclass : test_watchdog_normal_timeout
