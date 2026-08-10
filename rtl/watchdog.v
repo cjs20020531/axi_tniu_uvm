@@ -14,7 +14,7 @@ module watchdog#(
     ,input       [TAG_CNT_WITH-1:0]     reqo2wd_tag_cnt
     ,input                              reqo2wd_timon_en
     ,input                              timer_interrupt
-    ,input       [TIMOUT_TABLE_DEEP*(AXID_WITH+2+TAG_CNT_WITH)-1:0] reqo2wd_timout_table
+    ,input       [TIMOUT_TABLE_DEEP*(AXID_WITH+2+TAG_CNT_WITH):0] reqo2wd_timout_table
     // The interface signals of watchdog
     ,input       [AXID_WITH-1:0]        rspo2wd_axid
     ,input       [1:0]                  rspo2wd_opc
@@ -33,13 +33,13 @@ localparam INDEX_WITH = $clog2(TIMOUT_TABLE_DEEP);
 //----------------------------------------------------------------------------------
 //  生成超时条目表
 //----------------------------------------------------------------------------------
-reg [AXID_WITH+TAG_CNT_WITH+1:0] timout_table [TIMOUT_TABLE_DEEP-1:0]; //超时条目表
+reg [AXID_WITH+TAG_CNT_WITH+2:0] timout_table [TIMOUT_TABLE_DEEP-1:0]; //超时条目表
 
 genvar i,j;
 generate
     for(i=0; i<TIMOUT_TABLE_DEEP; i=i+1) begin
         always @(*) begin
-            timout_table[i] = reqo2wd_timout_table[(AXID_WITH+2+TAG_CNT_WITH)*(i+1)-1:(AXID_WITH+2+TAG_CNT_WITH)*i];
+            timout_table[i] = reqo2wd_timout_table[(AXID_WITH+2+TAG_CNT_WITH+1)*(i+1)-1:(AXID_WITH+2+TAG_CNT_WITH+1)*i];
         end
     end
 endgenerate
@@ -86,7 +86,7 @@ wire [TIMOUT_TABLE_DEEP-1:0] timon_table_index_hot2bin_temp2 [INDEX_WITH-1:0];
 //生成独热码
 generate 
     for (i = 0 ; i < TIMOUT_TABLE_DEEP ; i = i + 1) begin 
-        assign timon_table_index_hot[i] = ({reqo2wd_axid,reqo2wd_opc,reqo2wd_tag_cnt} == timout_table[i]) ? 1'b1 : 1'b0;
+        assign timon_table_index_hot[i] = ({reqo2wd_axid,reqo2wd_opc,reqo2wd_tag_cnt,1'b1} == timout_table[i]) ? 1'b1 : 1'b0;
     end
 endgenerate
 //独热码转二进制码
@@ -119,7 +119,7 @@ wire [TIMOUT_TABLE_DEEP-1 : 0] timoff_table_index_hot2bin_temp2 [INDEX_WITH-1 : 
 //生成独热码
 generate 
     for (i = 0 ; i < TIMOUT_TABLE_DEEP ; i = i + 1) begin 
-        assign timoff_table_index_hot[i] = ({rspo2wd_axid,rspo2wd_opc,rspo2wd_tag_cnt} == timout_table[i]) ? 1'b1 : 1'b0;
+        assign timoff_table_index_hot[i] = ({rspo2wd_axid,rspo2wd_opc,rspo2wd_tag_cnt,1'b1} == timout_table[i]) ? 1'b1 : 1'b0;
     end
 endgenerate
 //独热码转二进制码

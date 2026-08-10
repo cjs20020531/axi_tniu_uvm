@@ -185,7 +185,7 @@ wire [1:0]                        reqo2wd_opc;
 wire [TAG_CNT_WITH-1:0]           reqo2wd_tag_cnt;
 wire                              reqo2wd_timon_en;
 wire                              timer_interrupt;
-wire [HEAD_BUFF_DEEP*(AXID_WITH+2+TAG_CNT_WITH)-1:0] reqo2wd_timout_table;
+wire [HEAD_BUFF_DEEP*(AXID_WITH+2+TAG_CNT_WITH+1)-1:0] reqo2wd_timout_table;
 
 // rsp_trans to rsp_trans
 wire                              rspt2rspo_head           ;                                            
