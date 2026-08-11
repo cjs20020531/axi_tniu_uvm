@@ -247,9 +247,9 @@ function string convert2string();
     end
   end
   else begin
-    s = $sformatf("\nRKNP-RSP \n opc=%s \n status=%s \n iid=0x%0h \n tid=0x%0h \n ordkey=0x%0h \n lw=%0b",
+    s = $sformatf("\nRKNP-RSP \n opc=%s \n status=%s \n iid=0x%0h \n tid=0x%0h \n ordkey=0x%0h \n addr=0x%08h \n lw=%0b",
                   rsp_opc.name(), rsp_status.name(), iid, tid, orderkey,
-                  rsp_lw);
+                  addr, rsp_lw);
 
     if (rsp_status == axi_tniu_protocol_pkg::ST_ERR)
       s = {s, $sformatf(" errc=%s", rsp_errcode.name())};

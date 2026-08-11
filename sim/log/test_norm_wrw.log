@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_norm_wrw +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_norm_wrw_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_wrw.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 11 14:35 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 11 14:56 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -138,6 +138,7 @@ RKNP-RSP
  iid=0x2bb 
  tid=0x1a 
  ordkey=0x3f 
+ addr=0x9acc8e20 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 285000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
 
@@ -192,6 +193,7 @@ RKNP-RSP
  iid=0x14b 
  tid=0x87 
  ordkey=0xa5 
+ addr=0x8eba1090 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 425000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3
 
@@ -201,6 +203,7 @@ RKNP-RSP
  iid=0x2b7 
  tid=0x3a5 
  ordkey=0x78 
+ addr=0xfa5010e8 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 595000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4
 
@@ -210,6 +213,7 @@ RKNP-RSP
  iid=0x1ef 
  tid=0x16c 
  ordkey=0x90 
+ addr=0x2a29abc8 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 605000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=4 response_packets=4 final_rsp(raw/matched)=4/4
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1107) @ 10605000: uvm_test_top.env.sb [SB] 
@@ -248,5 +252,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 10605000 ps
-CPU Time:      0.310 seconds;       Data structure size:   0.9Mb
-Tue Aug 11 14:35:08 2026
+CPU Time:      0.320 seconds;       Data structure size:   0.9Mb
+Tue Aug 11 14:56:40 2026

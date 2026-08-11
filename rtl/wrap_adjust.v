@@ -136,7 +136,6 @@ wire cur_wrap_final_hs;
 assign first_wrap_flit =
        rspo2wad_valid
     && rspo2wad_head
-    && (rspo2wad_opc == R)
     && (rspo2wad_offset_addr != 8'd0)
     && (rspo2wad_status != CONT);
 
@@ -271,7 +270,8 @@ always @(*) begin
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b1;
     end else if(first_wrap_flit == 1'b1) begin      //若为交织则无需修正地址
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET-1 : 0] = {rspo2wad_data[RSP_USER_OFFSET +: USER_WITH+4] , adjust_addr , rspo2wad_data[RSP_ADDR_OFFSET-1 : 0]}; //head部分（含LW位）
-        wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b0;
+        if(rspo2wad_opc == W) wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b1;
+        else                   wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b0;
     end else if(cur_wrap_final == 1'b1)begin
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET-1 : 0] = rspo2wad_data[RSP_HEAD_LEN_OFFSET-1 : 0]; //head部分（不含LW位）
         wad2rknp_xx_data[RSP_HEAD_LEN_OFFSET] = 1'b0;

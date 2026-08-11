@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_err_rd +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_err_rd_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_err_rd.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 11 14:35 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 11 14:56 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -142,6 +142,7 @@ RKNP-RSP
  iid=0x2bb 
  tid=0x1a 
  ordkey=0x3f 
+ addr=0x735991c4 
  lw=1 errc=EC_ADDR_DEC
 RD[7]:
     00-  00-  00-  00  00-  00-  00-  00-
@@ -153,6 +154,7 @@ RKNP-RSP
  iid=0x14b 
  tid=0x87 
  ordkey=0xa5 
+ addr=0x91d74212 
  lw=1 errc=EC_ADDR_DEC
 RD[263]:
     00  00  00  00  00  00  00-  00-
@@ -196,6 +198,7 @@ RKNP-RSP
  iid=0x2b7 
  tid=0x3a5 
  ordkey=0x78 
+ addr=0x1f4a021d 
  lw=1 errc=EC_ADDR_DEC
 RD[7]:
     00  00  00  00-  00-  00-  00-  00-
@@ -207,6 +210,7 @@ RKNP-RSP
  iid=0x1ef 
  tid=0x16c 
  ordkey=0x90 
+ addr=0x45453579 
  lw=1 errc=EC_ADDR_DEC
 RD[71]:
     00  00  00  00  00  00  00  00-
@@ -255,5 +259,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 10575000 ps
-CPU Time:      0.350 seconds;       Data structure size:   0.9Mb
-Tue Aug 11 14:35:11 2026
+CPU Time:      0.320 seconds;       Data structure size:   0.9Mb
+Tue Aug 11 14:56:44 2026
