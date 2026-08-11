@@ -73,7 +73,7 @@ assign rsp_timnot = (rsp_timnot_tamp <= TIMER_CNT_MAX) ? rsp_timnot_tamp : (rsp_
 //  生成超时节点表
 //----------------------------------------------------------------------------------
 reg [TIMER_CNT_WITH-1:0] tim_not_table [TIMOUT_TABLE_DEEP-1:0];
-localparam TABLE_OPC_OFFSET = TAG_CNT_WITH;
+localparam TABLE_OPC_OFFSET = TAG_CNT_WITH+1;
 
 //----------------------------------------------------------------------------------
 //  生成开始计时索引值

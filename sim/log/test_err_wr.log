@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_err_wr +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_err_wr_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_err_wr.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 10 22:22 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 11 14:35 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -230,12 +230,13 @@ RKNP-RSP
  ordkey=0x90 
  lw=1 errc=EC_ADDR_DEC
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 755000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=4 response_packets=4 final_rsp(raw/matched)=4/4
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(777) @ 10755000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1107) @ 10755000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
   REQ=4  RSP_PKT=4  RSP_FINAL(raw/matched)=4/4
   AW=0 AR=0 W=0 B=0/0 R=0/0
+  RKNP_READ_BODY(checked/expected)=0/0
   ERR_req=4  AXI_SLVERR=0  WRAP=0  BUFFERABLE=0
-  pending_AW=0 pending_AR=0
+  pending_AW=0 pending_AR=0 pending_R=0
   pending_exp_W=0 pending_obs_W=0
   PASS=4  FAIL=0
 =====================================
@@ -265,5 +266,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 10755000 ps
-CPU Time:      0.360 seconds;       Data structure size:   0.9Mb
-Mon Aug 10 22:22:45 2026
+CPU Time:      0.340 seconds;       Data structure size:   0.9Mb
+Tue Aug 11 14:35:12 2026
