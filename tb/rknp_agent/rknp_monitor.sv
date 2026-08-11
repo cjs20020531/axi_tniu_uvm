@@ -234,9 +234,19 @@ class rknp_monitor extends uvm_monitor;
     rsp.rsp_opc     = axi_tniu_protocol_pkg::rsp_opc_e'(axi_tniu_protocol_pkg::get_field(f, axi_tniu_protocol_pkg::RSP_OPC_OFFSET, 2));
     rsp.rsp_status  = axi_tniu_protocol_pkg::status_e'(axi_tniu_protocol_pkg::get_field(f, axi_tniu_protocol_pkg::RSP_STATUS_OFFSET, 2));
     rsp.rsp_errcode = axi_tniu_protocol_pkg::errcode_e'(axi_tniu_protocol_pkg::get_field(f, axi_tniu_protocol_pkg::RSP_ERRC_OFFSET, 3));
+    rsp.qos          = axi_tniu_protocol_pkg::urg2qos(
+                         axi_tniu_protocol_pkg::get_field(
+                           f,
+                           axi_tniu_protocol_pkg::RSP_URGE_OFFSET,
+                           axi_tniu_protocol_pkg::URGE_WITH));
     rsp.orderkey    = axi_tniu_protocol_pkg::get_field(f, axi_tniu_protocol_pkg::RSP_ORDKEY_OFFSET, axi_tniu_protocol_pkg::ORDKEY_WITH);
     rsp.iid         = axi_tniu_protocol_pkg::get_field(f, axi_tniu_protocol_pkg::RSP_IID_OFFSET, axi_tniu_protocol_pkg::IID_WITH);
     rsp.tid         = axi_tniu_protocol_pkg::get_field(f, axi_tniu_protocol_pkg::RSP_TID_OFFSET, axi_tniu_protocol_pkg::TID_WITH);
+    rsp.addr        = axi_tniu_protocol_pkg::get_field(f, axi_tniu_protocol_pkg::RSP_ADDR_OFFSET, axi_tniu_protocol_pkg::ADDR_WITH);
+    rsp.unpack_user(axi_tniu_protocol_pkg::get_field(
+                      f,
+                      axi_tniu_protocol_pkg::RSP_USER_OFFSET,
+                      axi_tniu_protocol_pkg::USER_WITH));
     rsp.rd_bytes = new[bytes.size()]; rsp.rd_be = new[be.size()];
     foreach (bytes[i]) rsp.rd_bytes[i] = bytes[i];
     foreach (be[i])    rsp.rd_be[i]    = be[i];
@@ -246,4 +256,3 @@ class rknp_monitor extends uvm_monitor;
 endclass : rknp_monitor
 
 `endif // RKNP_MONITOR_SV
-

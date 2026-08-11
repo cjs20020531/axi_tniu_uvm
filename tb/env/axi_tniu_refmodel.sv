@@ -62,10 +62,28 @@ class axi_tniu_expect extends uvm_object;
   axi_tniu_protocol_pkg::status_e     rsp_status;
   axi_tniu_protocol_pkg::errcode_e    rsp_errcode;
 
+  // The AXI R burst is the golden source for normal read responses. These
+  // queues store the expected physical RKNP body and all observed response
+  // packets until the transaction reaches LW=1.
+  byte unsigned                       exp_rsp_bytes[$];
+  bit                                 exp_rsp_be[$];
+  byte unsigned                       obs_rsp_bytes[$];
+  bit                                 obs_rsp_be[$];
+  bit                                 rsp_body_ready;
+  bit                                 rsp_final_seen;
+  bit                                 rsp_body_checked;
+  bit                                 rsp_was_timeout;
+  int unsigned                        rsp_packet_count;
+
   `uvm_object_utils(axi_tniu_expect)
 
   function new(string name = "axi_tniu_expect");
     super.new(name);
+    rsp_body_ready   = 1'b0;
+    rsp_final_seen   = 1'b0;
+    rsp_body_checked = 1'b0;
+    rsp_was_timeout  = 1'b0;
+    rsp_packet_count = 0;
   endfunction
 endclass : axi_tniu_expect
 

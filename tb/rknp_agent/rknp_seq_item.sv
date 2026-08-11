@@ -83,6 +83,11 @@ class rknp_seq_item extends uvm_sequence_item;
     `uvm_field_array_int(wr_bytes, UVM_ALL_ON)
     `uvm_field_array_int(wr_be,    UVM_ALL_ON)
     `uvm_field_int(wr_body_aligned, UVM_ALL_ON)
+    `uvm_field_enum(axi_tniu_protocol_pkg::rsp_opc_e, rsp_opc, UVM_ALL_ON)
+    `uvm_field_enum(axi_tniu_protocol_pkg::status_e, rsp_status, UVM_ALL_ON)
+    `uvm_field_enum(axi_tniu_protocol_pkg::errcode_e, rsp_errcode, UVM_ALL_ON)
+    `uvm_field_array_int(rd_bytes, UVM_ALL_ON)
+    `uvm_field_array_int(rd_be,    UVM_ALL_ON)
     `uvm_field_int(txn_no, UVM_ALL_ON | UVM_DEC)
     `uvm_field_int(rsp_lw, UVM_ALL_ON)
   `uvm_object_utils_end
