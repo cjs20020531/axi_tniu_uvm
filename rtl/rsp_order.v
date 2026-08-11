@@ -788,18 +788,43 @@ end
 assign low_byte_disable_position = (rhead_en_d == 1'b1) ? reqo2rspo_rsp_addr[$clog2(NBYTEPERWORD)-1:0] : low_byte_disable_position_d;
 assign high_byte_disable_position = (rhead_en_d == 1'b1) ? reqo2rspo_rsp_addr[$clog2(NBYTEPERWORD)-1:0] + reqo2rspo_rsp_len : high_byte_disable_position_d;
 
-generate 
+// A transaction can be split into several RKNP response packets by AXI read
+// interleaving. rspo2rknp_xx_head is asserted at the beginning of every such
+// packet, but only the first packet carries the original OK/ERR status. A
+// resumed packet carries CONT and must not apply the transaction's low-lane
+// mask again.
+wire norm_rsp_first_flit;
+wire norm_rsp_last_flit;
+reg  [NBYTEPERWORD-1:0] norm_be_temp;
+
+assign norm_rsp_first_flit = rspo2rknp_xx_valid &&
+                             rspo2rknp_xx_head &&
+                             (reqo2rspo_rsp_status != CONT);
+assign norm_rsp_last_flit  = rspo2rknp_xx_valid &&
+                             rspt2rspo_lw_d;
+
+// The first and last masks are deliberately two independent if statements.
+// A narrow read can fit in one flit, in which case HEAD and LW are both one
+// and both masks must be applied to the same BE vector.
+always @(*) begin
+    norm_be_temp = {NBYTEPERWORD{1'b1}};
+
+    if(norm_rsp_first_flit)
+        norm_be_temp = norm_be_temp &
+                       ({NBYTEPERWORD{1'b1}} <<
+                        low_byte_disable_position);
+
+    if(norm_rsp_last_flit)
+        norm_be_temp = norm_be_temp &
+                       ({NBYTEPERWORD{1'b1}} >>
+                        (NBYTEPERWORD - 1 -
+                         high_byte_disable_position));
+end
+
+generate
     for(i=0; i<NBYTEPERWORD; i=i+1) begin
         always @(*) begin
-            if(rspo2rknp_xx_head == 1'b1 && rspt2rspo_lw_d == 1'b0) begin // 如果多拍，则头部按规则拉低be
-                norm_rsp_data[i*9+1] = (i < low_byte_disable_position) ? 1'b0 : 1'b1;  
-            end else if(rspt2rspo_lw_d == 1'b1) begin // 如果多拍，则尾部按规则拉低be
-                norm_rsp_data[i*9+1] = (i > high_byte_disable_position) ? 1'b0 : 1'b1;  
-            end else if(rspo2rknp_xx_head == 1'b0 && rspt2rspo_lw_d == 1'b0 && rspo2rknp_xx_valid == 1'b1) begin
-                norm_rsp_data[i*9+1] = 1'b1;  
-            end else begin
-                norm_rsp_data[i*9+1] = 1'b1;
-            end
+            norm_rsp_data[i*9+1] = norm_be_temp[i];
         end
         always @(*) begin
             norm_rsp_data[i*9+9:i*9+2] = rsp_data[i*9+9:i*9+2];

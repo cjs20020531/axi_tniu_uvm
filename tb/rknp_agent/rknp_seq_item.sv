@@ -255,8 +255,14 @@ function string convert2string();
       s = {s, $sformatf(" errc=%s", rsp_errcode.name())};
 
     if (rsp_opc == axi_tniu_protocol_pkg::RSP_OPC_RD) begin
-      start_lane = int'(addr & (axi_tniu_protocol_pkg::NBYTEPERWORD - 1));
-      n_flit = (start_lane + rd_bytes.size() + axi_tniu_protocol_pkg::NBYTEPERWORD - 1) / axi_tniu_protocol_pkg::NBYTEPERWORD;
+      // rd_bytes/rd_be from rknp_monitor are already physical response lanes:
+      // every received flit contributes exactly NBYTEPERWORD array entries,
+      // including lanes whose BE is zero. Do not apply addr offset a second
+      // time here; doing so made one physical flit print as two lines and made
+      // the log look as if the monitor had shifted the BE bits.
+      n_flit = (rd_bytes.size() +
+                axi_tniu_protocol_pkg::NBYTEPERWORD - 1) /
+               axi_tniu_protocol_pkg::NBYTEPERWORD;
 
       s = {s, $sformatf("\nRD[%0d]:", rd_bytes.size() - 1)};
 
@@ -265,7 +271,7 @@ function string convert2string();
 
         // lane7 在左，lane0 在右，即左边高位、右边低位
         for (int lane = axi_tniu_protocol_pkg::NBYTEPERWORD - 1; lane >= 0; lane--) begin
-          data_idx = flit_idx * axi_tniu_protocol_pkg::NBYTEPERWORD + lane - start_lane;
+          data_idx = flit_idx * axi_tniu_protocol_pkg::NBYTEPERWORD + lane;
 
           if (lane != axi_tniu_protocol_pkg::NBYTEPERWORD - 1)
             s = {s, "  "};

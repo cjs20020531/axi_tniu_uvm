@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_norm_mix_stresstest +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_norm_mix_stresstest_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_mix_stresstest.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 10 22:26 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 11 13:41 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -425,7 +425,7 @@ RD[103]:
     00  00  00  00  00  00  00  00
     00  00  00  00  00  00  00  00
     00-  00-  00-  00  00  00  00  00
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(539) @ 12655000: uvm_test_top.env.sb [C-LEAK-01] No.0 unexpected response iid=0xe8 tid=0xd1 orderkey=0xd0
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(759) @ 12655000: uvm_test_top.env.sb [C-LEAK-01] No.0 unexpected response iid=0xe8 tid=0xd1 orderkey=0xd0
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 13965000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2
 
 RKNP-RSP 
@@ -457,7 +457,7 @@ RD[87]:
     00  00  00  00  00  00  00  00
     00  00  00  00  00  00  00  00
     00-  00-  00-  00  00  00  00  00
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(539) @ 22175000: uvm_test_top.env.sb [C-LEAK-01] No.0 unexpected response iid=0xe8 tid=0xd1 orderkey=0xd0
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(759) @ 22175000: uvm_test_top.env.sb [C-LEAK-01] No.0 unexpected response iid=0xe8 tid=0xd1 orderkey=0xd0
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 22525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4
 
 RKNP-RSP 
@@ -513,14 +513,15 @@ RD[103]:
     4c  4b  4a  49  48  47  46  45
     54  53  52  51  50  4f  4e  4d
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 36105000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=10 response_packets=12 final_rsp(raw/matched)=12/10
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(777) @ 46105000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1107) @ 46105000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
   REQ=10  RSP_PKT=12  RSP_FINAL(raw/matched)=12/10
   AW=6 AR=4 W=6 B=6/6 R=4/4
+  RKNP_READ_BODY(checked/expected)=4/4
   ERR_req=0  AXI_SLVERR=0  WRAP=0  BUFFERABLE=0
-  pending_AW=0 pending_AR=0
+  pending_AW=0 pending_AR=0 pending_R=0
   pending_exp_W=0 pending_obs_W=0
-  PASS=26  FAIL=2
+  PASS=30  FAIL=2
 =====================================
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(128) @ 46105000: uvm_test_top [RESULT] *** TEST FAILED ***
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 46105000: reporter [UVM/REPORT/SERVER] 
@@ -551,4 +552,4 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 46105000 ps
 CPU Time:      0.360 seconds;       Data structure size:   0.9Mb
-Mon Aug 10 22:26:57 2026
+Tue Aug 11 13:41:05 2026
