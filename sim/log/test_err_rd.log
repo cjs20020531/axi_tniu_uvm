@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_err_rd +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_err_rd_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_err_rd.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 11 14:56 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 12 13:39 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -82,7 +82,7 @@ axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_resp"
   Covergroup Instance: tb_top.me.obj.cg_resp 
   Design hierarchy: axi_tniu_pkg
 
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -95,7 +95,7 @@ RKNP-REQ
  len=0(=1B) 
  addr=0x735991c4 
  user=0x078(rknp=0 axi=0 lock=0 port=0x7 cache=0x8) errc=EC_ADDR_DEC
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 55000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 55000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -108,7 +108,7 @@ RKNP-REQ
  len=255(=256B) 
  addr=0x91d74212 
  user=0x24a(rknp=1 axi=0 lock=0 port=0x4 cache=0xa) errc=EC_ADDR_DEC
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 65000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 65000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -121,7 +121,7 @@ RKNP-REQ
  len=2(=3B) 
  addr=0x1f4a021d 
  user=0x3ca(rknp=1 axi=1 lock=1 port=0x4 cache=0xa) errc=EC_ADDR_DEC
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(98) @ 75000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 75000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -134,7 +134,7 @@ RKNP-REQ
  len=70(=71B) 
  addr=0x45453579 
  user=0x2b6(rknp=1 axi=0 lock=1 port=0x3 cache=0x6) errc=EC_ADDR_DEC
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 85000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 85000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1 latency=N/A(no_axi_accept_time)
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -146,7 +146,7 @@ RKNP-RSP
  lw=1 errc=EC_ADDR_DEC
 RD[7]:
     00-  00-  00-  00  00-  00-  00-  00-
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 465000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 465000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2 latency=N/A(no_axi_accept_time)
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -190,7 +190,7 @@ RD[263]:
     00  00  00  00  00  00  00  00
     00  00  00  00  00  00  00  00
     00-  00-  00-  00-  00-  00-  00  00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 475000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 475000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3 latency=N/A(no_axi_accept_time)
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -202,7 +202,7 @@ RKNP-RSP
  lw=1 errc=EC_ADDR_DEC
 RD[7]:
     00  00  00  00-  00-  00-  00-  00-
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(148) @ 565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4 latency=N/A(no_axi_accept_time)
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -259,5 +259,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 10575000 ps
-CPU Time:      0.320 seconds;       Data structure size:   0.9Mb
-Tue Aug 11 14:56:44 2026
+CPU Time:      0.380 seconds;       Data structure size:   0.9Mb
+Wed Aug 12 13:39:59 2026

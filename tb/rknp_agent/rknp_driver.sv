@@ -93,7 +93,13 @@ class rknp_driver extends uvm_driver #(rknp_seq_item);
       //发送第一拍时打印整笔transaction
       if (w == 0) begin
 
-        req.txn_no = tag_mgr.alloc_request(req.iid,req.tid,req.orderkey); // 保存请求-响应标签，每个transaction仅保存一次
+        req.txn_no = tag_mgr.alloc_request(
+          req.iid,
+          req.tid,
+          req.orderkey,
+          req.opc,
+          req.status
+        ); // 保存请求-响应标签，每个transaction仅保存一次
 
         `uvm_info(
           "RKNP_DRV_TX_PACKET",
@@ -187,4 +193,3 @@ class rknp_driver extends uvm_driver #(rknp_seq_item);
 endclass : rknp_driver
 
 `endif // RKNP_DRIVER_SV
-

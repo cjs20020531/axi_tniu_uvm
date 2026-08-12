@@ -38,9 +38,19 @@ class rknp_monitor extends uvm_monitor;
 
   task run_phase(uvm_phase phase);
     fork
+      measure_clk_period();
       mon_request();
       mon_response();
     join
+  endtask
+
+  task measure_clk_period();
+    time edge_time;
+
+    @(posedge vif.aclk);
+    edge_time = $time;
+    @(posedge vif.aclk);
+    tag_mgr.set_clk_period($time - edge_time);
   endtask
 
   // ---- collect an accepted request packet -----------------------------------
@@ -95,6 +105,12 @@ class rknp_monitor extends uvm_monitor;
     bit           got_head;
     rknp_seq_item rsp;
     bit           final_lw;
+    bit           latency_valid;
+    time          packet_first_flit_time;
+    time          latency_time;
+    longint unsigned latency_cycles;
+    longint unsigned latency_ns;
+    string        latency_text;
     forever begin
       bytes.delete();
       be.delete();
@@ -106,6 +122,9 @@ class rknp_monitor extends uvm_monitor;
         continue;
 
       if (vif.mon_cb.txrsp_valid && vif.mon_cb.txrsp_ready) begin
+
+        // Endpoint: handshake of this response packet's first flit.
+        packet_first_flit_time = $time;
 
         final_lw = vif.mon_cb.txrsp_data[axi_tniu_protocol_pkg::RSP_HEAD_LEN_OFFSET];
 
@@ -142,14 +161,35 @@ class rknp_monitor extends uvm_monitor;
                 rsp.tid,
                 rsp.orderkey,
                 rsp.rsp_status.name())
-            )
+              )
           end
+
+          latency_valid = tag_mgr.get_response_latency(
+            rsp.txn_no,
+            packet_first_flit_time,
+            latency_cycles,
+            latency_time
+          );
+
+          if (latency_valid) begin
+            latency_ns   = latency_time / 1ns;
+            latency_text = $sformatf(
+              " latency=%0d cycles (%0d ns)",
+              latency_cycles,
+              latency_ns
+            );
+          end
+          else if (tag_mgr.response_precedes_axi_complete(rsp.txn_no))
+            latency_text = " latency=N/A(response_before_axi_complete)";
+          else
+            latency_text = " latency=N/A(no_axi_accept_time)";
 
           `uvm_info(
             "RKNP_TXN",
             $sformatf(
-              " No.%0d\n%s",
+              " No.%0d%s\n%s",
               rsp.txn_no,
+              latency_text,
               rsp.convert2string()),
             UVM_MEDIUM)
 

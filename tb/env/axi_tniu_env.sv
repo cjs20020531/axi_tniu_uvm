@@ -49,6 +49,7 @@ class axi_tniu_env extends uvm_env;
     uvm_config_db#(uvm_active_passive_enum)::set(this, "rknp_agt", "is_active", UVM_ACTIVE);
     uvm_config_db#(rknp_txn_tag_mgr)::set(this,"rknp_agt.drv","tag_mgr",tag_mgr);
     uvm_config_db#(rknp_txn_tag_mgr)::set(this,"rknp_agt.mon","tag_mgr",tag_mgr);
+    uvm_config_db#(rknp_txn_tag_mgr)::set(this,"axi_agt.mon", "tag_mgr",tag_mgr);
   endfunction
 
   function void connect_phase(uvm_phase phase);

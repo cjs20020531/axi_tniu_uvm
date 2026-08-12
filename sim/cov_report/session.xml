@@ -1,0 +1,62 @@
+<session version="1.1" release="O-2018.09-SP2" timestp="2026-08-11 07:11:53 GMT">
+  <info>
+    <attr name="datetime" value="Tue Aug 11 15:20:47 2026
+"/>
+    <attr name="command" value="urg -full64 -dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -report /home/ICer/RKNoC/axi_tniu_uvm/sim/cov_report"/>
+    <attr name="top_instance" value="tb_top,uvm_custom_install_verdi_recording"/>
+  </info>
+  <hvp>
+    <datadef>
+      <metdef name="Line" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="Cond" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="Toggle" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="FSM" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="Branch" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="Assert" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="Group" type="percent" aggregator="average" builtin="1" />
+    </datadef>
+  </hvp>
+  <old_coverage>
+  <scope type="top" name="top">
+    <metric name="Line" value="788/1191" />
+    <metric name="Cond" value="912/1028" />
+    <metric name="Toggle" value="16544/18222" />
+    <metric name="Branch" value="800/896" />
+    <metric name="Assert" value="8/8" />
+    <metric name="Group" value="80.0794%" />
+  </scope>
+  <scope type="instance" name="top">
+  </scope>
+  <scope type="group" name="top">
+    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_err">
+      <metric name="Group" value="14.2857%" />
+    </scope>
+    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_resp">
+      <metric name="Group" value="94.4444%" />
+    </scope>
+    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_req">
+      <metric name="Group" value="95.3125%" />
+    </scope>
+    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_burst">
+      <metric name="Group" value="96.875%" />
+    </scope>
+    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_axid">
+      <metric name="Group" value="99.4792%" />
+    </scope>
+  </scope>
+  <scope type="assert" name="Statistics">
+    <scorelist type="total" name="Design Hierarchy Assert">
+      <score name="Assert" value="8/8" />
+      <score name="Score" value="100.00" />
+    </scorelist>
+    <scorelist type="total" name="Module List Assert">
+      <score name="Assert" value="9/11" />
+      <score name="Score" value="81.82" />
+    </scorelist>
+    <scorelist type="total" name="Assertion">
+      <score name="Assert" value="9/11" />
+      <score name="Score" value="81.82" />
+    </scorelist>
+  </scope>
+  </old_coverage>
+</session>

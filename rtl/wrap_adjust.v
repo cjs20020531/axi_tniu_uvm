@@ -128,7 +128,7 @@ reg [RSP_HEAD_LEN_OFFSET-1:0] pending_rsp_head;
 
 wire append_hs;
 wire first_wrap_flit;
-wire first_wrap_hs;
+wire first_rwrap_hs;
 wire cur_wrap_final;
 wire cur_wrap_final_hs;
 
@@ -139,7 +139,7 @@ assign first_wrap_flit =
     && (rspo2wad_offset_addr != 8'd0)
     && (rspo2wad_status != CONT);
 
-assign first_wrap_hs = first_wrap_flit && wad2rspo_ready;
+assign first_rwrap_hs = first_wrap_flit && wad2rspo_ready && rspo2wad_opc == R;
 
 // tail=1、LW=0仅表示交织packet结束；只有tail和LW同时为1
 // 才是需要执行WRAP补拍的事务最终flit。
@@ -213,7 +213,7 @@ always @(posedge clk or negedge resetn) begin
             rwrap_buffer[a] <= #DLY 'd0;
         end
     end else begin
-        if(first_wrap_hs == 1'b1) begin
+        if(first_rwrap_hs == 1'b1) begin
             rwrap_buffer[idle_rwrap_buff_index] <= #DLY {
                 rspo2wad_data[RSP_HEAD_LEN_OFFSET+1 +: NBYTEPERWORD*9],
                 rspo2wad_axid,

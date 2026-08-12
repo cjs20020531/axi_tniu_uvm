@@ -4401,3 +4401,62 @@ wvScrollDown -win $_nWave6 1
 wvScrollDown -win $_nWave6 1
 wvScrollDown -win $_nWave6 0
 wvScrollDown -win $_nWave6 0
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 0
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 27 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 30 )} 
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 30)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 29)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 28)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 27)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 26)}
+wvMoveSelected -win $_nWave6
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 26)}
+wvSetPosition -win $_nWave6 {("U_WATCHDOG" 27)}
+wvZoomIn -win $_nWave6
+wvZoomIn -win $_nWave6
+wvSetCursor -win $_nWave6 11647157.223482 -snap {("U_WATCHDOG" 27)}
+wvZoomIn -win $_nWave6
+wvZoomIn -win $_nWave6
+wvSetCursor -win $_nWave6 11734576.551244 -snap {("U_WATCHDOG" 28)}
+wvSetCursor -win $_nWave6 11641415.667744 -snap {("U_WATCHDOG" 27)}
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollUp -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvZoomIn -win $_nWave6
+wvZoomIn -win $_nWave6
+wvZoomIn -win $_nWave6
+wvZoomIn -win $_nWave6
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 28 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 27 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 27 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 28 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 27 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 28 )} 
+wvSelectSignal -win $_nWave6 {( "U_WATCHDOG" 27 )} 
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6
+wvZoomOut -win $_nWave6

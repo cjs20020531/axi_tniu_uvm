@@ -14,6 +14,7 @@ class axi_monitor extends uvm_monitor;
   `uvm_component_utils(axi_monitor)
 
   virtual axi_if vif;
+  rknp_txn_tag_mgr tag_mgr;
 
   uvm_analysis_port #(axi_seq_item) aw_ap;   // write address seen
   uvm_analysis_port #(axi_seq_item) ar_ap;   // read address seen
@@ -32,6 +33,8 @@ class axi_monitor extends uvm_monitor;
     super.build_phase(phase);
     if (!uvm_config_db#(virtual axi_if)::get(this, "", "vif", vif))
       `uvm_fatal("NOVIF", "axi_if not set for axi_monitor")
+    if (!uvm_config_db#(rknp_txn_tag_mgr)::get(this, "", "tag_mgr", tag_mgr))
+      `uvm_fatal("AXI_MON", "rknp_txn_tag_mgr not found")
   endfunction
 
   task run_phase(uvm_phase phase);
@@ -50,7 +53,9 @@ class axi_monitor extends uvm_monitor;
         t.dir=AXI_WRITE; t.id=vif.mon_cb.awid; t.addr=vif.mon_cb.awaddr;
         t.len=vif.mon_cb.awlen; t.size=vif.mon_cb.awsize;
         t.burst=vif.mon_cb.awburst; t.cache=vif.mon_cb.awcache;
-        
+        if (!tag_mgr.record_axi_aw_accept(t.id, $time))
+          `uvm_warning("LATENCY_TAG", $sformatf(
+            "No pending RKNP write matched AXI AWID=0x%0h", t.id))
         aw_ap.write(t);
       end
     end
@@ -65,6 +70,9 @@ class axi_monitor extends uvm_monitor;
         t.dir=AXI_READ; t.id=vif.mon_cb.arid; t.addr=vif.mon_cb.araddr;
         t.len=vif.mon_cb.arlen; t.size=vif.mon_cb.arsize; t.burst=vif.mon_cb.arburst;
         t.cache=vif.mon_cb.arcache;   // AxCACHE[0] carries bufferable (C-BP-01)
+        if (!tag_mgr.record_axi_ar_accept(t.id, $time))
+          `uvm_warning("LATENCY_TAG", $sformatf(
+            "No pending RKNP read matched AXI ARID=0x%0h", t.id))
         ar_ap.write(t);
       end
     end
@@ -87,6 +95,9 @@ class axi_monitor extends uvm_monitor;
           t.data=new[d.size()]; t.strb=new[s.size()];
           foreach (d[i]) t.data[i]=d[i];
           foreach (s[i]) t.strb[i]=s[i];
+          if (!tag_mgr.record_axi_w_accept(t.id, $time))
+            `uvm_warning("LATENCY_TAG", $sformatf(
+              "No pending RKNP write matched AXI WID=0x%0h", t.id))
           w_ap.write(t);
         end
       end
