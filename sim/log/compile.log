@@ -3,7 +3,7 @@ Command: vcs -full64 -sverilog -timescale=1ns/1ps -ntb_opts uvm-1.2 +vcs+lic+wai
 -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -f axi_tniu.f -top tb_top -o /home/ICer/RKNoC/axi_tniu_uvm/sim/simv \
 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/compile.log
                          Chronologic VCS (TM)
-       Version O-2018.09-SP2_Full64 -- Wed Aug 12 16:16:03 2026
+       Version O-2018.09-SP2_Full64 -- Wed Aug 12 16:41:11 2026
                Copyright (c) 1991-2018 by Synopsys Inc.
                          ALL RIGHTS RESERVED
 
@@ -12,7 +12,7 @@ and may be used and disclosed only as authorized in a license agreement
 controlling such use and disclosure.
 
                          Chronologic VCS (TM)
-       Version O-2018.09-SP2_Full64 -- Wed Aug 12 16:16:03 2026
+       Version O-2018.09-SP2_Full64 -- Wed Aug 12 16:41:11 2026
                Copyright (c) 1991-2018 by Synopsys Inc.
                          ALL RIGHTS RESERVED
 
@@ -1051,15 +1051,23 @@ VCS Coverage Metrics Release O-2018.09-SP2_Full64 Copyright (c) 1991-2018 by Syn
 Starting vcs inline pass...
 Starting vcs inline pass...
 22 modules and 0 UDP read.
+recompiling package vcs_paramclassrepository
+recompiling package uvm_pkg
 recompiling module uvm_custom_install_verdi_recording
-recompiling module rsp_trans
-Both modules done.
-	However, due to incremental compilation, only 2 modules need to be compiled. 
+recompiling module axi_if
+recompiling package axi_tniu_pkg
+recompiling module tb_top
+6 of 22 modules done
+	However, due to incremental compilation, only 6 modules need to be compiled. 
 22 modules and 0 UDP read.
+recompiling package vcs_paramclassrepository
+recompiling package uvm_pkg
 recompiling module uvm_custom_install_verdi_recording
-recompiling module rsp_trans
-Both modules done.
-	However, due to incremental compilation, only 2 modules need to be compiled. 
+recompiling module axi_if
+recompiling package axi_tniu_pkg
+recompiling module tb_top
+6 of 22 modules done
+	However, due to incremental compilation, only 6 modules need to be compiled. 
 rm -f _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
 ld -shared  -Bsymbolic  -o .//../simv.daidir//_csrc0.so objs/amcQw_d.o 
 rm -f _csrc0.so
@@ -1068,7 +1076,7 @@ fi
 g++  -o /home/ICer/RKNoC/axi_tniu_uvm/sim/simv    -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ \
 -Wl,-rpath=./simv.daidir/ -Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  -rdynamic \
 -Wl,-rpath=/home/synopsys/vcs/O-2018.09-SP2/linux64/lib -L/home/synopsys/vcs/O-2018.09-SP2/linux64/lib \
-uvm_dpi.o uvm_verdi_dpi.o     _23934_archive_1.so _prev_archive_1.so _csrc0.so  SIM_l.o \
+uvm_dpi.o uvm_verdi_dpi.o     _32886_archive_1.so _prev_archive_1.so _csrc0.so  SIM_l.o \
 _csrc0.so    rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o \
 -lzerosoft_rt_stubs -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile \
 -lreader_common /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libBA.a -luclinative \
@@ -1081,8 +1089,8 @@ rm -f _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
 ld -shared  -Bsymbolic  -o .//../simv.daidir//_csrc0.so objs/amcQw_d.o 
 rm -f _csrc0.so
 if [ -x /home/ICer/RKNoC/axi_tniu_uvm/sim/simv ]; then chmod -x /home/ICer/RKNoC/axi_tniu_uvm/sim/simv; fi
-g++  -o /home/ICer/RKNoC/axi_tniu_uvm/sim/simv    -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ -Wl,-rpath=./simv.daidir/ -Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  -rdynamic  -Wl,-rpath=/home/synopsys/vcs/O-2018.09-SP2/linux64/lib -L/home/synopsys/vcs/O-2018.09-SP2/linux64/lib  uvm_dpi.o uvm_verdi_dpi.o     _23934_archive_1.so _prev_archive_1.so _csrc0.so  SIM_l.o  _csrc0.so    rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o          -lzerosoft_rt_stubs -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -lreader_common /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libBA.a -luclinative /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_tls.o   -Wl,-whole-archive -lvcsucli -Wl,-no-whole-archive       ./../simv.daidir/vc_hdrs.o  _vcs_pli_stub_.o   /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_save_restore_new.o /home/synopsys/verdi/Verdi_O-2018.09-SP2/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
+g++  -o /home/ICer/RKNoC/axi_tniu_uvm/sim/simv    -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ -Wl,-rpath=./simv.daidir/ -Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  -rdynamic  -Wl,-rpath=/home/synopsys/vcs/O-2018.09-SP2/linux64/lib -L/home/synopsys/vcs/O-2018.09-SP2/linux64/lib  uvm_dpi.o uvm_verdi_dpi.o     _32886_archive_1.so _prev_archive_1.so _csrc0.so  SIM_l.o  _csrc0.so    rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o          -lzerosoft_rt_stubs -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -lreader_common /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libBA.a -luclinative /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_tls.o   -Wl,-whole-archive -lvcsucli -Wl,-no-whole-archive       ./../simv.daidir/vc_hdrs.o  _vcs_pli_stub_.o   /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_save_restore_new.o /home/synopsys/verdi/Verdi_O-2018.09-SP2/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
 /home/ICer/RKNoC/axi_tniu_uvm/sim/simv up to date
-CPU time: 6.686 seconds to compile + .212 seconds to elab + .323 seconds to link
-CPU time: 6.686 seconds to compile + .212 seconds to elab + .323 seconds to link
+CPU time: 8.944 seconds to compile + .214 seconds to elab + .329 seconds to link
+CPU time: 8.944 seconds to compile + .214 seconds to elab + .329 seconds to link
 Verdi KDB elaboration done and the database successfully generated: 0 error(s), 0 warning(s)

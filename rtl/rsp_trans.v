@@ -90,15 +90,11 @@ always @(posedge clk or negedge resetn) begin
     end
 end
 
-// HEAD marks the first accepted beat of an AXI read transaction, or the first
-// beat of a resumed interleaving segment.  A RVALID gap by itself is not a
-// packet boundary: when the next accepted beat carries the same RID and the
-// previous accepted beat was not RLAST, it remains inside the current RKNP
-// response packet and HEAD must stay low.
-//
-// Update the history only on a real AXI R handshake.  Looking at RID while
-// RVALID is low would allow stale/idle bus values to create a false HEAD after
-// an ordinary beat gap.
+// Record packet-boundary information only when an AXI R beat is actually
+// accepted.  The previous implementation compared RID continuously, including
+// cycles with RVALID=0.  During an inter-beat gap that could create a false
+// HEAD pulse, make rsp_order read a non-existent {RID,tag}, and leave stale
+// request metadata attached to the following real read beat.
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rhead           <= #DLY 1'b0;
@@ -275,7 +271,8 @@ endgenerate
 //-----------------------------------------------------------------
 //  生成LW提示信号，具体LW位生成在rsp_order中实现
 //-----------------------------------------------------------------
-// RLAST marks completion of the complete AXI read transaction.
+// 没有考虑到交织的情况，对于tail信号，应该表示一个flit上是否结束，所以交织了也需要拉高
+//assign rspt2rspo_tail = ((rrsp_phase == 1'b0 && bvalid == 1'b1) || (rrsp_phase == 1'b1 && rlast == 1'b1)) ? 1'b1 : 1'b0;
 assign rspt2rspo_lw = ((rrsp_phase == 1'b0 && bvalid == 1'b1) ||
                        (rrsp_phase == 1'b1 && rvalid == 1'b1 &&
                         rlast == 1'b1)) ? 1'b1 : 1'b0;
@@ -283,11 +280,7 @@ assign rspt2rspo_lw = ((rrsp_phase == 1'b0 && bvalid == 1'b1) ||
 //-----------------------------------------------------------------
 //  生成tail信号
 //-----------------------------------------------------------------
-// A normal, non-interleaved burst closes only on RLAST.  If the next AXI beat
-// is already presented back-to-back with a different RID, close the current
-// interleaving segment before the new RID is captured into the beat buffer.
-// Most importantly, do not assert TAIL on every non-final beat; doing so would
-// split an ordinary multi-beat response into one RKNP packet per AXI beat.
+
 assign rspt2rspo_tail =
        (rrsp_phase == 1'b0 && bvalid == 1'b1) ||
        (rrsp_phase == 1'b1 && rvalid == 1'b1 &&
