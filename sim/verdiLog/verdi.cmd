@@ -4475,3 +4475,8 @@ wvScrollDown -win $_nWave6 0
 wvScrollDown -win $_nWave6 0
 wvScrollDown -win $_nWave6 0
 wvScrollDown -win $_nWave6 0
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1
+wvScrollDown -win $_nWave6 1

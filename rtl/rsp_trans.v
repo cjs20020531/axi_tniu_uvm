@@ -70,9 +70,6 @@ reg  [1:0]                  rresp ;
 reg  [AUSER_WITH-1:0]       ruser ;
 reg                         rlast ;
 reg                         rhead ;
-reg                         prev_rbeat_seen;
-reg                         prev_rbeat_last;
-reg  [AXID_WITH-1:0]        prev_rid;
 
 
 
@@ -90,24 +87,21 @@ always @(posedge clk or negedge resetn) begin
     end
 end
 
-// Record packet-boundary information only when an AXI R beat is actually
-// accepted.  The previous implementation compared RID continuously, including
-// cycles with RVALID=0.  During an inter-beat gap that could create a false
-// HEAD pulse, make rsp_order read a non-existent {RID,tag}, and leave stale
-// request metadata attached to the following real read beat.
+// rsp_trans contains only one accepted-beat buffer.  It therefore cannot keep
+// an RKNP packet open and, at the same time, safely predict whether a future
+// AXI R beat after an arbitrary gap will carry the same RID or a different RID.
+//
+// Emit every accepted AXI R beat as one complete RKNP packet instead.  This is
+// also valid for a multi-beat AXI burst: req_order changes the saved request
+// status to CONT and advances its address after every packet HEAD, while RLAST
+// alone controls the final RKNP LW bit.  Consequently arbitrary beat gaps and
+// legal interleaving between different RIDs cannot merge data from two AXI
+// transactions into the same RKNP packet.
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
-        rhead           <= #DLY 1'b0;
-        prev_rbeat_seen <= #DLY 1'b0;
-        prev_rbeat_last <= #DLY 1'b0;
-        prev_rid        <= #DLY 'd0;
+        rhead <= #DLY 1'b0;
     end else if(axi_m_rready == 1'b1 && axi_m_rvalid == 1'b1) begin
-        rhead <= #DLY (!prev_rbeat_seen ||
-                       prev_rbeat_last ||
-                       (axi_m_rid != prev_rid));
-        prev_rbeat_seen <= #DLY 1'b1;
-        prev_rbeat_last <= #DLY axi_m_rlast;
-        prev_rid        <= #DLY axi_m_rid;
+        rhead <= #DLY 1'b1;
     end else if(rspo2rspt_ready == 1'b1) begin
         rhead <= #DLY 1'b0;
     end
@@ -271,8 +265,8 @@ endgenerate
 //-----------------------------------------------------------------
 //  生成LW提示信号，具体LW位生成在rsp_order中实现
 //-----------------------------------------------------------------
-// 没有考虑到交织的情况，对于tail信号，应该表示一个flit上是否结束，所以交织了也需要拉高
-//assign rspt2rspo_tail = ((rrsp_phase == 1'b0 && bvalid == 1'b1) || (rrsp_phase == 1'b1 && rlast == 1'b1)) ? 1'b1 : 1'b0;
+// RLAST only marks completion of the complete AXI read transaction.  It is
+// intentionally independent of the per-beat RKNP packet TAIL below.
 assign rspt2rspo_lw = ((rrsp_phase == 1'b0 && bvalid == 1'b1) ||
                        (rrsp_phase == 1'b1 && rvalid == 1'b1 &&
                         rlast == 1'b1)) ? 1'b1 : 1'b0;
@@ -280,12 +274,14 @@ assign rspt2rspo_lw = ((rrsp_phase == 1'b0 && bvalid == 1'b1) ||
 //-----------------------------------------------------------------
 //  生成tail信号
 //-----------------------------------------------------------------
-
+// Every buffered R beat is a self-contained RKNP packet.  Do not derive TAIL
+// from the live AXI RVALID/RID signals: those signals describe the *next* beat
+// and may legally change while the current RKNP output is under backpressure.
+// Keeping TAIL dependent only on buffered state also guarantees that
+// VALID/HEAD/TAIL/DATA remain stable until rsp_order accepts the packet.
 assign rspt2rspo_tail =
        (rrsp_phase == 1'b0 && bvalid == 1'b1) ||
-       (rrsp_phase == 1'b1 && rvalid == 1'b1 &&
-        (rlast == 1'b1 ||
-         (axi_m_rvalid == 1'b1 && axi_m_rid != rid)));
+       (rrsp_phase == 1'b1 && rvalid == 1'b1);
 
 //-----------------------------------------------------------------
 //  生成head信号
