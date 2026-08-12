@@ -35,9 +35,21 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
   axi_seq_item  rd_q[$];
   axi_seq_item  aw_q[$];
   axi_seq_item  w_q[$];
+  time          aw_accept_time_q[$];
+  time          wlast_accept_time_q[$];
 
-  // Write transactions whose AW and W sides have both completed.
+  // Write transactions whose AW and W sides have both completed.  Every entry
+  // owns an absolute ready time, so all response delays elapse in parallel.
+  // The B channel itself is still driven by one scheduler because AXI has only
+  // one set of BVALID/BID/BRESP signals.
   axi_seq_item  b_pending[$];
+  time          b_ready_time[$];
+
+  // Measured clock period used to convert the configured cycle delay into an
+  // absolute response-ready time.  The default matches tb_top and is updated
+  // continuously, so changing the testbench clock does not require this driver
+  // to be edited.
+  time          axi_clk_period = 10ns;
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
@@ -59,6 +71,7 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
         aw_channel();      // accept write address
         w_channel();       // independently accept complete write-data bursts
         write_matcher();   // pair captured AW and W, then schedule B
+        measure_clk_period();
         ar_channel();      // accept read address
         r_engine();        // generate read data (with OOO + interleave)
         b_engine();        // generate write responses (with OOO)
@@ -72,8 +85,23 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
     rd_q.delete();
     aw_q.delete();
     w_q.delete();
+    aw_accept_time_q.delete();
+    wlast_accept_time_q.delete();
     b_pending.delete();
+    b_ready_time.delete();
   endfunction
+
+  task measure_clk_period();
+    time previous_edge;
+
+    previous_edge = 0;
+    forever begin
+      @(vif.slv_cb);
+      if (previous_edge != 0 && $time > previous_edge)
+        axi_clk_period = $time - previous_edge;
+      previous_edge = $time;
+    end
+  endtask
 
   function void init_outputs();
     vif.awready = 0; vif.wready = 0; vif.arready = 0;
@@ -103,6 +131,7 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
         t.len=vif.slv_cb.awlen; t.size=vif.slv_cb.awsize;
         t.burst=vif.slv_cb.awburst; t.cache=vif.slv_cb.awcache;
         aw_q.push_back(t);
+        aw_accept_time_q.push_back($time);
       end
     end
   endtask
@@ -157,6 +186,7 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
             t.strb[i] = strb_q[i];
 
           w_q.push_back(t);
+          wlast_accept_time_q.push_back($time);
 
           data_q.delete();
           strb_q.delete();
@@ -179,9 +209,15 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
       while (aw_q.size() > 0 && w_q.size() > 0) begin
         axi_seq_item aw;
         axi_seq_item w;
+        time         aw_accept_time;
+        time         wlast_accept_time;
+        time         request_complete_time;
+        int unsigned response_delay;
 
         aw = aw_q.pop_front();
         w  = w_q.pop_front();
+        aw_accept_time    = aw_accept_time_q.pop_front();
+        wlast_accept_time = wlast_accept_time_q.pop_front();
 
         if (w.id !== aw.id) begin
           `uvm_error(
@@ -223,8 +259,35 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
           end
         end
 
-        // Both sides are now complete. Queue exactly one B response.
+        // Both sides are now complete.  Start this request's response delay at
+        // max(AW handshake, WLAST handshake), independently of every other
+        // outstanding write.  Storing an absolute deadline avoids the old
+        // serial behaviour in which N writes waited N*resp_delay cycles.
+        request_complete_time =
+          (aw_accept_time >= wlast_accept_time) ?
+            aw_accept_time : wlast_accept_time;
+        response_delay = get_resp_delay();
+        aw.resp_delay  = response_delay;
+
         b_pending.push_back(aw);
+        b_ready_time.push_back(
+          request_complete_time + response_delay * axi_clk_period
+        );
+
+        `uvm_info(
+          "AXI_B_SCHED",
+          $sformatf(
+            {
+              "Queue B id=0x%0h request_complete=%0t ",
+              "delay=%0d cycles ready_time=%0t"
+            },
+            aw.id,
+            request_complete_time,
+            response_delay,
+            request_complete_time + response_delay * axi_clk_period
+          ),
+          UVM_HIGH
+        )
       end
     end
   endtask
@@ -315,7 +378,7 @@ function automatic int unsigned get_beat_gap_delay();
 endfunction
 
 
-  // ---- B engine : serialize write responses (optionally out-of-order) -------
+  // ---- B engine : schedule independently matured write responses ------------
   task b_engine();
     int eligible_idx[$];
 
@@ -327,19 +390,38 @@ endfunction
         int          selected_idx;
         axi_seq_item t;
 
-        eligible_idx.delete();
-        foreach (b_pending[i]) begin
-          if (is_oldest_write_for_id(i))
-            eligible_idx.push_back(i);
+        if (b_pending.size() != b_ready_time.size()) begin
+          `uvm_fatal(
+            "AXI_B_SCHED",
+            $sformatf(
+              "B queue size mismatch: pending=%0d ready_time=%0d",
+              b_pending.size(),
+              b_ready_time.size()
+            )
+          )
         end
 
-        if (eligible_idx.size() == 0) begin
-          `uvm_error(
-            "AXI_WR_ORDER",
-            "No legal B-response candidate found while b_pending is non-empty"
-          )
-          continue;
+        eligible_idx.delete();
+
+        if (cfg == null || !cfg.axi_ooo_en) begin
+          // With OOO disabled, preserve global write-response order.  A later
+          // request may already be mature but must wait for queue entry zero.
+          if (b_ready_time[0] <= $time)
+            eligible_idx.push_back(0);
         end
+        else begin
+          // With OOO enabled, any mature request may respond, except that AXI
+          // still requires responses carrying the same ID to remain ordered.
+          foreach (b_pending[i]) begin
+            if (b_ready_time[i] <= $time && is_oldest_write_for_id(i))
+              eligible_idx.push_back(i);
+          end
+        end
+
+        // No request has reached its own deadline yet.  Do not block here;
+        // return to the top of the loop and re-check all requests next cycle.
+        if (eligible_idx.size() == 0)
+          continue;
 
         selected_pos =
           (cfg != null && cfg.axi_ooo_en && eligible_idx.size() > 1)
@@ -348,8 +430,8 @@ endfunction
         selected_idx = eligible_idx[selected_pos];
         t            = b_pending[selected_idx];
         b_pending.delete(selected_idx);
+        b_ready_time.delete(selected_idx);
 
-        repeat (get_resp_delay()) @(vif.slv_cb);
         vif.slv_cb.bvalid <= 1'b1;
         vif.slv_cb.bid    <= t.id;
         vif.slv_cb.bresp  <= 2'b00;   // OKAY
