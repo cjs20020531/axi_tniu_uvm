@@ -33,6 +33,10 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
   // them only after both sides are available; never wait for AW from inside the
   // W-handshake path.
   axi_seq_item  rd_q[$];
+  time          rd_first_ready_time[$];
+  time          rd_next_beat_ready_time[$];
+  int unsigned  rd_beat_index[$];
+  bit           rd_started[$];
   axi_seq_item  aw_q[$];
   axi_seq_item  w_q[$];
   time          aw_accept_time_q[$];
@@ -83,6 +87,10 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
 
   function void clear_transaction_state();
     rd_q.delete();
+    rd_first_ready_time.delete();
+    rd_next_beat_ready_time.delete();
+    rd_beat_index.delete();
+    rd_started.delete();
     aw_q.delete();
     w_q.delete();
     aw_accept_time_q.delete();
@@ -301,10 +309,40 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
       @(vif.slv_cb);
       if (rdy && vif.slv_cb.arvalid) begin      // handshake this cycle
         axi_seq_item t = axi_seq_item::type_id::create("ar");
+        int unsigned response_delay;
+
         t.dir=AXI_READ; t.id=vif.slv_cb.arid; t.addr=vif.slv_cb.araddr;
         t.len=vif.slv_cb.arlen; t.size=vif.slv_cb.arsize;
         t.burst=vif.slv_cb.arburst;
+        response_delay = get_resp_delay();
+        t.resp_delay   = response_delay;
+
+        // Every AR owns an independent first-response deadline.  Do not wait
+        // for an earlier read burst to finish before starting this delay.
         rd_q.push_back(t);
+        rd_first_ready_time.push_back(
+          $time + response_delay * axi_clk_period
+        );
+        rd_next_beat_ready_time.push_back(
+          $time + response_delay * axi_clk_period
+        );
+        rd_beat_index.push_back(0);
+        rd_started.push_back(1'b0);
+
+        `uvm_info(
+          "AXI_R_SCHED",
+          $sformatf(
+            {
+              "Queue R id=0x%0h ar_accept=%0t delay=%0d cycles ",
+              "first_ready_time=%0t"
+            },
+            t.id,
+            $time,
+            response_delay,
+            $time + response_delay * axi_clk_period
+          ),
+          UVM_HIGH
+        )
       end
     end
   endtask
@@ -456,179 +494,197 @@ endfunction
     return 1'b1;
   endfunction
 
-  // ---- R engine : generate read data, out-of-order + interleaved ------------
+  // ---- R engine : independently timed, beat-level read scheduler ------------
+  //
+  // Each AR starts its response delay independently.  Once mature, one beat is
+  // selected for the shared AXI R channel.  With interleave enabled, another ID
+  // may use the channel while a burst is in its configured beat gap.  Requests
+  // carrying the same ID are never interleaved or reordered.
   task r_engine();
     int eligible_idx[$];
-    int interleave_idx[$];
+    bit r_beat_active;
+    int active_idx;
+    bit burst_lock_valid;
+    int burst_lock_idx;
+
+    r_beat_active   = 1'b0;
+    active_idx      = -1;
+    burst_lock_valid= 1'b0;
+    burst_lock_idx  = -1;
 
     forever begin
       @(vif.slv_cb);
+
+      // A presented beat remains unchanged until RREADY accepts it.  No queue
+      // arbitration or signal update is allowed while the channel is stalled.
+      if (r_beat_active) begin
+        if (!vif.slv_cb.rready)
+          continue;
+
+        // The previously presented beat handshakes at this edge.
+        if (active_idx < 0 || active_idx >= rd_q.size()) begin
+          `uvm_fatal(
+            "AXI_R_SCHED",
+            $sformatf(
+              "Active R index out of range: index=%0d queue_size=%0d",
+              active_idx,
+              rd_q.size()
+            )
+          )
+        end
+
+        if (rd_beat_index[active_idx] >= int'(rd_q[active_idx].len)) begin
+          // RLAST completed this transaction. Delete every parallel state entry
+          // at the same index before attempting to schedule another beat.
+          rd_q.delete(active_idx);
+          rd_first_ready_time.delete(active_idx);
+          rd_next_beat_ready_time.delete(active_idx);
+          rd_beat_index.delete(active_idx);
+          rd_started.delete(active_idx);
+
+          if (burst_lock_valid) begin
+            burst_lock_valid = 1'b0;
+            burst_lock_idx   = -1;
+          end
+        end
+        else begin
+          int unsigned beat_gap;
+
+          beat_gap = get_beat_gap_delay();
+          rd_beat_index[active_idx]++;
+          rd_next_beat_ready_time[active_idx] =
+            $time + beat_gap * axi_clk_period;
+        end
+
+        r_beat_active = 1'b0;
+        active_idx    = -1;
+        vif.slv_cb.rvalid <= 1'b0;
+        vif.slv_cb.rlast  <= 1'b0;
+      end
+
+      if (rd_q.size() != rd_first_ready_time.size() ||
+          rd_q.size() != rd_next_beat_ready_time.size() ||
+          rd_q.size() != rd_beat_index.size() ||
+          rd_q.size() != rd_started.size()) begin
+        `uvm_fatal(
+          "AXI_R_SCHED",
+          $sformatf(
+            {
+              "R queue size mismatch: req=%0d first=%0d next=%0d ",
+              "beat=%0d started=%0d"
+            },
+            rd_q.size(),
+            rd_first_ready_time.size(),
+            rd_next_beat_ready_time.size(),
+            rd_beat_index.size(),
+            rd_started.size()
+          )
+        )
+      end
 
       if (rd_q.size() == 0)
         continue;
 
       eligible_idx.delete();
 
-      // Only the oldest request of each ID may be scheduled. Random selection
-      // among these candidates still provides legal out-of-order responses
-      // between different IDs.
-      foreach (rd_q[i]) begin
-        if (is_oldest_read_for_id(i))
-          eligible_idx.push_back(i);
-      end
+      if (cfg == null || !cfg.axi_interleave_en) begin
+        // Without interleaving, once a burst starts it owns the R channel until
+        // RLAST. Its beat gaps intentionally leave the shared channel idle.
+        if (burst_lock_valid) begin
+          if (burst_lock_idx >= rd_q.size()) begin
+            `uvm_fatal(
+              "AXI_R_SCHED",
+              $sformatf(
+                "Locked R index out of range: index=%0d queue_size=%0d",
+                burst_lock_idx,
+                rd_q.size()
+              )
+            )
+          end
 
-      if (eligible_idx.size() == 0) begin
-        `uvm_error(
-          "AXI_RD_ORDER",
-          "No legal read candidate found while rd_q is non-empty"
-        )
-        continue;
-      end
-
-      begin
-        int          selected_pos;
-        int          selected_idx;
-        axi_seq_item t0;
-
-        selected_pos =
-          (cfg != null && cfg.axi_ooo_en && eligible_idx.size() > 1)
-          ? $urandom_range(0, eligible_idx.size()-1) : 0;
-
-        selected_idx = eligible_idx[selected_pos];
-        t0           = rd_q[selected_idx];
-        rd_q.delete(selected_idx);
-
-        interleave_idx.delete();
-
-        // The second interleaved burst must:
-        //   1. use a different ID from t0;
-        //   2. be the oldest outstanding request of its own ID.
-        //
-        // A later request with the same ID as t0 must wait until t0 has
-        // completed, otherwise the DUT cannot distinguish the two responses.
-        foreach (rd_q[i]) begin
-          if ((rd_q[i].id != t0.id) && is_oldest_read_for_id(i))
-            interleave_idx.push_back(i);
+          if (rd_next_beat_ready_time[burst_lock_idx] <= $time)
+            eligible_idx.push_back(burst_lock_idx);
         end
-
-        if (cfg != null &&
-            cfg.axi_interleave_en &&
-            interleave_idx.size() > 0 &&
-            $urandom_range(0,1)) begin
-          int          second_pos;
-          int          second_idx;
-          axi_seq_item t1;
-
-          second_pos =
-            (cfg.axi_ooo_en && interleave_idx.size() > 1)
-            ? $urandom_range(0, interleave_idx.size()-1)
-            : 0;
-
-          second_idx = interleave_idx[second_pos];
-          t1         = rd_q[second_idx];
-          rd_q.delete(second_idx);
-
-          `uvm_info(
-            "AXI_RD_SCHED",
-            $sformatf(
-              {
-                "Interleave different IDs: ",
-                "first(id=0x%0h,addr=0x%010h,len=%0d) ",
-                "second(id=0x%0h,addr=0x%010h,len=%0d)"
-              },
-              t0.id, t0.addr, t0.len,
-              t1.id, t1.addr, t1.len
-            ),
-            UVM_HIGH
-          )
-
-          send_interleaved(t0, t1);
+        else if (cfg == null || !cfg.axi_ooo_en) begin
+          // OOO disabled: the globally oldest AR must start first.
+          if (rd_next_beat_ready_time[0] <= $time &&
+              is_oldest_read_for_id(0))
+            eligible_idx.push_back(0);
         end
         else begin
-          `uvm_info(
-            "AXI_RD_SCHED",
-            $sformatf(
-              "Send read burst: id=0x%0h addr=0x%010h len=%0d(beats=%0d)",
-              t0.id,
-              t0.addr,
-              t0.len,
-              int'(t0.len) + 1
-            ),
-            UVM_HIGH
-          )
-
-          send_read_burst(t0, 1'b1);
+          // OOO enabled: select any mature oldest request of each ID.
+          foreach (rd_q[i]) begin
+            if (rd_next_beat_ready_time[i] <= $time &&
+                is_oldest_read_for_id(i))
+              eligible_idx.push_back(i);
+          end
         end
       end
-    end
-  endtask
+      else if (cfg == null || !cfg.axi_ooo_en) begin
+        int first_unstarted_idx;
 
-  // send a full (non-interleaved) read burst
-  task send_read_burst(axi_seq_item t, bit contiguous);
-    repeat (get_resp_delay()) @(vif.slv_cb);
-    for (int beat = 0; beat <= t.len; beat++) begin
-      vif.slv_cb.rvalid <= 1'b1;
-      vif.slv_cb.rid    <= t.id;
-      vif.slv_cb.rdata  <= read_mem(t.addr + beat*8);
-      vif.slv_cb.rresp  <= 2'b00;
-      vif.slv_cb.rlast  <= (beat == t.len);
-      do @(vif.slv_cb); while (!vif.slv_cb.rready);
-      repeat (get_beat_gap_delay()) begin  // inter-beat gap
-        vif.slv_cb.rvalid <= 1'b0;
-        vif.slv_cb.rlast  <= 1'b0; @(vif.slv_cb);
+        // Interleaving is enabled but response reordering is disabled. Already
+        // started bursts may continue in any available gap, while new responses
+        // must begin in original AR order.
+        first_unstarted_idx = -1;
+        foreach (rd_q[i]) begin
+          if (!rd_started[i] && first_unstarted_idx < 0)
+            first_unstarted_idx = i;
+
+          if (rd_started[i] &&
+              rd_next_beat_ready_time[i] <= $time &&
+              is_oldest_read_for_id(i))
+            eligible_idx.push_back(i);
+        end
+
+        if (first_unstarted_idx >= 0 &&
+            rd_next_beat_ready_time[first_unstarted_idx] <= $time &&
+            is_oldest_read_for_id(first_unstarted_idx))
+          eligible_idx.push_back(first_unstarted_idx);
       end
-    end
-    vif.slv_cb.rvalid <= 1'b0; 
-    vif.slv_cb.rlast <= 1'b0;
-  endtask
-
-  // Interleave two read bursts beat-by-beat (exercises F-ILV-01).
-  // Interleaving two transactions carrying the same ID is forbidden because
-  // the receiver has no way to tell which same-ID transaction owns each beat.
-  task send_interleaved(axi_seq_item a, axi_seq_item b);
-    int ba = 0;
-    int bb = 0;
-
-    if (a.id == b.id) begin
-      `uvm_fatal(
-        "AXI_RD_ORDER",
-        $sformatf(
-          {
-            "Illegal same-ID read interleave: ",
-            "id=0x%0h first_addr=0x%010h second_addr=0x%010h"
-          },
-          a.id,
-          a.addr,
-          b.addr
-        )
-      )
-    end
-
-    while (ba <= a.len || bb <= b.len) begin
-      if (ba <= a.len) begin
-        drive_r_beat(a, ba);
-        ba++;
+      else begin
+        // Full legal stress mode: independent deadlines, different-ID OOO and
+        // beat-level interleaving. Same-ID ordering is still enforced here.
+        foreach (rd_q[i]) begin
+          if (rd_next_beat_ready_time[i] <= $time &&
+              is_oldest_read_for_id(i))
+            eligible_idx.push_back(i);
+        end
       end
 
-      if (bb <= b.len) begin
-        drive_r_beat(b, bb);
-        bb++;
+      if (eligible_idx.size() > 0) begin
+        int selected_pos;
+        int selected_idx;
+
+        selected_pos =
+          ((cfg != null) &&
+           (cfg.axi_ooo_en || cfg.axi_interleave_en) &&
+           eligible_idx.size() > 1)
+          ? $urandom_range(0, eligible_idx.size()-1) : 0;
+        selected_idx = eligible_idx[selected_pos];
+
+        if (cfg == null || !cfg.axi_interleave_en) begin
+          if (!burst_lock_valid) begin
+            burst_lock_valid = 1'b1;
+            burst_lock_idx   = selected_idx;
+          end
+        end
+
+        rd_started[selected_idx] = 1'b1;
+        active_idx               = selected_idx;
+        r_beat_active            = 1'b1;
+
+        vif.slv_cb.rvalid <= 1'b1;
+        vif.slv_cb.rid    <= rd_q[selected_idx].id;
+        vif.slv_cb.rdata  <= read_mem(
+          rd_q[selected_idx].addr + rd_beat_index[selected_idx] * 8
+        );
+        vif.slv_cb.rresp  <= 2'b00;
+        vif.slv_cb.ruser  <= '0;
+        vif.slv_cb.rlast  <=
+          (rd_beat_index[selected_idx] >= int'(rd_q[selected_idx].len));
       end
     end
-
-    vif.slv_cb.rvalid <= 1'b0;
-    vif.slv_cb.rlast  <= 1'b0;
-  endtask
-
-  task drive_r_beat(axi_seq_item t, int beat);
-    vif.slv_cb.rvalid <= 1'b1;
-    vif.slv_cb.rid    <= t.id;
-    vif.slv_cb.rdata  <= read_mem(t.addr + beat*8);
-    vif.slv_cb.rresp  <= 2'b00;
-    vif.slv_cb.rlast  <= (beat == t.len);
-    do @(vif.slv_cb); while (!vif.slv_cb.rready);
-    vif.slv_cb.rvalid <= 1'b0;
-
   endtask
 
   // read 8 bytes from backing memory (unwritten => incrementing pattern)

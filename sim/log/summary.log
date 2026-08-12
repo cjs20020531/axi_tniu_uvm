@@ -8,90 +8,13 @@ Log directory        : /home/ICer/RKNoC/axi_tniu_uvm/sim/log
 [COMPILE PASS]
 
 [01/27] RUN  test_norm_rd
-[01/27] PASS test_norm_rd  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_rd.log
-
-[02/27] RUN  test_norm_wr
-[02/27] PASS test_norm_wr  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_wr.log
-
-[03/27] RUN  test_norm_rdw
-[03/27] PASS test_norm_rdw  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_rdw.log
-
-[04/27] RUN  test_norm_rdw_narrow_noalign
-[04/27] PASS test_norm_rdw_narrow_noalign  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_rdw_narrow_noalign.log
-
-[05/27] RUN  test_norm_wrw
-[05/27] PASS test_norm_wrw  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_wrw.log
-
-[06/27] RUN  test_norm_wrw_narrow_noalign
-[06/27] PASS test_norm_wrw_narrow_noalign  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_wrw_narrow_noalign.log
-
-[07/27] RUN  test_norm_mix
-[07/27] PASS test_norm_mix  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_mix.log
-
-[08/27] RUN  test_watchdog_1023
-[08/27] PASS test_watchdog_1023  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_watchdog_1023.log
-
-[09/27] RUN  test_watchdog_1024
-[09/27] PASS test_watchdog_1024  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_watchdog_1024.log
-
-[10/27] RUN  test_watchdog_1100
-[10/27] PASS test_watchdog_1100  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_watchdog_1100.log
-
-[11/27] RUN  test_watchdog_normal_timeout
-[11/27] PASS test_watchdog_normal_timeout  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_watchdog_normal_timeout.log
-
-[12/27] RUN  test_watchdog_bufferable_1100
-[12/27] PASS test_watchdog_bufferable_1100  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_watchdog_bufferable_1100.log
-
-[13/27] RUN  test_norm_mix_stresstest
-[13/27] PASS test_norm_mix_stresstest  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_mix_stresstest.log
-
-[14/27] RUN  test_err_rd
-[14/27] PASS test_err_rd  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_err_rd.log
-
-[15/27] RUN  test_err_wr
-[15/27] PASS test_err_wr  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_err_wr.log
-
-[16/27] RUN  test_err_rdw
-[16/27] PASS test_err_rdw  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_err_rdw.log
-
-[17/27] RUN  test_err_wrw
-[17/27] PASS test_err_wrw  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_err_wrw.log
-
-[18/27] RUN  test_err_mix
-[18/27] PASS test_err_mix  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_err_mix.log
-
-[19/27] RUN  test_err_mix_fixordkey
-[19/27] PASS test_err_mix_fixordkey  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_err_mix_fixordkey.log
-
-[20/27] RUN  test_buff_wr
-[20/27] PASS test_buff_wr  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_buff_wr.log
-
-[21/27] RUN  test_buff_wrw
-[21/27] PASS test_buff_wrw  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_buff_wrw.log
-
-[22/27] RUN  test_buff_mix
-[22/27] PASS test_buff_mix  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_buff_mix.log
-
-[23/27] RUN  test_buff_mix_fixordkey
-[23/27] PASS test_buff_mix_fixordkey  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_buff_mix_fixordkey.log
-
-[24/27] RUN  test_buff_err_mix
-[24/27] PASS test_buff_err_mix  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_buff_err_mix.log
-
-[25/27] RUN  test_addrol_waw
-[25/27] PASS test_addrol_waw  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_addrol_waw.log
-
-[26/27] RUN  test_addrol_raw
-[26/27] PASS test_addrol_raw  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_addrol_raw.log
-
-[27/27] RUN  test_mix
-[27/27] PASS test_mix  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_mix.log
+[01/27] FAIL test_norm_rd  log=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_norm_rd.log
+STOP_ON_FAIL=1, remaining testcase(s) will not run.
 
 ========== REGRESSION SUMMARY ==========
 Total configured : 27
-Executed         : 27
-Passed           : 27
-Failed           : 0
-Skipped          : 0
+Executed         : 1
+Passed           : 0
+Failed           : 1
+Skipped          : 26
 Summary          : /home/ICer/RKNoC/axi_tniu_uvm/sim/log/summary.log
