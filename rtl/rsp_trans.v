@@ -70,6 +70,9 @@ reg  [1:0]                  rresp ;
 reg  [AUSER_WITH-1:0]       ruser ;
 reg                         rlast ;
 reg                         rhead ;
+reg                         prev_rbeat_seen;
+reg                         prev_rbeat_last;
+reg  [AXID_WITH-1:0]        prev_rid;
 
 
 
@@ -87,21 +90,28 @@ always @(posedge clk or negedge resetn) begin
     end
 end
 
-// rsp_trans contains only one accepted-beat buffer.  It therefore cannot keep
-// an RKNP packet open and, at the same time, safely predict whether a future
-// AXI R beat after an arbitrary gap will carry the same RID or a different RID.
+// HEAD marks the first accepted beat of an AXI read transaction, or the first
+// beat of a resumed interleaving segment.  A RVALID gap by itself is not a
+// packet boundary: when the next accepted beat carries the same RID and the
+// previous accepted beat was not RLAST, it remains inside the current RKNP
+// response packet and HEAD must stay low.
 //
-// Emit every accepted AXI R beat as one complete RKNP packet instead.  This is
-// also valid for a multi-beat AXI burst: req_order changes the saved request
-// status to CONT and advances its address after every packet HEAD, while RLAST
-// alone controls the final RKNP LW bit.  Consequently arbitrary beat gaps and
-// legal interleaving between different RIDs cannot merge data from two AXI
-// transactions into the same RKNP packet.
+// Update the history only on a real AXI R handshake.  Looking at RID while
+// RVALID is low would allow stale/idle bus values to create a false HEAD after
+// an ordinary beat gap.
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
-        rhead <= #DLY 1'b0;
+        rhead           <= #DLY 1'b0;
+        prev_rbeat_seen <= #DLY 1'b0;
+        prev_rbeat_last <= #DLY 1'b0;
+        prev_rid        <= #DLY 'd0;
     end else if(axi_m_rready == 1'b1 && axi_m_rvalid == 1'b1) begin
-        rhead <= #DLY 1'b1;
+        rhead <= #DLY (!prev_rbeat_seen ||
+                       prev_rbeat_last ||
+                       (axi_m_rid != prev_rid));
+        prev_rbeat_seen <= #DLY 1'b1;
+        prev_rbeat_last <= #DLY axi_m_rlast;
+        prev_rid        <= #DLY axi_m_rid;
     end else if(rspo2rspt_ready == 1'b1) begin
         rhead <= #DLY 1'b0;
     end
@@ -265,8 +275,7 @@ endgenerate
 //-----------------------------------------------------------------
 //  生成LW提示信号，具体LW位生成在rsp_order中实现
 //-----------------------------------------------------------------
-// RLAST only marks completion of the complete AXI read transaction.  It is
-// intentionally independent of the per-beat RKNP packet TAIL below.
+// RLAST marks completion of the complete AXI read transaction.
 assign rspt2rspo_lw = ((rrsp_phase == 1'b0 && bvalid == 1'b1) ||
                        (rrsp_phase == 1'b1 && rvalid == 1'b1 &&
                         rlast == 1'b1)) ? 1'b1 : 1'b0;
@@ -274,14 +283,16 @@ assign rspt2rspo_lw = ((rrsp_phase == 1'b0 && bvalid == 1'b1) ||
 //-----------------------------------------------------------------
 //  生成tail信号
 //-----------------------------------------------------------------
-// Every buffered R beat is a self-contained RKNP packet.  Do not derive TAIL
-// from the live AXI RVALID/RID signals: those signals describe the *next* beat
-// and may legally change while the current RKNP output is under backpressure.
-// Keeping TAIL dependent only on buffered state also guarantees that
-// VALID/HEAD/TAIL/DATA remain stable until rsp_order accepts the packet.
+// A normal, non-interleaved burst closes only on RLAST.  If the next AXI beat
+// is already presented back-to-back with a different RID, close the current
+// interleaving segment before the new RID is captured into the beat buffer.
+// Most importantly, do not assert TAIL on every non-final beat; doing so would
+// split an ordinary multi-beat response into one RKNP packet per AXI beat.
 assign rspt2rspo_tail =
        (rrsp_phase == 1'b0 && bvalid == 1'b1) ||
-       (rrsp_phase == 1'b1 && rvalid == 1'b1);
+       (rrsp_phase == 1'b1 && rvalid == 1'b1 &&
+        (rlast == 1'b1 ||
+         (axi_m_rvalid == 1'b1 && axi_m_rid != rid)));
 
 //-----------------------------------------------------------------
 //  生成head信号
