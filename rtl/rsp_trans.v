@@ -63,74 +63,133 @@ parameter TIM_OUT = 3'b110;
 // 输入响应信号打拍，不打拍的化生成不了tail
 //-----------------------------------------------------------------
 
-reg                         rvalid;
-reg  [AXID_WITH-1:0]        rid   ;
-reg  [8*NBYTEPERWORD-1:0]  rdata ;
-reg  [1:0]                  rresp ;
-reg  [AUSER_WITH-1:0]       ruser ;
-reg                         rlast ;
-reg                         rhead ;
+// Two-entry AXI R look-ahead buffer.
+//
+// For a non-RLAST beat, the bridge must see the following accepted beat before
+// it can decide whether the current RKNP flit is a packet TAIL.  A one-entry
+// buffer cannot make that decision when RVALID has a gap before RID changes.
+reg  [1:0]                  rbuf_count;
+reg  [AXID_WITH-1:0]        rbuf0_rid;
+reg  [8*NBYTEPERWORD-1:0]   rbuf0_rdata;
+reg  [1:0]                  rbuf0_rresp;
+reg  [AUSER_WITH-1:0]       rbuf0_ruser;
+reg                         rbuf0_rlast;
+reg                         rbuf0_rhead;
+reg  [AXID_WITH-1:0]        rbuf1_rid;
+reg  [8*NBYTEPERWORD-1:0]   rbuf1_rdata;
+reg  [1:0]                  rbuf1_rresp;
+reg  [AUSER_WITH-1:0]       rbuf1_ruser;
+reg                         rbuf1_rlast;
+reg                         rbuf1_rhead;
 reg                         prev_rbeat_seen;
 reg                         prev_rbeat_last;
 reg  [AXID_WITH-1:0]        prev_rid;
 
+wire axi_r_hs;
+wire r_rsp_valid;
+wire r_rsp_tail;
+wire r_rsp_hs;
 
+assign axi_r_hs = axi_m_rvalid & axi_m_rready;
 
+// RLAST determines its own packet boundary.  Otherwise the second buffered
+// beat is the look-ahead information needed to distinguish continuation from
+// an interleaving RID switch.
+assign r_rsp_valid = (rbuf_count != 2'd0) &&
+                     (rbuf0_rlast || (rbuf_count == 2'd2));
+assign r_rsp_tail  = rbuf0_rlast ||
+                     ((rbuf_count == 2'd2) &&
+                      (rbuf1_rid != rbuf0_rid));
+assign r_rsp_hs    = r_rsp_valid & rspo2rspt_ready;
+
+// Do not accept a third beat.  The one-cycle READY bubble after a full-buffer
+// pop is intentional and keeps the implementation free of a combinational
+// READY path through rsp_order.
+assign axi_m_rready = resetn && (rbuf_count < 2'd2);
+
+// Buffer maintenance and packet-HEAD history are updated only by real AXI R
+// handshakes.  Therefore a RVALID gap never creates a false transaction HEAD.
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
-        rid    <= #DLY 'd0;
-        rdata  <= #DLY 'd0;
-        rresp  <= #DLY 2'd0;
-        ruser  <= #DLY 'd0;
-    end else if(axi_m_rready == 1'b1 && axi_m_rvalid == 1'b1)begin
-        rid    <= #DLY axi_m_rid;
-        rdata  <= #DLY axi_m_rdata;
-        rresp  <= #DLY axi_m_rresp;
-        ruser  <= #DLY axi_m_ruser;
-    end
-end
-
-// Record packet-boundary information only when an AXI R beat is actually
-// accepted.  The previous implementation compared RID continuously, including
-// cycles with RVALID=0.  During an inter-beat gap that could create a false
-// HEAD pulse, make rsp_order read a non-existent {RID,tag}, and leave stale
-// request metadata attached to the following real read beat.
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0) begin
-        rhead           <= #DLY 1'b0;
+        rbuf_count     <= #DLY 2'd0;
+        rbuf0_rid      <= #DLY 'd0;
+        rbuf0_rdata    <= #DLY 'd0;
+        rbuf0_rresp    <= #DLY 2'd0;
+        rbuf0_ruser    <= #DLY 'd0;
+        rbuf0_rlast    <= #DLY 1'b0;
+        rbuf0_rhead    <= #DLY 1'b0;
+        rbuf1_rid      <= #DLY 'd0;
+        rbuf1_rdata    <= #DLY 'd0;
+        rbuf1_rresp    <= #DLY 2'd0;
+        rbuf1_ruser    <= #DLY 'd0;
+        rbuf1_rlast    <= #DLY 1'b0;
+        rbuf1_rhead    <= #DLY 1'b0;
         prev_rbeat_seen <= #DLY 1'b0;
         prev_rbeat_last <= #DLY 1'b0;
         prev_rid        <= #DLY 'd0;
-    end else if(axi_m_rready == 1'b1 && axi_m_rvalid == 1'b1) begin
-        rhead <= #DLY (!prev_rbeat_seen ||
-                       prev_rbeat_last ||
-                       (axi_m_rid != prev_rid));
-        prev_rbeat_seen <= #DLY 1'b1;
-        prev_rbeat_last <= #DLY axi_m_rlast;
-        prev_rid        <= #DLY axi_m_rid;
-    end else if(rspo2rspt_ready == 1'b1) begin
-        rhead <= #DLY 1'b0;
-    end
-end
+    end else begin
+        if(axi_r_hs == 1'b1) begin
+            prev_rbeat_seen <= #DLY 1'b1;
+            prev_rbeat_last <= #DLY axi_m_rlast;
+            prev_rid        <= #DLY axi_m_rid;
+        end
 
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0) begin
-        rlast <= #DLY 1'b0;
-    end else if(axi_m_rready == 1'b1 && axi_m_rvalid == 1'b1 &&
-                axi_m_rlast == 1'b1)begin
-        rlast <= #DLY 1'b1;
-    end else if(rspo2rspt_ready == 1'b1) begin
-        rlast <= #DLY 1'b0;
-    end
-end
+        case ({axi_r_hs, r_rsp_hs})
+            2'b10: begin
+                if(rbuf_count == 2'd0) begin
+                    rbuf0_rid   <= #DLY axi_m_rid;
+                    rbuf0_rdata <= #DLY axi_m_rdata;
+                    rbuf0_rresp <= #DLY axi_m_rresp;
+                    rbuf0_ruser <= #DLY axi_m_ruser;
+                    rbuf0_rlast <= #DLY axi_m_rlast;
+                    rbuf0_rhead <= #DLY (!prev_rbeat_seen ||
+                                         prev_rbeat_last ||
+                                         (axi_m_rid != prev_rid));
+                    rbuf_count  <= #DLY 2'd1;
+                end else begin
+                    rbuf1_rid   <= #DLY axi_m_rid;
+                    rbuf1_rdata <= #DLY axi_m_rdata;
+                    rbuf1_rresp <= #DLY axi_m_rresp;
+                    rbuf1_ruser <= #DLY axi_m_ruser;
+                    rbuf1_rlast <= #DLY axi_m_rlast;
+                    rbuf1_rhead <= #DLY (prev_rbeat_last ||
+                                         (axi_m_rid != prev_rid));
+                    rbuf_count  <= #DLY 2'd2;
+                end
+            end
 
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0) begin
-        rvalid <= #DLY 1'b0;
-    end else if(axi_m_rready == 1'b1 && axi_m_rvalid == 1'b1)begin
-        rvalid <= #DLY 1'b1;
-    end else if(rspo2rspt_ready == 1'b1) begin
-        rvalid <= #DLY 1'b0;
+            2'b01: begin
+                if(rbuf_count == 2'd2) begin
+                    rbuf0_rid   <= #DLY rbuf1_rid;
+                    rbuf0_rdata <= #DLY rbuf1_rdata;
+                    rbuf0_rresp <= #DLY rbuf1_rresp;
+                    rbuf0_ruser <= #DLY rbuf1_ruser;
+                    rbuf0_rlast <= #DLY rbuf1_rlast;
+                    rbuf0_rhead <= #DLY rbuf1_rhead;
+                    rbuf_count  <= #DLY 2'd1;
+                end else begin
+                    rbuf_count  <= #DLY 2'd0;
+                end
+            end
+
+            2'b11: begin
+                // Simultaneous pop/push is possible only when the sole buffered
+                // beat is RLAST; replace it directly with the new transaction.
+                rbuf0_rid   <= #DLY axi_m_rid;
+                rbuf0_rdata <= #DLY axi_m_rdata;
+                rbuf0_rresp <= #DLY axi_m_rresp;
+                rbuf0_ruser <= #DLY axi_m_ruser;
+                rbuf0_rlast <= #DLY axi_m_rlast;
+                rbuf0_rhead <= #DLY (!prev_rbeat_seen ||
+                                     prev_rbeat_last ||
+                                     (axi_m_rid != prev_rid));
+                rbuf_count  <= #DLY 2'd1;
+            end
+
+            default: begin
+                rbuf_count <= #DLY rbuf_count;
+            end
+        endcase
     end
 end
 
@@ -168,25 +227,11 @@ end
 //-----------------------------------------------------------------
 //  生成rrsp_phase信号
 //-----------------------------------------------------------------
-// read_active describes whether the last accepted AXI R beat says that more
-// beats are still expected.  It keeps R selected across legal inter-beat gaps;
-// the independent B buffer below retains a B response while R has priority.
-reg  read_active;
-wire axi_r_hs;
+// Any buffered R beat keeps read priority, including the look-ahead wait across
+// an AXI beat gap.  A B response remains safely buffered until the read packet
+// reaches a legal boundary.
 wire rrsp_phase;
-
-assign axi_r_hs = axi_m_rvalid & axi_m_rready;
-
-always @(posedge clk or negedge resetn) begin
-    if(resetn == 1'b0)
-        read_active <= #DLY 1'b0;
-    else if(axi_r_hs == 1'b1)
-        read_active <= #DLY ~axi_m_rlast;
-end
-
-// rvalid keeps read selection asserted while the accepted final beat is still
-// buffered for rsp_order; read_active covers gaps between non-final beats.
-assign rrsp_phase = rvalid | read_active;
+assign rrsp_phase = (rbuf_count != 2'd0);
 
 //-----------------------------------------------------------------
 //  生成bready信号
@@ -201,11 +246,6 @@ assign rrsp_phase = rvalid | read_active;
 assign axi_m_bready = resetn & ~bvalid;
 
 assign b_rsp_hs = bvalid & ~rrsp_phase & rspo2rspt_ready;
-
-//-----------------------------------------------------------------
-//  生成rready信号
-//-----------------------------------------------------------------
-assign axi_m_rready = rspo2rspt_ready;
 
 //==========================================================  协议转换功能  ===========================================================//
 //-----------------------------------------------------------------
@@ -229,7 +269,7 @@ always @(*) begin
             end
         endcase
     end else begin
-        case (rresp)
+        case (rbuf0_rresp)
             2'b10: begin //SLERR
                 rspt2rspo_status = ERR;
                 rspt2rspo_errcode = 3'b000;
@@ -251,8 +291,8 @@ end
 //  2、生成rspt2rspo_axid信号
 //  3、生成rspt2rspo_opc信号
 //-----------------------------------------------------------------
-assign rspt2rspo_auser = (rrsp_phase == 1'b0) ? buser : ruser;
-assign rspt2rspo_axid  = (rrsp_phase == 1'b0) ? bid : rid;
+assign rspt2rspo_auser = (rrsp_phase == 1'b0) ? buser : rbuf0_ruser;
+assign rspt2rspo_axid  = (rrsp_phase == 1'b0) ? bid : rbuf0_rid;
 assign rspt2rspo_opc   = (rrsp_phase == 1'b0) ? W : R;
 
 //-----------------------------------------------------------------
@@ -261,7 +301,7 @@ assign rspt2rspo_opc   = (rrsp_phase == 1'b0) ? W : R;
 genvar i;
 generate 
     for(i=0;i<NBYTEPERWORD;i=i+1) begin
-        assign rspt2rspo_data[9*(i+1) : 9*i+2] = (rrsp_phase == 1'b1) ? rdata[8*i+7 : 8*i] : 'd0;
+        assign rspt2rspo_data[9*(i+1) : 9*i+2] = (rrsp_phase == 1'b1) ? rbuf0_rdata[8*i+7 : 8*i] : 'd0;
         assign rspt2rspo_data[9*i+1] = (rrsp_phase == 1'b1) ? 1'b1 : 'd0; //BE位全部拉高
         assign rspt2rspo_data[0] = 1'b0;     //LW全拉低
     end
@@ -271,11 +311,9 @@ endgenerate
 //-----------------------------------------------------------------
 //  生成LW提示信号，具体LW位生成在rsp_order中实现
 //-----------------------------------------------------------------
-// 没有考虑到交织的情况，对于tail信号，应该表示一个flit上是否结束，所以交织了也需要拉高
-//assign rspt2rspo_tail = ((rrsp_phase == 1'b0 && bvalid == 1'b1) || (rrsp_phase == 1'b1 && rlast == 1'b1)) ? 1'b1 : 1'b0;
 assign rspt2rspo_lw = ((rrsp_phase == 1'b0 && bvalid == 1'b1) ||
-                       (rrsp_phase == 1'b1 && rvalid == 1'b1 &&
-                        rlast == 1'b1)) ? 1'b1 : 1'b0;
+                       (rrsp_phase == 1'b1 && r_rsp_valid == 1'b1 &&
+                        rbuf0_rlast == 1'b1)) ? 1'b1 : 1'b0;
 
 //-----------------------------------------------------------------
 //  生成tail信号
@@ -283,9 +321,8 @@ assign rspt2rspo_lw = ((rrsp_phase == 1'b0 && bvalid == 1'b1) ||
 
 assign rspt2rspo_tail =
        (rrsp_phase == 1'b0 && bvalid == 1'b1) ||
-       (rrsp_phase == 1'b1 && rvalid == 1'b1 &&
-        (rlast == 1'b1 ||
-         (axi_m_rvalid == 1'b1 && axi_m_rid != rid)));
+       (rrsp_phase == 1'b1 && r_rsp_valid == 1'b1 &&
+        r_rsp_tail == 1'b1);
 
 //-----------------------------------------------------------------
 //  生成head信号
@@ -294,13 +331,13 @@ always @(*) begin
     if(rrsp_phase == 1'b0)
         rspt2rspo_head = bvalid;
     else
-        rspt2rspo_head = rvalid & rhead;
+        rspt2rspo_head = r_rsp_valid & rbuf0_rhead;
 end
 
 //-----------------------------------------------------------------
 //  生成valid信号
 //-----------------------------------------------------------------
-assign rspt2rspo_valid = (rrsp_phase == 1'b0) ? bvalid : rvalid;
+assign rspt2rspo_valid = (rrsp_phase == 1'b0) ? bvalid : r_rsp_valid;
 
 
 
