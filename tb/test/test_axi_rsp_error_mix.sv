@@ -1,9 +1,9 @@
 // =============================================================================
 // File        : test_axi_rsp_error_mix.sv
-// Description : Mixes normal AXI responses with SLVERR and DECERR responses.
-//               Covers read and write for all three response classes.  Error
-//               reads are four beats, so axi_monitor also checks that the first
-//               RRESP is already an error and remains unchanged through RLAST.
+// Description : Drives directed OKAY/SLVERR/OKAY/DECERR/OKAY response sequences
+//               for read and write. Error reads are four beats, so axi_monitor
+//               also checks that the first RRESP is already an error and stays
+//               unchanged through RLAST.
 // =============================================================================
 `ifndef TEST_AXI_RSP_ERROR_MIX_SV
 `define TEST_AXI_RSP_ERROR_MIX_SV
@@ -46,6 +46,10 @@ class test_axi_rsp_error_mix extends axi_tniu_base_test;
     cfg.axi_max_beat_gap     = 2;
     cfg.axi_rsp_user_random_en = 1'b1;
     cfg.axi_error_rsp_en     = 1'b0;
+    // The response type is selected explicitly by run_one_case().  Keep the
+    // driver's SLVERR/DECERR random mode disabled so every transition below is
+    // deterministic and reproducible.
+    cfg.axi_error_resp_random_en = 1'b0;
     cfg.axi_slverr_pct       = 100;
     cfg.rsp_drain_timeout    = 100us;
   endfunction
@@ -156,14 +160,23 @@ class test_axi_rsp_error_mix extends axi_tniu_base_test;
   endtask
 
   virtual task run_testcase();
-    // Interleave normal, SLVERR and DECERR cases while guaranteeing that both
-    // reads and writes are exercised for each response class.
-    run_one_case("normal_read",  AXI_RSP_CASE_READ,  2'b00);
-    run_one_case("slverr_write", AXI_RSP_CASE_WRITE, 2'b10);
-    run_one_case("decerr_read",   AXI_RSP_CASE_READ,  2'b11);
-    run_one_case("normal_write", AXI_RSP_CASE_WRITE, 2'b00);
-    run_one_case("slverr_read",  AXI_RSP_CASE_READ,  2'b10);
-    run_one_case("decerr_write", AXI_RSP_CASE_WRITE, 2'b11);
+    // Exercise bit[1] of RRESP and BRESP in both directions.  Each channel
+    // follows OKAY -> SLVERR -> OKAY -> DECERR -> OKAY, so resp[1] must toggle
+    // 0 -> 1 -> 0 -> 1 -> 0 instead of remaining at one after an error.
+
+    // 1..5: directed read responses.
+    run_one_case("read_okay_1",  AXI_RSP_CASE_READ, 2'b00);
+    run_one_case("read_slverr",  AXI_RSP_CASE_READ, 2'b10);
+    run_one_case("read_okay_2",  AXI_RSP_CASE_READ, 2'b00);
+    run_one_case("read_decerr",  AXI_RSP_CASE_READ, 2'b11);
+    run_one_case("read_okay_3",  AXI_RSP_CASE_READ, 2'b00);
+
+    // 6..10: directed write responses.
+    run_one_case("write_okay_1", AXI_RSP_CASE_WRITE, 2'b00);
+    run_one_case("write_slverr", AXI_RSP_CASE_WRITE, 2'b10);
+    run_one_case("write_okay_2", AXI_RSP_CASE_WRITE, 2'b00);
+    run_one_case("write_decerr", AXI_RSP_CASE_WRITE, 2'b11);
+    run_one_case("write_okay_3", AXI_RSP_CASE_WRITE, 2'b00);
   endtask
 
 endclass : test_axi_rsp_error_mix

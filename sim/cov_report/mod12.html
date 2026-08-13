@@ -60,8 +60,8 @@ $(document).ready(function () {
 <table align=left>
 <tr class="sortablehead">
 <td>SCORE</td><td>LINE</td><td>COND</td><td>TOGGLE</td><td>FSM</td><td>BRANCH</td><td>ASSERT</td></tr><tr>
-<td class="s9 cl rt"> 97.25</td>
-<td class="s10 cl rt"><a href="mod12.html#Line" >100.00</a></td>
+<td class="s9 cl rt"> 96.06</td>
+<td class="s9 cl rt"><a href="mod12.html#Line" > 95.24</a></td>
 <td class="s10 cl rt"><a href="mod12.html#Cond" >100.00</a></td>
 <td class="s9 cl rt"><a href="mod12.html#Toggle" > 93.33</a></td>
 <td class="wht cl rt"></td>
@@ -78,8 +78,8 @@ $(document).ready(function () {
 <tr class="sortablehead">
 <td class="alfsrt">NAME</td><td>SCORE</td><td>LINE</td><td>COND</td><td>TOGGLE</td><td>FSM</td><td>BRANCH</td><td>ASSERT</td></tr><tr>
 <td class="wht cl wordwrap"><a href="mod12.html#inst_tag_12"  onclick="showContent('inst_tag_12')">tb_top.dut.U_ADDR_MAP</a></td>
-<td class="s9 cl rt"> 97.25</td>
-<td class="s10 cl rt"><a href="mod12.html#Line" >100.00</a></td>
+<td class="s9 cl rt"> 96.06</td>
+<td class="s9 cl rt"><a href="mod12.html#Line" > 95.24</a></td>
 <td class="s10 cl rt"><a href="mod12.html#Cond" >100.00</a></td>
 <td class="s9 cl rt"><a href="mod12.html#Toggle" > 93.33</a></td>
 <td class="wht cl rt"></td>
@@ -101,8 +101,8 @@ $(document).ready(function () {
 <table align=left>
 <tr class="sortablehead">
 <td>SCORE</td><td>LINE</td><td>COND</td><td>TOGGLE</td><td>FSM</td><td>BRANCH</td><td>ASSERT</td></tr><tr>
-<td class="s9 cl rt"> 97.25</td>
-<td class="s10 cl rt"><a href="mod12.html#Line" >100.00</a></td>
+<td class="s9 cl rt"> 96.06</td>
+<td class="s9 cl rt"><a href="mod12.html#Line" > 95.24</a></td>
 <td class="s10 cl rt"><a href="mod12.html#Cond" >100.00</a></td>
 <td class="s9 cl rt"><a href="mod12.html#Toggle" > 93.33</a></td>
 <td class="wht cl rt"></td>
@@ -115,8 +115,8 @@ $(document).ready(function () {
 <table align=left>
 <tr class="sortablehead">
 <td>SCORE</td><td>LINE</td><td>COND</td><td>TOGGLE</td><td>FSM</td><td>BRANCH</td><td>ASSERT</td></tr><tr>
-<td class="s9 cl rt"> 97.25</td>
-<td class="s10 cl rt">100.00</td>
+<td class="s9 cl rt"> 96.06</td>
+<td class="s9 cl rt"> 95.24</td>
 <td class="s10 cl rt">100.00</td>
 <td class="s9 cl rt"> 93.33</td>
 <td class="wht cl rt"></td>
@@ -129,10 +129,10 @@ $(document).ready(function () {
 <table align=left>
 <tr class="sortablehead">
 <td>SCORE</td><td>LINE</td><td>COND</td><td>TOGGLE</td><td>FSM</td><td>BRANCH</td><td>ASSERT</td><td class="alfsrt">NAME</td></tr><tr>
-<td class="s9 cl rt"> 94.58</td>
+<td class="s9 cl rt"> 94.56</td>
 <td class="wht cl rt"></td>
 <td class="wht cl rt"></td>
-<td class="s9 cl rt"> 94.58</td>
+<td class="s9 cl rt"> 94.56</td>
 <td class="wht cl rt"></td>
 <td class="wht cl rt"></td>
 <td class="wht cl rt"></td>
@@ -159,10 +159,10 @@ Line Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <col width="122">
 <col span="4" width="82">
 <tr><th></th><th>Line No.</th><th>Total</th><th>Covered</th><th>Percent</th></tr>
-<tr class="s10"><td class="lf">TOTAL</td><td></td><td>20</td><td>20</td><td>100.00</td></tr>
+<tr class="s9"><td class="lf">TOTAL</td><td></td><td>21</td><td>20</td><td>95.24</td></tr>
 <tr class="s10"><td class="lf">INITIAL</td><td>80</td><td>8</td><td>8</td><td>100.00</td></tr>
-<tr class="s10"><td class="lf">ALWAYS</td><td>137</td><td>9</td><td>9</td><td>100.00</td></tr>
-<tr class="s10"><td class="lf">ALWAYS</td><td>194</td><td>3</td><td>3</td><td>100.00</td></tr>
+<tr class="s9"><td class="lf">ALWAYS</td><td>138</td><td>10</td><td>9</td><td>90.00</td></tr>
+<tr class="s10"><td class="lf">ALWAYS</td><td>196</td><td>3</td><td>3</td><td>100.00</td></tr>
 </table>
 <pre class="code"><br clear=all>
 79                      initial begin
@@ -219,70 +219,71 @@ Line Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 130                                     3'b001: qos = 2'b01;
 131                                     3'b011: qos = 2'b10;
 132                                     3'b111: qos = 2'b11;
-133                                 endcase
-134                             end
-135                         end else begin
-136                             always @(*) begin
-137        1/1                      case (rspo2am_urg)
-138        1/1                          7'b0000000: qos = 3'b000;
-139        1/1                          7'b0000001: qos = 3'b001;
-140        1/1                          7'b0000011: qos = 3'b010;
-141        1/1                          7'b0000111: qos = 3'b011;
-142        1/1                          7'b0001111: qos = 3'b100;
-143        1/1                          7'b0011111: qos = 3'b101;
-144        1/1                          7'b0111111: qos = 3'b110;
-145        1/1                          7'b1111111: qos = 3'b111;
-                   <font color = "red">==>  MISSING_DEFAULT</font>
-146                                 endcase
-147                             end
-148                         end
-149                     endgenerate
-150                     
-151                     //-----------------------------------------------------------------
-152                     //  R通道信号透传
+133                                     default: qos = 2'b00;
+134                                 endcase
+135                             end
+136                         end else begin
+137                             always @(*) begin
+138        1/1                      case (rspo2am_urg)
+139        1/1                          7'b0000000: qos = 3'b000;
+140        1/1                          7'b0000001: qos = 3'b001;
+141        1/1                          7'b0000011: qos = 3'b010;
+142        1/1                          7'b0000111: qos = 3'b011;
+143        1/1                          7'b0001111: qos = 3'b100;
+144        1/1                          7'b0011111: qos = 3'b101;
+145        1/1                          7'b0111111: qos = 3'b110;
+146        1/1                          7'b1111111: qos = 3'b111;
+147        <font color = "red">0/1     ==>                  default:    qos = 3'b000;</font>
+148                                 endcase
+149                             end
+150                         end
+151                     endgenerate
+152                     
 153                     //-----------------------------------------------------------------
-154                     
-155                     assign am2rreqt_head  = (rspo2am_opc[3:2] == R) ? rspo2am_head : 1'b0;
-156                     assign am2rreqt_tail  = (rspo2am_opc[3:2] == R) ? rspo2am_tail : 1'b0;
-157                     assign am2rreqt_valid = (rspo2am_opc[3:2] == R) ? rspo2am_valid : 1'b0;
-158                     
-159                     assign am2rreqt_opc    = rspo2am_opc[1:0];
-160                     assign am2rreqt_urg    = rspo2am_urg;
-161                     assign am2rreqt_axid   = rspo2am_axid;
-162                     assign am2rreqt_arlen  = total_flit;
-163                     assign am2rreqt_user   = rspo2am_user;
-164                     assign am2rreqt_araddr = {addr_map_table[rspo2am_subr][AADDR_WITH-1:ADDR_WITH],rspo2am_addr};
-165                     assign am2rreqt_arqos  = qos;
-166                     
-167                     
+154                     //  R通道信号透传
+155                     //-----------------------------------------------------------------
+156                     
+157                     assign am2rreqt_head  = (rspo2am_opc[3:2] == R) ? rspo2am_head : 1'b0;
+158                     assign am2rreqt_tail  = (rspo2am_opc[3:2] == R) ? rspo2am_tail : 1'b0;
+159                     assign am2rreqt_valid = (rspo2am_opc[3:2] == R) ? rspo2am_valid : 1'b0;
+160                     
+161                     assign am2rreqt_opc    = rspo2am_opc[1:0];
+162                     assign am2rreqt_urg    = rspo2am_urg;
+163                     assign am2rreqt_axid   = rspo2am_axid;
+164                     assign am2rreqt_arlen  = total_flit;
+165                     assign am2rreqt_user   = rspo2am_user;
+166                     assign am2rreqt_araddr = {addr_map_table[rspo2am_subr][AADDR_WITH-1:ADDR_WITH],rspo2am_addr};
+167                     assign am2rreqt_arqos  = qos;
 168                     
-169                     //-----------------------------------------------------------------
-170                     //  W通道信号透传
+169                     
+170                     
 171                     //-----------------------------------------------------------------
-172                     
-173                     assign am2wreqt_head  = (rspo2am_opc[3:2] == W) ? rspo2am_head : 1'b0;
-174                     assign am2wreqt_tail  = (rspo2am_opc[3:2] == W) ? rspo2am_tail : 1'b0;
-175                     assign am2wreqt_valid = (rspo2am_opc[3:2] == W) ? rspo2am_valid : 1'b0;
-176                     
-177                     assign am2wreqt_opc  = rspo2am_opc[1:0];
-178                     assign am2wreqt_urg  = rspo2am_urg;
-179                     assign am2wreqt_axid = rspo2am_axid;
-180                     assign am2wreqt_awlen  = total_flit;
-181                     assign am2wreqt_user = rspo2am_user;
-182                     assign am2wreqt_awaddr = {addr_map_table[rspo2am_subr][AADDR_WITH-1:ADDR_WITH],rspo2am_addr};
-183                     assign am2wreqt_data = rspo2am_data;
-184                     assign am2wreqt_awqos = qos;
-185                     
-186                     
+172                     //  W通道信号透传
+173                     //-----------------------------------------------------------------
+174                     
+175                     assign am2wreqt_head  = (rspo2am_opc[3:2] == W) ? rspo2am_head : 1'b0;
+176                     assign am2wreqt_tail  = (rspo2am_opc[3:2] == W) ? rspo2am_tail : 1'b0;
+177                     assign am2wreqt_valid = (rspo2am_opc[3:2] == W) ? rspo2am_valid : 1'b0;
+178                     
+179                     assign am2wreqt_opc  = rspo2am_opc[1:0];
+180                     assign am2wreqt_urg  = rspo2am_urg;
+181                     assign am2wreqt_axid = rspo2am_axid;
+182                     assign am2wreqt_awlen  = total_flit;
+183                     assign am2wreqt_user = rspo2am_user;
+184                     assign am2wreqt_awaddr = {addr_map_table[rspo2am_subr][AADDR_WITH-1:ADDR_WITH],rspo2am_addr};
+185                     assign am2wreqt_data = rspo2am_data;
+186                     assign am2wreqt_awqos = qos;
 187                     
-188                     //-----------------------------------------------------------------
-189                     //  生成am2rspo_ready信号
+188                     
+189                     
 190                     //-----------------------------------------------------------------
-191                     generate
-192                         if(PS_SWITCH == 1'b0) begin
-193                             always@(*) begin
-194        2/2                      if(rspo2am_opc[3:2] == R) am2rspo_ready = rreqt2am_ready;
-195        1/1                      else am2rspo_ready = wreqt2am_ready;
+191                     //  生成am2rspo_ready信号
+192                     //-----------------------------------------------------------------
+193                     generate
+194                         if(PS_SWITCH == 1'b0) begin
+195                             always@(*) begin
+196        2/2                      if(rspo2am_opc[3:2] == R) am2rspo_ready = rreqt2am_ready;
+197        1/1                      else am2rspo_ready = wreqt2am_ready;
 </pre>
 <hr>
 <a name="Cond"></a>
@@ -297,7 +298,7 @@ Cond Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <tr class="wht"><td class="lf">Event</td><td>0</td><td>0</td><td></td></tr>
 </table>
 <br clear=all>
-<pre class="code"> LINE       155
+<pre class="code"> LINE       157
  EXPRESSION ((rspo2am_opc[3:2] == R) ? rspo2am_head : 1'b0)
              -----------1-----------
 </pre>
@@ -308,7 +309,7 @@ Cond Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <tr class="uGreen"><td>1</td><td class="lf">Covered</td></tr>
 </table>
 <br clear=all>
-<pre class="code"> LINE       156
+<pre class="code"> LINE       158
  EXPRESSION ((rspo2am_opc[3:2] == R) ? rspo2am_tail : 1'b0)
              -----------1-----------
 </pre>
@@ -319,7 +320,7 @@ Cond Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <tr class="uGreen"><td>1</td><td class="lf">Covered</td></tr>
 </table>
 <br clear=all>
-<pre class="code"> LINE       157
+<pre class="code"> LINE       159
  EXPRESSION ((rspo2am_opc[3:2] == R) ? rspo2am_valid : 1'b0)
              -----------1-----------
 </pre>
@@ -330,7 +331,7 @@ Cond Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <tr class="uGreen"><td>1</td><td class="lf">Covered</td></tr>
 </table>
 <br clear=all>
-<pre class="code"> LINE       173
+<pre class="code"> LINE       175
  EXPRESSION ((rspo2am_opc[3:2] == W) ? rspo2am_head : 1'b0)
              -----------1-----------
 </pre>
@@ -341,7 +342,7 @@ Cond Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <tr class="uGreen"><td>1</td><td class="lf">Covered</td></tr>
 </table>
 <br clear=all>
-<pre class="code"> LINE       174
+<pre class="code"> LINE       176
  EXPRESSION ((rspo2am_opc[3:2] == W) ? rspo2am_tail : 1'b0)
              -----------1-----------
 </pre>
@@ -352,7 +353,7 @@ Cond Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <tr class="uGreen"><td>1</td><td class="lf">Covered</td></tr>
 </table>
 <br clear=all>
-<pre class="code"> LINE       175
+<pre class="code"> LINE       177
  EXPRESSION ((rspo2am_opc[3:2] == W) ? rspo2am_valid : 1'b0)
              -----------1-----------
 </pre>
@@ -777,31 +778,19 @@ Branch Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <td class="rt">95.65 </td>
 </tr><tr class="s10">
 <td>TERNARY</td>
-<td class="rt">155</td>
-<td class="rt">2</td>
-<td class="rt">2</td>
-<td class="rt">100.00</td>
-</tr><tr class="s10">
-<td>TERNARY</td>
-<td class="rt">156</td>
-<td class="rt">2</td>
-<td class="rt">2</td>
-<td class="rt">100.00</td>
-</tr><tr class="s10">
-<td>TERNARY</td>
 <td class="rt">157</td>
 <td class="rt">2</td>
 <td class="rt">2</td>
 <td class="rt">100.00</td>
 </tr><tr class="s10">
 <td>TERNARY</td>
-<td class="rt">173</td>
+<td class="rt">158</td>
 <td class="rt">2</td>
 <td class="rt">2</td>
 <td class="rt">100.00</td>
 </tr><tr class="s10">
 <td>TERNARY</td>
-<td class="rt">174</td>
+<td class="rt">159</td>
 <td class="rt">2</td>
 <td class="rt">2</td>
 <td class="rt">100.00</td>
@@ -811,21 +800,33 @@ Branch Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <td class="rt">2</td>
 <td class="rt">2</td>
 <td class="rt">100.00</td>
+</tr><tr class="s10">
+<td>TERNARY</td>
+<td class="rt">176</td>
+<td class="rt">2</td>
+<td class="rt">2</td>
+<td class="rt">100.00</td>
+</tr><tr class="s10">
+<td>TERNARY</td>
+<td class="rt">177</td>
+<td class="rt">2</td>
+<td class="rt">2</td>
+<td class="rt">100.00</td>
 </tr><tr class="s8">
 <td>CASE</td>
-<td class="rt">137</td>
+<td class="rt">138</td>
 <td class="rt">9</td>
 <td class="rt">8</td>
 <td class="rt">88.89 </td>
 </tr><tr class="s10">
 <td>IF</td>
-<td class="rt">194</td>
+<td class="rt">196</td>
 <td class="rt">2</td>
 <td class="rt">2</td>
 <td class="rt">100.00</td>
 </tr></table><br clear=all>
 <pre class="code"><br clear=all>
-155        assign am2rreqt_head  = (rspo2am_opc[3:2] == R) ? rspo2am_head : 1'b0;
+157        assign am2rreqt_head  = (rspo2am_opc[3:2] == R) ? rspo2am_head : 1'b0;
                                                            <font color = "green">-1-</font>  
                                                            <font color = "green">==></font>  
                                                            <font color = "green">==></font>  
@@ -843,7 +844,7 @@ Branch Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <td>Covered</td>
 </tr></table><br clear=all>
 <pre class="code"><br clear=all>
-156        assign am2rreqt_tail  = (rspo2am_opc[3:2] == R) ? rspo2am_tail : 1'b0;
+158        assign am2rreqt_tail  = (rspo2am_opc[3:2] == R) ? rspo2am_tail : 1'b0;
                                                            <font color = "green">-1-</font>  
                                                            <font color = "green">==></font>  
                                                            <font color = "green">==></font>  
@@ -861,7 +862,7 @@ Branch Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <td>Covered</td>
 </tr></table><br clear=all>
 <pre class="code"><br clear=all>
-157        assign am2rreqt_valid = (rspo2am_opc[3:2] == R) ? rspo2am_valid : 1'b0;
+159        assign am2rreqt_valid = (rspo2am_opc[3:2] == R) ? rspo2am_valid : 1'b0;
                                                            <font color = "green">-1-</font>  
                                                            <font color = "green">==></font>  
                                                            <font color = "green">==></font>  
@@ -879,7 +880,7 @@ Branch Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <td>Covered</td>
 </tr></table><br clear=all>
 <pre class="code"><br clear=all>
-173        assign am2wreqt_head  = (rspo2am_opc[3:2] == W) ? rspo2am_head : 1'b0;
+175        assign am2wreqt_head  = (rspo2am_opc[3:2] == W) ? rspo2am_head : 1'b0;
                                                            <font color = "green">-1-</font>  
                                                            <font color = "green">==></font>  
                                                            <font color = "green">==></font>  
@@ -897,7 +898,7 @@ Branch Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <td>Covered</td>
 </tr></table><br clear=all>
 <pre class="code"><br clear=all>
-174        assign am2wreqt_tail  = (rspo2am_opc[3:2] == W) ? rspo2am_tail : 1'b0;
+176        assign am2wreqt_tail  = (rspo2am_opc[3:2] == W) ? rspo2am_tail : 1'b0;
                                                            <font color = "green">-1-</font>  
                                                            <font color = "green">==></font>  
                                                            <font color = "green">==></font>  
@@ -915,7 +916,7 @@ Branch Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <td>Covered</td>
 </tr></table><br clear=all>
 <pre class="code"><br clear=all>
-175        assign am2wreqt_valid = (rspo2am_opc[3:2] == W) ? rspo2am_valid : 1'b0;
+177        assign am2wreqt_valid = (rspo2am_opc[3:2] == W) ? rspo2am_valid : 1'b0;
                                                            <font color = "green">-1-</font>  
                                                            <font color = "green">==></font>  
                                                            <font color = "green">==></font>  
@@ -933,25 +934,25 @@ Branch Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <td>Covered</td>
 </tr></table><br clear=all>
 <pre class="code"><br clear=all>
-137                    case (rspo2am_urg)
+138                    case (rspo2am_urg)
                        <font color = "red">-1-</font>  
-138                        7'b0000000: qos = 3'b000;
+139                        7'b0000000: qos = 3'b000;
            <font color = "green">                ==></font>
-139                        7'b0000001: qos = 3'b001;
+140                        7'b0000001: qos = 3'b001;
            <font color = "green">                ==></font>
-140                        7'b0000011: qos = 3'b010;
+141                        7'b0000011: qos = 3'b010;
            <font color = "green">                ==></font>
-141                        7'b0000111: qos = 3'b011;
+142                        7'b0000111: qos = 3'b011;
            <font color = "green">                ==></font>
-142                        7'b0001111: qos = 3'b100;
+143                        7'b0001111: qos = 3'b100;
            <font color = "green">                ==></font>
-143                        7'b0011111: qos = 3'b101;
+144                        7'b0011111: qos = 3'b101;
            <font color = "green">                ==></font>
-144                        7'b0111111: qos = 3'b110;
+145                        7'b0111111: qos = 3'b110;
            <font color = "green">                ==></font>
-145                        7'b1111111: qos = 3'b111;
+146                        7'b1111111: qos = 3'b111;
            <font color = "green">                ==></font>
-                           MISSING_DEFAULT
+147                        default:    qos = 3'b000;
            <font color = "red">                ==></font>
 </pre>
 <br clear=all>
@@ -984,14 +985,14 @@ Branch Coverage for Module : <a href="mod12.html" >addr_map</a><br clear=all>
 <td align=center>7'b1111111 </td>
 <td>Covered</td>
 </tr><tr class="uRed">
-<td align=center>MISSING_DEFAULT</td>
+<td align=center>default</td>
 <td>Not Covered</td>
 </tr></table><br clear=all>
 <pre class="code"><br clear=all>
-194                    if(rspo2am_opc[3:2] == R) am2rspo_ready = rreqt2am_ready;
+196                    if(rspo2am_opc[3:2] == R) am2rspo_ready = rreqt2am_ready;
                        <font color = "green">-1-</font>  
            <font color = "green">            ==></font>
-195                    else am2rspo_ready = wreqt2am_ready;
+197                    else am2rspo_ready = wreqt2am_ready;
            <font color = "green">            ==></font>
 </pre>
 <br clear=all>

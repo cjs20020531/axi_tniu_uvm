@@ -4790,3 +4790,164 @@ wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 5 )}
 wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 4 )} 
 wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 5 )} 
 wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 7 )} 
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 24 )} 
+wvSetCursor -win $_nWave3 45028647.997775 -snap {("U_RSP_TRANS" 24)}
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvZoomOut -win $_nWave3
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollUp -win $_nWave3 4
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+verdiDockWidgetSetCurTab -dock windowDock_nWave_4
+wvScrollUp -win $_nWave4 10
+wvScrollUp -win $_nWave4 27
+verdiDockWidgetSetCurTab -dock windowDock_nWave_6
+verdiDockWidgetSetCurTab -dock windowDock_nWave_5
+wvScrollDown -win $_nWave5 26
+wvScrollDown -win $_nWave5 1
+srcHBSelect "tb_top.dut.U_REQ_ORDER" -win $_nTrace1
+srcSetScope -win $_nTrace1 "tb_top.dut.U_REQ_ORDER" -delim "."
+srcHBSelect "tb_top.dut.U_REQ_ORDER" -win $_nTrace1
+srcDeselectAll -win $_nTrace1
+srcSelect -signal "tag_cnt" -line 250 -pos 1 -win $_nTrace1
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 28)}
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 29)}
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 30)}
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 31)}
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 30)}
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave5
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 31)}
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 30)}
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 29)}
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 28)}
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 27)}
+wvAddSignal -win $_nWave5 "/tb_top/dut/U_REQ_ORDER/tag_cnt\[7:0\]"
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 27)}
+wvSetPosition -win $_nWave5 {("U_REQ_ORDER" 28)}
+wvSelectSignal -win $_nWave5 {( "U_REQ_ORDER" 28 )} 
+wvExpandBus -win $_nWave5 {("U_REQ_ORDER" 28)}
+wvScrollDown -win $_nWave5 1
+wvScrollDown -win $_nWave5 1
+wvZoomOut -win $_nWave5
+wvZoomOut -win $_nWave5
+wvZoomOut -win $_nWave5
+wvZoomOut -win $_nWave5
+wvZoomIn -win $_nWave5
+wvScrollUp -win $_nWave5 1
+wvScrollUp -win $_nWave5 1
+wvScrollUp -win $_nWave5 1
+wvScrollDown -win $_nWave5 1
+wvScrollDown -win $_nWave5 1
+wvScrollDown -win $_nWave5 1
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave5

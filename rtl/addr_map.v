@@ -130,6 +130,7 @@ generate
                 3'b001: qos = 2'b01;
                 3'b011: qos = 2'b10;
                 3'b111: qos = 2'b11;
+                default: qos = 2'b00;
             endcase
         end
     end else begin
@@ -143,6 +144,7 @@ generate
                 7'b0011111: qos = 3'b101;
                 7'b0111111: qos = 3'b110;
                 7'b1111111: qos = 3'b111;
+                default:    qos = 3'b000;
             endcase
         end
     end

@@ -74,6 +74,11 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
   // can legally be reordered or interleaved.
   axi_tniu_expect pending_r_q [axi_tniu_protocol_pkg::axi_id_t][$];
 
+  // AW-matched write expectations waiting for B. This association is needed
+  // to distinguish a normal write completion from the late real B response of
+  // a bufferable write whose RKNP early response has already been emitted.
+  axi_tniu_expect pending_b_q [axi_tniu_protocol_pkg::axi_id_t][$];
+
   // Observed AXI address transactions are cached per AxID. These queues solve
   // the case where the DUT emits AW/AR before the RKNP request monitor has
   // finished collecting and broadcasting the corresponding source packet.
@@ -373,6 +378,7 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
     // AW matching establishes the expected W burst. W may already be waiting
     // in obs_w_q, so immediately try the second-stage W comparison.
     if (dir == AXI_WRITE) begin
+      pending_b_q[e.axid].push_back(e);
       exp_w_q.push_back(e);
       try_match_w();
     end
@@ -670,13 +676,41 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
   // AXI B: capture SLVERR/DECERR for error upgrade
   // ===========================================================================
   function void write_b(axi_seq_item t);
+    axi_tniu_expect e;
+
     if (!cfg.checks_enable)
       return;
 
     n_b++;
 
-    if (t.resp == 2'b10 || t.resp == 2'b11) begin
+    if (t == null) begin
+      `uvm_error("C-ERR-02", "Observed null AXI B response")
+      n_fail++;
+      return;
+    end
+
+    if (!pending_b_q.exists(t.id) || pending_b_q[t.id].size() == 0) begin
+      `uvm_error("C-ERR-02", $sformatf(
+        "Observed AXI B response on AxID=%0h without a matched AW expectation",
+        t.id))
+      n_fail++;
+      return;
+    end
+
+    e = pending_b_q[t.id].pop_front();
+    if (pending_b_q[t.id].size() == 0)
+      pending_b_q.delete(t.id);
+
+    if (t.resp == 2'b10 || t.resp == 2'b11)
       n_slverr++;
+
+    // A bufferable write has already produced its RKNP early response. A late
+    // real B (whether OKAY or error) only retires DUT state and must not be
+    // attached to the next same-ID response. The same applies after timeout.
+    if (e.req.bufferable || e.rsp_was_timeout)
+      return;
+
+    if (t.resp == 2'b10 || t.resp == 2'b11) begin
       err_pending[t.id].push_back(1);
     end
     else begin
@@ -860,10 +894,14 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
 
     e.rsp_final_seen = 1'b1;
 
+    // Record timeout for both directions. A late real R/B completion must be
+    // drained, but must never be applied to the next same-ID transaction.
+    if (t.rsp_status == axi_tniu_protocol_pkg::ST_ERR &&
+        t.rsp_errcode == axi_tniu_protocol_pkg::EC_TIMEOUT)
+      e.rsp_was_timeout = 1'b1;
+
     if (e.rsp_opc == axi_tniu_protocol_pkg::RSP_OPC_RD) begin
-      if (t.rsp_status == axi_tniu_protocol_pkg::ST_ERR &&
-          t.rsp_errcode == axi_tniu_protocol_pkg::EC_TIMEOUT) begin
-        e.rsp_was_timeout = 1'b1;
+      if (e.rsp_was_timeout) begin
         build_expected_read_body(e, null, 1'b1);
       end
       else if (!e.axi_valid) begin
@@ -1016,6 +1054,15 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
       end
     end
 
+    foreach (pending_b_q[k]) begin
+      if (pending_b_q[k].size() != 0) begin
+        `uvm_error("C-LEAK-01", $sformatf(
+          "%0d AW-matched write expectation(s) on AxID=%0h never got a B response",
+          pending_b_q[k].size(), k))
+        n_fail++;
+      end
+    end
+
     if (n_rsp_body_checked != n_exp_rsp_body) begin
       `uvm_error("C-RSP-DATA", $sformatf(
         "RKNP read-response body check count mismatch expected=%0d checked=%0d",
@@ -1051,6 +1098,10 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
 
     foreach (pending_r_q[k])
       if (pending_r_q[k].size() != 0)
+        return 1'b0;
+
+    foreach (pending_b_q[k])
+      if (pending_b_q[k].size() != 0)
         return 1'b0;
 
     return 1'b1;

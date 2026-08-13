@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_buff_mix +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_buff_mix_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_buff_mix.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 13 19:03 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 13 19:58 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -2086,7 +2086,7 @@ RKNP-RSP
  addr=0x3a34d18d 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 8325000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=40 response_packets=77 final_rsp(raw/matched)=40/40
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1117) @ 18325000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1168) @ 18325000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
   REQ=40  RSP_PKT=77  RSP_FINAL(raw/matched)=40/40
   AW=30 AR=10 W=30 B=30/30 R=10/10
@@ -2122,5 +2122,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 18325000 ps
-CPU Time:      0.450 seconds;       Data structure size:   0.9Mb
-Thu Aug 13 19:03:18 2026
+CPU Time:      0.480 seconds;       Data structure size:   0.9Mb
+Thu Aug 13 19:58:25 2026

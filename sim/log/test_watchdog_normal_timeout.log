@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_watchdog_normal_timeout +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_watchdog_normal_timeout_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_watchdog_normal_timeout.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 13 19:03 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 13 20:00 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -3419,7 +3419,7 @@ RD[215]:
     f9  f8  f7  f6  f5  f4  f3  f2
     01  00  ff  fe  fd  fc  fb  fa
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 31105000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=81 response_packets=81 final_rsp(raw/matched)=81/81
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1117) @ 41105000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1168) @ 41105000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
   REQ=81  RSP_PKT=81  RSP_FINAL(raw/matched)=81/81
   AW=0 AR=81 W=0 B=0/0 R=81/81
@@ -3455,5 +3455,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 41105000 ps
-CPU Time:      1.300 seconds;       Data structure size:   0.9Mb
-Thu Aug 13 19:03:11 2026
+CPU Time:      0.690 seconds;       Data structure size:   0.9Mb
+Thu Aug 13 20:00:24 2026
