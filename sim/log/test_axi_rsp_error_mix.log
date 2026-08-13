@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_axi_rsp_error_mix +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_axi_rsp_error_mix_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_axi_rsp_error_mix.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 13 18:21 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 13 19:03 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -136,14 +136,12 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2850
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x291 
  tid=0x3be 
  ordkey=0xe7 
  addr=0xb162b9c0 
- lw=1
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 285000: uvm_test_top.env.sb [C-ERR-02]  No.2 AXI SLVERR/DECERR on AxID=9 but RKNP status=ST_OK
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(143) @ 285000: uvm_test_top [AXI_RSP_CASE] slverr_write AXI error was not converted to RKNP ST_ERR; observed ST_OK
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(70) @ 285000: uvm_test_top [AXI_RSP_CASE] Start decerr_read  dir= READ expected_resp=11
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 285000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
 
@@ -163,19 +161,17 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4050
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
- status=ST_OK 
+ status=ST_ERR 
  iid=0xad 
  tid=0xe2 
  ordkey=0x35 
  addr=0x481d3940 
- lw=1
+ lw=1 errc=EC_TARGET
 RD[31]:
     47  46  45  44  43  42  41  40
     4f  4e  4d  4c  4b  4a  49  48
     57  56  55  54  53  52  51  50
     5f  5e  5d  5c  5b  5a  59  58
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 405000: uvm_test_top.env.sb [C-ERR-02]  No.3 AXI SLVERR/DECERR on AxID=6 but RKNP status=ST_OK
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(143) @ 405000: uvm_test_top [AXI_RSP_CASE] decerr_read AXI error was not converted to RKNP ST_ERR; observed ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(70) @ 405000: uvm_test_top [AXI_RSP_CASE] Start normal_write dir=WRITE expected_resp=00
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 405000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
 
@@ -225,19 +221,17 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 6250
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
- status=ST_OK 
+ status=ST_ERR 
  iid=0xce 
  tid=0x32c 
  ordkey=0x7f 
  addr=0x8b4f96a8 
- lw=1
+ lw=1 errc=EC_TARGET
 RD[31]:
     af  ae  ad  ac  ab  aa  a9  a8
     b7  b6  b5  b4  b3  b2  b1  b0
     bf  be  bd  bc  bb  ba  b9  b8
     c7  c6  c5  c4  c3  c2  c1  c0
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 625000: uvm_test_top.env.sb [C-ERR-02]  No.5 AXI SLVERR/DECERR on AxID=8 but RKNP status=ST_OK
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(143) @ 625000: uvm_test_top [AXI_RSP_CASE] slverr_read AXI error was not converted to RKNP ST_ERR; observed ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(70) @ 625000: uvm_test_top [AXI_RSP_CASE] Start decerr_write dir=WRITE expected_resp=11
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 625000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.6
 
@@ -262,14 +256,12 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7250
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x81 
  tid=0x1ae 
  ordkey=0x1e 
  addr=0x863bd7b0 
- lw=1
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 725000: uvm_test_top.env.sb [C-ERR-02]  No.6 AXI SLVERR/DECERR on AxID=f but RKNP status=ST_OK
-UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(143) @ 725000: uvm_test_top [AXI_RSP_CASE] decerr_write AXI error was not converted to RKNP ST_ERR; observed ST_OK
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 725000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=6 response_packets=6 final_rsp(raw/matched)=6/6
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1117) @ 10725000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
@@ -279,20 +271,19 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1117) @ 107
   ERR_req=0  AXI_SLVERR=4  WRAP=0  BUFFERABLE=0
   pending_AW=0 pending_AR=0 pending_R=0
   pending_exp_W=0 pending_obs_W=0
-  PASS=14  FAIL=4
+  PASS=18  FAIL=0
 =====================================
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(128) @ 10725000: uvm_test_top [RESULT] *** TEST FAILED ***
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(126) @ 10725000: uvm_test_top [RESULT] *** TEST PASSED ***
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 10725000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
 UVM_INFO :   29
 UVM_WARNING :    0
-UVM_ERROR :    8
+UVM_ERROR :    0
 UVM_FATAL :    0
 ** Report counts by id
-[AXI_RSP_CASE]    16
-[C-ERR-02]     4
+[AXI_RSP_CASE]    12
 [RESULT]     1
 [RKNP_DRV_TX_PACKET]     6
 [RKNP_TXN]     6
@@ -309,5 +300,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 10725000 ps
-CPU Time:      0.350 seconds;       Data structure size:   0.9Mb
-Thu Aug 13 18:21:31 2026
+CPU Time:      0.400 seconds;       Data structure size:   0.9Mb
+Thu Aug 13 19:03:20 2026

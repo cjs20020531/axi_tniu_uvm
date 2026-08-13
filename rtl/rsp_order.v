@@ -611,6 +611,7 @@ reg [AXID_WITH-1:0]  rsp_axid;
 reg [AUSER_WITH-1:0] rsp_user;
 reg [1:0]            rsp_opc;
 reg [2:0]            rsp_errcode;
+reg [1:0]            rsp_status;
 reg [9*NBYTEPERWORD:0] rsp_data;
 
 always @(posedge clk or negedge resetn) begin
@@ -619,12 +620,14 @@ always @(posedge clk or negedge resetn) begin
         rsp_user <= #DLY 'd0;
         rsp_opc  <= #DLY 'd0;
         rsp_errcode <= #DLY 'd0;
+        rsp_status <= #DLY OK;
     end else if(rspt2rspo_head == 1'b1 && rspt2rspo_valid == 1'b1 &&
                 rspo2rspt_ready == 1'b1)begin
         rsp_axid <= #DLY rspt2rspo_axid;
         rsp_user <= #DLY rspt2rspo_auser;
         rsp_opc  <= #DLY rspt2rspo_opc;
         rsp_errcode <= #DLY rspt2rspo_errcode;
+        rsp_status <= #DLY rspt2rspo_status;
     end
 end
 always @(posedge clk or negedge resetn) begin
@@ -914,16 +917,15 @@ end
 
 
 
-// reg [1:0] norm_rsp_status;
-// always @(*) begin
-//     if(rspt2rspo_status == ERR)
-//         norm_rsp_status = ERR;
-//     else
-//         if(rspt2rspo_lw_d == 1'b1) 
-//             norm_rsp_status = OK;
-//         else
-//             norm_rsp_status = CONT;
-// end
+// The request-side status describes the RKNP packet position: the first packet
+// is OK and a packet resumed after read interleaving is CONT.  The downstream
+// AXI response status describes whether the actual slave completion failed.
+// For the first packet, use the AXI-derived OK/ERR value captured together with
+// the response HEAD.  Preserve CONT for resumed packets so the existing RKNP
+// interleaving semantics are unchanged.
+wire [1:0] norm_rsp_status;
+assign norm_rsp_status = (reqo2rspo_rsp_status == CONT) ?
+                         CONT : rsp_status;
 
 //------------------------------------------------------
 //  RKNP协议组包输出
@@ -1035,7 +1037,7 @@ always @(*) begin
                     rsp_user,                         //AxUSER
                     reqo2rspo_rsp_user[7:0],          //AxLOCL\AxPORT\AxCACHE
                     reqo2rspo_rsp_addr,
-                    reqo2rspo_rsp_status,             //status
+                    norm_rsp_status,                  // AXI OK/ERR or RKNP CONT
                     rsp_opc,
                     reqo2rspo_rsp_ordkey,
                     reqo2rspo_rsp_tid,

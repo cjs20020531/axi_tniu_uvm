@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_mix +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_mix_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_mix.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 13 17:29 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 13 19:03 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -344,7 +344,7 @@ WR[254]:
     d9  05  76  3f  50  04  7f  c5
     bb  8d  ca  7a  e5  aa  c4  54
     00-  00-  00-  00-  00-  00-  a9  d4
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1195000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.6 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1215000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.6 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -388,26 +388,16 @@ WR[30]:
     bf  7d  77  b6  fc  4f  63  c5
     a9  8b  4f  15  10  6f  5f  31
     05  ae  90  e4  80  da  26  88
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1585000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.7 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1605000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.7 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x16a 
  tid=0x2f 
  ordkey=0x46 
  addr=0x54d09193 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1615000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.8 latency=4 cycles (40 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x206 
- tid=0x10c 
- ordkey=0xe4 
- addr=0x73b2b52e 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 1615000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.10
 
 RKNP-REQ 
@@ -456,6 +446,16 @@ WR[164]:
     78  ed  79  1e  f3  81  7f  71
     03  46  95  e6  6a  a6  04  18
     e9  73  4f  0e  3f  4f  6f  90
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1655000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.8 latency=8 cycles (80 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x206 
+ tid=0x10c 
+ ordkey=0xe4 
+ addr=0x73b2b52e 
+ lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1785000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.10 latency=N/A(no_axi_accept_time)
 
 RKNP-RSP 
@@ -566,7 +566,7 @@ WR[75]:
     34  38  f6  c4  f4  b7  d7  73
     a1  7f  e6  ae  9c  d2  96  f5
     00-  00-  00-  dd  f4  0c  ad  87
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2415000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.12 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2445000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.12 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -609,7 +609,7 @@ WR[150]:
     d1  55  d7  af  a4  17  e4  ec
     0f  43  2d  58  36  05  58  08
     bf  f3  33  ef  3c  2b  3b  c1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2575000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.13 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2585000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.13 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -661,7 +661,7 @@ WR[213]:
     6a  03  7d  31  05  29  e5  44
     94  14  5f  ce  8b  0f  a2  5a
     00-  00-  00-  00-  00-  8c  32  cf
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2825000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.14 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2835000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.14 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -671,6 +671,7 @@ RKNP-RSP
  ordkey=0x87 
  addr=0xd21d6791 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 2835000: uvm_test_top.env.sb [C-ERR-02]  No.14 AXI SLVERR/DECERR on AxID=f but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 3115000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.16
 
 RKNP-REQ 
@@ -701,7 +702,7 @@ WR[115]:
     6e  81  80  bd  80  b1  52  ff
     74  6b  fd  38  1e  a4  50  df
     00-  00-  00-  00-  00-  00-  00-  df
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3195000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.15 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3215000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.15 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -744,7 +745,7 @@ WR[147]:
     65  7c  4e  c8  2b  d9  4f  cd
     ec  7e  b3  1f  21  65  f6  ae
     00-  00-  00-  13  26  ed  c3  eb
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3445000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.16 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3505000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.16 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -754,6 +755,7 @@ RKNP-RSP
  ordkey=0xad 
  addr=0xb822cc35 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 3505000: uvm_test_top.env.sb [C-ERR-02]  No.16 AXI SLVERR/DECERR on AxID=7 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 3615000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.18
 
 RKNP-REQ 
@@ -849,7 +851,7 @@ WR[211]:
     a1  a5  df  d1  47  ca  e8  18
     74  55  41  10  a2  f6  f7  45
     66  30  dc  54  b9  31  fa  23
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.18 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4065000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.18 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -902,6 +904,7 @@ RKNP-RSP
  ordkey=0x2e 
  addr=0x6e30c14c 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 4435000: uvm_test_top.env.sb [C-ERR-02]  No.19 AXI SLVERR/DECERR on AxID=c but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 4645000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.21
 
 RKNP-REQ 
@@ -968,7 +971,7 @@ RKNP-RSP
  ordkey=0xd3 
  addr=0x78a3d9e9 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4725000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.21 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4775000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.21 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1003,7 +1006,7 @@ WR[79]:
     3a  f0  76  9a  dc  77  f9  af
     54  76  a9  18  81  f1  f7  59
     00-  12  7a  b9  1d  c3  27  d3
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5135000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.22 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.22 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1081,7 +1084,7 @@ WR[136]:
     20  59  63  5c  44  0e  2e  48
     c0  88  f6  6f  cb  02  b5  8f
     00-  a8  94  09  83  99  24  8c
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5435000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.24 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5385000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.24 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1125,7 +1128,7 @@ WR[147]:
     cf  85  44  f9  44  78  d9  4d
     a9  27  4e  ae  82  82  5d  61
     00-  00-  00-  00-  00-  00-  5f  b9
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5675000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.25 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5695000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.25 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1161,7 +1164,7 @@ WR[91]:
     56  c6  a5  da  c3  b3  da  72
     fe  de  b8  14  5f  1d  37  07
     00-  00-  00-  00-  58  e4  8a  a5
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5935000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.26 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5925000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.26 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1219,7 +1222,7 @@ RKNP-RSP
  ordkey=0xc6 
  addr=0x130f80f0 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 6165000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.28 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 6135000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.28 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1260,7 +1263,7 @@ WR[126]:
     d2  aa  ca  4d  5b  fe  2f  5a
     ca  73  06  b6  60  00  39  8f
     00-  00-  00-  00-  00-  00-  00-  33
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 6255000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.29 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 6245000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.29 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1304,16 +1307,16 @@ WR[147]:
     96  7a  0d  e7  54  ea  3e  b0
     30  20  83  9d  d2  aa  32  96
     00-  00-  00-  00-  00-  8a  1c  ff
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 6525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.30 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 6535000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.30 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x261 
  tid=0x302 
  ordkey=0x85 
  addr=0x65c66fca 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 6735000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.32
 
 RKNP-REQ 
@@ -1344,16 +1347,16 @@ WR[118]:
     8c  02  d5  5d  dd  88  b9  5f
     fd  15  3e  5b  5c  4f  bf  35
     00-  00-  00-  00-  00-  00-  00-  6b
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 6855000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.31 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 6845000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.31 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x383 
  tid=0x81 
  ordkey=0x8f 
  addr=0xd9905fef 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 6945000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.33
 
 RKNP-REQ 
@@ -1384,7 +1387,7 @@ WR[118]:
     c1  a9  16  1c  57  e9  a4  a9
     94  ca  7c  46  4f  32  8a  54
     00-  00-  00-  00-  00-  00-  99  0f
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7045000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.32 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7005000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.32 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1417,7 +1420,7 @@ WR[59]:
     40  17  53  3e  d1  f3  f7  6b
     09  35  1f  b5  92  bf  49  77
     00-  00-  00-  00-  00-  00-  da  2b
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7285000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.33 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7265000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.33 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1474,7 +1477,7 @@ WR[255]:
     e9  97  85  73  0e  7e  ec  9f
     3e  49  5b  e7  85  af  0e  af
     00-  00-  00-  00-  ed  89  c1  10
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7415000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.34 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7355000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.34 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1502,6 +1505,16 @@ WR[28]:
     95  a5  4e  ff  f7  27  54  f6
     f0  58  99  a4  c0  0f  55  10
     00-  00-  00-  9e  fc  9f  55  8a
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7835000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.35 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x298 
+ tid=0x75 
+ ordkey=0x20 
+ addr=0xcc663694 
+ lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 7845000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.37
 
 RKNP-REQ 
@@ -1525,16 +1538,16 @@ WR[64]:
     a4  39  75  c0  15  83  e9  f1
     3e  d1  3a  88  9d  ef  07  fe
     00-  00-  00-  00-  00-  00-  90  de
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7885000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.35 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7955000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.36 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x298 
- tid=0x75 
- ordkey=0x20 
- addr=0xcc663694 
- lw=1
+ status=ST_ERR 
+ iid=0x254 
+ tid=0x22f 
+ ordkey=0xb0 
+ addr=0xfd11a890 
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 7955000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.38
 
 RKNP-REQ 
@@ -1555,26 +1568,6 @@ WR[44]:
     a5  78  6d  e1  f7  9c  89  e8
     32  ae  cc  da  f5  dd  d7  50
     00-  47  36  45  c2  be  3d  24
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 7965000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.36 latency=10 cycles (100 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x254 
- tid=0x22f 
- ordkey=0xb0 
- addr=0xfd11a890 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 8005000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.37 latency=3 cycles (30 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0xc4 
- tid=0x54 
- ordkey=0xad 
- addr=0x4eebe461 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 8025000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.39
 
 RKNP-REQ 
@@ -1592,6 +1585,17 @@ WR[21]:
     f2  aa  cf  c0  c3  c2  00-  00-
     d7  40  e6  41  6c  e9  da  60
     6b  25  a8  ae  c0  9e  e9  4a
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 8045000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.37 latency=7 cycles (70 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xc4 
+ tid=0x54 
+ ordkey=0xad 
+ addr=0x4eebe461 
+ lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 8045000: uvm_test_top.env.sb [C-ERR-02]  No.37 AXI SLVERR/DECERR on AxID=7 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 8075000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.40
 
 RKNP-REQ 
@@ -1633,17 +1637,17 @@ WR[203]:
     34  b2  8e  2c  52  11  79  b7
     8c  fc  ba  75  dd  f6  a4  92
     00-  00-  00-  00-  00-  8b  d6  ae
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 8145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.38 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 8115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.38 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x22e 
  tid=0x32 
  ordkey=0xa8 
  addr=0xf629606a 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 8175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.39 latency=9 cycles (90 ns)
+ lw=1 errc=EC_TARGET
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 8145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.39 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1699,7 +1703,7 @@ WR[250]:
     8f  e5  cb  17  0d  70  0c  56
     c0  bb  36  93  ca  48  cb  bf
     00-  00-  2a  48  9a  e2  d2  3e
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 8555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.40 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 8545000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.40 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1754,7 +1758,7 @@ WR[240]:
     22  f7  89  a5  d5  0c  99  d4
     44  d9  d8  63  c8  a9  26  9b
     00-  00-  00-  00-  3e  0e  ab  59
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 9015000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.41 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 9025000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.41 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1801,7 +1805,7 @@ WR[170]:
     34  30  61  cd  0a  a5  f0  c7
     66  08  ef  83  a6  59  cd  db
     00-  00-  00-  00-  00-  00-  00-  14
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 9475000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.42 latency=12 cycles (120 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 9445000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.42 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1841,7 +1845,7 @@ WR[123]:
     da  43  e7  20  d4  92  f5  3a
     08  bf  8c  17  e3  50  7a  80
     00-  ec  8e  8a  a4  78  9f  63
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 9725000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.43 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 9775000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.43 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1919,7 +1923,7 @@ WR[215]:
     6f  34  c6  a6  2d  55  0b  28
     7b  27  da  d2  d1  a5  e9  79
     00-  00-  00-  00-  00-  00-  00-  f9
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 9975000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.45 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 9955000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.45 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -1972,7 +1976,7 @@ WR[221]:
     af  a9  5e  bf  05  66  6b  82
     79  93  4d  c7  6e  79  7b  99
     00-  00-  00-  00-  00-  d9  34  2b
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 10375000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.46 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 10405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.46 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -2009,7 +2013,7 @@ WR[96]:
     5b  aa  72  a7  b2  aa  88  55
     b3  4b  cd  59  6a  b8  eb  64
     00-  8a  56  ac  d5  90  8a  b3
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 10745000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.47 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 10765000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.47 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -2059,7 +2063,7 @@ WR[195]:
     0d  32  fd  92  4e  d0  f2  96
     c3  18  78  47  54  d2  a8  73
     00-  00-  00-  00-  00-  04  42  ce
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 10905000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.48 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 10895000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.48 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -2165,7 +2169,7 @@ WR[36]:
     76  a2  99  83  78  f0  9a  38
     89  10  b7  76  56  16  88  8b
     00-  00-  00-  00-  00-  00-  00-  78
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 11565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.51 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 11575000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.51 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -2271,7 +2275,7 @@ WR[200]:
     cc  8c  26  ea  99  6b  78  1b
     f0  08  12  f1  44  57  fd  f7
     00-  00-  00-  1d  17  eb  d9  58
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 12075000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.53 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 12105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.53 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -2361,7 +2365,7 @@ WR[79]:
     37  00  8c  3f  e3  7b  47  d2
     be  6b  f1  d5  bc  fb  b1  7e
     00-  00-  00-  00-  8b  fb  99  19
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 12865000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.55 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 12905000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.55 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -2417,7 +2421,7 @@ WR[251]:
     85  fd  20  b3  d9  b2  e1  e7
     87  1f  27  2e  65  17  6a  7a
     00-  00-  cb  c7  67  ac  15  e8
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 13045000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.56 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 13035000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.56 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -2555,16 +2559,6 @@ RKNP-RSP
  ordkey=0xf 
  addr=0xe33b9a51 
  lw=1 errc=EC_ADDR_DEC
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 13895000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.60 latency=4 cycles (40 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x24b 
- tid=0xc4 
- ordkey=0x10 
- addr=0x609c18aa 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 13895000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.62
 
 RKNP-REQ 
@@ -2611,16 +2605,26 @@ WR[250]:
     d4  2f  e0  83  50  91  cb  47
     e4  15  1c  df  d3  d8  c6  db
     00-  00-  00-  b9  da  d7  38  4a
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 13965000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.61 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 13945000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.60 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
  status=ST_OK 
+ iid=0x24b 
+ tid=0xc4 
+ ordkey=0x10 
+ addr=0x609c18aa 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 13965000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.61 latency=6 cycles (60 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
  iid=0x355 
  tid=0x13b 
  ordkey=0xfb 
  addr=0xd2c5822d 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 14345000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.63
 
 RKNP-REQ 
@@ -2665,16 +2669,6 @@ WR[84]:
     bd  9e  9e  69  6a  81  48  5f
     84  31  77  be  d1  e9  75  82
     00-  00-  f1  ae  ae  44  44  8d
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 14415000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.62 latency=6 cycles (60 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x22e 
- tid=0x116 
- ordkey=0x31 
- addr=0x3102c87a 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 14425000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.63 latency=2 cycles (20 ns)
 
 RKNP-RSP 
@@ -2684,6 +2678,16 @@ RKNP-RSP
  tid=0x34c 
  ordkey=0x3c 
  addr=0x29fe0dbd 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 14445000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.62 latency=9 cycles (90 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x22e 
+ tid=0x116 
+ ordkey=0x31 
+ addr=0x3102c87a 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 14555000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.65
 
@@ -2764,7 +2768,7 @@ WR[96]:
     93  bf  13  40  e4  04  eb  c0
     56  d9  24  d9  2e  59  2f  d9
     00-  00-  00-  7f  80  10  9f  78
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 14995000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.65 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 15005000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.65 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -2807,16 +2811,16 @@ WR[149]:
     23  80  aa  67  10  ed  d0  f8
     e2  8e  37  dc  b7  c8  00  ba
     00-  00-  d0  40  30  40  9f  af
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 15235000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.66 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 15185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.66 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x1c8 
  tid=0x218 
  ordkey=0xdc 
  addr=0x7d03f624 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 15425000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.68
 
 RKNP-REQ 
@@ -2860,7 +2864,7 @@ WR[223]:
     d6  7a  2b  30  9c  8c  60  bf
     8e  5e  27  55  b5  39  2d  5a
     00-  00-  00-  00-  00-  0e  cf  14
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 15495000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.67 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 15525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.67 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -2932,7 +2936,7 @@ RKNP-RSP
  ordkey=0x2a 
  addr=0x0a2e3f76 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 15915000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.68 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 15925000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.68 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -2986,16 +2990,16 @@ WR[229]:
     e4  b3  b1  28  33  66  ee  02
     8c  be  25  c5  1d  9d  d3  d8
     00-  00-  00-  00-  00-  d0  92  ba
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 16215000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.70 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 16245000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.70 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x3e0 
  tid=0x28d 
  ordkey=0xc6 
  addr=0x7dd9d112 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 16565000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.72
 
 RKNP-REQ 
@@ -3037,7 +3041,7 @@ WR[208]:
     5c  1e  1f  f3  ae  35  ba  e5
     b3  ad  74  92  53  52  47  e3
     00-  00-  00-  00-  00-  00-  00-  1d
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 16655000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.71 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 16635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.71 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3072,7 +3076,7 @@ WR[83]:
     e4  f6  e1  c8  7e  48  e6  d4
     16  23  db  0b  ee  94  08  6c
     00-  af  81  2d  90  04  50  38
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 17025000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.72 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 16995000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.72 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3120,7 +3124,7 @@ WR[181]:
     ba  ab  15  34  7f  89  47  3f
     a6  33  8d  30  d6  87  db  49
     00-  00-  00-  00-  00-  e9  43  da
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 17155000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.73 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 17115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.73 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3169,7 +3173,7 @@ WR[188]:
     f4  d2  3a  4b  cc  6b  b4  d1
     e3  70  18  b6  e6  79  90  82
     00-  00-  00-  00-  00-  00-  60  c3
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 17535000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.74 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 17555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.74 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3261,7 +3265,7 @@ WR[76]:
     9e  05  4b  7f  43  93  b6  92
     c1  df  2a  2a  bc  f1  17  17
     00-  00-  00-  00-  00-  00-  00-  cf
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 18095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.76 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 18075000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.76 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3271,7 +3275,7 @@ RKNP-RSP
  ordkey=0xa2 
  addr=0xbb31228e 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 18115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.77 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 18095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.77 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3308,6 +3312,7 @@ RKNP-RSP
  ordkey=0x39 
  addr=0xe95fdcac 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 18215000: uvm_test_top.env.sb [C-ERR-02]  No.78 AXI SLVERR/DECERR on AxID=a but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 18215000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.80
 
 RKNP-REQ 
@@ -3341,7 +3346,7 @@ WR[150]:
     6a  b3  cc  58  81  b0  42  f3
     17  ed  12  55  ee  ce  4f  d3
     00-  5d  86  45  a4  53  6a  83
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 18285000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.79 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 18275000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.79 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3390,7 +3395,7 @@ WR[196]:
     b0  40  42  91  ed  a4  d8  35
     f1  70  2e  17  1f  98  7e  cf
     35  11  4c  b7  c8  91  f4  6a
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 18565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.80 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 18575000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.80 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3400,6 +3405,7 @@ RKNP-RSP
  ordkey=0x89 
  addr=0xbd82a708 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 18575000: uvm_test_top.env.sb [C-ERR-02]  No.80 AXI SLVERR/DECERR on AxID=1 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 18865000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.82
 
 RKNP-REQ 
@@ -3486,7 +3492,7 @@ RKNP-RSP
  ordkey=0x25 
  addr=0x0af42208 
  lw=1 errc=EC_ADDR_DEC
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 19105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.82 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 19165000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.82 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3624,7 +3630,7 @@ WR[152]:
     87  8b  7d  44  d1  ee  ef  f5
     c4  eb  8b  2e  e4  76  5c  01
     00-  00-  00-  00-  00-  00-  00-  81
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 19875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.86 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 19885000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.86 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3658,7 +3664,7 @@ WR[69]:
     f6  3c  13  ed  47  70  21  8d
     76  7d  98  da  19  83  ff  cb
     00-  00-  00-  00-  00-  00-  d9  60
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 20195000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.87 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 20185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.87 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3798,16 +3804,16 @@ WR[114]:
     22  42  02  0e  a7  75  2d  8b
     aa  c2  2c  97  9a  de  6c  9e
     00-  00-  00-  00-  00-  72  73  bb
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 20955000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.90 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 21005000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.90 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x35f 
  tid=0x216 
  ordkey=0x90 
  addr=0x29c947e1 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 21065000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.92
 
 RKNP-REQ 
@@ -3829,7 +3835,7 @@ WR[42]:
     08  cc  22  fd  13  7b  6b  35
     4a  45  ae  78  f5  63  19  26
     00-  00-  00-  00-  00-  00-  00-  86
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 21145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.91 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 21125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.91 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3863,12 +3869,12 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2121
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x3c3 
  tid=0x368 
  ordkey=0x30 
  addr=0xa3fd4a9e 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 21245000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.94
 
 RKNP-REQ 
@@ -3946,7 +3952,7 @@ WR[87]:
     83  47  38  64  53  8c  99  4b
     f5  ad  cc  a2  38  40  05  12
     00-  00-  a0  81  35  93  57  b1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 21615000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.94 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 21625000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.94 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -3984,7 +3990,7 @@ WR[98]:
     5e  d2  80  7a  dd  db  39  ed
     80  26  bf  f2  cc  11  0a  89
     00-  00-  00-  00-  00-  00-  00-  11
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 21815000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.95 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 21795000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.95 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -4014,7 +4020,7 @@ WR[38]:
     a1  f2  8f  f6  08  52  d8  66
     e1  46  09  9e  6c  a0  85  b7
     00-  00-  00-  00-  00-  0c  25  b0
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 21955000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.96 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 21995000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.96 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -4156,7 +4162,7 @@ WR[137]:
     b5  45  53  7b  04  13  f3  1d
     ae  ce  47  fa  fc  c2  f9  a3
     8e  38  1e  f3  4c  d6  81  27
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 22575000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.99 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 22565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.99 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -4166,16 +4172,17 @@ RKNP-RSP
  ordkey=0x19 
  addr=0x7d9acfca 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 22605000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.100 latency=5 cycles (50 ns)
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 22565000: uvm_test_top.env.sb [C-ERR-02]  No.99 AXI SLVERR/DECERR on AxID=8 but RKNP status=ST_OK
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 22635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.100 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x2d 
  tid=0x4 
  ordkey=0x2f 
  addr=0x1fbf068c 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 22765000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.102
 
 RKNP-REQ 
@@ -4206,16 +4213,16 @@ WR[125]:
     28  cf  9b  5f  5e  c8  9a  31
     83  68  dc  52  63  9b  d6  ad
     00-  b2  de  c5  41  75  89  9d
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 22805000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.101 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 22875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.101 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x3d0 
  tid=0xbb 
  ordkey=0x54 
  addr=0xb716bef6 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 22955000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.103
 
 RKNP-REQ 
@@ -4241,7 +4248,7 @@ WR[82]:
     89  7b  b4  c8  1e  b3  e2  99
     84  76  af  a9  ae  ed  be  ad
     00-  00-  f0  ec  37  8c  e6  1a
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 23045000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.102 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 23085000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.102 latency=12 cycles (120 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -4302,6 +4309,7 @@ RKNP-RSP
  ordkey=0xa4 
  addr=0xbfea1243 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 23205000: uvm_test_top.env.sb [C-ERR-02]  No.103 AXI SLVERR/DECERR on AxID=e but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 23445000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.105
 
 RKNP-REQ 
@@ -4340,7 +4348,7 @@ WR[191]:
     b2  b3  9d  82  3e  7e  20  76
     ed  0e  ec  a4  ea  3c  30  96
     89  96  57  02  61  2a  f4  5b
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 23495000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.104 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 23485000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.104 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -4384,7 +4392,7 @@ WR[153]:
     a6  0e  02  8f  b0  cf  69  8c
     b3  e2  93  c0  5b  b5  4a  1b
     00-  00-  00-  b1  5e  9b  0c  58
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 23845000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.105 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 23875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.105 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -4426,7 +4434,7 @@ WR[139]:
     ee  14  89  f1  2f  eb  ea  b7
     d6  1b  fc  7e  cd  8d  9c  61
     00-  00-  00-  00-  64  77  37  00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 24115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.106 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 24105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.106 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -4550,16 +4558,16 @@ WR[151]:
     c5  14  16  62  04  1e  42  44
     7b  9c  32  85  21  67  97  27
     00-  37  87  98  d4  c5  51  3a
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 24835000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.109 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 24785000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.109 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x2b9 
  tid=0x2e1 
  ordkey=0xb1 
  addr=0x3842a01a 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 25005000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.111
 
 RKNP-REQ 
@@ -4768,12 +4776,12 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2556
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x267 
  tid=0x360 
  ordkey=0xe3 
  addr=0xf6a6127f 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 25595000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.113 latency=48 cycles (480 ns)
 
 RKNP-RSP 
@@ -4804,16 +4812,6 @@ WR[41]:
     7c  2d  4f  58  d7  1c  df  59
     7d  cf  e8  2d  f5  80  8c  12
     00-  00-  00-  00-  00-  06  99  ca
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 25855000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.115 latency=6 cycles (60 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x3c7 
- tid=0x167 
- ordkey=0x86 
- addr=0x0886d000 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 25865000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.117
 
 RKNP-REQ 
@@ -4860,16 +4858,26 @@ WR[249]:
     92  1f  e1  77  f2  1d  f4  d7
     f1  ee  3c  96  b4  df  b9  e9
     00-  00-  00-  00-  00-  99  2c  c4
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 25955000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.116 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 25875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.115 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
  status=ST_OK 
+ iid=0x3c7 
+ tid=0x167 
+ ordkey=0x86 
+ addr=0x0886d000 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 25925000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.116 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
  iid=0x249 
  tid=0x24 
  ordkey=0x7e 
  addr=0xa7a450d1 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 26295000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.118
 
 RKNP-REQ 
@@ -4911,7 +4919,7 @@ WR[210]:
     1a  64  d3  c8  11  03  e6  4d
     e6  cf  4c  05  8c  5c  00  cf
     00-  64  8c  7e  5e  c7  0a  3d
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 26375000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.117 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 26355000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.117 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -4964,16 +4972,16 @@ WR[226]:
     e7  23  6d  fa  49  17  2c  e8
     96  14  5c  e3  4c  7a  86  ca
     00-  00-  00-  00-  00-  5a  ef  02
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 26735000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.118 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 26785000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.118 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x191 
  tid=0x2d2 
  ordkey=0xb0 
  addr=0x6af28f34 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 27065000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.120
 
 RKNP-REQ 
@@ -5019,7 +5027,7 @@ WR[236]:
     ff  a3  69  44  cb  8c  6f  ab
     06  81  82  bb  99  b0  e9  6b
     00-  00-  00-  00-  c4  b1  38  53
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 27145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.119 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 27155000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.119 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -5054,7 +5062,7 @@ WR[85]:
     78  01  af  a5  3c  2f  81  27
     1c  3a  c4  77  87  ae  cc  59
     00-  00-  a2  2a  bc  03  a3  bb
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 27595000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.120 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 27535000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.120 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -5097,7 +5105,7 @@ WR[146]:
     6d  60  33  8a  68  71  25  e0
     73  10  78  58  65  7c  8b  90
     00-  00-  fa  59  6a  5c  b4  bb
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 27705000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.121 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 27735000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.121 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -5133,6 +5141,7 @@ RKNP-RSP
  ordkey=0xab 
  addr=0x7ef860bb 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 27925000: uvm_test_top.env.sb [C-ERR-02]  No.122 AXI SLVERR/DECERR on AxID=1 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 27925000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.124
 
 RKNP-REQ 
@@ -5205,7 +5214,7 @@ RKNP-RSP
  ordkey=0xda 
  addr=0xa584009a 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 28085000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.124 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 28115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.124 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -5256,16 +5265,16 @@ WR[213]:
     f4  66  f7  d3  a3  ac  0b  58
     57  a0  a8  21  53  fe  79  cb
     00-  00-  bc  96  ea  e7  1f  7c
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 28495000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.125 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 28505000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.125 latency=12 cycles (120 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x7b 
  tid=0xcd 
  ordkey=0x64 
  addr=0x4c1b2637 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 28705000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.127
 
 RKNP-REQ 
@@ -5312,7 +5321,7 @@ WR[248]:
     24  00  63  19  a3  a8  f1  e5
     32  06  d6  8f  07  ca  a8  bb
     00-  00-  0c  64  23  e6  13  48
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 28795000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.126 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 28755000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.126 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -5357,7 +5366,7 @@ WR[158]:
     d8  9f  b7  ce  12  48  80  31
     d5  7f  6f  bf  81  75  5b  1b
     00-  00-  4f  d1  92  1a  4f  25
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 29255000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.127 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 29225000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.127 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -5413,16 +5422,16 @@ WR[250]:
     97  0d  f8  52  c7  a8  b2  55
     32  f5  32  61  5f  52  78  16
     f1  6d  b8  aa  37  1a  aa  a5
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 29565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.128 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 29525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.128 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x9e 
  tid=0x3ff 
  ordkey=0x58 
  addr=0xee07c29f 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 29895000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.130
 
 RKNP-REQ 
@@ -5455,7 +5464,7 @@ WR[135]:
     51  eb  3d  39  e7  f4  de  bd
     37  b7  d9  df  56  41  d1  25
     00-  aa  30  c5  28  c1  36  42
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 29935000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.129 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 29965000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.129 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -5532,7 +5541,7 @@ RKNP-RSP
  ordkey=0x8a 
  addr=0x4ed527c0 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 30165000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.130 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 30215000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.130 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -5573,16 +5582,16 @@ WR[126]:
     cb  97  53  33  14  59  22  ca
     26  72  62  04  a8  ed  e9  03
     00-  00-  ca  a3  fb  d5  4e  39
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 30545000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.132 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 30605000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.132 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0xe 
  tid=0x8e 
  ordkey=0xd 
  addr=0xce5e28a9 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 30715000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.134
 
 RKNP-REQ 
@@ -5603,6 +5612,16 @@ WR[41]:
     b9  6b  d2  e8  95  6c  39  87
     d1  24  fe  4f  a6  73  53  8e
     00-  00-  00-  33  7b  8b  42  59
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 30765000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.133 latency=4 cycles (40 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x191 
+ tid=0x177 
+ ordkey=0x96 
+ addr=0xb850a7ef 
+ lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 30775000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.135
 
 RKNP-REQ 
@@ -5649,17 +5668,7 @@ WR[250]:
     b5  f6  8a  01  f1  9d  fb  c5
     5f  d2  a3  74  db  e0  81  5f
     00-  00-  00-  00-  00-  fa  53  00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 30785000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.133 latency=6 cycles (60 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x191 
- tid=0x177 
- ordkey=0x96 
- addr=0xb850a7ef 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 30865000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.134 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 30845000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.134 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -5746,16 +5755,16 @@ WR[49]:
     40  54  ff  a1  33  f5  54  14
     2d  1b  75  8d  0b  26  3e  61
     00-  00-  ea  f5  e3  46  11  56
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 31785000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.136 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 31765000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.136 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x1e6 
  tid=0x1b9 
  ordkey=0x10 
  addr=0xa067e47f 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 31785000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.138
 
 RKNP-REQ 
@@ -5910,16 +5919,16 @@ WR[93]:
     80  af  2a  80  04  d6  08  89
     c4  d8  57  6e  6e  0a  b2  50
     00-  00-  00-  00-  00-  cc  f7  51
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 32665000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.140 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 32635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.140 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x2e4 
  tid=0x1f0 
  ordkey=0x8a 
  addr=0x5be44168 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 32735000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.142
 
 RKNP-REQ 
@@ -6001,16 +6010,16 @@ WR[109]:
     cb  9a  05  69  82  ac  40  dd
     da  05  93  c7  6b  69  2c  b4
     00-  00-  00-  00-  00-  00-  00-  8b
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.142 latency=12 cycles (120 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33155000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.142 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x2e0 
  tid=0x19e 
  ordkey=0x9b 
  addr=0x9d324386 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 33225000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.144
 
 RKNP-REQ 
@@ -6045,7 +6054,7 @@ WR[149]:
     c8  e3  9f  36  90  f3  f7  c8
     5c  bf  d1  b7  27  ef  7b  92
     00-  00-  00-  00-  00-  da  dc  c8
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33285000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.143 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33315000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.143 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -6094,17 +6103,17 @@ WR[75]:
     21  86  5a  e6  d2  17  7c  e8
     59  06  9b  4c  8b  bc  41  69
     00-  00-  b0  59  f2  63  9c  35
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.144 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.144 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x258 
  tid=0xc6 
  ordkey=0x55 
  addr=0xf609732d 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33575000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.145 latency=7 cycles (70 ns)
+ lw=1 errc=EC_TARGET
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.145 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -6136,7 +6145,7 @@ WR[51]:
     dc  ab  98  c7  d1  61  16  1d
     b6  87  51  32  c9  96  50  61
     00-  00-  00-  00-  00-  00-  00-  2a
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33695000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.146 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33705000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.146 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -6193,7 +6202,7 @@ WR[255]:
     d8  f1  82  fc  5d  93  88  34
     ea  6c  68  b2  ce  ee  1f  10
     00-  00-  00-  b4  3d  e6  4e  4f
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33765000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.147 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 33835000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.147 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -6203,6 +6212,7 @@ RKNP-RSP
  ordkey=0x11 
  addr=0xc93e0635 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 33835000: uvm_test_top.env.sb [C-ERR-02]  No.147 AXI SLVERR/DECERR on AxID=0 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 34165000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.149
 
 RKNP-REQ 
@@ -6418,7 +6428,7 @@ WR[179]:
     88  6b  56  7f  9e  6c  b8  9b
     15  1b  6b  97  bd  cf  d8  06
     00-  00-  76  7b  4c  aa  22  11
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 34635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.153 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 34605000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.153 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -6428,7 +6438,7 @@ RKNP-RSP
  ordkey=0xd8 
  addr=0x3dc989f0 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 34655000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.154 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 34675000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.154 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -6577,6 +6587,7 @@ RKNP-RSP
  ordkey=0x87 
  addr=0x1f526c36 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 35255000: uvm_test_top.env.sb [C-ERR-02]  No.157 AXI SLVERR/DECERR on AxID=f but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 35275000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.155 latency=40 cycles (400 ns)
 
 RKNP-RSP 
@@ -6587,6 +6598,7 @@ RKNP-RSP
  ordkey=0xf5 
  addr=0x88eef322 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 35275000: uvm_test_top.env.sb [C-ERR-02]  No.155 AXI SLVERR/DECERR on AxID=a but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 35495000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.159
 
 RKNP-REQ 
@@ -6776,7 +6788,7 @@ WR[109]:
     b3  7a  28  ed  8c  32  b4  99
     c1  8b  13  14  ea  b7  fe  68
     00-  00-  00-  00-  98  9a  d7  79
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 36335000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.162 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 36285000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.162 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -6841,7 +6853,17 @@ WR[193]:
     42  21  80  8a  a5  ad  c5  7a
     14  5d  bf  8f  21  35  43  ef
     00-  11  04  54  28  90  c8  91
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 36515000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.164 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 36505000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.163 latency=7 cycles (70 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xe 
+ tid=0x33b 
+ ordkey=0x3f 
+ addr=0x189ee24e 
+ lw=1 errc=EC_TARGET
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 36555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.164 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -6850,16 +6872,6 @@ RKNP-RSP
  tid=0x2e9 
  ordkey=0x31 
  addr=0xdc4103b4 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 36545000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.163 latency=11 cycles (110 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0xe 
- tid=0x33b 
- ordkey=0x3f 
- addr=0x189ee24e 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 36785000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.166
 
@@ -6893,7 +6905,7 @@ WR[137]:
     ae  5b  09  28  62  a9  83  bc
     71  d1  68  c0  3e  78  78  6e
     00-  63  2a  1e  e2  ac  ba  a8
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 36915000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.165 latency=12 cycles (120 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 36905000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.165 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -6945,7 +6957,7 @@ WR[211]:
     ff  ed  28  cf  53  0b  b5  08
     5a  43  c6  0c  46  4c  44  d7
     00-  00-  00-  00-  00-  00-  d1  99
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 37095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.166 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 37145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.166 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -7140,16 +7152,16 @@ WR[130]:
     fa  b1  d9  20  18  d2  8f  6e
     91  74  1c  7e  cb  fa  5a  b9
     00-  00-  00-  dc  69  fc  1d  ba
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 38155000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.171 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 38205000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.171 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x11 
  tid=0x3d3 
  ordkey=0x1c 
  addr=0x29de2bef 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 38315000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.173
 
 RKNP-REQ 
@@ -7196,7 +7208,7 @@ WR[249]:
     88  49  8b  f6  46  f2  d4  6e
     1b  74  16  f9  60  b6  c1  4b
     00-  0e  c4  db  ea  63  a3  65
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 38405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.172 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 38415000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.172 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -7206,6 +7218,7 @@ RKNP-RSP
  ordkey=0xfe 
  addr=0x257a2ee2 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 38415000: uvm_test_top.env.sb [C-ERR-02]  No.172 AXI SLVERR/DECERR on AxID=1 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 38745000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.174
 
 RKNP-REQ 
@@ -7408,7 +7421,7 @@ WR[246]:
     03  32  58  eb  e6  5b  f5  98
     c6  91  45  6e  40  9c  0f  1c
     00-  00-  00-  00-  00-  87  38  01
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 39705000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.177 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 39735000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.177 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -7418,6 +7431,7 @@ RKNP-RSP
  ordkey=0x84 
  addr=0xc89cf505 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 39735000: uvm_test_top.env.sb [C-ERR-02]  No.177 AXI SLVERR/DECERR on AxID=c but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 40135000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.179
 
 RKNP-REQ 
@@ -7498,16 +7512,16 @@ WR[204]:
     1c  1a  8d  d4  b5  9c  df  e9
     2e  85  fb  16  de  56  c5  7f
     00-  00-  00-  00-  00-  00-  00-  2c
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 40405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.179 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 40425000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.179 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x3ce 
  tid=0x1c1 
  ordkey=0x72 
  addr=0x745c59ca 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 40695000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.181
 
 RKNP-REQ 
@@ -7568,7 +7582,7 @@ WR[121]:
     49  3d  fc  3b  b9  92  0d  35
     44  4c  32  38  16  4d  60  d7
     00-  00-  00-  00-  ba  2e  ad  4b
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 40885000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.181 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 40845000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.181 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -7578,6 +7592,7 @@ RKNP-RSP
  ordkey=0x97 
  addr=0x15db1dae 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 40845000: uvm_test_top.env.sb [C-ERR-02]  No.181 AXI SLVERR/DECERR on AxID=e but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 41015000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.183
 
 RKNP-REQ 
@@ -7613,7 +7628,7 @@ WR[162]:
     0c  00  4d  86  b1  c7  f8  14
     ea  9b  b1  52  86  35  c8  e9
     00-  00-  00-  00-  00-  7a  28  c5
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 41115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.182 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 41075000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.182 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -7738,6 +7753,7 @@ RKNP-RSP
  ordkey=0x78 
  addr=0x929bdd24 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 41655000: uvm_test_top.env.sb [C-ERR-02]  No.184 AXI SLVERR/DECERR on AxID=f but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 41885000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.188
 
 RKNP-REQ 
@@ -7848,7 +7864,7 @@ WR[86]:
     86  e1  d3  da  6f  34  ad  8a
     4e  b4  ec  cc  5d  8f  cf  b4
     00-  00-  00-  00-  c3  e9  c2  e6
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 42145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.188 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 42105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.188 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -7858,6 +7874,7 @@ RKNP-RSP
  ordkey=0x41 
  addr=0x10b194b2 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 42105000: uvm_test_top.env.sb [C-ERR-02]  No.188 AXI SLVERR/DECERR on AxID=5 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 42155000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.190
 
 RKNP-REQ 
@@ -7914,6 +7931,7 @@ RKNP-RSP
  ordkey=0xb2 
  addr=0xbb7ec025 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 42185000: uvm_test_top.env.sb [C-ERR-02]  No.189 AXI SLVERR/DECERR on AxID=9 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 42535000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.191
 
 RKNP-REQ 
@@ -8161,26 +8179,26 @@ WR[130]:
     05  04  0e  53  8b  54  f1  85
     ef  a2  45  a9  3d  c6  24  ee
     00-  00-  00-  00-  00-  94  52  b2
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 44095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.194 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 44045000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.194 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x390 
  tid=0x108 
  ordkey=0xd9 
  addr=0x9d2ceedf 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 44115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.195 latency=10 cycles (100 ns)
+ lw=1 errc=EC_TARGET
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 44095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.195 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x362 
  tid=0x22f 
  ordkey=0x30 
  addr=0x26d3f444 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 44245000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.197
 
 RKNP-REQ 
@@ -8270,7 +8288,7 @@ WR[43]:
     a1  b3  c8  b9  5f  04  c7  22
     47  a6  f1  29  fa  71  6e  8a
     00-  00-  00-  00-  00-  00-  00-  9e
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 44505000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.198 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 44515000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.198 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -8346,7 +8364,8 @@ RKNP-RSP
  ordkey=0x26 
  addr=0x5379f83f 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 44645000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.199 latency=11 cycles (110 ns)
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 44585000: uvm_test_top.env.sb [C-ERR-02]  No.200 AXI SLVERR/DECERR on AxID=4 but RKNP status=ST_OK
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 44635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.199 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -8378,7 +8397,7 @@ WR[60]:
     ea  22  05  0f  71  ea  6d  3d
     55  eb  10  e2  55  41  2f  b1
     07  a4  d6  f9  c0  69  46  06
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 44985000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.201 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 45005000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.201 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -8436,17 +8455,7 @@ WR[136]:
     00  1c  fd  10  78  92  fb  a0
     d6  69  56  eb  4c  ad  ab  f9
     00-  00-  00-  00-  00-  00-  ce  95
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 45075000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.202 latency=4 cycles (40 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x3d1 
- tid=0x28 
- ordkey=0x4c 
- addr=0x233ab243 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 45175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.203 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 45105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.203 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -8455,6 +8464,16 @@ RKNP-RSP
  tid=0xc4 
  ordkey=0xfd 
  addr=0x64c555d4 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 45125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.202 latency=9 cycles (90 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x3d1 
+ tid=0x28 
+ ordkey=0x4c 
+ addr=0x233ab243 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 45265000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.205
 
@@ -8560,7 +8579,7 @@ WR[176]:
     a2  e1  a9  bc  cf  d9  a9  e6
     e5  58  2e  4b  13  58  f6  de
     00-  00-  00-  00-  00-  00-  00-  6a
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 45625000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.206 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 45685000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.206 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -8734,6 +8753,7 @@ RKNP-RSP
  ordkey=0x3c 
  addr=0xd2c04743 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 46335000: uvm_test_top.env.sb [C-ERR-02]  No.208 AXI SLVERR/DECERR on AxID=f but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 46365000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.209 latency=33 cycles (330 ns)
 
 RKNP-RSP 
@@ -8765,7 +8785,7 @@ WR[49]:
     f6  d6  86  b8  b4  50  5f  83
     66  4d  23  92  55  72  0d  63
     00-  00-  00-  be  12  de  bd  c1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 46395000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.211 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 46385000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.211 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -8774,6 +8794,16 @@ RKNP-RSP
  tid=0x20c 
  ordkey=0x41 
  addr=0xc3fc10fe 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 46415000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.212 latency=4 cycles (40 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x14b 
+ tid=0x2a9 
+ ordkey=0xef 
+ addr=0xd241dfb9 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 46455000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.214
 
@@ -8816,17 +8846,7 @@ WR[209]:
     40  74  0b  b3  2d  f0  7e  96
     39  a1  2a  a9  3d  70  1f  11
     00-  51  a5  b6  0f  b2  51  d4
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 46485000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.212 latency=11 cycles (110 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x14b 
- tid=0x2a9 
- ordkey=0xef 
- addr=0xd241dfb9 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 46505000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.213 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 46515000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.213 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -8910,16 +8930,16 @@ WR[78]:
     6b  58  51  6e  37  39  9b  4c
     14  31  25  73  8d  87  66  52
     00-  00-  00-  00-  11  e0  b1  c0
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 47135000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.215 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 47215000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.215 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0xed 
  tid=0x49 
  ordkey=0xc1 
  addr=0xb857df69 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 47295000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.217
 
 RKNP-REQ 
@@ -9108,7 +9128,7 @@ WR[244]:
     79  06  02  fc  f7  04  3a  15
     a5  d7  70  32  44  fc  a6  4b
     00-  00-  00-  f1  d5  47  4c  03
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 48045000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.220 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 47995000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.220 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -9215,7 +9235,7 @@ RKNP-RSP
  ordkey=0xd8 
  addr=0x9766fc95 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 48855000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.223 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 48865000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.223 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -9261,16 +9281,16 @@ WR[164]:
     61  33  5e  fb  24  cc  2a  08
     6a  f3  a3  34  9d  27  d8  aa
     00-  00-  00-  00-  00-  1a  42  7f
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 48975000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.224 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 49005000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.224 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x280 
  tid=0x327 
  ordkey=0x57 
  addr=0x3ceaa4a4 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 49205000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.226
 
 RKNP-REQ 
@@ -9314,16 +9334,16 @@ WR[223]:
     40  2a  69  7f  08  53  17  a5
     c4  14  37  78  4f  e8  de  7b
     00-  00-  00-  00-  00-  2a  41  23
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 49335000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.225 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 49285000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.225 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0xb8 
  tid=0x15c 
  ordkey=0xbc 
  addr=0xa8c64066 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 49695000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.227
 
 RKNP-REQ 
@@ -9361,7 +9381,7 @@ WR[180]:
     e6  f4  2e  67  b3  3f  c7  7b
     21  83  73  32  f1  0f  e0  09
     00-  00-  00-  bc  2f  2f  f3  a6
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 49815000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.226 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 49775000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.226 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -9394,7 +9414,7 @@ WR[66]:
     40  01  7b  c1  19  b1  ff  5e
     8f  fd  4e  fb  99  86  fd  50
     a4  68  96  fa  fe  e1  4c  b6
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 50125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.227 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 50095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.227 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -9493,17 +9513,7 @@ WR[207]:
     93  b8  8f  cf  8e  98  f8  18
     8f  dd  85  f7  63  cc  65  3e
     00-  00-  00-  00-  00-  00-  00-  46
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 50315000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.229 latency=6 cycles (60 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x21 
- tid=0x7e 
- ordkey=0xe7 
- addr=0xde84bde4 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 50375000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.230 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 50355000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.230 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -9512,6 +9522,16 @@ RKNP-RSP
  tid=0x3b9 
  ordkey=0x86 
  addr=0x4c5e3192 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 50375000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.229 latency=12 cycles (120 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x21 
+ tid=0x7e 
+ ordkey=0xe7 
+ addr=0xde84bde4 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 50625000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.232
 
@@ -9564,6 +9584,7 @@ RKNP-RSP
  ordkey=0xc1 
  addr=0xcec20e21 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 50655000: uvm_test_top.env.sb [C-ERR-02]  No.231 AXI SLVERR/DECERR on AxID=d but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 51005000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.233
 
 RKNP-REQ 
@@ -9608,7 +9629,7 @@ WR[234]:
     f5  63  8a  db  7a  7c  e9  87
     0f  98  07  97  1c  69  98  af
     00-  00-  00-  00-  00-  be  7f  fb
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 51075000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.232 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 51125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.232 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -9638,6 +9659,16 @@ WR[41]:
     09  ab  2e  ad  52  e5  d1  b4
     88  68  02  d6  b0  63  e8  fd
     00-  00-  fc  ac  4e  28  4a  19
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 51495000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.233 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x124 
+ tid=0x256 
+ ordkey=0x44 
+ addr=0x11d3a070 
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 51525000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.235
 
 RKNP-REQ 
@@ -9678,16 +9709,6 @@ WR[96]:
     03  59  7f  47  da  e3  05  52
     e8  e2  07  88  53  c8  5d  24
     00-  00-  00-  00-  00-  72  22  b6
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 51565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.233 latency=10 cycles (100 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x124 
- tid=0x256 
- ordkey=0x44 
- addr=0x11d3a070 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 51695000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.237
 
 RKNP-REQ 
@@ -9723,7 +9744,7 @@ WR[159]:
     06  c6  8d  2d  ee  63  e4  fc
     a9  42  e6  22  5a  c0  6b  73
     00-  00-  00-  00-  00-  00-  00-  3a
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 51905000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.235 latency=N/A(no_axi_accept_time)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 51895000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.235 latency=N/A(no_axi_accept_time)
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -9762,7 +9783,7 @@ RD[223]:
     00  00  00  00  00  00  00  00
     00  00  00  00  00  00  00  00
     00-  00-  00-  00-  00-  00-  00-  00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 51925000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.236 latency=22 cycles (220 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 51905000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.236 latency=20 cycles (200 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -9772,16 +9793,16 @@ RKNP-RSP
  ordkey=0xa1 
  addr=0xdefb2faa 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 51945000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.234 latency=41 cycles (410 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 51935000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.234 latency=40 cycles (400 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x212 
  tid=0x63 
  ordkey=0x50 
  addr=0x0136e62c 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 52065000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.238
 
 RKNP-REQ 
@@ -9836,7 +9857,7 @@ RD[23]:
     00  00  00  00-  00-  00-  00-  00-
     00  00  00  00  00  00  00  00
     00-  00-  00-  00-  00-  00-  00  00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 52165000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.237 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 52185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.237 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -10069,12 +10090,12 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5278
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x234 
  tid=0x93 
  ordkey=0xf5 
  addr=0x5bb6513e 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 52825000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.244 latency=15 cycles (150 ns)
 
 RKNP-RSP 
@@ -10169,7 +10190,7 @@ WR[135]:
     de  d5  7f  74  36  2e  b2  0f
     59  0f  43  e8  11  47  c7  20
     00-  00-  00-  00-  57  02  80  01
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 53295000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.247 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 53275000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.247 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -10179,6 +10200,7 @@ RKNP-RSP
  ordkey=0xe4 
  addr=0x7eabdb8b 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 53275000: uvm_test_top.env.sb [C-ERR-02]  No.247 AXI SLVERR/DECERR on AxID=a but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 53465000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.249
 
 RKNP-REQ 
@@ -10237,7 +10259,7 @@ RKNP-RSP
  ordkey=0xac 
  addr=0x85116fa4 
  lw=1 errc=EC_ADDR_DEC
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 53585000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.248 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 53535000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.248 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -10315,7 +10337,7 @@ WR[74]:
     86  b2  5d  d8  50  6f  40  7a
     3c  6f  d8  56  71  d4  fe  a4
     00-  00-  00-  00-  9d  13  ce  32
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 54075000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.251 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 54135000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.251 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -10325,6 +10347,7 @@ RKNP-RSP
  ordkey=0x9d 
  addr=0x30eaa71f 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 54135000: uvm_test_top.env.sb [C-ERR-02]  No.251 AXI SLVERR/DECERR on AxID=4 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 54145000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.253
 
 RKNP-REQ 
@@ -10399,16 +10422,6 @@ WR[52]:
     75  cd  51  24  0b  0f  5e  54
     4c  00  c7  12  aa  54  61  8f
     00-  0b  01  f3  72  96  d5  9a
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 54595000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.253 latency=5 cycles (50 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0xb1 
- tid=0x2bd 
- ordkey=0xdf 
- addr=0x048c0f12 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 54615000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.255
 
 RKNP-REQ 
@@ -10432,7 +10445,17 @@ WR[64]:
     75  1d  53  85  46  79  80  fb
     55  75  95  e7  f5  20  0e  9b
     00-  3b  a0  22  af  9b  a2  47
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 54735000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.254 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 54635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.253 latency=9 cycles (90 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xb1 
+ tid=0x2bd 
+ ordkey=0xdf 
+ addr=0x048c0f12 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 54655000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.254 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -10524,7 +10547,7 @@ WR[185]:
     74  ac  e0  08  2a  bf  9e  23
     54  1e  79  2b  a4  a3  e6  84
     00-  00-  00-  00-  00-  00-  bf  9e
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 55115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.256 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 55125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.256 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -10534,6 +10557,7 @@ RKNP-RSP
  ordkey=0xe9 
  addr=0xd312efcd 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 55125000: uvm_test_top.env.sb [C-ERR-02]  No.256 AXI SLVERR/DECERR on AxID=7 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 55345000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.258
 
 RKNP-REQ 
@@ -10607,7 +10631,7 @@ WR[189]:
     fa  cf  de  44  c4  70  17  06
     3b  4a  bc  44  83  f9  a2  14
     00-  8c  7e  95  cc  01  a4  c8
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 55565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.258 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 55635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.258 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -10681,6 +10705,16 @@ WR[42]:
     8d  a9  f3  1c  26  fe  4e  1c
     f2  67  88  70  b6  17  14  5f
     00-  00-  4b  40  cb  b8  cb  6e
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 56185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.260 latency=7 cycles (70 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x268 
+ tid=0x2c2 
+ ordkey=0xa5 
+ addr=0xb48791c8 
+ lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 56205000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.262
 
 RKNP-REQ 
@@ -10699,16 +10733,17 @@ WR[28]:
     73  15  e9  6a  c3  cb  98  89
     96  82  10  b7  5e  b5  1b  01
     00-  65  29  46  7f  4a  66  32
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 56225000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.260 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 56255000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.261 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
  status=ST_OK 
- iid=0x268 
- tid=0x2c2 
- ordkey=0xa5 
- addr=0xb48791c8 
+ iid=0xec 
+ tid=0x1f3 
+ ordkey=0x63 
+ addr=0xa8b0df63 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 56255000: uvm_test_top.env.sb [C-ERR-02]  No.261 AXI SLVERR/DECERR on AxID=5 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 56255000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.263
 
 RKNP-REQ 
@@ -10733,17 +10768,7 @@ WR[74]:
     04  9e  60  8f  09  e8  f2  b2
     2b  d3  9e  6e  71  51  dc  e4
     00-  00-  00-  00-  f7  85  87  10
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 56305000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.261 latency=9 cycles (90 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0xec 
- tid=0x1f3 
- ordkey=0x63 
- addr=0xa8b0df63 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 56405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.262 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 56345000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.262 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -10807,6 +10832,7 @@ RKNP-RSP
  ordkey=0x99 
  addr=0x867d2e79 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 56475000: uvm_test_top.env.sb [C-ERR-02]  No.263 AXI SLVERR/DECERR on AxID=0 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 56885000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.265
 
 RKNP-REQ 
@@ -11004,7 +11030,7 @@ WR[185]:
     39  ab  bf  87  87  67  43  d6
     b3  5c  ea  5f  d0  5e  c4  16
     00-  00-  02  77  59  32  97  65
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 57725000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.268 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 57775000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.268 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -11218,12 +11244,12 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5884
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x18 
  tid=0x260 
  ordkey=0xba 
  addr=0x778a1a7d 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 58865000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.272 latency=15 cycles (150 ns)
 
 RKNP-RSP 
@@ -11276,7 +11302,7 @@ WR[215]:
     a7  73  9a  97  00  3c  aa  b3
     ae  7d  53  44  f8  d3  c2  fc
     00-  00-  00-  00-  00-  fa  f3  85
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 59115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.275 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 59055000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.275 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -11342,16 +11368,16 @@ RKNP-RSP
  ordkey=0x7f 
  addr=0x4a4f581b 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 59505000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.277 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 59555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.277 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x2bd 
  tid=0x249 
  ordkey=0x17 
  addr=0x6163f5a5 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 59595000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.279
 
 RKNP-REQ 
@@ -11382,7 +11408,7 @@ WR[120]:
     69  5d  d8  e4  9b  c4  96  79
     10  d3  27  71  90  04  74  f6
     a6  02  48  f8  4d  3a  f0  e6
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 59655000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.278 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 59685000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.278 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -11503,17 +11529,7 @@ WR[89]:
     b7  5b  9e  cd  ae  6a  c1  93
     87  cf  0b  a4  9e  cc  c1  26
     00-  00-  a2  7f  9e  8d  5e  0d
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 60135000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.281 latency=3 cycles (30 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x388 
- tid=0x37c 
- ordkey=0xa7 
- addr=0x29e15060 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 60165000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.282 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 60175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.282 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -11522,6 +11538,16 @@ RKNP-RSP
  tid=0x3d 
  ordkey=0xb2 
  addr=0xad05701b 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 60205000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.281 latency=10 cycles (100 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x388 
+ tid=0x37c 
+ ordkey=0xa7 
+ addr=0x29e15060 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 60285000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.284
 
@@ -11636,7 +11662,7 @@ WR[171]:
     4a  6f  2d  68  22  f9  70  23
     9d  c7  9e  bf  ae  e3  d9  38
     00-  00-  00-  00-  00-  00-  46  bd
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 60565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.285 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 60575000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.285 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -11737,7 +11763,7 @@ WR[153]:
     80  6c  78  0f  a9  f3  b7  b6
     f6  71  b7  79  31  bc  45  aa
     00-  00-  00-  00-  00-  00-  00-  c9
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 61375000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.287 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 61345000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.287 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -11767,7 +11793,7 @@ WR[36]:
     02  f8  ab  f1  39  cf  b8  da
     50  94  b3  fc  9e  5b  12  43
     00-  00-  00-  00-  00-  00-  00-  82
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 61615000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.288 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 61585000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.288 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -11819,16 +11845,16 @@ WR[220]:
     31  79  66  77  09  ab  f9  31
     9a  b5  3c  cd  2e  37  fb  79
     00-  d1  26  4a  1f  33  31  ad
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 61725000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.289 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 61745000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.289 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0xd2 
  tid=0x214 
  ordkey=0x5f 
  addr=0xc4ba820c 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 62035000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.291
 
 RKNP-REQ 
@@ -11854,7 +11880,7 @@ WR[76]:
     97  f4  20  a4  c8  2c  1c  ca
     22  48  3f  b7  b7  e1  cb  16
     00-  00-  00-  00-  08  c8  60  91
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 62105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.290 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 62125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.290 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -11912,6 +11938,7 @@ RKNP-RSP
  ordkey=0x6c 
  addr=0x55deea3f 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 62205000: uvm_test_top.env.sb [C-ERR-02]  No.291 AXI SLVERR/DECERR on AxID=a but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 62515000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.293
 
 RKNP-REQ 
@@ -11930,6 +11957,16 @@ WR[20]:
     4f  da  0a  bd  10  88  8c  2c
     6c  44  df  1f  92  d9  b5  d8
     00-  00-  00-  00-  00-  00-  00-  be
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 62555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.292 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x37 
+ tid=0x50 
+ ordkey=0xc6 
+ addr=0xafed502f 
+ lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 62565000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.294
 
 RKNP-REQ 
@@ -11973,16 +12010,6 @@ WR[226]:
     84  f3  6d  f6  34  51  e7  c7
     1a  12  a6  e5  4c  cb  cc  64
     00-  00-  64  fa  95  44  63  c2
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 62575000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.292 latency=5 cycles (50 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x37 
- tid=0x50 
- ordkey=0xc6 
- addr=0xafed502f 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 62595000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.293 latency=2 cycles (20 ns)
 
 RKNP-RSP 
@@ -12032,16 +12059,16 @@ WR[194]:
     65  b9  9c  c0  2a  91  c0  8c
     b8  c9  a5  28  a5  6f  da  87
     26  1d  43  30  91  db  0c  07
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 63055000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.294 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 63135000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.294 latency=14 cycles (140 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x2be 
  tid=0x35d 
  ordkey=0x6f 
  addr=0x37f77a03 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 63395000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.296
 
 RKNP-REQ 
@@ -12063,16 +12090,6 @@ WR[42]:
     63  ed  2a  9a  89  7a  3b  8c
     c9  0f  25  e8  6c  67  42  72
     00-  00-  00-  00-  00-  00-  00-  92
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 63485000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.295 latency=8 cycles (80 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x3c7 
- tid=0x3d7 
- ordkey=0xf0 
- addr=0xe21df5d5 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 63505000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.297
 
 RKNP-REQ 
@@ -12113,6 +12130,16 @@ WR[202]:
     67  19  52  97  46  9f  a4  cb
     dc  e8  4b  32  a8  30  0a  90
     00-  3f  14  07  4b  d6  a7  15
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 63515000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.295 latency=11 cycles (110 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x3c7 
+ tid=0x3d7 
+ ordkey=0xf0 
+ addr=0xe21df5d5 
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 63535000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.296 latency=2 cycles (20 ns)
 
 RKNP-RSP 
@@ -12165,7 +12192,7 @@ WR[221]:
     95  66  15  ed  41  22  7a  4b
     66  be  8e  c7  29  d6  60  75
     00-  00-  08  4f  d8  c2  2d  e8
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 63885000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.297 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 63865000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.297 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -12212,7 +12239,7 @@ WR[173]:
     c9  b0  93  59  fd  04  90  b7
     0f  c6  63  d5  63  eb  86  e3
     00-  00-  00-  00-  00-  00-  ee  ac
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 64245000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.298 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 64225000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.298 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -12399,16 +12426,16 @@ WR[186]:
     88  0f  a4  51  e3  2f  19  92
     2b  98  ac  5d  31  ae  89  41
     00-  00-  00-  81  01  45  69  c4
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 65405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.302 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 65415000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.302 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x199 
  tid=0x193 
  ordkey=0x58 
  addr=0x8e0d208e 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 65645000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.304
 
 RKNP-REQ 
@@ -12442,16 +12469,16 @@ WR[146]:
     33  d0  41  c6  8f  d8  24  ca
     43  25  30  32  57  84  0b  3b
     00-  00-  00-  00-  00-  65  86  59
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 65715000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.303 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 65685000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.303 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x395 
  tid=0xa5 
  ordkey=0xc3 
  addr=0x2caf0c3a 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 65895000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.305
 
 RKNP-REQ 
@@ -12478,7 +12505,7 @@ WR[88]:
     c6  05  71  63  86  4b  2d  d4
     e7  7c  a3  25  5c  9d  fb  c4
     00-  00-  00-  f7  97  07  a1  e0
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 65985000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.304 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 65945000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.304 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -12539,6 +12566,7 @@ RKNP-RSP
  ordkey=0x5a 
  addr=0x67e8bc5c 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 66115000: uvm_test_top.env.sb [C-ERR-02]  No.305 AXI SLVERR/DECERR on AxID=f but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 66405000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.307
 
 RKNP-REQ 
@@ -12656,16 +12684,6 @@ WR[46]:
     b1  08  f5  9b  73  05  93  e5
     d1  fd  78  3e  ec  2e  0a  f1
     61  e7  41  ef  aa  71  92  5d
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 67085000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.308 latency=3 cycles (30 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x237 
- tid=0x327 
- ordkey=0x8b 
- addr=0x3d79a619 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 67105000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.310
 
 RKNP-REQ 
@@ -12695,7 +12713,17 @@ WR[107]:
     5c  3a  e5  1e  1e  87  c6  d0
     66  14  b4  bd  2e  27  d8  24
     00-  00-  00-  00-  00-  69  44  22
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 67145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.309 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 67155000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.308 latency=10 cycles (100 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x237 
+ tid=0x327 
+ ordkey=0x8b 
+ addr=0x3d79a619 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 67175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.309 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -12743,7 +12771,7 @@ WR[185]:
     83  7c  61  5c  70  b9  50  ce
     03  31  9d  0d  17  e1  b7  c8
     00-  00-  62  bc  5a  0b  77  07
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 67445000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.310 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 67365000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.310 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -12753,6 +12781,7 @@ RKNP-RSP
  ordkey=0x60 
  addr=0xbf2db8f7 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 67365000: uvm_test_top.env.sb [C-ERR-02]  No.310 AXI SLVERR/DECERR on AxID=6 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 67665000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.312
 
 RKNP-REQ 
@@ -12811,16 +12840,16 @@ WR[110]:
     77  e3  76  d2  bc  2e  c3  45
     ce  ec  bc  32  9b  60  7b  d9
     e9  0e  16  9f  cb  e0  80  09
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 67845000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.312 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 67875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.312 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x0 
  tid=0x174 
  ordkey=0x1c 
  addr=0x659e5094 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 67935000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.314
 
 RKNP-REQ 
@@ -12857,7 +12886,7 @@ WR[169]:
     25  f1  32  01  35  38  33  ac
     3b  a2  26  e2  a2  1a  06  bf
     00-  9f  51  a2  96  b4  ff  ef
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 68045000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.313 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 67975000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.313 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -12906,7 +12935,7 @@ WR[194]:
     2a  11  7e  77  89  cb  85  fb
     b5  a5  df  32  6e  81  8a  59
     00-  00-  00-  00-  00-  3d  2e  5e
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 68325000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.314 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 68295000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.314 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -12944,7 +12973,7 @@ WR[106]:
     5e  4a  2a  80  5b  ac  ff  c4
     55  73  0c  fb  c6  68  87  e9
     8d  3f  f3  ea  03  56  22  a0
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 68575000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.315 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 68645000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.315 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -12993,7 +13022,7 @@ WR[194]:
     66  35  d2  9c  38  63  29  df
     54  16  9d  f5  29  d9  aa  14
     00-  00-  00-  00-  65  1e  2b  ce
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 68735000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.316 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 68795000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.316 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13003,6 +13032,7 @@ RKNP-RSP
  ordkey=0xd7 
  addr=0xe2ff0f15 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 68795000: uvm_test_top.env.sb [C-ERR-02]  No.316 AXI SLVERR/DECERR on AxID=a but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 68985000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.318
 
 RKNP-REQ 
@@ -13048,6 +13078,7 @@ RKNP-RSP
  ordkey=0x27 
  addr=0x11c31b01 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 69085000: uvm_test_top.env.sb [C-ERR-02]  No.317 AXI SLVERR/DECERR on AxID=5 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 69325000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.319
 
 RKNP-REQ 
@@ -13072,7 +13103,7 @@ WR[76]:
     df  cd  ce  e3  e2  ce  2e  fa
     4e  a5  1b  7b  83  ef  fb  1f
     ec  55  47  08  33  dd  0a  65
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 69425000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.318 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 69405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.318 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13104,7 +13135,7 @@ WR[56]:
     b1  d3  e3  b2  b2  b9  ee  22
     10  5a  d6  cd  f3  b1  ed  f1
     00-  00-  00-  00-  b1  db  1a  46
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 69595000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.319 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 69605000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.319 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13191,7 +13222,7 @@ WR[240]:
     ba  e2  66  67  fb  40  56  e7
     96  5f  e0  55  d1  11  75  25
     00-  00-  00-  00-  00-  00-  d0  24
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 69865000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.321 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 69795000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.321 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13201,6 +13232,7 @@ RKNP-RSP
  ordkey=0x2f 
  addr=0xa82e6371 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 69795000: uvm_test_top.env.sb [C-ERR-02]  No.321 AXI SLVERR/DECERR on AxID=d but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 70215000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.323
 
 RKNP-REQ 
@@ -13240,7 +13272,7 @@ WR[193]:
     37  30  8c  27  c5  28  2b  c2
     c5  19  7b  b1  78  c4  6d  82
     7e  a9  08  c8  08  67  e9  96
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 70295000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.322 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 70305000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.322 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13273,7 +13305,7 @@ WR[62]:
     94  45  75  29  27  59  62  82
     29  fa  02  2e  ac  b8  59  04
     00-  00-  00-  00-  00-  00-  00-  8c
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 70625000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.323 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 70615000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.323 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13300,16 +13332,6 @@ WR[16]:
     b6  9b  00-  00-  00-  00-  00-  00-
     22  11  25  84  f4  f2  53  bc
     00-  ff  53  5f  57  bd  1a  ea
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 70705000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.324 latency=3 cycles (30 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x2b 
- tid=0x8f 
- ordkey=0xd9 
- addr=0xd7775fea 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 70705000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.326
 
 RKNP-REQ 
@@ -13329,6 +13351,16 @@ WR[25]:
     b6  19  95  b8  d2  ca  7c  7e
     99  c5  d8  f4  67  f2  a9  26
     00-  00-  00-  00-  00-  00-  00-  f0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 70775000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.324 latency=10 cycles (100 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x2b 
+ tid=0x8f 
+ ordkey=0xd9 
+ addr=0xd7775fea 
+ lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 70785000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.327
 
 RKNP-REQ 
@@ -13366,7 +13398,7 @@ WR[171]:
     7a  24  61  0d  37  d0  aa  66
     a8  d1  65  59  b3  61  05  0a
     00-  00-  00-  00-  00-  00-  55  46
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 70815000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.325 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 70795000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.325 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13376,7 +13408,7 @@ RKNP-RSP
  ordkey=0x47 
  addr=0x3fc6280e 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 70885000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.326 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 70875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.326 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13429,7 +13461,7 @@ WR[67]:
     97  d3  a3  45  56  26  fe  c9
     4b  7f  6c  da  9a  6f  8f  e4
     00-  00-  00-  00-  00-  00-  00-  79
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 71185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.327 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 71205000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.327 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13439,7 +13471,8 @@ RKNP-RSP
  ordkey=0xcd 
  addr=0xd319425e 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 71255000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.328 latency=5 cycles (50 ns)
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 71205000: uvm_test_top.env.sb [C-ERR-02]  No.327 AXI SLVERR/DECERR on AxID=1 but RKNP status=ST_OK
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 71275000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.328 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13527,16 +13560,16 @@ WR[135]:
     ca  00  d4  b1  86  9a  0f  b0
     42  73  a8  31  93  db  fc  fd
     00-  00-  00-  6f  b8  9c  71  0c
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 71695000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.330 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 71715000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.330 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x319 
  tid=0x154 
  ordkey=0x51 
  addr=0x5e85cd0f 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 71865000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.332
 
 RKNP-REQ 
@@ -13570,7 +13603,7 @@ WR[148]:
     bd  7e  21  8f  36  1e  2f  0f
     e5  18  4a  7b  a8  d9  ff  6f
     00-  00-  1e  dd  fe  60  62  79
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 71915000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.331 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 71935000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.331 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13580,6 +13613,7 @@ RKNP-RSP
  ordkey=0x73 
  addr=0xa27d4ffd 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 71935000: uvm_test_top.env.sb [C-ERR-02]  No.331 AXI SLVERR/DECERR on AxID=4 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 72095000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.333
 
 RKNP-REQ 
@@ -13621,7 +13655,7 @@ WR[208]:
     e9  61  96  a5  98  0e  d3  80
     4d  37  05  30  70  93  a1  e8
     76  41  db  2c  1a  e6  6a  59
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 72195000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.332 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 72175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.332 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13713,7 +13747,7 @@ WR[67]:
     4c  b1  78  d1  3a  86  78  3a
     4a  05  3f  b2  e6  b7  63  cd
     00-  00-  00-  00-  00-  00-  3f  5a
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 72555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.334 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 72525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.334 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13723,7 +13757,7 @@ RKNP-RSP
  ordkey=0xd3 
  addr=0x296767ae 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 72585000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.335 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 72595000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.335 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13733,7 +13767,7 @@ RKNP-RSP
  ordkey=0x3e 
  addr=0xc8232a29 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 72605000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.336 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 72635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.336 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -13808,16 +13842,16 @@ WR[92]:
     da  dd  fd  89  65  85  45  cf
     dd  e2  8a  73  e4  b6  62  94
     00-  00-  00-  00-  00-  00-  00-  40
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 72855000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.338 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 72915000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.338 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x15c 
  tid=0x20d 
  ordkey=0x84 
  addr=0x76408e60 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 72985000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.340
 
 RKNP-REQ 
@@ -14032,16 +14066,16 @@ WR[113]:
     90  3a  f4  fd  b7  99  a2  a3
     72  35  c0  84  fd  e3  64  69
     00-  00-  b1  30  67  74  84  0c
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 74085000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.343 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 74075000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.343 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x227 
  tid=0x3ea 
  ordkey=0xcc 
  addr=0x8c1658ab 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 74195000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.345
 
 RKNP-REQ 
@@ -14133,7 +14167,7 @@ WR[114]:
     96  2f  13  51  18  55  23  02
     94  8c  df  fb  69  4b  72  05
     00-  00-  00-  00-  00-  00-  12  cb
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 74405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.346 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 74385000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.346 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -14210,16 +14244,16 @@ WR[135]:
     1e  70  7b  e1  5c  80  8c  10
     c6  90  70  6f  07  56  a4  9f
     00-  76  2f  56  27  5d  6b  39
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 74825000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.348 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 74815000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.348 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x325 
  tid=0x2ab 
  ordkey=0x8e 
  addr=0x3ddb4a3b 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 74985000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.350
 
 RKNP-REQ 
@@ -14239,16 +14273,6 @@ WR[37]:
     3f  c6  af  cd  78  80  fe  9d
     93  34  70  54  24  0c  85  19
     00-  1c  78  40  1f  09  24  13
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 75035000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.349 latency=3 cycles (30 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x1fe 
- tid=0x254 
- ordkey=0x73 
- addr=0x3353d97f 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 75045000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.351
 
 RKNP-REQ 
@@ -14293,7 +14317,17 @@ WR[232]:
     81  0c  fb  ac  3b  a7  34  0f
     c6  5a  6f  4c  bf  38  b7  cd
     00-  00-  00-  00-  00-  00-  00-  2d
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 75165000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.350 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 75065000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.349 latency=6 cycles (60 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x1fe 
+ tid=0x254 
+ ordkey=0x73 
+ addr=0x3353d97f 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 75145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.350 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -14325,16 +14359,6 @@ WR[55]:
     92  e8  c5  23  f0  0f  2b  01
     1b  87  5e  aa  c9  3d  a1  34
     00-  00-  00-  00-  00-  00-  00-  e1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 75535000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.351 latency=4 cycles (40 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x111 
- tid=0x3b3 
- ordkey=0x73 
- addr=0xd4e65558 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 75565000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.353
 
 RKNP-REQ 
@@ -14362,6 +14386,16 @@ WR[94]:
     0d  a3  51  44  eb  2a  6a  00
     8f  d0  05  21  9b  db  e2  0a
     00-  00-  00-  04  ab  90  79  b3
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 75585000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.351 latency=9 cycles (90 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x111 
+ tid=0x3b3 
+ ordkey=0x73 
+ addr=0xd4e65558 
+ lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 75605000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.352 latency=2 cycles (20 ns)
 
 RKNP-RSP 
@@ -14408,6 +14442,7 @@ RKNP-RSP
  ordkey=0xe8 
  addr=0x2030a5fe 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 75765000: uvm_test_top.env.sb [C-ERR-02]  No.353 AXI SLVERR/DECERR on AxID=6 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 75875000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.355
 
 RKNP-REQ 
@@ -14436,16 +14471,16 @@ WR[105]:
     9c  b5  dc  9f  19  7d  b0  0e
     5e  08  17  89  59  a8  9d  73
     00-  00-  00-  00-  b2  5f  8d  ad
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 75985000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.354 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 75945000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.354 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x140 
  tid=0x10d 
  ordkey=0x58 
  addr=0x008e541a 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 76015000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.356
 
 RKNP-REQ 
@@ -14470,7 +14505,7 @@ WR[71]:
     46  a2  85  67  a2  a2  e9  00
     34  56  b7  d5  3b  0a  a2  ac
     00-  00-  00-  00-  28  79  70  a7
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 76075000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.355 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 76125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.355 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -14561,7 +14596,7 @@ WR[232]:
     7b  d9  06  80  a3  23  ee  a4
     47  20  d1  89  4b  8a  1f  89
     2c  2c  cf  97  c9  09  75  52
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 76405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.357 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 76385000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.357 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -14600,7 +14635,7 @@ WR[106]:
     44  54  70  bf  d2  45  37  0c
     99  b3  62  70  30  8c  27  87
     00-  00-  00-  00-  00-  00-  44  81
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 76915000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.358 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 76885000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.358 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -14646,16 +14681,16 @@ WR[166]:
     69  ca  4c  f5  7c  4a  ce  d8
     0d  45  c4  de  83  6f  31  57
     00-  00-  00-  38  fb  f6  3d  84
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 77105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.359 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 77095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.359 latency=3 cycles (30 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x38d 
  tid=0x345 
  ordkey=0x2f 
  addr=0x6047e0bf 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 77365000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.361
 
 RKNP-REQ 
@@ -14727,7 +14762,7 @@ WR[190]:
     f3  79  e9  19  b8  19  90  18
     02  61  91  18  82  bd  64  84
     00-  00-  00-  00-  00-  00-  00-  a1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 77525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.361 latency=3 cycles (30 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 77555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.361 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -14775,7 +14810,7 @@ WR[185]:
     08  11  2c  9b  ba  48  8b  d4
     63  1f  0c  91  43  ab  99  db
     00-  da  d5  87  69  1a  8c  ab
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 77895000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.362 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 77935000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.362 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -14804,16 +14839,6 @@ WR[38]:
     1d  90  c1  82  be  1a  8e  bf
     e3  eb  e8  c2  3a  78  9c  34
     5d  18  a3  e4  7d  03  6e  8c
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 78175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.363 latency=3 cycles (30 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x4d 
- tid=0x2df 
- ordkey=0x9e 
- addr=0xc22816b5 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 78185000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.365
 
 RKNP-REQ 
@@ -14860,7 +14885,7 @@ WR[242]:
     be  76  ea  19  1e  00  1b  8a
     bf  c7  30  93  f4  85  22  06
     00-  00-  00-  00-  00-  00-  02  08
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 78295000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.364 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 78255000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.364 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -14869,6 +14894,16 @@ RKNP-RSP
  tid=0xc8 
  ordkey=0x4d 
  addr=0x9ed34c29 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 78275000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.363 latency=13 cycles (130 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x4d 
+ tid=0x2df 
+ ordkey=0x9e 
+ addr=0xc22816b5 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 78645000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.366
 
@@ -14914,7 +14949,7 @@ WR[233]:
     cf  ee  cb  2f  04  8b  81  64
     64  3a  ee  20  a3  27  db  e4
     1b  35  a7  3a  56  74  ca  15
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 78765000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.365 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 78735000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.365 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15057,6 +15092,7 @@ RKNP-RSP
  ordkey=0x0 
  addr=0x894604b9 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 79495000: uvm_test_top.env.sb [C-ERR-02]  No.368 AXI SLVERR/DECERR on AxID=0 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 79835000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.370
 
 RKNP-REQ 
@@ -15131,16 +15167,16 @@ WR[68]:
     60  fd  68  41  d6  45  28  7c
     7d  d8  31  80  e4  89  78  65
     00-  00-  00-  00-  30  53  95  14
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 80255000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.370 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 80215000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.370 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x1c0 
  tid=0x3b5 
  ordkey=0xf3 
  addr=0x33e38f0f 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 80255000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.372
 
 RKNP-REQ 
@@ -15172,7 +15208,7 @@ WR[122]:
     8c  3c  9d  c7  a5  dd  2b  25
     cc  c9  c3  67  1a  37  6e  0b
     00-  00-  00-  00-  00-  00-  5f  a4
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 80355000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.371 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 80335000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.371 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15200,16 +15236,6 @@ WR[23]:
     e0  35  0b  0d  44  65  d4  00
     e0  db  fd  9e  b0  1b  c1  46
     00-  00-  00-  00-  00-  00-  e3  3b
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 80505000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.372 latency=4 cycles (40 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x33 
- tid=0x55 
- ordkey=0x85 
- addr=0x87bca83f 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 80505000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.374
 
 RKNP-REQ 
@@ -15244,6 +15270,16 @@ RKNP-RSP
  ordkey=0x54 
  addr=0xfa5a8e52 
  lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 80555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.372 latency=9 cycles (90 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x33 
+ tid=0x55 
+ ordkey=0x85 
+ addr=0x87bca83f 
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 80615000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.375
 
 RKNP-REQ 
@@ -15359,7 +15395,7 @@ WR[114]:
     12  2f  92  eb  2e  ca  08  a8
     4e  87  c3  3f  35  44  c3  0f
     00-  00-  00-  00-  00-  de  07  5e
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 81245000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.376 latency=6 cycles (60 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 81255000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.376 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15369,6 +15405,7 @@ RKNP-RSP
  ordkey=0x6b 
  addr=0x8f4bc9c9 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 81255000: uvm_test_top.env.sb [C-ERR-02]  No.376 AXI SLVERR/DECERR on AxID=d but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 81355000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.378
 
 RKNP-REQ 
@@ -15395,7 +15432,7 @@ WR[83]:
     62  17  c8  78  60  1e  98  3b
     ba  c2  47  97  ae  70  b0  dc
     00-  00-  00-  00-  00-  f0  7b  a4
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 81425000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.377 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 81435000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.377 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15435,7 +15472,7 @@ WR[122]:
     3a  41  fd  08  9e  00  41  4c
     64  d1  30  5d  43  5b  cb  39
     00-  00-  00-  00-  00-  00  d0  db
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 81655000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.378 latency=11 cycles (110 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 81585000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.378 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15492,7 +15529,7 @@ WR[130]:
     4e  9c  1a  b5  4a  b6  d5  fa
     20  9f  62  84  20  1f  15  cf
     f4  dc  cd  67  dd  90  93  4b
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 81815000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.379 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 81825000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.379 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15502,16 +15539,16 @@ RKNP-RSP
  ordkey=0xad 
  addr=0x14948830 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 81835000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.380 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 81865000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.380 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x221 
  tid=0x46 
  ordkey=0x88 
  addr=0x7b8e15a1 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 82025000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.382
 
 RKNP-REQ 
@@ -15549,7 +15586,7 @@ WR[171]:
     09  bb  54  d2  80  93  9b  07
     16  50  dc  73  1b  f3  fa  da
     00-  00-  00-  00-  00-  0c  22  fb
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 82085000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.381 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 82095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.381 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15577,6 +15614,16 @@ WR[24]:
     cb  cd  61  71  59  9d  fc  cd
     c2  58  99  60  68  7d  07  08
     00-  7f  07  79  f9  01  f9  03
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 82455000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.382 latency=6 cycles (60 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x1cc 
+ tid=0x26c 
+ ordkey=0x82 
+ addr=0xa74996e7 
+ lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 82455000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.384
 
 RKNP-REQ 
@@ -15615,17 +15662,7 @@ WR[186]:
     eb  8f  d1  bb  7b  2f  75  eb
     f0  02  55  15  20  f1  33  ff
     00-  44  39  8e  e4  9c  3a  bc
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 82485000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.382 latency=9 cycles (90 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x1cc 
- tid=0x26c 
- ordkey=0x82 
- addr=0xa74996e7 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 82505000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.383 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 82545000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.383 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15719,7 +15756,7 @@ WR[170]:
     f2  52  59  c3  64  4b  c0  a7
     98  a9  78  7c  b8  95  01  3e
     00-  00-  00-  ff  55  b0  0c  c4
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 83125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.385 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 83075000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.385 latency=4 cycles (40 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15803,7 +15840,7 @@ WR[154]:
     d2  da  3a  63  b1  64  6b  eb
     14  41  d7  e6  e5  2d  8f  ac
     00-  00-  00-  1d  1e  a7  17  e9
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 83605000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.387 latency=7 cycles (70 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 83635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.387 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15835,7 +15872,7 @@ WR[50]:
     0c  8f  ed  34  b1  81  c1  f2
     89  14  3a  66  68  9b  fa  cc
     00-  00-  00-  00-  00-  00-  a7  cb
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 83885000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.388 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 83875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.388 latency=9 cycles (90 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -15845,6 +15882,7 @@ RKNP-RSP
  ordkey=0x0 
  addr=0x9d8c73fa 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 83875000: uvm_test_top.env.sb [C-ERR-02]  No.388 AXI SLVERR/DECERR on AxID=0 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 83885000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.390
 
 RKNP-REQ 
@@ -15865,6 +15903,16 @@ WR[42]:
     f8  cd  88  b1  ce  5d  59  58
     4d  c2  70  df  f1  62  dc  d4
     00-  00-  00-  00-  00-  c7  af  fe
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 83945000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.389 latency=4 cycles (40 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x126 
+ tid=0x2a 
+ ordkey=0x9e 
+ addr=0x57ca0b97 
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 83965000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.391
 
 RKNP-REQ 
@@ -15910,26 +15958,16 @@ WR[238]:
     0b  16  3b  a2  81  44  b6  e2
     ae  cc  a0  f2  5f  f2  86  d3
     00-  00-  00-  00-  8f  37  09  fc
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 83985000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.389 latency=8 cycles (80 ns)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_OK 
- iid=0x126 
- tid=0x2a 
- ordkey=0x9e 
- addr=0x57ca0b97 
- lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 84035000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.390 latency=6 cycles (60 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x319 
  tid=0x108 
  ordkey=0x1c 
  addr=0x761d1a18 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 84355000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.392
 
 RKNP-REQ 
@@ -15958,7 +15996,7 @@ WR[106]:
     8a  da  6e  9d  d7  fa  df  8f
     62  53  db  23  df  1f  ec  fe
     00-  00-  00-  00-  00-  b9  65  ec
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 84425000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.391 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 84445000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.391 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -16049,7 +16087,7 @@ WR[198]:
     f2  1e  f4  f0  8f  3f  bc  90
     9d  89  ad  e8  62  17  a6  e0
     00-  e4  2b  48  0c  b9  4f  57
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 84895000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.393 latency=10 cycles (100 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 84875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.393 latency=8 cycles (80 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -16059,6 +16097,7 @@ RKNP-RSP
  ordkey=0xa7 
  addr=0x06ddc185 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 84875000: uvm_test_top.env.sb [C-ERR-02]  No.393 AXI SLVERR/DECERR on AxID=d but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 85135000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.395
 
 RKNP-REQ 
@@ -16160,7 +16199,7 @@ RKNP-RSP
  ordkey=0xef 
  addr=0x88330ad4 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 85555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.396 latency=4 cycles (40 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 85565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.396 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -16170,6 +16209,7 @@ RKNP-RSP
  ordkey=0x9e 
  addr=0x451eea13 
  lw=1
+UVM_ERROR /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(913) @ 85565000: uvm_test_top.env.sb [C-ERR-02]  No.396 AXI SLVERR/DECERR on AxID=7 but RKNP status=ST_OK
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 85665000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.398
 
 RKNP-REQ 
@@ -16250,27 +16290,27 @@ WR[134]:
     ae  2a  4f  e7  50  64  d2  06
     98  9c  18  5f  a7  13  ca  f0
     00-  00-  00-  00-  00-  97  95  34
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 85835000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.398 latency=5 cycles (50 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 85895000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.398 latency=11 cycles (110 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x3bc 
  tid=0x266 
  ordkey=0xce 
  addr=0x621d61c4 
- lw=1
+ lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 85915000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.399 latency=10 cycles (100 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
- status=ST_OK 
+ status=ST_ERR 
  iid=0x1c2 
  tid=0x393 
  ordkey=0x8f 
  addr=0xfcd3bc93 
- lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 86145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.400 latency=9 cycles (90 ns)
+ lw=1 errc=EC_TARGET
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 86105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.400 latency=5 cycles (50 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_WR 
@@ -16280,27 +16320,28 @@ RKNP-RSP
  ordkey=0xfc 
  addr=0xeab97ef4 
  lw=1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 86155000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=400 response_packets=400 final_rsp(raw/matched)=400/400
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1107) @ 96155000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 86115000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=400 response_packets=400 final_rsp(raw/matched)=400/400
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1117) @ 96115000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
   REQ=400  RSP_PKT=400  RSP_FINAL(raw/matched)=400/400
   AW=362 AR=0 W=362 B=362/362 R=0/0
   RKNP_READ_BODY(checked/expected)=18/18
-  ERR_req=38  AXI_SLVERR=0  WRAP=4  BUFFERABLE=82
+  ERR_req=38  AXI_SLVERR=68  WRAP=4  BUFFERABLE=82
   pending_AW=0 pending_AR=0 pending_R=0
   pending_exp_W=0 pending_obs_W=0
-  PASS=1142  FAIL=0
+  PASS=1102  FAIL=40
 =====================================
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(126) @ 96155000: uvm_test_top [RESULT] *** TEST PASSED ***
-UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 96155000: reporter [UVM/REPORT/SERVER] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(128) @ 96115000: uvm_test_top [RESULT] *** TEST FAILED ***
+UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 96115000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
 UVM_INFO :  805
 UVM_WARNING :    0
-UVM_ERROR :    0
+UVM_ERROR :   40
 UVM_FATAL :    0
 ** Report counts by id
+[C-ERR-02]    40
 [RESULT]     1
 [RKNP_DRV_TX_PACKET]   400
 [RKNP_TXN]   400
@@ -16310,12 +16351,12 @@ UVM_FATAL :    0
 [UVM/RELNOTES]     1
 
 $finish called from file "/home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh", line 527.
-$finish at simulation time             96155000
+$finish at simulation time             96115000
 
 ---------------------------------------------------------------------------
 VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 96155000 ps
-CPU Time:      1.000 seconds;       Data structure size:   0.9Mb
-Thu Aug 13 17:29:54 2026
+Time: 96115000 ps
+CPU Time:      1.250 seconds;       Data structure size:   0.9Mb
+Thu Aug 13 19:03:21 2026

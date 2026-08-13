@@ -19,6 +19,10 @@ class seq_mix extends rknp_base_seq;
       randomize_ok = 1'b0;
       start_item(it);
 
+      // Preserve the original request-side mix exactly:
+      //   10% request ERR + 20% bufferable write + 70% normal write.
+      // AXI response error injection is an independent downstream policy in
+      // axi_slave_driver and must not replace any of these request categories.
       if (category < 10) begin
         randomize_ok = it.randomize() with {
           status     == axi_tniu_protocol_pkg::ST_ERR;

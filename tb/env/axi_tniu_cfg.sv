@@ -23,16 +23,16 @@
 `define AXI_TNIU_CFG_SV
 
 typedef enum logic [1:0] {
-    AXI_SLVERR = 2'b10,
-    AXI_DECERR = 2'b11
+  AXI_SLVERR = 2'b10,
+  AXI_DECERR = 2'b11
 } axi_respcode_e;
 
 class axi_tniu_cfg extends uvm_object;
 
-  
   // ===========================================================================
   // AXI slave-agent runtime response policy
   // ===========================================================================
+
   axi_respcode_e axi_respcode;
   bit axi_ooo_en        = 1;  // allow legal out-of-order B/R completion
   bit axi_interleave_en = 1;  // allow read-data interleaving when permitted
@@ -57,11 +57,13 @@ class axi_tniu_cfg extends uvm_object;
 
   // AXI error-response injection.  Keep it disabled by default so existing
   // regressions continue to receive OKAY.  When enabled, each completed AXI
-  // transaction independently receives axi_error_resp with the probability
-  // selected by axi_slverr_pct; otherwise it receives OKAY.
-  bit          axi_error_rsp_en = 0;
-  logic [1:0]  axi_error_resp   = AXI_SLVERR; // 2'b10: SLVERR, 2'b11: DECERR
-  int unsigned axi_slverr_pct   = 10;    // injection probability, 0..100
+  // transaction independently receives an error with the probability selected
+  // by axi_slverr_pct; otherwise it receives OKAY. In directed mode the error
+  // is axi_error_resp. In random mode SLVERR/DECERR are selected 50%/50%.
+  bit          axi_error_rsp_en        = 0;
+  bit          axi_error_resp_random_en = 0;
+  logic [1:0]  axi_error_resp          = AXI_SLVERR;
+  int unsigned axi_slverr_pct          = 10; // error probability, 0..100
 
   // ===========================================================================
   // RKNP request/response runtime policy
@@ -98,6 +100,7 @@ class axi_tniu_cfg extends uvm_object;
     `uvm_field_int(axi_rsp_user_random_en, UVM_ALL_ON)
     `uvm_field_int(axi_rsp_user_fixed,  UVM_ALL_ON | UVM_HEX)
     `uvm_field_int(axi_error_rsp_en,    UVM_ALL_ON)
+    `uvm_field_int(axi_error_resp_random_en, UVM_ALL_ON)
     `uvm_field_int(axi_error_resp,      UVM_ALL_ON | UVM_BIN)
     `uvm_field_int(axi_slverr_pct,      UVM_ALL_ON | UVM_DEC)
     `uvm_field_int(req_min_gap,         UVM_ALL_ON | UVM_DEC)

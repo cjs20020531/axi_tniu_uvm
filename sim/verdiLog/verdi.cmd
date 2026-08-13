@@ -4726,3 +4726,67 @@ wvScrollDown -win $_nWave3 0
 wvScrollDown -win $_nWave3 0
 wvScrollDown -win $_nWave3 0
 wvScrollDown -win $_nWave3 0
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave4 -off
+wvGetSignalClose -win $_nWave4
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvDisplayGridCount -win $_nWave6 -off
+wvGetSignalClose -win $_nWave6
+wvReloadFile -win $_nWave3
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 24 )} 
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvZoomIn -win $_nWave3
+wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 23 )} 
+wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 22 )} 
+wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 24 )} 
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollUp -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 1
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvScrollDown -win $_nWave3 0
+wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 6 )} 
+wvScrollDown -win $_nWave3 0
+wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 5 )} 
+wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 4 )} 
+wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 5 )} 
+wvSelectSignal -win $_nWave3 {( "U_RSP_TRANS" 7 )} 
