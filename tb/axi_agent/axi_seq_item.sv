@@ -29,6 +29,7 @@ class axi_seq_item extends uvm_sequence_item;
 
   // ---- slave response policy (rand for random slaves) -----------------------
   rand logic [1:0]         resp;             // OKAY/EXOKAY/SLVERR/DECERR
+  rand logic [axi_tniu_protocol_pkg::AUSER_WITH-1:0] user; // BUSER/RUSER
   rand int unsigned        addr_ready_delay; // cycles before AxREADY
   rand int unsigned        resp_delay;       // cycles before first R/B beat
   rand int unsigned        beat_gap;         // cycles between R beats
@@ -41,6 +42,7 @@ class axi_seq_item extends uvm_sequence_item;
     `uvm_field_int (len,   UVM_ALL_ON)
     `uvm_field_int (burst, UVM_ALL_ON)
     `uvm_field_int (resp,  UVM_ALL_ON)
+    `uvm_field_int (user,  UVM_ALL_ON)
   `uvm_object_utils_end
 
   function new(string name = "axi_seq_item");
@@ -54,9 +56,9 @@ class axi_seq_item extends uvm_sequence_item;
 
   // ---- self description : one compact line per transaction ------------------
   function string convert2string();
-    return $sformatf("AXI-%s id=0x%0h addr=0x%010h len=%0d(beats=%0d) size=%0d burst=%0d cache=0x%0h resp=%0d [awdly=%0d rdly=%0d gap=%0d ilv=%0b]",
+    return $sformatf("AXI-%s id=0x%0h addr=0x%010h len=%0d(beats=%0d) size=%0d burst=%0d cache=0x%0h resp=%0d user=0x%0h [awdly=%0d rdly=%0d gap=%0d ilv=%0b]",
                      (dir==AXI_WRITE)?"WR":"RD", id, addr, len, len+1, size, burst, cache,
-                     resp, addr_ready_delay, resp_delay, beat_gap, allow_interleave);
+                     resp, user, addr_ready_delay, resp_delay, beat_gap, allow_interleave);
   endfunction
 
   // print the transaction at generation time (right after randomize)
@@ -73,4 +75,3 @@ endclass : axi_seq_item
 
 
 `endif // AXI_SEQ_ITEM_SV
-

@@ -5,12 +5,14 @@
 //                 - AW/W capture into a byte-addressable memory model
 //                 - AR handling with a backing-memory read
 //                 - configurable AxREADY / response / beat delays
+//                 - randomized BUSER/RUSER response attributes
+//                 - configurable SLVERR/DECERR response injection
 //                 - multiple outstanding transactions
 //                 - out-of-order B/R responses across different IDs
 //                 - read-data interleaving across different IDs
 //                 - strict request-order preservation within each AXI ID
-//               Response policy defaults to constrained-random; a slave
-//               sequence may inject an axi_seq_item to force specific behaviour.
+//               Error injection is disabled by default; response USER
+//               randomization is enabled by default through axi_tniu_cfg.
 // Project      : RKNoC - AXI Target NIU verification
 // Author       : Verification Team
 // =============================================================================
@@ -124,6 +126,33 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
     if (cfg != null && cfg.axi_ready_bp_en)
       return ($urandom_range(0,3) != 0);   // ~75% ready when exercising back-pressure
     return 1'b1;                            // default: ready always high
+  endfunction
+
+  // Select the AXI response once per transaction.  For a read, this function
+  // is called when AR handshakes, before beat zero is scheduled.  Therefore an
+  // injected error is visible on the first R beat and the saved transaction
+  // value is reused unchanged through RLAST.  Never randomize RRESP per beat.
+  function automatic logic [1:0] choose_axi_resp();
+    if (cfg == null || !cfg.axi_error_rsp_en)
+      return 2'b00;
+
+    if ($urandom_range(99, 0) < cfg.axi_slverr_pct)
+      return cfg.axi_error_resp;
+
+    return 2'b00;
+  endfunction
+
+  // Randomize BUSER/RUSER once per response transaction.  For directed tests,
+  // cfg can disable randomization and provide axi_rsp_user_fixed instead.
+  function automatic logic [axi_tniu_protocol_pkg::AUSER_WITH-1:0]
+    choose_axi_rsp_user();
+    logic [axi_tniu_protocol_pkg::AUSER_WITH-1:0] user_value;
+
+    if (cfg != null && !cfg.axi_rsp_user_random_en)
+      return cfg.axi_rsp_user_fixed;
+
+    user_value = $urandom;
+    return user_value;
   endfunction
 
   // ---- AW : accept write address (ready HIGH by default) --------------------
@@ -276,6 +305,8 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
             aw_accept_time : wlast_accept_time;
         response_delay = get_resp_delay();
         aw.resp_delay  = response_delay;
+        aw.resp        = choose_axi_resp();
+        aw.user        = choose_axi_rsp_user();
 
         b_pending.push_back(aw);
         b_ready_time.push_back(
@@ -287,12 +318,14 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
           $sformatf(
             {
               "Queue B id=0x%0h request_complete=%0t ",
-              "delay=%0d cycles ready_time=%0t"
+              "delay=%0d cycles ready_time=%0t resp=%02b user=0x%0h"
             },
             aw.id,
             request_complete_time,
             response_delay,
-            request_complete_time + response_delay * axi_clk_period
+            request_complete_time + response_delay * axi_clk_period,
+            aw.resp,
+            aw.user
           ),
           UVM_HIGH
         )
@@ -316,6 +349,10 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
         t.burst=vif.slv_cb.arburst;
         response_delay = get_resp_delay();
         t.resp_delay   = response_delay;
+        // Decide the whole burst's response now. If this is SLVERR/DECERR,
+        // beat zero and every subsequent beat through RLAST carry that error.
+        t.resp         = choose_axi_resp();
+        t.user         = choose_axi_rsp_user();
 
         // Every AR owns an independent first-response deadline.  Do not wait
         // for an earlier read burst to finish before starting this delay.
@@ -334,12 +371,14 @@ class axi_slave_driver extends uvm_driver #(axi_seq_item);
           $sformatf(
             {
               "Queue R id=0x%0h ar_accept=%0t delay=%0d cycles ",
-              "first_ready_time=%0t"
+              "first_ready_time=%0t resp=%02b user=0x%0h"
             },
             t.id,
             $time,
             response_delay,
-            $time + response_delay * axi_clk_period
+            $time + response_delay * axi_clk_period,
+            t.resp,
+            t.user
           ),
           UVM_HIGH
         )
@@ -472,7 +511,8 @@ endfunction
 
         vif.slv_cb.bvalid <= 1'b1;
         vif.slv_cb.bid    <= t.id;
-        vif.slv_cb.bresp  <= 2'b00;   // OKAY
+        vif.slv_cb.bresp  <= t.resp;
+        vif.slv_cb.buser  <= t.user;
         do @(vif.slv_cb); while (!vif.slv_cb.bready);
         vif.slv_cb.bvalid <= 1'b0;
       end
@@ -679,8 +719,8 @@ endfunction
         vif.slv_cb.rdata  <= read_mem(
           rd_q[selected_idx].addr + rd_beat_index[selected_idx] * 8
         );
-        vif.slv_cb.rresp  <= 2'b00;
-        vif.slv_cb.ruser  <= '0;
+        vif.slv_cb.rresp  <= rd_q[selected_idx].resp;
+        vif.slv_cb.ruser  <= rd_q[selected_idx].user;
         vif.slv_cb.rlast  <=
           (rd_beat_index[selected_idx] >= int'(rd_q[selected_idx].len));
       end

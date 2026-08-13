@@ -111,6 +111,7 @@ class axi_monitor extends uvm_monitor;
       if (vif.mon_cb.bvalid && vif.mon_cb.bready) begin
         axi_seq_item t = axi_seq_item::type_id::create("b_mon");
         t.dir=AXI_WRITE; t.id=vif.mon_cb.bid; t.resp=vif.mon_cb.bresp;
+        t.user=vif.mon_cb.buser;
         b_ap.write(t);
       end
     end
@@ -119,18 +120,37 @@ class axi_monitor extends uvm_monitor;
   // ---- R : gather a full read burst per ID (handles interleave via per-ID q)-
   task mon_r();
     logic [63:0] d[logic[3:0]][$];
+    logic [1:0] resp_by_id[logic[3:0]];
+    logic [axi_tniu_protocol_pkg::AUSER_WITH-1:0] user_by_id[logic[3:0]];
     forever begin
       @(vif.mon_cb);
       if (vif.mon_cb.rvalid && vif.mon_cb.rready) begin
         logic [3:0] id = vif.mon_cb.rid;
+        if (d[id].size() == 0) begin
+          // The first accepted beat defines the response for this transaction.
+          // This lets the scoreboard observe an error from beat zero instead
+          // of accidentally using only the final beat's RRESP.
+          resp_by_id[id] = vif.mon_cb.rresp;
+          user_by_id[id] = vif.mon_cb.ruser;
+        end
+        else if (vif.mon_cb.rresp !== resp_by_id[id]) begin
+          `uvm_error("AXI_RRESP_STABLE", $sformatf(
+            {"RRESP changed inside one read transaction: id=0x%0h ",
+             "first=%02b current=%02b beat=%0d"},
+            id, resp_by_id[id], vif.mon_cb.rresp, d[id].size()))
+        end
+
         d[id].push_back(vif.mon_cb.rdata);
         if (vif.mon_cb.rlast) begin
           axi_seq_item t = axi_seq_item::type_id::create("r_mon");
-          t.dir=AXI_READ; t.id=id; t.resp=vif.mon_cb.rresp;
+          t.dir=AXI_READ; t.id=id; t.resp=resp_by_id[id];
+          t.user=user_by_id[id];
           t.data=new[d[id].size()];
           foreach (d[id][i]) t.data[i]=d[id][i];
           r_ap.write(t);
           d[id].delete();
+          resp_by_id.delete(id);
+          user_by_id.delete(id);
         end
       end
     end

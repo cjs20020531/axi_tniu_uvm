@@ -48,6 +48,7 @@ package axi_tniu_pkg;
 
   // ---- sequences ------------------------------------------------------------
   `include "rknp_base_seq.sv"
+  `include "seq_aresetn_pulse.sv"
   `include "seq_norm_rd.sv"
   `include "seq_norm_wr.sv"
   `include "seq_norm_rdw.sv"
@@ -64,11 +65,13 @@ package axi_tniu_pkg;
   `include "seq_buff_err_mix.sv"
   `include "seq_addrol_waw.sv"
   `include "seq_addrol_raw.sv"
+  `include "seq_axi_rsp_error_mix.sv"
   `include "seq_mix.sv"
   `include "vseq_base.sv"
 
   // ---- tests ----------------------------------------------------------------
   `include "axi_tniu_base_test.sv"
+  `include "test_aresetn_recovery.sv"
   `include "test_norm_rd.sv"
   `include "test_norm_wr.sv"
   `include "test_norm_rdw.sv"
@@ -97,6 +100,8 @@ package axi_tniu_pkg;
   `include "test_watchdog_1100.sv"
   `include "test_watchdog_normal_timeout.sv"
   `include "test_watchdog_bufferable_1100.sv"
+  `include "test_axi_rsp_error_mix.sv"
+  
 
 endpackage : axi_tniu_pkg
 

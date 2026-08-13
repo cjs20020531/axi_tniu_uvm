@@ -910,9 +910,19 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
 
       if (upgraded &&
           t.rsp_status !== axi_tniu_protocol_pkg::ST_ERR) begin
-        `uvm_warning("C-ERR-02", $sformatf(
-          " No.%0d AXI SLVERR on AxID=%0h but RKNP status=%s",
+        `uvm_error("C-ERR-02", $sformatf(
+          " No.%0d AXI SLVERR/DECERR on AxID=%0h but RKNP status=%s",
           e.txn_no, e.axid, t.rsp_status.name()))
+        n_fail++;
+        check_pass = 0;
+      end
+      else if (upgraded &&
+               t.rsp_errcode !== axi_tniu_protocol_pkg::EC_TARGET) begin
+        `uvm_error("C-ERR-02", $sformatf(
+          " No.%0d AXI SLVERR/DECERR on AxID=%0h expected EC_TARGET, got %s",
+          e.txn_no, e.axid, t.rsp_errcode.name()))
+        n_fail++;
+        check_pass = 0;
       end
     end
 

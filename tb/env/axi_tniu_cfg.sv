@@ -22,12 +22,18 @@
 `ifndef AXI_TNIU_CFG_SV
 `define AXI_TNIU_CFG_SV
 
+typedef enum logic [1:0] {
+    AXI_SLVERR = 2'b10,
+    AXI_DECERR = 2'b11
+} axi_respcode_e;
+
 class axi_tniu_cfg extends uvm_object;
 
+  
   // ===========================================================================
   // AXI slave-agent runtime response policy
   // ===========================================================================
-
+  axi_respcode_e axi_respcode;
   bit axi_ooo_en        = 1;  // allow legal out-of-order B/R completion
   bit axi_interleave_en = 1;  // allow read-data interleaving when permitted
 
@@ -43,7 +49,19 @@ class axi_tniu_cfg extends uvm_object;
   int unsigned axi_min_beat_gap = 0;
   int unsigned axi_max_beat_gap = 3;
 
-  int unsigned axi_slverr_pct = 10;  // 0..100
+  // AXI response USER policy.  USER is randomized once per response
+  // transaction and then held stable for the whole transaction.  Disabling
+  // randomization is useful for directed tests that need a fixed value.
+  bit axi_rsp_user_random_en = 1;
+  logic [axi_tniu_protocol_pkg::AUSER_WITH-1:0] axi_rsp_user_fixed = '0;
+
+  // AXI error-response injection.  Keep it disabled by default so existing
+  // regressions continue to receive OKAY.  When enabled, each completed AXI
+  // transaction independently receives axi_error_resp with the probability
+  // selected by axi_slverr_pct; otherwise it receives OKAY.
+  bit          axi_error_rsp_en = 0;
+  logic [1:0]  axi_error_resp   = AXI_SLVERR; // 2'b10: SLVERR, 2'b11: DECERR
+  int unsigned axi_slverr_pct   = 10;    // injection probability, 0..100
 
   // ===========================================================================
   // RKNP request/response runtime policy
@@ -77,6 +95,10 @@ class axi_tniu_cfg extends uvm_object;
     `uvm_field_int(axi_max_resp_delay,  UVM_ALL_ON | UVM_DEC)
     `uvm_field_int(axi_min_beat_gap,    UVM_ALL_ON | UVM_DEC)
     `uvm_field_int(axi_max_beat_gap,    UVM_ALL_ON | UVM_DEC)
+    `uvm_field_int(axi_rsp_user_random_en, UVM_ALL_ON)
+    `uvm_field_int(axi_rsp_user_fixed,  UVM_ALL_ON | UVM_HEX)
+    `uvm_field_int(axi_error_rsp_en,    UVM_ALL_ON)
+    `uvm_field_int(axi_error_resp,      UVM_ALL_ON | UVM_BIN)
     `uvm_field_int(axi_slverr_pct,      UVM_ALL_ON | UVM_DEC)
     `uvm_field_int(req_min_gap,         UVM_ALL_ON | UVM_DEC)
     `uvm_field_int(req_max_gap,         UVM_ALL_ON | UVM_DEC)
@@ -111,6 +133,11 @@ class axi_tniu_cfg extends uvm_object;
     if (axi_slverr_pct > 100)
       `uvm_fatal("CFG", $sformatf("axi_slverr_pct=%0d must be in 0..100",
                                   axi_slverr_pct))
+
+    if (!(axi_error_resp inside {2'b10, 2'b11}))
+      `uvm_fatal("CFG", $sformatf(
+        "axi_error_resp=%02b is not an AXI error response (use SLVERR=10 or DECERR=11)",
+        axi_error_resp))
 
     if (rsp_ready_low_pct > 100)
       `uvm_fatal("CFG", $sformatf("rsp_ready_low_pct=%0d must be in 0..100",

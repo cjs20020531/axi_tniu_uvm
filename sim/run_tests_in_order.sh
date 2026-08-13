@@ -23,6 +23,7 @@ set -o pipefail
 # 删除 testcase：删除或注释对应行。
 # 调整顺序：直接移动对应行。
 TEST_SEQUENCE=(
+  test_aresetn_recovery
   test_norm_rd
   test_norm_wr
   test_norm_rdw
@@ -52,6 +53,7 @@ TEST_SEQUENCE=(
 
   test_addrol_waw
   test_addrol_raw
+  test_axi_rsp_error_mix
   test_mix
 )
 
