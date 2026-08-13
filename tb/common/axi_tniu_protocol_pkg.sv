@@ -97,7 +97,7 @@ package axi_tniu_protocol_pkg;
   // ===========================================================================
   // Fixed DUT build-mode constants
   // ===========================================================================
-  parameter int TIMOUT_VALUE    = 1024;  //支持最大请求个数
+  parameter int TIMOUT_VALUE    = 10240;  //支持最大请求个数
 
   parameter int SUP_REQ_NUM     = 8;  //支持最大请求个数
   parameter int ADDR_BLOCK_SIZE = 64;

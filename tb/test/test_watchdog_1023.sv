@@ -14,8 +14,8 @@ class test_watchdog_1023 extends axi_tniu_base_test;
     cfg.axi_ready_bp_en     = 1'b0;
     cfg.rsp_ready_bp_en     = 1'b0;
     cfg.axi_slverr_pct      = 0;
-    cfg.axi_min_resp_delay  = 1023;
-    cfg.axi_max_resp_delay  = 1023;
+    cfg.axi_min_resp_delay  = 10230;
+    cfg.axi_max_resp_delay  = 10230;
     cfg.rsp_drain_timeout   = 200us;
   endfunction
 

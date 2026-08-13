@@ -95,6 +95,13 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
   // Pending SLVERR/DECERR flags captured on B/R and consumed at final RKNP rsp.
   bit err_pending [axi_tniu_protocol_pkg::axi_id_t][$];
 
+  // Expected address of the next RKNP response packet for each source
+  // transaction.  Response interleaving can split one read transaction into
+  // several packets, so checking only the first packet leaves continuation
+  // address updates (including WRAP rollover) completely unverified.
+  logic [axi_tniu_protocol_pkg::ADDR_WITH-1:0]
+    next_rsp_addr_by_txn [int unsigned];
+
   // ---------------------------------------------------------------------------
   // Statistics
   // ---------------------------------------------------------------------------
@@ -148,6 +155,8 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
 
     key = axi_tniu_protocol_pkg::make_rknp_txn_key(
             t.iid, t.tid, t.orderkey);
+
+    next_rsp_addr_by_txn[e.txn_no] = t.addr;
 
     // Only requests marked AXI-valid by the reference model are expected to
     // launch an AXI address transaction. Protocol-error requests may generate
@@ -771,6 +780,11 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
     axi_tniu_protocol_pkg::rknp_txn_key_t key;
     bit                                   upgraded;
     bit                                   check_pass;
+    int unsigned                          packet_valid_bytes;
+    longint unsigned                      expected_addr;
+    longint unsigned                      wrap_bytes;
+    longint unsigned                      wrap_base;
+    longint unsigned                      wrap_offset;
 
     // n_rsp counts every observed packet and n_rsp_final counts every observed
     // LW=1 packet, including protocol violations such as a duplicate response.
@@ -817,6 +831,25 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
       check_pass = 0;
     end
 
+    // Check the response address on every packet, not only on packet zero.
+    // This catches a wrong req_order address update when an interleaved read
+    // resumes with ST_CONT.  The first expected address is the source request
+    // address; subsequent values are advanced below by the number of valid
+    // payload bytes carried by the current packet.
+    if (!next_rsp_addr_by_txn.exists(e.txn_no))
+      next_rsp_addr_by_txn[e.txn_no] = e.req.addr;
+
+    if (t.addr !== next_rsp_addr_by_txn[e.txn_no]) begin
+      `uvm_error("C-RSP-HDR", $sformatf(
+        {" No.%0d rsp packet[%0d] ADDR exp=0x%08h got=0x%08h ",
+         "status=%s lw=%0b"},
+        e.txn_no, e.rsp_packet_count,
+        next_rsp_addr_by_txn[e.txn_no], t.addr,
+        t.rsp_status.name(), t.rsp_lw))
+      n_fail++;
+      check_pass = 0;
+    end
+
     // C-CONV-01: response opcode
     if (e.rsp_opc !== t.rsp_opc) begin
       `uvm_error("C-CONV-01", $sformatf(
@@ -834,14 +867,6 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
         `uvm_error("C-RSP-HDR", $sformatf(
           " No.%0d rsp QoS exp=%0d got=%0d",
           e.txn_no, e.req.qos, t.qos))
-        n_fail++;
-        check_pass = 0;
-      end
-
-      if (e.req.addr !== t.addr) begin
-        `uvm_error("C-RSP-HDR", $sformatf(
-          " No.%0d rsp ADDR exp=0x%08h got=0x%08h",
-          e.txn_no, e.req.addr, t.addr))
         n_fail++;
         check_pass = 0;
       end
@@ -880,6 +905,30 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
         e.obs_rsp_bytes.push_back(t.rd_bytes[i]);
       foreach (t.rd_be[i])
         e.obs_rsp_be.push_back(t.rd_be[i]);
+
+      // The next packet header denotes the next logical payload byte.  Count
+      // BE=1 lanes rather than physical flits so an unaligned first/last flit
+      // advances by only the bytes that actually belong to the transaction.
+      packet_valid_bytes = 0;
+      foreach (t.rd_be[i])
+        if (t.rd_be[i] === 1'b1)
+          packet_valid_bytes++;
+
+      if (!t.rsp_lw) begin
+        expected_addr = next_rsp_addr_by_txn[e.txn_no];
+
+        if (e.req.is_wrap()) begin
+          wrap_bytes  = longint'(e.req.len) + 1;
+          wrap_base   = longint'(e.req.addr) & ~(wrap_bytes - 1);
+          wrap_offset = (expected_addr - wrap_base + packet_valid_bytes) %
+                        wrap_bytes;
+          next_rsp_addr_by_txn[e.txn_no] = wrap_base + wrap_offset;
+        end
+        else begin
+          next_rsp_addr_by_txn[e.txn_no] =
+            expected_addr + packet_valid_bytes;
+        end
+      end
     end
 
     e.rsp_packet_count++;
@@ -921,6 +970,8 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
 
     if (exp_rsp_q[key].size() == 0)
       exp_rsp_q.delete(key);
+
+    next_rsp_addr_by_txn.delete(e.txn_no);
 
     // C-ERR-02: ERR request must reflect the predicted error.
     if (e.rsp_status == axi_tniu_protocol_pkg::ST_ERR) begin

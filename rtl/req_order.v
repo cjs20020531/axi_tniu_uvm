@@ -369,12 +369,12 @@ always @(posedge clk or negedge resetn) begin
             tag_cnt[a] <= #DLY 'd0;
     end else if(rknp_xx2reqo_head == 1'b1 && reqo2rknp_xx_ready == 1'b1) begin
         if (tag_name_index_hot == 'd0)              //没有找到对应的tag_name
-            if(tag_cnt[idle_tag_name_index] < HEAD_BUFF_DEEP)
+            if(tag_cnt[idle_tag_name_index] < HEAD_BUFF_DEEP-1'b1)
                 tag_cnt[idle_tag_name_index] <= #DLY tag_cnt[idle_tag_name_index] + 1;
             else
                 tag_cnt[idle_tag_name_index] <= #DLY 'd0; 
         else                                        //找到对应的tag_name
-            if(tag_cnt[tag_name_index] < HEAD_BUFF_DEEP)
+            if(tag_cnt[tag_name_index] < HEAD_BUFF_DEEP-1'b1)
                 tag_cnt[tag_name_index] <= #DLY tag_cnt[tag_name_index] + 1;
             else
                 tag_cnt[tag_name_index] <= #DLY 'd0; 
@@ -604,7 +604,11 @@ always @(posedge clk or negedge resetn) begin
                 end
             end
             else begin   //WRAP类型
-                if(head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH] == rsp_addr_end)
+                // rsp_addr_end is the address of the last valid byte, while
+                // head_buffer stores an AXI beat start address.  Wrap after
+                // the final beat start instead of comparing unlike addresses.
+                if(head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH]
+                   == rsp_addr_end - (NBYTEPERWORD - 1))
                     head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH] <= #DLY rsp_addr_begin;
                 else
                     head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH] <= #DLY head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH] + NBYTEPERWORD;

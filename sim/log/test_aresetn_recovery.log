@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_aresetn_recovery +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_aresetn_recovery_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_aresetn_recovery.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 13 20:00 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 13 21:57 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -193,7 +193,7 @@ RD[263]:
     96  95  94  93  92  91  90  8f
     9e-  9d-  9c-  9b-  9a  99  98  97
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 1685000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=2 response_packets=2 final_rsp(raw/matched)=2/2
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1168) @ 11685000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1219) @ 11685000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
   REQ=2  RSP_PKT=2  RSP_FINAL(raw/matched)=2/2
   AW=0 AR=2 W=0 B=0/0 R=2/2
@@ -230,5 +230,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 11685000 ps
-CPU Time:      0.380 seconds;       Data structure size:   0.9Mb
-Thu Aug 13 20:00:18 2026
+CPU Time:      0.370 seconds;       Data structure size:   0.9Mb
+Thu Aug 13 21:57:44 2026
