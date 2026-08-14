@@ -63,131 +63,83 @@ parameter TIM_OUT = 3'b110;
 // 输入响应信号打拍，不打拍的化生成不了tail
 //-----------------------------------------------------------------
 
-// Two-entry AXI R look-ahead buffer.
+// One-entry AXI R elastic buffer.
 //
-// For a non-RLAST beat, the bridge must see the following accepted beat before
-// it can decide whether the current RKNP flit is a packet TAIL.  A one-entry
-// buffer cannot make that decision when RVALID has a gap before RID changes.
-reg  [1:0]                  rbuf_count;
+// The buffered beat is the RKNP output candidate.  For a non-RLAST beat, the
+// current valid AXI R beat is used as look-ahead information: an RID change
+// terminates the buffered RKNP packet, while the same RID continues it.  If
+// RVALID has a gap, the buffered beat is held and no packet boundary is made.
+reg                         rbuf_valid;
 reg  [AXID_WITH-1:0]        rbuf0_rid;
 reg  [8*NBYTEPERWORD-1:0]   rbuf0_rdata;
 reg  [1:0]                  rbuf0_rresp;
 reg  [AUSER_WITH-1:0]       rbuf0_ruser;
 reg                         rbuf0_rlast;
 reg                         rbuf0_rhead;
-reg  [AXID_WITH-1:0]        rbuf1_rid;
-reg  [8*NBYTEPERWORD-1:0]   rbuf1_rdata;
-reg  [1:0]                  rbuf1_rresp;
-reg  [AUSER_WITH-1:0]       rbuf1_ruser;
-reg                         rbuf1_rlast;
-reg                         rbuf1_rhead;
-reg                         prev_rbeat_seen;
-reg                         prev_rbeat_last;
-reg  [AXID_WITH-1:0]        prev_rid;
 
 wire axi_r_hs;
 wire r_rsp_valid;
 wire r_rsp_tail;
 wire r_rsp_hs;
+wire next_rid_diff;
 
 assign axi_r_hs = axi_m_rvalid & axi_m_rready;
 
-// RLAST determines its own packet boundary.  Otherwise the second buffered
-// beat is the look-ahead information needed to distinguish continuation from
-// an interleaving RID switch.
-assign r_rsp_valid = (rbuf_count != 2'd0) &&
-                     (rbuf0_rlast || (rbuf_count == 2'd2));
-assign r_rsp_tail  = rbuf0_rlast ||
-                     ((rbuf_count == 2'd2) &&
-                      (rbuf1_rid != rbuf0_rid));
+// AXI guarantees RID and the other R-channel payload signals remain stable
+// while RVALID is asserted and RREADY is low.  It is therefore safe to use a
+// valid, not-yet-accepted beat as look-ahead while the RKNP output is stalled.
+assign next_rid_diff = axi_m_rvalid && (axi_m_rid != rbuf0_rid);
+assign r_rsp_valid   = rbuf_valid && (rbuf0_rlast || axi_m_rvalid);
+assign r_rsp_tail    = rbuf0_rlast || next_rid_diff;
 assign r_rsp_hs    = r_rsp_valid & rspo2rspt_ready;
 
-// Do not accept a third beat.  The one-cycle READY bubble after a full-buffer
-// pop is intentional and keeps the implementation free of a combinational
-// READY path through rsp_order.
-assign axi_m_rready = resetn && (rbuf_count < 2'd2);
+// When occupied, the single entry accepts a new beat only while the buffered
+// beat is accepted downstream in the same cycle.  This makes pop/push atomic:
+// no beat is overwritten and a continuous R stream can sustain one beat/cycle.
+assign axi_m_rready = resetn && (!rbuf_valid || r_rsp_hs);
 
-// Buffer maintenance and packet-HEAD history are updated only by real AXI R
-// handshakes.  Therefore a RVALID gap never creates a false transaction HEAD.
+// Buffer maintenance is updated only by real AXI/RKNP handshakes.  On a
+// simultaneous pop/push, the new beat begins a packet after RLAST or an RID
+// switch; otherwise it remains in the same RKNP packet.
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
-        rbuf_count     <= #DLY 2'd0;
+        rbuf_valid     <= #DLY 1'b0;
         rbuf0_rid      <= #DLY 'd0;
         rbuf0_rdata    <= #DLY 'd0;
         rbuf0_rresp    <= #DLY 2'd0;
         rbuf0_ruser    <= #DLY 'd0;
         rbuf0_rlast    <= #DLY 1'b0;
         rbuf0_rhead    <= #DLY 1'b0;
-        rbuf1_rid      <= #DLY 'd0;
-        rbuf1_rdata    <= #DLY 'd0;
-        rbuf1_rresp    <= #DLY 2'd0;
-        rbuf1_ruser    <= #DLY 'd0;
-        rbuf1_rlast    <= #DLY 1'b0;
-        rbuf1_rhead    <= #DLY 1'b0;
-        prev_rbeat_seen <= #DLY 1'b0;
-        prev_rbeat_last <= #DLY 1'b0;
-        prev_rid        <= #DLY 'd0;
     end else begin
-        if(axi_r_hs == 1'b1) begin
-            prev_rbeat_seen <= #DLY 1'b1;
-            prev_rbeat_last <= #DLY axi_m_rlast;
-            prev_rid        <= #DLY axi_m_rid;
-        end
-
         case ({axi_r_hs, r_rsp_hs})
             2'b10: begin
-                if(rbuf_count == 2'd0) begin
-                    rbuf0_rid   <= #DLY axi_m_rid;
-                    rbuf0_rdata <= #DLY axi_m_rdata;
-                    rbuf0_rresp <= #DLY axi_m_rresp;
-                    rbuf0_ruser <= #DLY axi_m_ruser;
-                    rbuf0_rlast <= #DLY axi_m_rlast;
-                    rbuf0_rhead <= #DLY (!prev_rbeat_seen ||
-                                         prev_rbeat_last ||
-                                         (axi_m_rid != prev_rid));
-                    rbuf_count  <= #DLY 2'd1;
-                end else begin
-                    rbuf1_rid   <= #DLY axi_m_rid;
-                    rbuf1_rdata <= #DLY axi_m_rdata;
-                    rbuf1_rresp <= #DLY axi_m_rresp;
-                    rbuf1_ruser <= #DLY axi_m_ruser;
-                    rbuf1_rlast <= #DLY axi_m_rlast;
-                    rbuf1_rhead <= #DLY (prev_rbeat_last ||
-                                         (axi_m_rid != prev_rid));
-                    rbuf_count  <= #DLY 2'd2;
-                end
-            end
-
-            2'b01: begin
-                if(rbuf_count == 2'd2) begin
-                    rbuf0_rid   <= #DLY rbuf1_rid;
-                    rbuf0_rdata <= #DLY rbuf1_rdata;
-                    rbuf0_rresp <= #DLY rbuf1_rresp;
-                    rbuf0_ruser <= #DLY rbuf1_ruser;
-                    rbuf0_rlast <= #DLY rbuf1_rlast;
-                    rbuf0_rhead <= #DLY rbuf1_rhead;
-                    rbuf_count  <= #DLY 2'd1;
-                end else begin
-                    rbuf_count  <= #DLY 2'd0;
-                end
-            end
-
-            2'b11: begin
-                // Simultaneous pop/push is possible only when the sole buffered
-                // beat is RLAST; replace it directly with the new transaction.
+                // This case is possible only when the buffer was empty.
+                rbuf_valid  <= #DLY 1'b1;
                 rbuf0_rid   <= #DLY axi_m_rid;
                 rbuf0_rdata <= #DLY axi_m_rdata;
                 rbuf0_rresp <= #DLY axi_m_rresp;
                 rbuf0_ruser <= #DLY axi_m_ruser;
                 rbuf0_rlast <= #DLY axi_m_rlast;
-                rbuf0_rhead <= #DLY (!prev_rbeat_seen ||
-                                     prev_rbeat_last ||
-                                     (axi_m_rid != prev_rid));
-                rbuf_count  <= #DLY 2'd1;
+                rbuf0_rhead <= #DLY 1'b1;
+            end
+
+            2'b01: begin
+                rbuf_valid <= #DLY 1'b0;
+            end
+
+            2'b11: begin
+                // Replace the accepted buffered beat with the AXI look-ahead.
+                rbuf_valid  <= #DLY 1'b1;
+                rbuf0_rid   <= #DLY axi_m_rid;
+                rbuf0_rdata <= #DLY axi_m_rdata;
+                rbuf0_rresp <= #DLY axi_m_rresp;
+                rbuf0_ruser <= #DLY axi_m_ruser;
+                rbuf0_rlast <= #DLY axi_m_rlast;
+                rbuf0_rhead <= #DLY rbuf0_rlast || next_rid_diff;
             end
 
             default: begin
-                rbuf_count <= #DLY rbuf_count;
+                rbuf_valid <= #DLY rbuf_valid;
             end
         endcase
     end
@@ -231,7 +183,7 @@ end
 // an AXI beat gap.  A B response remains safely buffered until the read packet
 // reaches a legal boundary.
 wire rrsp_phase;
-assign rrsp_phase = (rbuf_count != 2'd0);
+assign rrsp_phase = rbuf_valid;
 
 //-----------------------------------------------------------------
 //  生成bready信号

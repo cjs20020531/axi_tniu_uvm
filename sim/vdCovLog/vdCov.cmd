@@ -345,3 +345,151 @@ gui_exclude_conn_signals_add -signal tb_top.dut.U_REQ_ORDER.genblk24.U_ADDR_BORD
 gui_exclude_conn_signals_end
 gui_list_select -id CovDetail.1 -list tgl { {wrap_mask[31:0]}   }
 gui_exclusion_file -save -file /home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el -module -incremental -format newformat
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_REQ_ORDER.genblk24.U_ADDR_BORDER_COUNT_REQ  tb_top.dut.U_REQ_ORDER.U_ADDR_BORDER_COUNT_RSP   }
+gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} tb_top.dut.U_REQ_ORDER.U_ADDR_BORDER_COUNT_RSP  -column {Toggle} 
+gui_list_select -id CovDetail.1 -list tgl { {len_ext[32:0]}   }
+gui_list_select -id CovDetail.1 -list tgl { {len_ext[32:0]}  {last_byte_addr[32:0]}   }
+gui_list_select -id CovDetail.1 -list tgl { {last_byte_addr[32:0]}  {burst[1:0]}   }
+gui_list_select -id CovDetail.1 -list tgl { {burst[1:0]}  {addr_begin[31:0]}   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_REQ_ORDER.U_ADDR_BORDER_COUNT_RSP  tb_top.rknp_vif   }
+gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} tb_top.rknp_vif  -column {Toggle} 
+gui_list_select -id CovDetail.1 -list tglDetail { {rxreq_data[48]}   }
+gui_exclude_items -id  CovDetail.1  -list { tglDetail }  -selected  -annotation  {rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable}
+gui_list_select -id CovDetail.1 -list tglDetail { {rxreq_data[48]}  {rxreq_data[46]}   }
+gui_exclude_items -id  CovDetail.1  -list { tglDetail }  -selected  -annotation  {rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable}
+gui_list_select -id CovDetail.1 -list tglDetail { {rxreq_data[46]}  {rxreq_data[44]}   }
+gui_exclude_items -id  CovDetail.1  -list { tglDetail }  -selected  -annotation  {rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable}
+gui_list_select -id CovDetail.1 -list tglDetail { {rxreq_data[44]}  {rxreq_data[34:30]}   }
+gui_exclude_items -id  CovDetail.1  -list { tglDetail }  -selected  -annotation  {rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable}
+gui_list_select -id CovDetail.1 -list tglDetail { {rxreq_data[34:30]}  {rxreq_data[45]}  {rxreq_data[44]}  {rxreq_data[43:35]}  {rxreq_data[34:30]}   }
+gui_exclusion_file -save -file /home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el -module -incremental -format newformat
+gui_list_select -id CovDetail.1 -list tgl { {rxreq_data[174:0]}  {txrsp_data[156:0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {txrsp_data[36]}   }
+gui_exclude_items -id  CovDetail.1  -list { tglDetail }  -selected  -annotation  {rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable}
+gui_exclusion_file -save -file /home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el -module -incremental -format newformat
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.rknp_vif  tb_top.dut.U_REQ_ORDER.genblk24.U_ADDR_BORDER_COUNT_REQ   }
+gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} tb_top.dut.U_REQ_ORDER.genblk24.U_ADDR_BORDER_COUNT_REQ  -column {Line} 
+gui_covtable_show -show  { Design Hierarchy } -id  CoverageTable.1  -test  MergedTest
+gui_exclusion_file -save -file /home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el -module -incremental -format newformat
+gui_covtable_show -show  { Design Hierarchy } -id  CoverageTable.1  -test  MergedTest
+gui_exclusion_file -load -file {coverage_exclude.el .connSignals1006686177.el .connSignals1010622461.el .connSignals1014625745.el .connSignals1046765657.el .connSignals1078743013.el .connSignals1115184447.el .connSignals1115753520.el .connSignals1143499476.el .connSignals1166389795.el .connSignals1292421808.el .connSignals1293722200.el .connSignals1294069361.el .connSignals1296788351.el .connSignals1298630230.el .connSignals1305053256.el .connSignals1313163521.el .connSignals1399111144.el .connSignals1421824267.el .connSignals1453918509.el .connSignals1485314197.el .connSignals1496562112.el .connSignals159635963.el .connSignals1601115611.el .connSignals1615349831.el .connSignals1622332600.el .connSignals1682385735.el .connSignals1684786614.el .connSignals1695750832.el .connSignals1698180391.el .connSignals1699435425.el .connSignals1722359636.el .connSignals1769553047.el .connSignals1788193191.el .connSignals1819517168.el .connSignals1819690196.el .connSignals1823639081.el .connSignals182426858.el .connSignals1880094534.el .connSignals1880142461.el .connSignals1895244856.el .connSignals195356273.el .connSignals1954627997.el .connSignals196929178.el .connSignals1996413166.el .connSignals2020917137.el .connSignals2051992216.el .connSignals2074427649.el .connSignals2078670452.el .connSignals2094840182.el .connSignals2120106513.el .connSignals2127588586.el .connSignals228320437.el .connSignals233915580.el .connSignals234664663.el .connSignals242521620.el .connSignals270715356.el .connSignals279973506.el .connSignals351437496.el .connSignals353633592.el .connSignals412973044.el .connSignals412980867.el .connSignals463842731.el .connSignals514212549.el .connSignals517773227.el .connSignals529422441.el .connSignals557985589.el .connSignals559769693.el .connSignals580106713.el .connSignals633961862.el .connSignals642637077.el .connSignals64679820.el .connSignals666335051.el .connSignals722241557.el .connSignals755288946.el .connSignals819690795.el .connSignals846614141.el .connSignals848896790.el .connSignals856555309.el .connSignals869657646.el .connSignals903501869.el .connSignals905198030.el .connSignals914248978.el .connSignals942334320.el .connSignals952741852.el .connSignals958878928.el .connSignals962735935.el} -bypass_checks
+gui_exclusion_file -save_all -file {/home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el}
+gui_exclusion_file -load -file {/home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el} -bypass_checks
+gui_covtable_show -show  { Design Hierarchy } -id  CoverageTable.1  -test  MergedTest
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_REQ_ORDER.genblk24.U_ADDR_BORDER_COUNT_REQ  tb_top.dut.U_RREQ_TRANS   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_RREQ_TRANS  tb_top.dut.U_WATCHDOG   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_WATCHDOG  tb_top.dut.U_WREQ_TRANS   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_WREQ_TRANS  tb_top.dut.genblk1.U_WRAP_ADJUST   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.genblk1.U_WRAP_ADJUST  tb_top.dut.U_WREQ_TRANS   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_WREQ_TRANS  tb_top.dut.genblk1.U_WRAP_ALIGN   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.genblk1.U_WRAP_ALIGN  tb_top.dut.genblk1.U_WRAP_ADJUST   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.genblk1.U_WRAP_ADJUST  tb_top.dut.genblk2.U_ELY_RSP_DETECT   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.genblk2.U_ELY_RSP_DETECT  tb_top.dut.genblk2.U_RSP_ORDER   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.genblk2.U_RSP_ORDER  tb_top.dut.genblk2.U_RSP_TRANS   }
+gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} tb_top.dut.genblk2.U_RSP_TRANS  -column {Toggle} 
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_opc[1:0]}  {rspt2rspo_data[72:0]}   }
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_data[72:0]}  {rspt2rspo_errcode[2:0]}   }
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_errcode[2:0]}  {rspt2rspo_opc[1:0]}   }
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_opc[1:0]}  {rspt2rspo_status[1:0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_status[1]}   }
+gui_exclude_conn_signals_begin -signal tb_top.dut.genblk2.U_RSP_TRANS.rspt2rspo_status[1] -annotation rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_TRANS.rspt2rspo_status[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_ELY_RSP_DETECT.erd2rspo_status[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_ELY_RSP_DETECT.rspt2erd_status[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_ORDER.rspt2rspo_status[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.rspt2rspo_status[1]
+gui_exclude_conn_signals_end
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_status[1:0]}  {rspt2rspo_opc[1:0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_opc[1]}   }
+gui_exclude_conn_signals_begin -signal tb_top.dut.genblk2.U_RSP_TRANS.rspt2rspo_opc[1] -annotation rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_TRANS.rspt2rspo_opc[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_ELY_RSP_DETECT.erd2rspo_opc[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_ELY_RSP_DETECT.rspt2erd_opc[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_ORDER.rspt2rspo_opc[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_ORDER.rspt2rspo_opc[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_ORDER.rspt2rspo_opc[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_ORDER.rspt2rspo_opc[1]
+gui_exclude_conn_signals_add -signal tb_top.dut.rspt2rspo_opc[1]
+gui_exclude_conn_signals_end
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_opc[1:0]}  {rspt2rspo_errcode[2:0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_errcode[2:0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_errcode[2:0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_errcode[2:0]}   }
+gui_exclude_conn_signals_begin -signal tb_top.dut.genblk2.U_RSP_TRANS.rspt2rspo_errcode[2:0] -annotation rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_TRANS.rspt2rspo_errcode[2:0]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_ELY_RSP_DETECT.erd2rspo_errcode[2:0]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_ELY_RSP_DETECT.rspt2erd_errcode[2:0]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_ORDER.rspt2rspo_errcode[2:0]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.erd2rspo_errcode[2:0]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.rspt2erd_errcode[2:0]
+gui_exclude_conn_signals_add -signal tb_top.dut.rspt2rspo_errcode[2:0]
+gui_exclude_conn_signals_end
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_errcode[2:0]}  rspt2rspo_head   }
+gui_list_select -id CovDetail.1 -list tgl { rspt2rspo_head  rspt2rspo_lw   }
+gui_list_select -id CovDetail.1 -list tgl { rspt2rspo_lw  {rspt2rspo_errcode[2:0]}   }
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_errcode[2:0]}  {rspt2rspo_data[72:0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_exclude_conn_signals_begin -signal tb_top.dut.genblk2.U_RSP_TRANS.rspt2rspo_data[0] -annotation rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_TRANS.rspt2rspo_data[0]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_ELY_RSP_DETECT.erd2rspo_data[0]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_ELY_RSP_DETECT.rspt2erd_data[0]
+gui_exclude_conn_signals_add -signal tb_top.dut.genblk2.U_RSP_ORDER.rspt2rspo_data[0]
+gui_exclude_conn_signals_add -signal tb_top.dut.rspt2rspo_data[0]
+gui_exclude_conn_signals_end
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_exclude_items -id  CovDetail.1  -list { tglDetail }  -selected  -add_annotation   -annotation  {rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable}
+gui_exclude_items -id  CovDetail.1  -list { tglDetail }  -selected  -add_annotation   -annotation  {rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable}
+gui_list_select -id CovDetail.1 -list tglDetail { {rspt2rspo_data[0]}   }
+gui_exclusion_file -save_all -file {/home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el}
+gui_exclusion_file -load -file {/home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el} -bypass_checks
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_data[72:0]}  {rspt2rspo_errcode[2:0]}   }
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_errcode[2:0]}  rspt2rspo_lw   }
+gui_list_select -id CovDetail.1 -list tgl { rspt2rspo_lw  rspt2rspo_head   }
+gui_list_select -id CovDetail.1 -list tgl { rspt2rspo_head  rspt2rspo_lw   }
+gui_list_select -id CovDetail.1 -list tgl { rspt2rspo_lw  {rspt2rspo_opc[1:0]}   }
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_opc[1:0]}  {rspt2rspo_status[1:0]}   }
+gui_list_select -id CovDetail.1 -list tgl { {rspt2rspo_status[1:0]}  rspt2rspo_tail   }
+gui_list_select -id CovDetail.1 -list tgl { rspt2rspo_tail  rspt2rspo_valid   }
+gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} tb_top.dut.genblk2.U_RSP_TRANS  -column {Condition} 
+gui_list_select -id CovDetail.1 -list cond { {(((!prev_rbeat_seen)) || prev_rbeat_last || (axi_m_rid != prev_rid))}  {(((!prev_rbeat_seen)) || prev_rbeat_last || (axi_m_rid != prev_rid)):1}   }
+gui_list_select -id CovDetail.1 -list cond { {(((!prev_rbeat_seen)) || prev_rbeat_last || (axi_m_rid != prev_rid)):1}  {(((!prev_rbeat_seen)) || prev_rbeat_last || (axi_m_rid != prev_rid))}   }
+gui_list_select -id CovDetail.1 -list cond { {(((!prev_rbeat_seen)) || prev_rbeat_last || (axi_m_rid != prev_rid))}  {(((!prev_rbeat_seen)) || prev_rbeat_last || (axi_m_rid != prev_rid)):1}   }
+gui_reload_cov 
+gui_exclusion_file -load -file {/home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el} -bypass_checks
+gui_list_expand -id  CoverageTable.1   -list {covtblInstancesList} tb_top
+gui_list_expand -id  CoverageTable.1   -list {covtblInstancesList} tb_top.dut
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.genblk2.U_RSP_TRANS   }
+gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} tb_top.dut.genblk2.U_RSP_TRANS  -column {FSM} 
+gui_list_select -id CovDetail.1 -list fsmnames { rbuf_count   }
+gui_src_highlight_item -id CovSrc.1 -lfrom 71 -idxfrom 28 -fileIdFrom 0 -lto 71 -idxto 38 -fileIdTo 0 -selection {rbuf_count} -selectionId 0 -replace 0
+gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} tb_top.dut.genblk2.U_RSP_TRANS  -column {FSM} 

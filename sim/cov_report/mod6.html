@@ -115,10 +115,10 @@ $(document).ready(function () {
 <table align=left>
 <tr class="sortablehead">
 <td>SCORE</td><td>LINE</td><td>COND</td><td>TOGGLE</td><td>FSM</td><td>BRANCH</td><td>ASSERT</td></tr><tr>
-<td class="s9 cl rt"> 91.84</td>
+<td class="s9 cl rt"> 92.09</td>
 <td class="s9 cl rt"> 99.23</td>
 <td class="s9 cl rt"> 90.75</td>
-<td class="s9 cl rt"> 94.90</td>
+<td class="s9 cl rt"> 96.16</td>
 <td class="s8 cl rt"> 80.00</td>
 <td class="s9 cl rt"> 94.29</td>
 <td class="wht cl rt"></td>
@@ -154,10 +154,10 @@ $(document).ready(function () {
 <td class="wht cl rt"></td>
 </tr><tr>
 <td class="wht cl wordwrap"><a href="mod16.html#inst_tag_17" id="tag_urg_inst_17">U_REQ_ORDER<img src="ex.gif" class="icon"></a></td>
-<td class="s9 cl rt"> 98.13</td>
 <td class="s10 cl rt">100.00</td>
 <td class="s10 cl rt">100.00</td>
-<td class="s9 cl rt"> 92.54</td>
+<td class="s10 cl rt">100.00</td>
+<td class="s10 cl rt">100.00</td>
 <td class="wht cl rt"></td>
 <td class="s10 cl rt">100.00</td>
 <td class="wht cl rt"></td>
@@ -172,10 +172,10 @@ $(document).ready(function () {
 <td class="wht cl rt"></td>
 </tr><tr>
 <td class="wht cl wordwrap"><a href="mod14.html#inst_tag_14" id="tag_urg_inst_14">U_WATCHDOG<img src="ex.gif" class="icon"></a></td>
-<td class="s8 cl rt"> 86.56</td>
+<td class="s8 cl rt"> 86.54</td>
 <td class="s9 cl rt"> 97.06</td>
 <td class="s8 cl rt"> 82.88</td>
-<td class="s7 cl rt"> 79.74</td>
+<td class="s7 cl rt"> 79.65</td>
 <td class="wht cl rt"></td>
 <td class="s8 cl rt"> 86.55</td>
 <td class="wht cl rt"></td>
@@ -2079,18 +2079,18 @@ Toggle Coverage for Module : <a href="mod6.html" >axi_tniu</a><br clear=all>
 <td class="rt">87.56 </td>
 </tr><tr class="s9">
 <td>Total Bits</td>
-<td class="rt">5384</td>
-<td class="rt">5278</td>
+<td class="rt">5382</td>
+<td class="rt">5276</td>
 <td class="rt">98.03 </td>
 </tr><tr class="s9">
 <td nowrap>Total Bits 0->1</td>
-<td class="rt">2692</td>
-<td class="rt">2639</td>
+<td class="rt">2691</td>
+<td class="rt">2638</td>
 <td class="rt">98.03 </td>
 </tr><tr class="s9">
 <td nowrap>Total Bits 1->0</td>
-<td class="rt">2692</td>
-<td class="rt">2639</td>
+<td class="rt">2691</td>
+<td class="rt">2638</td>
 <td class="rt">98.03 </td>
 </tr></table><br clear=all>
 <table align=left class="noborder">
@@ -2125,18 +2125,18 @@ Toggle Coverage for Module : <a href="mod6.html" >axi_tniu</a><br clear=all>
 <td class="rt">84.52 </td>
 </tr><tr class="s9">
 <td>Signal Bits</td>
-<td class="rt">4134</td>
-<td class="rt">4040</td>
+<td class="rt">4132</td>
+<td class="rt">4038</td>
 <td class="rt">97.73 </td>
 </tr><tr class="s9">
 <td nowrap>Signal Bits 0->1</td>
-<td class="rt">2067</td>
-<td class="rt">2020</td>
+<td class="rt">2066</td>
+<td class="rt">2019</td>
 <td class="rt">97.73 </td>
 </tr><tr class="s9">
 <td nowrap>Signal Bits 1->0</td>
-<td class="rt">2067</td>
-<td class="rt">2020</td>
+<td class="rt">2066</td>
+<td class="rt">2019</td>
 <td class="rt">97.73 </td>
 </tr></table><br clear=all>
 <table align=left class="sortable noborder">
@@ -3149,7 +3149,21 @@ wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable</td>
 <td class="s9 cl">Yes</td>
 <td></td>
 </tr><tr>
-<td>reqo2wd_timout_table[4:0]</td>
+<td>reqo2wd_timout_table[0]</td>
+<td class="s9 cl">Yes</td>
+<td class="s9 cl">Yes</td>
+<td class="s9 cl">Yes</td>
+<td></td>
+</tr><tr>
+<td>reqo2wd_timout_table[1]</td>
+<td class="wht cl">Excluded</td>
+<td class="wht cl">Excluded</td>
+<td class="wht cl">Excluded</td>
+<td>rknp_xx2wa_head_d can only be asserted after accepting an
+unaligned WRW request. Therefore head_d implies opc==WRW and
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable</td>
+</tr><tr>
+<td>reqo2wd_timout_table[4:2]</td>
 <td class="s9 cl">Yes</td>
 <td class="s9 cl">Yes</td>
 <td class="s9 cl">Yes</td>
