@@ -35,14 +35,14 @@ class test_watchdog_normal_timeout extends axi_tniu_base_test;
     // Do not send the following requests until the timeout response has
     // actually left the DUT. This keeps only the first request timed out.
     // wait (env.sb.n_rsp_matched_final >= first_rsp_count + 1);
-
+    #100000ns
     // get_resp_delay() for the first AXI request has already captured 1100.
     // New requests use zero delay and return normally after the timeout packet.
     cfg.axi_min_resp_delay = 0;
     cfg.axi_max_resp_delay = 4;
 
     normal_seq = seq_norm_rd::type_id::create("normal_seq");
-    #100000ns
+    
     normal_seq.num_txn = 20;
     normal_seq.start(env.rknp_agt.sqr);
   endtask
