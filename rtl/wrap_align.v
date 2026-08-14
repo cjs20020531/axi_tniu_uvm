@@ -127,6 +127,8 @@ always @(posedge clk or negedge resetn) begin
             2'b01: begin
                 if (rwrap_cnt != 'd0)
                     rwrap_cnt <= #DLY rwrap_cnt - 1'b1;
+                else
+                    rwrap_cnt <= #DLY rwrap_cnt;
             end
             // Allocate+free in the same cycle, or no activity: hold the count.
             default: rwrap_cnt <= #DLY rwrap_cnt;

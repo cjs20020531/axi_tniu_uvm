@@ -35,36 +35,70 @@ reg [ADDR_WITH:0]   first_byte_addr;
 reg [ADDR_WITH:0]   last_byte_addr;
 reg [ADDR_WITH:0]   len_ext;
 
-always @(*) begin
-    // Assignment performs the required zero extension without assuming that
-    // ADDR_WITH is larger than LEN_WITH.
-    len_ext = len;
 
+generate 
     // COUNT_MODE=1 is used by the response path and aligns an INCR request to
     // the local data-word boundary before calculating its byte range.
-    if (COUNT_MODE == 1)
-        incr_first_addr = (addr >> WORD_SHIFT) << WORD_SHIFT;
-    else
-        incr_first_addr = addr;
+    if(COUNT_MODE == 1) begin
 
-    // Legal RKNP/AXI WRAP sizes are powers of two. Since len=size-1, len is
-    // also the low-bit mask used to obtain the wrap boundary.
-    wrap_mask       = len_ext[ADDR_WITH-1:0];
-    wrap_first_addr = addr & ~wrap_mask;
+        always @(*) begin
+            // Assignment performs the required zero extension without assuming that
+            // ADDR_WITH is larger than LEN_WITH.
+            len_ext = len;
+            incr_first_addr = (addr >> WORD_SHIFT) << WORD_SHIFT;
 
-    if (burst == 2'b00) begin
-        // INCR: the last transferred byte is first byte + len.
-        first_byte_addr = {1'b0, incr_first_addr};
-        last_byte_addr  = {1'b0, incr_first_addr} + len_ext;
+            // Legal RKNP/AXI WRAP sizes are powers of two. Since len=size-1, len is
+            // also the low-bit mask used to obtain the wrap boundary.
+            wrap_mask       = len_ext[ADDR_WITH-1:0];
+            wrap_first_addr = addr & ~wrap_mask;
+
+            if (burst == 2'b00) begin
+                // INCR: the last transferred byte is first byte + len.
+                first_byte_addr = {1'b0, incr_first_addr};
+                last_byte_addr  = {1'b0, incr_first_addr} + len_ext;
+            end
+            else begin
+                // WRAP: cover the complete wrap window [base, base+len].
+                first_byte_addr = {1'b0, wrap_first_addr};
+                last_byte_addr  = {1'b0, wrap_first_addr} + len_ext;
+            end
+
+            addr_begin = first_byte_addr >> BLOCK_SHIFT;
+            addr_end   = last_byte_addr  >> BLOCK_SHIFT;
+        end
+    end else begin
+
+        always @(*) begin
+            // Assignment performs the required zero extension without assuming that
+            // ADDR_WITH is larger than LEN_WITH.
+            len_ext = len;
+
+            incr_first_addr = addr;
+
+            // Legal RKNP/AXI WRAP sizes are powers of two. Since len=size-1, len is
+            // also the low-bit mask used to obtain the wrap boundary.
+            wrap_mask       = len_ext[ADDR_WITH-1:0];
+            wrap_first_addr = addr & ~wrap_mask;
+
+            if (burst == 2'b00) begin
+                // INCR: the last transferred byte is first byte + len.
+                first_byte_addr = {1'b0, incr_first_addr};
+                last_byte_addr  = {1'b0, incr_first_addr} + len_ext;
+            end
+            else begin
+                // WRAP: cover the complete wrap window [base, base+len].
+                first_byte_addr = {1'b0, wrap_first_addr};
+                last_byte_addr  = {1'b0, wrap_first_addr} + len_ext;
+            end
+
+            addr_begin = first_byte_addr >> BLOCK_SHIFT;
+            addr_end   = last_byte_addr  >> BLOCK_SHIFT;
+        end
     end
-    else begin
-        // WRAP: cover the complete wrap window [base, base+len].
-        first_byte_addr = {1'b0, wrap_first_addr};
-        last_byte_addr  = {1'b0, wrap_first_addr} + len_ext;
-    end
 
-    addr_begin = first_byte_addr >> BLOCK_SHIFT;
-    addr_end   = last_byte_addr  >> BLOCK_SHIFT;
-end
+endgenerate
+
+
+
 
 endmodule
