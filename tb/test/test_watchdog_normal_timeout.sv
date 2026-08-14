@@ -40,7 +40,9 @@ class test_watchdog_normal_timeout extends axi_tniu_base_test;
     // New requests use zero delay and return normally after the timeout packet.
     cfg.axi_min_resp_delay = 0;
     cfg.axi_max_resp_delay = 4;
-
+    
+    // 等到下降沿后再启动sequence，确保请求在下一个上升沿前稳定。
+    @(negedge env.rknp_agt.drv.vif.aclk);
     normal_seq = seq_norm_rd::type_id::create("normal_seq");
     
     normal_seq.num_txn = 20;
