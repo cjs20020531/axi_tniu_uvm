@@ -77,6 +77,19 @@ class rknp_driver extends uvm_driver #(rknp_seq_item);
           : 1;
     if (nword == 0) nword = 1;               // zero-length write : still 1 flit
 
+    // A sequence item may reach the driver at any simulation phase (for
+    // example, exactly on a negedge).  drv_cb has "output #1", therefore a
+    // clocking-block assignment made between drv_cb events is not applied
+    // until just after the next posedge.  If that same next posedge were used
+    // to test ready, the driver could falsely count an undriven flit as a
+    // handshake and let the following item overwrite it.
+    //
+    // Enter a drv_cb event first.  The first flit is then driven at its output
+    // skew and is guaranteed to remain on the interface until the following
+    // drv_cb event, where valid && ready may legitimately be evaluated.
+    @(vif.drv_cb);
+    if (!vif.aresetn) return;
+
     for (int w = 0; w < nword; w++) begin
       // Per RKNP: the head-portion fields [0 +: REQ_HEAD_LEN_OFFSET] are HELD on
       // every flit (NOT re-zeroed on body flits). Only the data region
@@ -112,9 +125,18 @@ class rknp_driver extends uvm_driver #(rknp_seq_item);
         )
       end
 
-      @(vif.drv_cb);
-      // If not accepted this cycle, HOLD the same flit unchanged until ready.
-      while (!vif.drv_cb.rxreq_ready) @(vif.drv_cb);
+      // Wait at least one complete drv_cb interval after presenting the flit.
+      // If it is not accepted, HOLD every request signal unchanged.
+      do begin
+        @(vif.drv_cb);
+        if (!vif.aresetn) begin
+          vif.drv_cb.rxreq_valid <= 1'b0;
+          vif.drv_cb.rxreq_head  <= 1'b0;
+          vif.drv_cb.rxreq_tail  <= 1'b0;
+          vif.drv_cb.rxreq_data  <= '0;
+          return;
+        end
+      end while (!vif.drv_cb.rxreq_ready);
       // accepted at this edge -> next iteration overwrites with the next flit
       // (no gap); after the last word we drop valid on the very next cycle.
     end

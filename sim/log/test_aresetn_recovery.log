@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_aresetn_recovery +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_aresetn_recovery_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_aresetn_recovery.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 14 13:53 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 14 20:19 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -82,7 +82,7 @@ axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_resp"
   Covergroup Instance: tb_top.me.obj.cg_resp 
   Design hierarchy: axi_tniu_pkg
 
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -135,7 +135,7 @@ RD[207]:
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 725000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=1 response_packets=1 final_rsp(raw/matched)=1/1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_aresetn_pulse.sv(40) @ 730000: uvm_test_top.env.vseqr@@reset_seq [RESET_SEQ] aresetn asserted for 5 cycles
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_aresetn_pulse.sv(61) @ 785000: uvm_test_top.env.vseqr@@reset_seq [RESET_SEQ] aresetn deasserted; reset pulse completed
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(104) @ 785000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 785000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -230,5 +230,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 11685000 ps
-CPU Time:      0.370 seconds;       Data structure size:   0.9Mb
-Fri Aug 14 13:53:51 2026
+CPU Time:      0.400 seconds;       Data structure size:   0.9Mb
+Fri Aug 14 20:19:16 2026

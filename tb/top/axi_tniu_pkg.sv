@@ -103,6 +103,7 @@ package axi_tniu_pkg;
   `include "test_watchdog_bufferable_1100.sv"
   `include "test_axi_rsp_error_mix.sv"
   `include "test_tag_name_toggle.sv"
+  `include "test_rwrap_stresstest.sv"
   
 
 endpackage : axi_tniu_pkg

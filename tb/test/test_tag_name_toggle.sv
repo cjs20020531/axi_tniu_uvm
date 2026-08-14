@@ -1,7 +1,7 @@
 // =============================================================================
 // File        : test_tag_name_toggle.sv
-// Description : Three directed allocation rounds that toggle every reachable
-//               AXID/opc/used bit in reqo2rspo_tag_name in both directions.
+// Description : Nine directed allocation rounds that toggle every reachable
+//               AXID/opc/used bit and all tag-count bits in both directions.
 // =============================================================================
 `ifndef TEST_TAG_NAME_TOGGLE_SV
 `define TEST_TAG_NAME_TOGGLE_SV
@@ -75,14 +75,26 @@ class test_tag_name_toggle extends axi_tniu_base_test;
   endtask
 
   virtual task run_testcase();
-    // For each physical tag_name entry:
-    //   round_a : AXID=i,  opc[2]=1
-    //   round_b : AXID=~i, opc[2]=0
-    //   round_c : AXID=i,  opc[2]=1
-    // Therefore every AXID bit and opc[2] toggles in both directions.
-    run_round("round_a_write", 1'b0, 1'b1);
-    run_round("round_b_read",  1'b1, 1'b0);
-    run_round("round_c_write", 1'b0, 1'b1);
+    // Each round fills all eight physical entries and then drains them before
+    // the next round.  req_order stores the current tag_cnt in head_buffer and
+    // increments the counter on the same request handshake, so a fresh
+    // simulation writes the following values in successive rounds:
+    //   0, 1, 2, 3, 4, 5, 6, 7, 0
+    // Nine rounds are therefore required to cover both 0->1 and 1->0 on
+    // tag_cnt[2] for every reqo2wd_timout_table entry.
+    //
+    // Alternating AXID inversion and direction also preserves the original
+    // purpose of this test: every reachable AXID bit and opc[2] toggles in
+    // both directions.
+    for (int unsigned round = 0; round < 9; round++) begin
+      run_round(
+        $sformatf("round_%0d_%s",
+                  round,
+                  ((round % 2) == 0) ? "write" : "read"),
+        ((round % 2) != 0),
+        ((round % 2) == 0)
+      );
+    end
   endtask
 
 endclass : test_tag_name_toggle

@@ -37,6 +37,7 @@ TEST_SEQUENCE=(
   test_watchdog_normal_timeout
   test_watchdog_bufferable_1100
   test_norm_mix_stresstest
+  test_rwrap_stresstest
   test_tag_name_toggle
 
   test_err_rd
