@@ -573,10 +573,18 @@ always @(posedge clk or negedge resetn) begin
 end
 
 wire [$clog2(NBYTEPERWORD)-1:0] addr_s2addr_begin_diff;
-wire [$clog2(NBYTEPERWORD)-1:0] addr_s2addr_end_diff;
+wire [$clog2(NBYTEPERWORD):0]   incr_advance_bytes;
 
 assign addr_s2addr_begin_diff = head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: $clog2(NBYTEPERWORD)] - rsp_addr_begin[$clog2(NBYTEPERWORD)-1:0];
-assign addr_s2addr_end_diff = rsp_addr_end[$clog2(NBYTEPERWORD)-1:0] - head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: $clog2(NBYTEPERWORD)];
+
+// For the first unaligned INCR beat, the number of consumed request bytes is
+// NBYTEPERWORD - address_offset.  rsp_addr_end is an inclusive last-byte
+// address, so subtracting current_addr from it loses one byte and caused the
+// observed 0x...579 -> 0x...57e update instead of 0x...580.
+assign incr_advance_bytes =
+    (addr_s2addr_begin_diff != 'd0) ?
+        NBYTEPERWORD - {1'b0, addr_s2addr_begin_diff} :
+        NBYTEPERWORD;
 
 integer c;
 always @(posedge clk or negedge resetn) begin
@@ -588,20 +596,25 @@ always @(posedge clk or negedge resetn) begin
             head_buffer[rsp_head_buff_index][0] <= #DLY 1'b0; //将rsp_head_buff_index的used位清0
             head_buffer[rsp_head_buff_index][BUFF_TIMOUT_OFFSET] <= #DLY 1'b0; 
         end
-        if(rspo2reqo_rhead_en == 1'b1) begin   //更新status/addr/len
-            head_buffer[rsp_head_buff_index][BUFF_STAT_OFFSET +: 2] <= #DLY CONT; 
+        if(rspo2reqo_rhead_en == 1'b1) begin   //每个response packet的HEAD更新status
+            head_buffer[rsp_head_buff_index][BUFF_STAT_OFFSET +: 2] <= #DLY CONT;
             if(rspo2reqo_timout == 1'b1) begin
-                head_buffer[rsp_head_buff_index][BUFF_TIMOUT_OFFSET] <= #DLY 1'b1; 
+                head_buffer[rsp_head_buff_index][BUFF_TIMOUT_OFFSET] <= #DLY 1'b1;
             end
+        end
+
+        // 地址必须按每个被接收的AXI读响应beat推进，而不能只在RKNP packet
+        // 的HEAD推进。一个packet可能包含多个连续beat；只更新一次会使下一
+        // 个交织packet的header地址落后一个或多个NBYTEPERWORD。
+        if(rspo2reqo_rsp_valid == 1'b1 &&
+           rspo2reqo_head_index[TAG_CNT_WITH +: 2] == 2'b00) begin
             if(head_buffer[rsp_head_buff_index][BUFF_BURST_OFFSET +: 2] == 2'b00) begin  //INCR类型
-                if(addr_s2addr_begin_diff != 'd0) begin// 如果地址非对齐
-                    head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH] 
-                                                <= #DLY head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH] + addr_s2addr_end_diff;
-                    head_buffer[rsp_head_buff_index][BUFF_LEN_OFFSET +: 8] <= #DLY head_buffer[rsp_head_buff_index][BUFF_LEN_OFFSET +: 8] - addr_s2addr_end_diff;
-                end else begin
-                    head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH] <= #DLY head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH] + NBYTEPERWORD;
-                    head_buffer[rsp_head_buff_index][BUFF_LEN_OFFSET +: 8] <= #DLY head_buffer[rsp_head_buff_index][BUFF_LEN_OFFSET +: 8] - NBYTEPERWORD;
-                end
+                head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH]
+                    <= #DLY head_buffer[rsp_head_buff_index][BUFF_ADDR_OFFSET +: ADDR_WITH]
+                              + incr_advance_bytes;
+                head_buffer[rsp_head_buff_index][BUFF_LEN_OFFSET +: LEN_WITH]
+                    <= #DLY head_buffer[rsp_head_buff_index][BUFF_LEN_OFFSET +: LEN_WITH]
+                              - incr_advance_bytes;
             end
             else begin   //WRAP类型
                 // rsp_addr_end is the address of the last valid byte, while

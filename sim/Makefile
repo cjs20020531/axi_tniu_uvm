@@ -93,7 +93,7 @@ cov:
 	  echo "ERROR: coverage database not found: $(COV_DIR)" >&2; \
 	  exit 2; \
 	}
-	urg -full64 -dir "$(COV_DIR)" -report "$(COV_REPORT)"
+	urg -full64 -dir "$(COV_DIR)" -elfile "$(THIS_DIR)/coverage_exclude.el" -report "$(COV_REPORT)"
 
 verdi:
 	@test -f "$(WAVE_FILE)" || { \

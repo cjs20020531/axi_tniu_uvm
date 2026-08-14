@@ -66,6 +66,7 @@ package axi_tniu_pkg;
   `include "seq_addrol_waw.sv"
   `include "seq_addrol_raw.sv"
   `include "seq_axi_rsp_error_mix.sv"
+  `include "seq_tag_name_toggle.sv"
   `include "seq_mix.sv"
   `include "vseq_base.sv"
 
@@ -101,6 +102,7 @@ package axi_tniu_pkg;
   `include "test_watchdog_normal_timeout.sv"
   `include "test_watchdog_bufferable_1100.sv"
   `include "test_axi_rsp_error_mix.sv"
+  `include "test_tag_name_toggle.sv"
   
 
 endpackage : axi_tniu_pkg

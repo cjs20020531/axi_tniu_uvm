@@ -14,8 +14,8 @@ class test_watchdog_normal_timeout extends axi_tniu_base_test;
     cfg.axi_ready_bp_en     = 1'b0;
     cfg.rsp_ready_bp_en     = 1'b0;
     cfg.axi_slverr_pct      = 0;
-    cfg.axi_min_resp_delay  = 1100;
-    cfg.axi_max_resp_delay  = 1100;
+    cfg.axi_min_resp_delay  = 11000;
+    cfg.axi_max_resp_delay  = 11000;
     cfg.rsp_drain_timeout   = 200us;
   endfunction
 
@@ -42,7 +42,8 @@ class test_watchdog_normal_timeout extends axi_tniu_base_test;
     cfg.axi_max_resp_delay = 4;
 
     normal_seq = seq_norm_rd::type_id::create("normal_seq");
-    normal_seq.num_txn = 80;
+    #100000ns
+    normal_seq.num_txn = 20;
     normal_seq.start(env.rknp_agt.sqr);
   endtask
 

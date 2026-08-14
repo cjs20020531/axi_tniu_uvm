@@ -614,6 +614,16 @@ reg [2:0]            rsp_errcode;
 reg [1:0]            rsp_status;
 reg [9*NBYTEPERWORD:0] rsp_data;
 
+// Keep the complete req_order lookup key for the current normal response
+// packet.  rsp_trans only guarantees a new AXID/OPC on HEAD; body flits must
+// continue to update the same head-buffer entry even when another AXID is
+// interleaved afterwards.
+wire [AXID_WITH+TAG_CNT_WITH+1:0] norm_rsp_head_index;
+assign norm_rsp_head_index =
+    (rspt2rspo_head == 1'b1) ?
+        {rspt2rspo_axid, rspt2rspo_opc, tag_cnt[tag_name_index]} :
+        {rsp_axid,       rsp_opc,       tag_cnt[tag_name_index_d]};
+
 always @(posedge clk or negedge resetn) begin
     if(resetn == 1'b0) begin
         rsp_axid <= #DLY 'd0;
@@ -1229,9 +1239,7 @@ generate
                     del_head_en = 1'b1;
                 end
             end else if(cur_state == NORM_RSP) begin
-                rspo2reqo_head_index =
-                    {rspt2rspo_axid, rspt2rspo_opc,
-                     tag_cnt[tag_name_index]};
+                rspo2reqo_head_index = norm_rsp_head_index;
                 rspo2reqo_rhead_en =
                     rspt2rspo_head && rspt2rspo_valid &&
                     rspo2rspt_ready;
@@ -1268,9 +1276,7 @@ generate
                 end
             end else if(cur_state == NORM_RSP) begin
                 if(buff_rsp_flag == 1'b0) begin
-                    rspo2reqo_head_index =
-                        {rspt2rspo_axid, rspt2rspo_opc,
-                         tag_cnt[tag_name_index]};
+                    rspo2reqo_head_index = norm_rsp_head_index;
                     rspo2reqo_rhead_en =
                         rspt2rspo_head && rspt2rspo_valid &&
                         rspo2rspt_ready;
@@ -1294,8 +1300,12 @@ endgenerate
 
 
 always @(*) begin
-    if(cur_state == NORM_RSP && spec_dispatch_en == 1'b0)
-        rspo2reqo_rsp_valid = rspo2rknp_xx_valid;
+    // This signal is an accepted AXI response-flit event, not merely a
+    // level copy of the registered RKNP output valid.  req_order uses it to
+    // advance the saved response address once for every physical read beat.
+    if(cur_state == NORM_RSP && spec_dispatch_en == 1'b0 &&
+       buff_rsp_flag == 1'b0)
+        rspo2reqo_rsp_valid = rspt2rspo_valid && rspo2rspt_ready;
     else
         rspo2reqo_rsp_valid = 1'b0;
 end
