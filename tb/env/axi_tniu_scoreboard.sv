@@ -92,7 +92,10 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
   axi_tniu_expect exp_w_q[$];
   axi_seq_item    obs_w_q[$];
 
-  // Pending SLVERR/DECERR flags captured on B/R and consumed at final RKNP rsp.
+  // Pending write-side SLVERR/DECERR flags captured on B and consumed at the
+  // final RKNP write response. Read-side errors are stored directly in the
+  // corresponding axi_tniu_expect because an interleaved read can finish with
+  // ST_CONT rather than repeating ST_ERR on its final packet.
   bit err_pending [axi_tniu_protocol_pkg::axi_id_t][$];
 
   // Expected address of the next RKNP response packet for each source
@@ -681,6 +684,51 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
       n_pass++;
   endfunction
 
+  // Cross-check the AXI read completion status against the FIRST RKNP response
+  // packet. This deliberately does not use the final RKNP packet: after a read
+  // has been interleaved, resumed packets must carry ST_CONT even if the AXI
+  // read transaction completed with SLVERR/DECERR.
+  //
+  // The AXI monitor publishes the R transaction at RLAST while the RKNP monitor
+  // may publish an earlier response packet first. The shared expectation object
+  // makes this check callback-order independent.
+  function void try_check_read_rsp_status(axi_tniu_expect e);
+    axi_tniu_protocol_pkg::status_e expected_status;
+
+    if (e == null ||
+        e.rsp_opc != axi_tniu_protocol_pkg::RSP_OPC_RD ||
+        !e.axi_valid ||
+        e.rsp_was_timeout ||
+        !e.rsp_final_seen ||
+        !e.axi_rsp_seen ||
+        !e.first_rsp_seen ||
+        e.first_rsp_axi_checked)
+      return;
+
+    e.first_rsp_axi_checked = 1'b1;
+    expected_status = e.axi_rsp_error ?
+                      axi_tniu_protocol_pkg::ST_ERR :
+                      axi_tniu_protocol_pkg::ST_OK;
+
+    if (e.first_rsp_status !== expected_status) begin
+      `uvm_error("C-ERR-02", $sformatf(
+        {" No.%0d AXI read response status mismatch: AxID=%0h ",
+         "AXI_error=%0b expected first RKNP status=%s got=%s"},
+        e.txn_no, e.axid, e.axi_rsp_error,
+        expected_status.name(), e.first_rsp_status.name()))
+      n_fail++;
+    end
+
+    if (e.axi_rsp_error &&
+        e.first_rsp_errcode !== axi_tniu_protocol_pkg::EC_TARGET) begin
+      `uvm_error("C-ERR-02", $sformatf(
+        {" No.%0d AXI SLVERR/DECERR on AxID=%0h requires EC_TARGET on ",
+         "the first RKNP response packet, got %s"},
+        e.txn_no, e.axid, e.first_rsp_errcode.name()))
+      n_fail++;
+    end
+  endfunction
+
   // ===========================================================================
   // AXI B: capture SLVERR/DECERR for error upgrade
   // ===========================================================================
@@ -757,18 +805,18 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
       pending_r_q.delete(t.id);
 
     // A response arriving after watchdog timeout must be consumed, but it must
-    // not overwrite the already-checked zero timeout body or contaminate the
-    // next same-ID transaction through err_pending.
+    // not overwrite the already-checked zero timeout body. For a normal read,
+    // bind the AXI completion status to this exact expectation instead of using
+    // the shared err_pending queue (which is write-side only).
     if (!e.rsp_was_timeout) begin
-      if (t.resp == 2'b10 || t.resp == 2'b11) begin
+      e.axi_rsp_seen  = 1'b1;
+      e.axi_rsp_error = (t.resp == 2'b10 || t.resp == 2'b11);
+
+      if (e.axi_rsp_error)
         n_slverr++;
-        err_pending[t.id].push_back(1);
-      end
-      else begin
-        err_pending[t.id].push_back(0);
-      end
 
       build_expected_read_body(e, t, 1'b0);
+      try_check_read_rsp_status(e);
     end
   endfunction
 
@@ -811,8 +859,8 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
       return;
     end
 
-    // ST_CONT belongs to the transaction at the queue head but does not finish
-    // it. Only a final ST_OK/ST_ERR response removes the expectation.
+    // Every packet, including ST_CONT continuation packets, belongs to the
+    // transaction at the queue head. LW, not status, determines retirement.
     e = exp_rsp_q[key][0];
 
     if (e == null) begin
@@ -898,6 +946,37 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
       end
     end
 
+    // RKNP read status semantics:
+    //   packet 0                  : ST_OK or ST_ERR
+    //   packet 1..N after resume  : ST_CONT
+    //
+    // Save packet-0 status for the deferred AXI-R cross-check. Do not require
+    // the final packet to repeat ST_ERR: after interleaving, the final packet
+    // is a continuation and therefore legitimately carries ST_CONT.
+    if (e.rsp_opc == axi_tniu_protocol_pkg::RSP_OPC_RD) begin
+      if (e.rsp_packet_count == 0) begin
+        e.first_rsp_seen    = 1'b1;
+        e.first_rsp_status  = t.rsp_status;
+        e.first_rsp_errcode = t.rsp_errcode;
+
+        if (t.rsp_status === axi_tniu_protocol_pkg::ST_CONT) begin
+          `uvm_error("C-RSP-HDR", $sformatf(
+            " No.%0d first RKNP read response packet must be ST_OK/ST_ERR, got ST_CONT",
+            e.txn_no))
+          n_fail++;
+          check_pass = 0;
+        end
+      end
+      else if (t.rsp_status !== axi_tniu_protocol_pkg::ST_CONT) begin
+        `uvm_error("C-RSP-HDR", $sformatf(
+          {" No.%0d RKNP read continuation packet[%0d] must be ST_CONT ",
+           "after interleaving, got %s (lw=%0b)"},
+          e.txn_no, e.rsp_packet_count, t.rsp_status.name(), t.rsp_lw))
+        n_fail++;
+        check_pass = 0;
+      end
+    end
+
     // One RKNP transaction may be split into several response packets by read
     // interleaving. Keep accumulating until the packet whose LW is one.
     if (e.rsp_opc == axi_tniu_protocol_pkg::RSP_OPC_RD) begin
@@ -934,7 +1013,8 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
     e.rsp_packet_count++;
 
     // Intermediate response packet: LW=0 means this RKNP transaction still
-    // has response flits to come, regardless of ST_OK/ST_CONT.
+    // has response flits to come. Status was checked above according to whether
+    // this is the first packet or a resumed continuation packet.
     if (t.rsp_lw == 1'b0) begin
       if (check_pass)
         n_pass++;
@@ -962,6 +1042,10 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
         // complete the comparison when the R burst later becomes available.
         try_compare_read_body(e);
       end
+
+      // The first RKNP status may have arrived before or after AXI RLAST.
+      // Compare only once both complete observations are available.
+      try_check_read_rsp_status(e);
     end
 
     // Final response: remove expectation.
@@ -973,7 +1057,11 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
 
     next_rsp_addr_by_txn.delete(e.txn_no);
 
-    // C-ERR-02: ERR request must reflect the predicted error.
+    // C-ERR-02:
+    //   * Locally-generated request errors still use the final packet check.
+    //   * Write-side AXI B errors are still checked on the final write response.
+    //   * Read-side AXI R errors were checked against the FIRST read packet by
+    //     try_check_read_rsp_status(); an interleaved final packet may be CONT.
     if (e.rsp_status == axi_tniu_protocol_pkg::ST_ERR) begin
       if (t.rsp_status !== axi_tniu_protocol_pkg::ST_ERR) begin
         `uvm_error("C-ERR-02", $sformatf(
@@ -989,8 +1077,8 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
         check_pass = 0;
       end
     end
-    else begin
-      // Non-error request: expected OK unless AXI completion forced an upgrade.
+    else if (e.rsp_opc == axi_tniu_protocol_pkg::RSP_OPC_WR) begin
+      // Non-error write request: expected OK unless AXI B forced an upgrade.
       if (err_pending.exists(e.axid) && err_pending[e.axid].size() > 0)
         upgraded = err_pending[e.axid].pop_front();
 

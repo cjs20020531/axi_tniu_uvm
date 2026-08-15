@@ -75,15 +75,37 @@ class axi_tniu_expect extends uvm_object;
   bit                                 rsp_was_timeout;
   int unsigned                        rsp_packet_count;
 
+  // Read-response status bookkeeping.
+  //
+  // RKNP status is meaningful on the first response packet (OK/ERR). Once a
+  // read transaction has been interrupted/interleaved, every resumed packet
+  // carries ST_CONT, including a packet with LW=1. The AXI monitor publishes
+  // an R transaction only after RLAST, so the first RKNP packet can be observed
+  // before the scoreboard knows whether the AXI burst ended in SLVERR/DECERR.
+  // Keep both observations on the shared expectation object and cross-check
+  // them only when both sides are available.
+  bit                                 axi_rsp_seen;
+  bit                                 axi_rsp_error;
+  bit                                 first_rsp_seen;
+  axi_tniu_protocol_pkg::status_e     first_rsp_status;
+  axi_tniu_protocol_pkg::errcode_e    first_rsp_errcode;
+  bit                                 first_rsp_axi_checked;
+
   `uvm_object_utils(axi_tniu_expect)
 
   function new(string name = "axi_tniu_expect");
     super.new(name);
-    rsp_body_ready   = 1'b0;
-    rsp_final_seen   = 1'b0;
-    rsp_body_checked = 1'b0;
-    rsp_was_timeout  = 1'b0;
-    rsp_packet_count = 0;
+    rsp_body_ready        = 1'b0;
+    rsp_final_seen        = 1'b0;
+    rsp_body_checked      = 1'b0;
+    rsp_was_timeout       = 1'b0;
+    rsp_packet_count      = 0;
+    axi_rsp_seen          = 1'b0;
+    axi_rsp_error         = 1'b0;
+    first_rsp_seen        = 1'b0;
+    first_rsp_status      = axi_tniu_protocol_pkg::ST_OK;
+    first_rsp_errcode     = axi_tniu_protocol_pkg::EC_TARGET;
+    first_rsp_axi_checked = 1'b0;
   endfunction
 endclass : axi_tniu_expect
 
@@ -172,7 +194,7 @@ class axi_tniu_refmodel extends uvm_component;
       e.rsp_errcode = axi_tniu_protocol_pkg::EC_ADDR_DEC;
     end else begin
       e.axi_valid   = 1;
-      e.rsp_status  = axi_tniu_protocol_pkg::ST_OK;         // may be upgraded to ERR by SLVERR
+      e.rsp_status  = axi_tniu_protocol_pkg::ST_OK;         // AXI-R error is checked against first RKNP rsp packet
       e.rsp_errcode = req.errcode;
     end
 
