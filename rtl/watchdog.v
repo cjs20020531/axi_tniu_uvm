@@ -27,7 +27,7 @@ module watchdog#(
     
 );
 localparam TIMER_CNT_MAX = TIMOUT_VALUE*2;      //计数器最大值
-localparam TIMER_CNT_WITH = $clog2(TIMER_CNT_MAX)+1; 
+localparam TIMER_CNT_WITH = $clog2(TIMER_CNT_MAX+1); 
 localparam INDEX_WITH = $clog2(TIMOUT_TABLE_DEEP);
 
 //----------------------------------------------------------------------------------

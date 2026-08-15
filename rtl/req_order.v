@@ -849,7 +849,7 @@ always @(posedge clk or negedge resetn) begin
         reqo2wd_opc <= #DLY 'd0;
     end else if(rknp_xx2reqo_head == 1'b1 && reqo2rknp_xx_ready == 1'b1) begin
         reqo2wd_axid <= #DLY axid;
-        reqo2wd_opc <= #DLY opc;
+        reqo2wd_opc <= #DLY opc[3:2];
     end
 end
 

@@ -70,6 +70,7 @@ package axi_tniu_pkg;
   `include "seq_rsp_order_deep_followers.sv"
   `include "seq_rsp_order_high_firstflag.sv"
   `include "seq_watchdog_multi_timeout_cov.sv"
+  `include "seq_watchdog_fifo_full_cov.sv"
   `include "seq_mix.sv"
   `include "vseq_base.sv"
 
@@ -106,6 +107,7 @@ package axi_tniu_pkg;
   `include "test_watchdog_bufferable_1100.sv"
   `include "test_watchdog_multi_timeout_cov.sv"
   `include "test_watchdog_timer_wrap_cov.sv"
+  `include "test_watchdog_fifo_full_cov.sv"
   `include "test_axi_rsp_error_mix.sv"
   `include "test_tag_name_toggle.sv"
   `include "test_rwrap_stresstest.sv"

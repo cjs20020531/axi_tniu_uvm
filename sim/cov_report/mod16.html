@@ -129,10 +129,10 @@ $(document).ready(function () {
 <table align=left>
 <tr class="sortablehead">
 <td>SCORE</td><td>LINE</td><td>COND</td><td>TOGGLE</td><td>FSM</td><td>BRANCH</td><td>ASSERT</td><td class="alfsrt">NAME</td></tr><tr>
-<td class="s9 cl rt"> 98.80</td>
+<td class="s9 cl rt"> 98.91</td>
 <td class="wht cl rt"></td>
 <td class="wht cl rt"></td>
-<td class="s9 cl rt"> 98.80</td>
+<td class="s9 cl rt"> 98.91</td>
 <td class="wht cl rt"></td>
 <td class="wht cl rt"></td>
 <td class="wht cl rt"></td>
@@ -937,7 +937,7 @@ Line Coverage for Module : <a href="mod16.html" >req_order</a><br clear=all>
 849        1/1                  reqo2wd_opc &lt;= #DLY 'd0;
 850        1/1              end else if(rknp_xx2reqo_head == 1'b1 &amp;&amp; reqo2rknp_xx_ready == 1'b1) begin
 851        1/1                  reqo2wd_axid &lt;= #DLY axid;
-852        1/1                  reqo2wd_opc &lt;= #DLY opc;
+852        1/1                  reqo2wd_opc &lt;= #DLY opc[3:2];
 853                         end
                         MISSING_ELSE
 854                     end
@@ -6713,7 +6713,7 @@ Branch Coverage for Module : <a href="mod16.html" >req_order</a><br clear=all>
                         <font color = "green">-2-</font>  
 851                reqo2wd_axid <= #DLY axid;
            <font color = "green">        ==></font>
-852                reqo2wd_opc <= #DLY opc;
+852                reqo2wd_opc <= #DLY opc[3:2];
 853            end
                MISSING_ELSE
            <font color = "green">    ==></font>
@@ -7866,7 +7866,7 @@ Branch Coverage for Module : <a href="mod16.html" >req_order</a><br clear=all>
 849        1/1                  reqo2wd_opc &lt;= #DLY 'd0;
 850        1/1              end else if(rknp_xx2reqo_head == 1'b1 &amp;&amp; reqo2rknp_xx_ready == 1'b1) begin
 851        1/1                  reqo2wd_axid &lt;= #DLY axid;
-852        1/1                  reqo2wd_opc &lt;= #DLY opc;
+852        1/1                  reqo2wd_opc &lt;= #DLY opc[3:2];
 853                         end
                         MISSING_ELSE
 854                     end
@@ -13756,7 +13756,7 @@ wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable</td>
                         <font color = "green">-2-</font>  
 851                reqo2wd_axid <= #DLY axid;
            <font color = "green">        ==></font>
-852                reqo2wd_opc <= #DLY opc;
+852                reqo2wd_opc <= #DLY opc[3:2];
 853            end
                MISSING_ELSE
            <font color = "green">    ==></font>

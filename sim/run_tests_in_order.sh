@@ -38,6 +38,7 @@ TEST_SEQUENCE=(
   test_watchdog_bufferable_1100
   test_watchdog_multi_timeout_cov
   test_watchdog_timer_wrap_cov
+  test_watchdog_fifo_full_cov
   test_norm_mix_stresstest
   test_rwrap_stresstest
   test_tag_name_toggle

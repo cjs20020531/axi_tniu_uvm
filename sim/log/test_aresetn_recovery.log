@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_aresetn_recovery +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_aresetn_recovery_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_aresetn_recovery.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 15 19:47 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 15 22:05 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -82,7 +82,7 @@ axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_resp"
   Covergroup Instance: tb_top.me.obj.cg_resp 
   Design hierarchy: axi_tniu_pkg
 
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -95,7 +95,7 @@ RKNP-REQ
  len=198(=199B) 
  addr=0x3250d26c 
  user=0x02a(rknp=0 axi=0 lock=0 port=0x2 cache=0xa)
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 715000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1 latency=8 cycles (80 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 755000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -132,10 +132,10 @@ RD[207]:
     2b  2a  29  28  27  26  25  24
     33  32  31  30  2f  2e  2d  2c
     3b-  3a-  39-  38-  37-  36  35  34
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 725000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=1 response_packets=1 final_rsp(raw/matched)=1/1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_aresetn_pulse.sv(40) @ 730000: uvm_test_top.env.vseqr@@reset_seq [RESET_SEQ] aresetn asserted for 5 cycles
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_aresetn_pulse.sv(61) @ 785000: uvm_test_top.env.vseqr@@reset_seq [RESET_SEQ] aresetn deasserted; reset pulse completed
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 785000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 765000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=1 response_packets=1 final_rsp(raw/matched)=1/1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_aresetn_pulse.sv(40) @ 770000: uvm_test_top.env.vseqr@@reset_seq [RESET_SEQ] aresetn asserted for 5 cycles
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_aresetn_pulse.sv(61) @ 825000: uvm_test_top.env.vseqr@@reset_seq [RESET_SEQ] aresetn deasserted; reset pulse completed
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 825000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -148,7 +148,7 @@ RKNP-REQ
  len=252(=253B) 
  addr=0xec53a097 
  user=0x0ea(rknp=0 axi=0 lock=1 port=0x6 cache=0xa)
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1675000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2 latency=9 cycles (90 ns)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1695000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2 latency=7 cycles (70 ns)
 
 RKNP-RSP 
  opc=RSP_OPC_RD 
@@ -192,8 +192,8 @@ RD[263]:
     8e  8d  8c  8b  8a  89  88  87
     96  95  94  93  92  91  90  8f
     9e-  9d-  9c-  9b-  9a  99  98  97
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 1685000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=2 response_packets=2 final_rsp(raw/matched)=2/2
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1312) @ 11685000: uvm_test_top.env.sb [SB] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 1705000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=2 response_packets=2 final_rsp(raw/matched)=2/2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1312) @ 11705000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
   REQ=2  RSP_PKT=2  RSP_FINAL(raw/matched)=2/2
   AW=0 AR=2 W=0 B=0/0 R=2/2
@@ -203,8 +203,8 @@ UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1312) @ 116
   pending_exp_W=0 pending_obs_W=0
   PASS=6  FAIL=0
 =====================================
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(126) @ 11685000: uvm_test_top [RESULT] *** TEST PASSED ***
-UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 11685000: reporter [UVM/REPORT/SERVER] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(126) @ 11705000: uvm_test_top [RESULT] *** TEST PASSED ***
+UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 11705000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
@@ -223,12 +223,12 @@ UVM_FATAL :    0
 [UVM/RELNOTES]     1
 
 $finish called from file "/home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh", line 527.
-$finish at simulation time             11685000
+$finish at simulation time             11705000
 
 ---------------------------------------------------------------------------
 VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 11685000 ps
-CPU Time:      0.370 seconds;       Data structure size:   0.9Mb
-Sat Aug 15 19:47:19 2026
+Time: 11705000 ps
+CPU Time:      0.400 seconds;       Data structure size:   0.9Mb
+Sat Aug 15 22:05:42 2026

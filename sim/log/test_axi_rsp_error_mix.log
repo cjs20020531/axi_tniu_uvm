@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_axi_rsp_error_mix +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_axi_rsp_error_mix_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_axi_rsp_error_mix.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 15 19:47 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 15 22:05 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -83,7 +83,7 @@ axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_resp"
   Design hierarchy: axi_tniu_pkg
 
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(74) @ 0: uvm_test_top [AXI_RSP_CASE] Start read_okay_1  dir= READ expected_resp=00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -113,7 +113,7 @@ RD[31]:
     7f  7e  7d  7c  7b  7a  79  78
     87  86  85  84  83  82  81  80
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(74) @ 205000: uvm_test_top [AXI_RSP_CASE] Start read_slverr  dir= READ expected_resp=10
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 215000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 215000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -143,7 +143,7 @@ RD[31]:
     c7  c6  c5  c4  c3  c2  c1  c0
     cf  ce  cd  cc  cb  ca  c9  c8
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(74) @ 335000: uvm_test_top [AXI_RSP_CASE] Start read_okay_2  dir= READ expected_resp=00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 345000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 345000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -173,7 +173,7 @@ RD[31]:
     37  36  35  34  33  32  31  30
     3f  3e  3d  3c  3b  3a  39  38
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(74) @ 475000: uvm_test_top [AXI_RSP_CASE] Start read_decerr  dir= READ expected_resp=11
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 485000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 485000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -203,7 +203,7 @@ RD[31]:
     ef  ee  ed  ec  eb  ea  e9  e8
     f7  f6  f5  f4  f3  f2  f1  f0
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(74) @ 645000: uvm_test_top [AXI_RSP_CASE] Start read_okay_3  dir= READ expected_resp=00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 655000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.5
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 655000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.5
 
 RKNP-REQ 
  opc=OPC_RD 
@@ -233,7 +233,7 @@ RD[31]:
     6f  6e  6d  6c  6b  6a  69  68
     77  76  75  74  73  72  71  70
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(74) @ 765000: uvm_test_top [AXI_RSP_CASE] Start write_okay_1 dir=WRITE expected_resp=00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 775000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 775000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.6
 
 RKNP-REQ 
  opc=OPC_WR 
@@ -263,7 +263,7 @@ RKNP-RSP
  addr=0xcd385c68 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(74) @ 855000: uvm_test_top [AXI_RSP_CASE] Start write_slverr dir=WRITE expected_resp=10
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 865000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.7
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 865000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.7
 
 RKNP-REQ 
  opc=OPC_WR 
@@ -293,7 +293,7 @@ RKNP-RSP
  addr=0x48adbe48 
  lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(74) @ 945000: uvm_test_top [AXI_RSP_CASE] Start write_okay_2 dir=WRITE expected_resp=00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 955000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.8
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 955000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.8
 
 RKNP-REQ 
  opc=OPC_WR 
@@ -323,7 +323,7 @@ RKNP-RSP
  addr=0x2d8130d0 
  lw=1
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(74) @ 1055000: uvm_test_top [AXI_RSP_CASE] Start write_decerr dir=WRITE expected_resp=11
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 1065000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.9
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 1065000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.9
 
 RKNP-REQ 
  opc=OPC_WR 
@@ -353,7 +353,7 @@ RKNP-RSP
  addr=0x37eb17a0 
  lw=1 errc=EC_TARGET
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv(74) @ 1175000: uvm_test_top [AXI_RSP_CASE] Start write_okay_3 dir=WRITE expected_resp=00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(117) @ 1185000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.10
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 1185000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.10
 
 RKNP-REQ 
  opc=OPC_WR 
@@ -420,5 +420,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 11305000 ps
-CPU Time:      0.450 seconds;       Data structure size:   0.9Mb
-Sat Aug 15 19:47:36 2026
+CPU Time:      0.380 seconds;       Data structure size:   0.9Mb
+Sat Aug 15 22:05:58 2026
