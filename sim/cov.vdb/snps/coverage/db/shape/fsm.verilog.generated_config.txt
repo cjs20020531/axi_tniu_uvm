@@ -1,6 +1,6 @@
 // Synopsys, Inc.
 // User: ICer
-// Date: Sat Aug 15 13:45:44 2026
+// Date: Sat Aug 15 15:24:49 2026
 
 // ==================================================================================================
 // This config file prototype is produced from the last run using the complete list of extracted fsms.
@@ -74,3 +74,12 @@
 //SEQ_NUMBER_MAX=10000
 //SEQ_LENGTH_MAX=32
 
+MODULE=rsp_trans
+CURRENT=rbuf_count
+NEXT=rbuf_count
+STATES='h0,'h1,'h2
+TRANSITIONS='h0->'h1,
+'h1->'h0,
+'h1->'h2,
+'h2->'h0,
+'h2->'h1

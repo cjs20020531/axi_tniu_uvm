@@ -56,7 +56,11 @@ TEST_SEQUENCE=(
   test_addrol_waw
   test_addrol_raw
   test_axi_rsp_error_mix
+  test_rsp_order_deep_followers
+  test_rsp_order_high_firstflag
   test_mix
+
+  
 )
 
 # 仿真参数。也可以通过命令行 --seed/--verbosity 临时覆盖。

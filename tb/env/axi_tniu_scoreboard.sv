@@ -996,7 +996,12 @@ class axi_tniu_scoreboard extends uvm_scoreboard;
       if (!t.rsp_lw) begin
         expected_addr = next_rsp_addr_by_txn[e.txn_no];
 
-        if (e.req.is_wrap()) begin
+        // Use the post-conversion AXI burst type rather than the original
+        // RKNP opcode. A short RDW/WRW (len <= 6, i.e. <= 7 payload bytes)
+        // is converted by the TNIU/refmodel to AXI INCR, so its continuation
+        // response address must advance linearly. Only a real AXI WRAP burst
+        // is allowed to roll over inside the wrap window.
+        if (e.axburst == 2'b10) begin
           wrap_bytes  = longint'(e.req.len) + 1;
           wrap_base   = longint'(e.req.addr) & ~(wrap_bytes - 1);
           wrap_offset = (expected_addr - wrap_base + packet_valid_bytes) %

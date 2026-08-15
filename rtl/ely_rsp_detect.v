@@ -41,7 +41,7 @@ module ely_rsp_detect#(
     ,output                             erd2rspo_valid
     ,input                              rspo2erd_ready
     ,output      [AXID_WITH-1:0]        erd2rspo_axid
-    ,output      [AUSER_WITH:0]         erd2rspo_auser
+    ,output      [AUSER_WITH-1:0]       erd2rspo_auser
     ,output      [1:0]                  erd2rspo_opc
     ,output      [2:0]                  erd2rspo_errcode
     ,output      [1:0]                  erd2rspo_status

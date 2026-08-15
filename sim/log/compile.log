@@ -3,7 +3,7 @@ Command: vcs -full64 -sverilog -timescale=1ns/1ps -ntb_opts uvm-1.2 +vcs+lic+wai
 -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -f axi_tniu.f -top tb_top -o /home/ICer/RKNoC/axi_tniu_uvm/sim/simv \
 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/compile.log
                          Chronologic VCS (TM)
-       Version O-2018.09-SP2_Full64 -- Sat Aug 15 13:45:42 2026
+       Version O-2018.09-SP2_Full64 -- Sat Aug 15 15:24:47 2026
                Copyright (c) 1991-2018 by Synopsys Inc.
                          ALL RIGHTS RESERVED
 
@@ -12,7 +12,7 @@ and may be used and disclosed only as authorized in a license agreement
 controlling such use and disclosure.
 
                          Chronologic VCS (TM)
-       Version O-2018.09-SP2_Full64 -- Sat Aug 15 13:45:42 2026
+       Version O-2018.09-SP2_Full64 -- Sat Aug 15 15:24:47 2026
                Copyright (c) 1991-2018 by Synopsys Inc.
                          ALL RIGHTS RESERVED
 
@@ -858,6 +858,10 @@ Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_axi_rsp_erro
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_tag_name_toggle.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_rsp_order_deep_followers.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_rsp_order_high_firstflag.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_mix.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/vseq_base.sv'.
@@ -875,10 +879,6 @@ Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_wrw.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_mix.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_rd.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_wr.sv'.
 e/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_norm_wr.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_norm_rdw.sv'.
@@ -913,6 +913,10 @@ Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_axi_rsp_erro
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_tag_name_toggle.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_rsp_order_deep_followers.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_rsp_order_high_firstflag.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_mix.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/vseq_base.sv'.
@@ -929,63 +933,64 @@ Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_rdw.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_wrw.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_mix.sv'.
+Parsing Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_rd.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_wr.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_rdw.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_wrw.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_mix.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_buff_wr.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_buff_wrw.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_buff_mix.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_buff_err_mix.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_addrol_waw.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_addrol_raw.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_mix.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_wrw_narrow_noalign.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_rdw_narrow_noalign.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_buff_mix_fixordkey.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_mix_fixordkey.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_mix_stresstest.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_watchdog_1023.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_watchdog_1024.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_watchdog_1100.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_watchdog_normal_timeout.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_watchdog_bufferable_1100.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_tag_name_toggle.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_rwrap_stresstest.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_rsp_order_deep_followers.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_mix.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_rd.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tnBack to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_rdw.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_wrw.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_mix.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_buff_wr.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_buff_wrw.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_buff_mix.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_buff_err_mix.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_addrol_waw.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_addrol_raw.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_mix.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_wrw_narrow_noalign.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_rdw_narrow_noalign.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_buff_mix_fixordkey.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_mix_fixordkey.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_norm_mix_stresstest.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_watchdog_1023.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_watchdog_1024.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_watchdog_1100.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_watchdog_normal_timeout.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_watchdog_bufferable_1100.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_axi_rsp_error_mix.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_tag_name_toggle.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_rwrap_stresstest.sv'.
-Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
-Parsing design file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/tb_top.sv'
-Top Level Modules:
-       uvm_custom_install_verdi_recording
-       tb_top
-TimeScale is 1 ns / 1 ps
-iu_uvm/tb/test/test_err_wr.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_wr.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_err_rdw.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
@@ -1033,6 +1038,17 @@ Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_tag_name_toggl
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_rwrap_stresstest.sv'.
 Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_rsp_order_deep_followers.sv'.
+Back to fParsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_rsp_order_high_firstflag.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing design file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/tb_top.sv'
+Top Level Modules:
+       uvm_custom_install_verdi_recording
+       tb_top
+TimeScale is 1 ns / 1 ps
+ile '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
+Parsing included file '/home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_rsp_order_high_firstflag.sv'.
+Back to file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/axi_tniu_pkg.sv'.
 Parsing design file '/home/ICer/RKNoC/axi_tniu_uvm/tb/top/tb_top.sv'
 Top Level Modules:
        uvm_custom_install_verdi_recording
@@ -1058,6 +1074,24 @@ Warning-[PCWM-W] Port connection width mismatch
 
 
 Warning-[PCWM-W] Port connection width mismatch
+/home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v, 922
+" ely_rsp_detect #(URGE_WITH, SUBR_WITH, ADDR_WITH, AXID_WITH, LEN_WITH, USER_WITH, NBYTEPERWORD, ELYRSP_TABLE_DEEP, AUSER_WITH, TAG_CNT_WITH, DLY, , , , , , , ) genblk2.U_ELY_RSP_DETECT( .clk (clk),  .resetn (resetn),  .rspo2erd_head (genblk2.rspo2erd_head),  .rspo2erd_axid (genblk2.rspo2erd_axid),  .rspo2erd_opc (genblk2.rspo2erd_opc),  .rspo2erd_user (genblk2.rspo2erd_user),  .rspo2erd_tag_cnt (genblk2.rspo2erd_tag_cnt),  .rspt2erd_head (genblk2.rspt2erd_head),  .rspt2erd_tail (genblk2.rspt2erd_tail),  .rspt2erd_valid (genblk2.rspt2erd_valid),  .erd2rspt_ready (genblk2.erd2rspt_ready),  .rspt2erd_axid (genblk2.rspt2erd_axid),  .rspt2erd_auser (genblk2.rspt2erd_auser),  .rspt2erd_opc (genblk2.rspt2erd_opc),  .rspt2erd_errcode (genblk2.rspt2erd_errcode) ... "
+  The following 2-bit expression is connected to 1-bit port "erd2rspo_auser" 
+  of module "ely_rsp_detect", instance "genblk2.U_ELY_RSP_DETECT".
+  Expression: genblk2.erd2rspo_auser
+  	use +lint=PCWM for more details
+
+
+Warning-[PCWM-W] Port connection width mismatch
+/home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v, 922
+" ely_rsp_detect #(URGE_WITH, SUBR_WITH, ADDR_WITH, AXID_WITH, LEN_WITH, USER_WITH, NBYTEPERWORD, ELYRSP_TABLE_DEEP, AUSER_WITH, TAG_CNT_WITH, DLY, , , , , , , ) genblk2.U_ELY_RSP_DETECT( .clk (clk),  .resetn (resetn),  .rspo2erd_head (genblk2.rspo2erd_head),  .rspo2erd_axid (genblk2.rspo2erd_axid),  .rspo2erd_opc (genblk2.rspo2erd_opc),  .rspo2erd_user (genblk2.rspo2erd_user),  .rspo2erd_tag_cnt (genblk2.rspo2erd_tag_cnt),  .rspt2erd_head (genblk2.rspt2erd_head),  .rspt2erd_tail (genblk2.rspt2erd_tail),  .rspt2erd_valid (genblk2.rspt2erd_valid),  .erd2rspt_ready (genblk2.erd2rspt_ready),  .rspt2erd_axid (genblk2.rspt2erd_axid),  .rspt2erd_auser (genblk2.rspt2erd_auser),  .rspt2erd_opc (genblk2.rspt2erd_opc),  .rspt2erd_errcode (genblk2.rspt2erd_errcode) ... "
+  The following 2-bit expression is connected to 1-bit port "erd2rspo_auser" 
+  of module "ely_rsp_detect", instance "genblk2.U_ELY_RSP_DETECT".
+  Expression: genblk2.erd2rspo_auser
+  	use +lint=PCWM for more details
+
+
+Warning-[PCWM-W] Port connection width mismatch
 /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v, 982
 " rsp_order #(URGE_WITH, SUBR_WITH, IID_WITH, TID_WITH, ADDR_WITH, AXID_WITH, ORDKEY_WITH, LEN_WITH, USER_WITH, RSP_IID_OFFSET, RSP_TID_OFFSET, RSP_ORDKEY_OFFSET, RSP_OPC_OFFSET, RSP_STATUS_OFFSET, RSP_ADDR_OFFSET, RSP_USER_OFFSET, RSP_ERRC_OFFSET, , , NBYTEPERWORD, TAG_CNT_WITH, SPEC_REQ_BUFF_DEEP, ADDR_BLOCK_SIZE, ADDR_BP_TYPE, AUSER_WITH, EARLY_RSP_MODE, DLY, , , , , , , , , , , , , , , , , ) genblk2.U_RSP_ORDER( .clk (clk),  .resetn (resetn),  .reqo2rspo_head (reqo2rspo_head),  .reqo2rspo_tail (reqo2rspo_tail),  .reqo2rspo_valid (reqo2rspo_valid),  .rspo2reqo_ready (rspo2reqo_ready),  .reqo2rspo_urg (reqo2rspo_urg),  .reqo2rspo_subr (reqo2rspo_subr),  .reqo2rspo_addr (reqo2rspo_addr),  .reqo2rspo_axid (reqo2rspo_axid),  .reqo2rspo_opc (reqo2rspo_opc) ... "
   The following 2-bit expression is connected to 1-bit port "rspt2rspo_auser" 
@@ -1080,16 +1114,24 @@ Starting vcs inline pass...
 Starting vcs inline pass...
 22 modules and 0 UDP read.
 recompiling package vcs_paramclassrepository
+recompiling package uvm_pkg
 recompiling module uvm_custom_install_verdi_recording
+recompiling module axi_tniu
+recompiling module ely_rsp_detect
 recompiling package axi_tniu_pkg
-3 of 22 modules done
-	However, due to incremental compilation, only 3 modules need to be compiled. 
+recompiling module tb_top
+7 of 22 modules done
+	However, due to incremental compilation, only 7 modules need to be compiled. 
 22 modules and 0 UDP read.
 recompiling package vcs_paramclassrepository
+recompiling package uvm_pkg
 recompiling module uvm_custom_install_verdi_recording
+recompiling module axi_tniu
+recompiling module ely_rsp_detect
 recompiling package axi_tniu_pkg
-3 of 22 modules done
-	However, due to incremental compilation, only 3 modules need to be compiled. 
+recompiling module tb_top
+7 of 22 modules done
+	However, due to incremental compilation, only 7 modules need to be compiled. 
 rm -f _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
 ld -shared  -Bsymbolic  -o .//../simv.daidir//_csrc0.so objs/amcQw_d.o 
 rm -f _csrc0.so
@@ -1098,7 +1140,7 @@ fi
 g++  -o /home/ICer/RKNoC/axi_tniu_uvm/sim/simv    -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ \
 -Wl,-rpath=./simv.daidir/ -Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  -rdynamic \
 -Wl,-rpath=/home/synopsys/vcs/O-2018.09-SP2/linux64/lib -L/home/synopsys/vcs/O-2018.09-SP2/linux64/lib \
-uvm_dpi.o uvm_verdi_dpi.o     _10983_archive_1.so _prev_archive_1.so _csrc0.so  SIM_l.o \
+uvm_dpi.o uvm_verdi_dpi.o     _41023_archive_1.so _prev_archive_1.so _csrc0.so  SIM_l.o \
 _csrc0.so    rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o \
 -lzerosoft_rt_stubs -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile \
 -lreader_common /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libBA.a -luclinative \
@@ -1111,8 +1153,8 @@ rm -f _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
 ld -shared  -Bsymbolic  -o .//../simv.daidir//_csrc0.so objs/amcQw_d.o 
 rm -f _csrc0.so
 if [ -x /home/ICer/RKNoC/axi_tniu_uvm/sim/simv ]; then chmod -x /home/ICer/RKNoC/axi_tniu_uvm/sim/simv; fi
-g++  -o /home/ICer/RKNoC/axi_tniu_uvm/sim/simv    -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ -Wl,-rpath=./simv.daidir/ -Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  -rdynamic  -Wl,-rpath=/home/synopsys/vcs/O-2018.09-SP2/linux64/lib -L/home/synopsys/vcs/O-2018.09-SP2/linux64/lib  uvm_dpi.o uvm_verdi_dpi.o     _10983_archive_1.so _prev_archive_1.so _csrc0.so  SIM_l.o  _csrc0.so    rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o          -lzerosoft_rt_stubs -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -lreader_common /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libBA.a -luclinative /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_tls.o   -Wl,-whole-archive -lvcsucli -Wl,-no-whole-archive       ./../simv.daidir/vc_hdrs.o  _vcs_pli_stub_.o   /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_save_restore_new.o /home/synopsys/verdi/Verdi_O-2018.09-SP2/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
+g++  -o /home/ICer/RKNoC/axi_tniu_uvm/sim/simv    -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ -Wl,-rpath=./simv.daidir/ -Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  -rdynamic  -Wl,-rpath=/home/synopsys/vcs/O-2018.09-SP2/linux64/lib -L/home/synopsys/vcs/O-2018.09-SP2/linux64/lib  uvm_dpi.o uvm_verdi_dpi.o     _41023_archive_1.so _prev_archive_1.so _csrc0.so  SIM_l.o  _csrc0.so    rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o          -lzerosoft_rt_stubs -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -lreader_common /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/libBA.a -luclinative /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_tls.o   -Wl,-whole-archive -lvcsucli -Wl,-no-whole-archive       ./../simv.daidir/vc_hdrs.o  _vcs_pli_stub_.o   /home/synopsys/vcs/O-2018.09-SP2/linux64/lib/vcs_save_restore_new.o /home/synopsys/verdi/Verdi_O-2018.09-SP2/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
 /home/ICer/RKNoC/axi_tniu_uvm/sim/simv up to date
-CPU time: 8.330 seconds to compile + .226 seconds to elab + .341 seconds to link
-CPU time: 8.330 seconds to compile + .226 seconds to elab + .341 seconds to link
+CPU time: 9.955 seconds to compile + .218 seconds to elab + .350 seconds to link
+CPU time: 9.955 seconds to compile + .218 seconds to elab + .350 seconds to link
 Verdi KDB elaboration done and the database successfully generated: 0 error(s), 0 warning(s)

@@ -67,6 +67,8 @@ package axi_tniu_pkg;
   `include "seq_addrol_raw.sv"
   `include "seq_axi_rsp_error_mix.sv"
   `include "seq_tag_name_toggle.sv"
+  `include "seq_rsp_order_deep_followers.sv"
+  `include "seq_rsp_order_high_firstflag.sv"
   `include "seq_mix.sv"
   `include "vseq_base.sv"
 
@@ -104,6 +106,8 @@ package axi_tniu_pkg;
   `include "test_axi_rsp_error_mix.sv"
   `include "test_tag_name_toggle.sv"
   `include "test_rwrap_stresstest.sv"
+  `include "test_rsp_order_deep_followers.sv"
+  `include "test_rsp_order_high_firstflag.sv"
   
 
 endpackage : axi_tniu_pkg
