@@ -3,66 +3,72 @@
 
 // =============================================================================
 // Purpose:
-//   Drive the rsp_order special-request buffer deep enough to exercise slots
-//   4..7 and, in particular, the follower lookup path at high buffer indices.
+//   Close the remaining rsp_order slot7 follower-path toggle holes.
 //
-// Method:
-//   1) Send one long normal RD for a fixed ordering type {AXID,RD}.
-//   2) Before that normal response completes, enqueue 8 ERR RD requests with
-//      the same orderkey/opcode. They are followers (fir_req_flag=0) and must
-//      wait for their tag count to become current.
-//   3) The long normal read releases its req_order head while its 256-byte
-//      response still occupies the response path, allowing the 8th follower
-//      to enter even though HEAD_BUFF_DEEP is also 8.
+// Key idea:
+//   Use a LONG SPECIAL ERR read as the response-path blocker, not a normal AXI
+//   read.  When the blocker is dispatched, rsp_order removes its special-buffer
+//   entry and req_order head immediately, but the generated 256-byte RKNP error
+//   response keeps cur_state==SPEC_RSP for 32 response flits.
 //
-// Expected toggle targets:
-//   buff_used[7:4]
-//   idle_buff_index_hot[7:5]
-//   spec_req_ready_hot[7:4]
-//   spec_req_ready_index[2]
-//   buff_index[2]
-//   follo_req_buff_index_hot[7:3]
-//   follo_req_buff_index[2]
+//   During those 32 flits, eight additional same-type ERR reads can all enter
+//   req_order + rsp_order.  Because no new special response may dispatch until
+//   the current special-response tail, the eight requests remain resident and
+//   fill special-buffer slots 0..7.
+//
+//   The requests use one {AXID,RD} ordering type.  After the current tag advances,
+//   the matching follower walks through all saved tags, eventually making slot7
+//   the matching follower.
+//
+// Main toggle targets:
+//   buff_used[7]
+//   spec_req_ready_hot[7]
+//   follo_req_buff_index_hot[7]
+//
+// Side effects:
+//   spec_req_ready_index[2:0], buff_index[2:0] and related low/high index logic
+//   continue to toggle as the chain is drained.
 // =============================================================================
 class seq_rsp_order_deep_followers extends rknp_base_seq;
   `uvm_object_utils(seq_rsp_order_deep_followers)
 
-  localparam axi_tniu_protocol_pkg::ordkey_t BLOCK_ORDERKEY = 8'h11;
+  // 8'h11 maps to AXID 0 with the current OrderKey->AXID XOR mapping.
+  localparam axi_tniu_protocol_pkg::ordkey_t FOLLOW_ORDERKEY = 8'h11;
   localparam logic [31:0] BLOCK_ADDR = 32'h1000_0000;
 
   function new(string name = "seq_rsp_order_deep_followers");
     super.new(name);
-    num_txn = 9; // one normal blocker + eight special followers
+    num_txn = 9; // 1 long special blocker + 8 same-type special requests
   endfunction
 
   protected task send_directed_read(
     input int unsigned idx,
     input axi_tniu_protocol_pkg::ordkey_t orderkey_v,
-    input axi_tniu_protocol_pkg::status_e status_v,
     input logic [7:0] len_v,
     input logic [31:0] addr_v
   );
     rknp_seq_item it;
+
     it = rknp_seq_item::type_id::create($sformatf("deep_it_%0d", idx));
 
     start_item(it);
     if (!it.randomize() with {
           opc      == axi_tniu_protocol_pkg::OPC_RD;
-          status   == local::status_v;
+          status   == axi_tniu_protocol_pkg::ST_ERR;
           errcode  == axi_tniu_protocol_pkg::EC_ADDR_DEC;
           orderkey == local::orderkey_v;
           len      == local::len_v;
           addr     == local::addr_v;
 
-          // Keep USER deterministic and non-bufferable. ERR alone makes the
-          // follower a special request in EARLY_RSP_MODE=1.
+          // ERR is enough to select the special-response path.
+          // Keep bufferable disabled so only the ERR mechanism is exercised.
           rknp_user == 1'b0;
           axi_user  == 1'b0;
           axlock    == 1'b0;
           axport    == 3'b000;
           axcache   == 4'b0000;
 
-          // Unique labels make waveform/log tracing straightforward.
+          // Unique labels make log/waveform tracing deterministic.
           iid == ((10'h100 + local::idx) & 10'h3ff);
           tid == ((10'h200 + local::idx) & 10'h3ff);
         })
@@ -73,29 +79,45 @@ class seq_rsp_order_deep_followers extends rknp_base_seq;
   endtask
 
   task body();
-    // 256-byte normal read. With the companion test's fixed R beat gap, this
-    // produces a long response window while the request path can keep accepting
-    // the special followers.
+    // -------------------------------------------------------------------------
+    // Long SPECIAL blocker.
+    //
+    // Aligned addr + len=8'hff => 256 bytes => 32 RKNP response flits at
+    // NBYTEPERWORD=8.  Because status=ERR, there is no AXI transaction.
+    //
+    // The blocker is removed from req_order/spec_req_buffer when its special
+    // response starts, so it does NOT consume one of the eight head slots while
+    // the following eight requests are being accumulated.
+    // -------------------------------------------------------------------------
     send_directed_read(
       0,
-      BLOCK_ORDERKEY,
-      axi_tniu_protocol_pkg::ST_OK,
+      FOLLOW_ORDERKEY,
       8'hff,
       BLOCK_ADDR
     );
 
-    // All eight use exactly the same ordering type as the blocker, so once the
-    // first request established tag_name they are followers (fir_req_flag=0).
+    // -------------------------------------------------------------------------
+    // Eight same-type special requests.
+    //
+    // They are issued immediately while the 32-flit blocker response is active.
+    // Depending on the exact first-dispatch cycle, the first one may either
+    // preserve the old tag_name or re-create it as first-of-type; requests after
+    // it are followers.  In either timing case, after the blocker is removed,
+    // all eight requests can coexist and occupy rsp_order slots 0..7.
+    //
+    // The tag chain then makes the next matching follower advance through the
+    // resident entries until follo_req_buff_index_hot[7] becomes 1.
+    // -------------------------------------------------------------------------
     for (int unsigned i = 0; i < 8; i++) begin
       send_directed_read(
         i + 1,
-        BLOCK_ORDERKEY,
-        axi_tniu_protocol_pkg::ST_ERR,
-        8'h07,
+        FOLLOW_ORDERKEY,
+        8'h07, // 8-byte, one-flit special response when later dispatched
         32'h2000_0000 + i * 32'h0000_0100
       );
     end
   endtask
+
 endclass : seq_rsp_order_deep_followers
 
 `endif // SEQ_RSP_ORDER_DEEP_FOLLOWERS_SV

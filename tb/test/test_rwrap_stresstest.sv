@@ -32,10 +32,11 @@ class test_rwrap_stresstest extends axi_tniu_base_test;
     cfg.rsp_ready_bp_en    = 1'b0;
     cfg.axi_error_rsp_en   = 1'b0;
     cfg.axi_ooo_en         = 1'b1;
-    cfg.axi_interleave_en  = 1'b0;
+    cfg.axi_interleave_en  = 1'b1;
     cfg.req_min_gap        = 0;
     cfg.req_max_gap        = 0;
     cfg.rsp_drain_timeout  = 200us;
+    cfg.axi_force_interleave_en = 1'b1;
   endfunction
 
   virtual task run_testcase();
@@ -49,6 +50,7 @@ class test_rwrap_stresstest extends axi_tniu_base_test;
     // alignment and therefore allows address offsets 2, 4 and 6.
     seq.num_txn                 = 64;
     seq.wrap_len_mode           = WRAP_LEN_FULL;
+    seq.force_flit_aligned_addr = WRAP_ADDR_NOALIGN;
     seq.force_flit_aligned_addr = 1'b0;
 
     start_rknp_sequence(seq);

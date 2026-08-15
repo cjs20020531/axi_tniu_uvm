@@ -690,8 +690,10 @@ saveManually = TRUE
 illegalBehavior = FALSE
 DisplayExcludedItem = FALSE
 adaptiveExclusion = TRUE
-favorite_exclude_annotation = ""
 warningExcludeInstance = true
+favorite_exclude_annotation = {rknp_xx2wa_head_d can only be asserted after accepting an\\
+unaligned WRW request. Therefore head_d implies opc==WRW and\\
+wa2reqo_offset_addr!=0. Combinations 0/1/1 and 1/0/1 are unreachable}
 [FSM]
 viewport = 65 336 387 479
 WndBk-FillColor = Gray3
@@ -949,10 +951,12 @@ highlightColor = 621,389,675,327
 QwUserAskDlg = 798,487,324,134
 dlgDontShowAgainBase = 504,329,430,230
 ApplPreferences = 335,150,977,637
-dlgManageKdbLib = 460,599,500,130
-ConnectedPortsDlg = 320,562,500,300
-vdCovQwFileDialogBase = 415,522,590,340
-LoadExclusion = 424,522,590,340
+ExcludeAnnotationDlg = 490,199,459,491
+dlgManageKdbLib = 460,636,500,130
+dlgDveExitBase = 568,572,455,121
+ConnectedPortsDlg = 607,562,500,300
+vdCovQwFileDialogBase = 28,522,590,340
+LoadExclusion = 424,263,590,599
 [Relationship]
 hideRecursiceNode = FALSE
 [Session Cache]
