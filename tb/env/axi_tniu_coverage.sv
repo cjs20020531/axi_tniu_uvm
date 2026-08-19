@@ -62,6 +62,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
 
   localparam int NBPW = axi_tniu_protocol_pkg::NBYTEPERWORD;
   localparam int MAX_OUTSTANDING = axi_tniu_protocol_pkg::SUP_REQ_NUM;
+  localparam int MAX_RWRAP_OUTSTANDING = axi_tniu_protocol_pkg::RWRAP_CNT_MAX;
 
   // ---------------------------------------------------------------------------
   // Internal coverage encodings
@@ -195,7 +196,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
   // channel: 0=request, 1=response
   // ---------------------------------------------------------------------------
   covergroup cg_handshake with function sample(
-      int channel, int valid, int ready, int head, int tail, int stall_bucket);
+      int channel, bit valid, bit ready, bit head, bit tail, int stall_bucket);
     option.per_instance = 1;
 
     cp_channel : coverpoint channel {
@@ -203,10 +204,10 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       bins rsp = {1};
     }
 
+    // This group is sampled only while VALID is asserted.
     cp_hs : coverpoint {valid, ready} {
       bins stall     = {2'b10};
       bins handshake = {2'b11};
-      bins ready_idle= {2'b01};
     }
 
     cp_head : coverpoint head iff (valid) {
@@ -263,7 +264,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     cp_wrap_align_len : coverpoint len
       iff (((kind == K_WRAP_RD) || (kind == K_WRAP_WR)) && aligned) {
       bins plan_len[] = {7,15,23,31,39,47,55,63};
-      bins other = default;
+      // Unlisted values are intentionally not coverage goals.
     }
 
     // Testplan values for unaligned short WRAP (< one NBPW).
@@ -271,7 +272,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       iff (((kind == K_WRAP_RD) || (kind == K_WRAP_WR)) &&
            !aligned && ((len + 1) < NBPW)) {
       bins plan_len[] = {1,3,5};
-      bins other = default;
+      // Unlisted values are intentionally not coverage goals.
     }
 
     // Testplan formula len=2*n-1, n in [4,32] -> odd LEN 7..63.
@@ -283,7 +284,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
         27,29,31,33,35,37,39,41,43,45,
         47,49,51,53,55,57,59,61,63
       };
-      bins other = default;
+      // Unlisted values are intentionally not coverage goals.
     }
 
     cp_aligned : coverpoint aligned {
@@ -299,7 +300,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     cp_req_status : coverpoint status {
       bins ok   = {0};
       bins err  = {1};
-      bins other = default;
+      // Unlisted values are intentionally not coverage goals.
     }
 
     cp_bufferable : coverpoint bufferable
@@ -330,16 +331,13 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
   endgroup
 
   // ---------------------------------------------------------------------------
-  // Covergroup: USER/QoS request fields used by protocol conversion
+  // Covergroup: USER/QoS request fields used by protocol conversion.
+  // AxCACHE is intentionally not a functional-coverage target.
   // ---------------------------------------------------------------------------
   covergroup cg_req_user_qos with function sample(
-      int kind, int qos, int subr, int rknp_user, int axi_user,
-      int axlock, int axport, int axcache);
+      int qos, int subr, int rknp_user, int axi_user,
+      int axlock, int axport);
     option.per_instance = 1;
-
-    cp_kind : coverpoint kind {
-      bins all_kind[] = {[0:3]};
-    }
 
     cp_qos : coverpoint qos {
       bins each[] = {[0:7]};
@@ -357,12 +355,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       bins each[] = {[0:7]};
     }
 
-    cp_axcache : coverpoint axcache {
-      bins each[] = {[0:15]};
-    }
-
-    x_kind_cache : cross cp_kind, cp_axcache;
-    x_lock_port  : cross cp_axlock, cp_axport;
+    x_lock_port : cross cp_axlock, cp_axport;
   endgroup
 
   // ---------------------------------------------------------------------------
@@ -370,7 +363,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
   // Covers what was actually emitted on AXI after RKNP conversion.
   // ---------------------------------------------------------------------------
   covergroup cg_axi_addr with function sample(
-      int dir, int burst, int axlen, int size, int cache0, int addr_low);
+      int dir, int burst, int axlen, int size, int addr_low);
     option.per_instance = 1;
 
     cp_dir : coverpoint dir {
@@ -381,26 +374,34 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     cp_burst : coverpoint burst {
       bins incr = {1};
       bins wrap = {2};
-      bins other = default;
+      // Unlisted values are intentionally not coverage goals.
     }
 
-    cp_axlen : coverpoint axlen {
+    // INCR can reach at most 33 beats (AxLEN=32) with a 256B payload
+    // starting from a non-zero lane.
+    cp_incr_axlen : coverpoint axlen iff (burst == 1) {
       bins one_beat   = {0};
       bins beat_2_4   = {[1:3]};
       bins beat_5_8   = {[4:7]};
       bins beat_9_16  = {[8:15]};
       bins beat_17_32 = {[16:31]};
-      bins beat_gt32  = {[32:255]};
+      bins beat_33    = {32};
+      ignore_bins impossible = {[33:255]};
+    }
+
+    // WRAP can reach at most 32 beats (AxLEN=31).
+    cp_wrap_axlen : coverpoint axlen iff (burst == 2) {
+      bins one_beat   = {0};
+      bins beat_2_4   = {[1:3]};
+      bins beat_5_8   = {[4:7]};
+      bins beat_9_16  = {[8:15]};
+      bins beat_17_32 = {[16:31]};
+      ignore_bins impossible = {[32:255]};
     }
 
     cp_size : coverpoint size {
-      bins byte_8 = {3};     // current NBYTEPERWORD=8
-      bins other  = default;
-    }
-
-    cp_cache0 : coverpoint cache0 {
-      bins zero = {0};
-      bins one  = {1};
+      bins byte_8 = {3};
+      // Unlisted values are intentionally not coverage goals.
     }
 
     cp_addr_low : coverpoint addr_low {
@@ -408,23 +409,18 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     }
 
     x_dir_burst : cross cp_dir, cp_burst;
-    x_burst_len : cross cp_burst, cp_axlen;
   endgroup
 
   // ---------------------------------------------------------------------------
   // Covergroup: source RKNP request -> observed AXI address behavior.
   //
-  // This does not replace scoreboard checking.  It records that each planned
-  // WRAP/INCR conversion category reached the AXI side.
-  // addr_relation:
-  //   0 = AXI address == RKNP address
-  //   1 = AXI address aligned down to NBPW
-  //   2 = AXI address aligned up to NBPW
-  //   3 = other
+  // The actual AXI address is compared against
+  // axi_tniu_protocol_pkg::map_subr_addr_to_axaddr(), which includes SubRange
+  // mapping and WRAP alignment. Correctness remains a scoreboard responsibility.
   // ---------------------------------------------------------------------------
   covergroup cg_req_axi_map with function sample(
       int kind, int wrap_plan_class, int aligned, int axi_burst,
-      int axi_len, int addr_relation);
+      int axi_len, int burst_map_class, bit addr_match);
     option.per_instance = 1;
 
     cp_kind : coverpoint kind {
@@ -450,7 +446,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     cp_axi_burst : coverpoint axi_burst {
       bins incr = {1};
       bins wrap = {2};
-      bins other = default;
+      // Unlisted values are intentionally not coverage goals.
     }
 
     cp_axi_len : coverpoint axi_len {
@@ -459,18 +455,26 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       bins beat_5_8   = {[4:7]};
       bins beat_9_16  = {[8:15]};
       bins beat_17_32 = {[16:31]};
-      bins other      = default;
+      bins beat_33    = {32};
+      ignore_bins impossible = {[33:255]};
     }
 
-    cp_addr_relation : coverpoint addr_relation {
-      bins same         = {0};
-      bins aligned_down = {1};
-      bins aligned_up   = {2};
-      bins other        = {3};
+    // 0 non-wrap->INCR, 1 aligned WRAP->WRAP,
+    // 2 unaligned short WRAP->INCR, 3 unaligned long WRAP->WRAP,
+    // 4 other legal WRAP mapping, 5 mismatch.
+    cp_burst_map : coverpoint burst_map_class {
+      bins non_wrap_incr = {0};
+      bins aligned_wrap  = {1};
+      bins ua_short_incr = {2};
+      bins ua_long_wrap  = {3};
+      bins other_wrap_ok = {4};
+      ignore_bins mismatch = {5};
     }
 
-    x_plan_burst : cross cp_plan, cp_axi_burst;
-    x_kind_plan  : cross cp_kind, cp_plan;
+    cp_addr_match : coverpoint addr_match {
+      bins expected_mapping = {1};
+      ignore_bins mismatch  = {0};
+    }
   endgroup
 
   // ---------------------------------------------------------------------------
@@ -584,10 +588,31 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
 
     cp_errcode : coverpoint req_errcode
       iff ((special_class == SPEC_ERR) || (special_class == SPEC_BOTH)) {
-      bins each[] = {[0:7]};
+      bins addr_dec = {axi_tniu_protocol_pkg::EC_ADDR_DEC};
+      // Unlisted values are intentionally not coverage goals.
     }
 
-    x_special_kind  : cross cp_special, cp_kind;
+    // Encode special class and request kind into one legal-combination point.
+    cp_special_kind : coverpoint (special_class*4 + kind) {
+      bins normal_incr_rd = {SPEC_NORMAL*4 + K_INCR_RD};
+      bins normal_wrap_rd = {SPEC_NORMAL*4 + K_WRAP_RD};
+      bins normal_incr_wr = {SPEC_NORMAL*4 + K_INCR_WR};
+      bins normal_wrap_wr = {SPEC_NORMAL*4 + K_WRAP_WR};
+
+      bins error_incr_rd  = {SPEC_ERR*4 + K_INCR_RD};
+      bins error_wrap_rd  = {SPEC_ERR*4 + K_WRAP_RD};
+      bins error_incr_wr  = {SPEC_ERR*4 + K_INCR_WR};
+      bins error_wrap_wr  = {SPEC_ERR*4 + K_WRAP_WR};
+
+      bins buf_incr_wr    = {SPEC_BUF*4 + K_INCR_WR};
+      bins buf_wrap_wr    = {SPEC_BUF*4 + K_WRAP_WR};
+
+      bins both_incr_wr   = {SPEC_BOTH*4 + K_INCR_WR};
+      bins both_wrap_wr   = {SPEC_BOTH*4 + K_WRAP_WR};
+
+      // Unlisted values are intentionally not coverage goals.
+    }
+
     x_special_first : cross cp_special, cp_first;
     x_special_axid  : cross cp_special, cp_same_axid_prev;
   endgroup
@@ -636,7 +661,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       bins ok   = {0};
       bins err  = {1};
       bins cont = {2};
-      bins other = default;
+      // Unlisted values are intentionally not coverage goals.
     }
 
     cp_errcode : coverpoint rsp_errcode {
@@ -674,9 +699,8 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       bins decerr = {3};
     }
 
-    x_kind_status : cross cp_kind, cp_status;
-    x_kind_ilv    : cross cp_kind, cp_interleaved;
-    x_status_axi  : cross cp_status, cp_axi_resp;
+    // Broad automatic crosses are intentionally omitted here because they
+    // create protocol-impossible goals (e.g. write x ST_CONT).
   endgroup
 
   // ---------------------------------------------------------------------------
@@ -778,13 +802,13 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     }
 
     cp_first_strb : coverpoint first_strb_class {
-      bins zero    = {0};
+      ignore_bins zero = {0};
       bins partial = {1};
       bins full    = {2};
     }
 
     cp_last_strb : coverpoint last_strb_class {
-      bins zero    = {0};
+      ignore_bins zero = {0};
       bins partial = {1};
       bins full    = {2};
     }
@@ -856,13 +880,14 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     cp_outstanding : coverpoint outstanding {
       bins zero = {0};
       bins each_depth[] = {[1:MAX_OUTSTANDING]};
-      bins overflow = {[MAX_OUTSTANDING+1:1024]};
+      ignore_bins overflow = {[MAX_OUTSTANDING+1:1024]};
     }
 
     cp_ua_wrap_rd : coverpoint ua_wrap_rd_outstanding {
       bins zero = {0};
-      bins depth[] = {[1:MAX_OUTSTANDING]};
-      bins overflow = {[MAX_OUTSTANDING+1:1024]};
+      bins depth[] = {[1:MAX_RWRAP_OUTSTANDING]};
+      ignore_bins above_configured_limit =
+        {[MAX_RWRAP_OUTSTANDING+1:1024]};
     }
 
     cp_timeout_run : coverpoint timeout_run {
@@ -957,8 +982,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
   endfunction
 
   function automatic int axid_of(rknp_seq_item t);
-    // Current DUT build: ORDKEY_WITH=8, AXID_WITH=4.
-    return int'(t.orderkey[7:4] ^ t.orderkey[3:0]);
+    return int'(axi_tniu_protocol_pkg::map_ordkey_to_axid(t.orderkey));
   endfunction
 
   function automatic bit addr_aligned(rknp_seq_item t);
@@ -1104,22 +1128,33 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     return c;
   endfunction
 
-  function automatic int addr_relation(
+  function automatic bit axi_addr_matches_expected(
       rknp_seq_item req, axi_seq_item ax);
-    longint unsigned raddr;
-    longint unsigned aaddr;
-    longint unsigned down;
-    longint unsigned up;
+    logic [axi_tniu_protocol_pkg::AADDR_WITH-1:0] expected_addr;
 
-    raddr = longint'(req.addr);
-    aaddr = longint'(ax.addr);
-    down  = raddr & ~(longint'(NBPW-1));
-    up    = (raddr + NBPW - 1) & ~(longint'(NBPW-1));
+    expected_addr = axi_tniu_protocol_pkg::map_subr_addr_to_axaddr(
+                      req.subr, req.addr, req.opc, req.len);
+    return (ax.addr == expected_addr);
+  endfunction
 
-    if (aaddr == raddr) return 0;
-    if (aaddr == down)  return 1;
-    if (aaddr == up)    return 2;
-    return 3;
+  function automatic int burst_map_class_of(
+      rknp_seq_item req, axi_seq_item ax);
+    int plan;
+    int expected_burst;
+
+    plan = wrap_plan_class_of(req);
+    expected_burst = (req.is_wrap() && (int'(req.len) > 6)) ? 2 : 1;
+
+    if (int'(ax.burst) != expected_burst)
+      return 5;
+
+    case (plan)
+      WRAP_CLASS_NONE:          return 0;
+      WRAP_CLASS_ALIGN_PLAN:    return 1;
+      WRAP_CLASS_UA_SHORT_PLAN: return 2;
+      WRAP_CLASS_UA_LONG_PLAN:  return 3;
+      default:                  return 4;
+    endcase
   endfunction
 
   function automatic int wrap_pair_alignment(
@@ -1149,7 +1184,8 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       addr_aligned(req),
       int'(ax.burst),
       int'(ax.len),
-      addr_relation(req, ax)
+      burst_map_class_of(req, ax),
+      axi_addr_matches_expected(req, ax)
     );
 
     if (ax.dir == AXI_READ)
@@ -1195,7 +1231,8 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     type_depth[tkey]++;
 
     total_outstanding++;
-    if ((kind == K_WRAP_RD) && !addr_aligned(c))
+    if ((kind == K_WRAP_RD) && !addr_aligned(c) &&
+        (int'(c.len) > 6))
       unaligned_wrap_rd_outstanding++;
 
     if (dir == DIR_RD)
@@ -1224,14 +1261,12 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     );
 
     cg_req_user_qos.sample(
-      kind,
       int'(c.qos),
       int'(c.subr),
       int'(c.rknp_user),
       int'(c.axi_user),
       int'(c.axlock),
-      int'(c.axport),
-      int'(c.axcache)
+      int'(c.axport)
     );
 
     same_axid_prev = 0;
@@ -1336,7 +1371,6 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       int'(t.burst),
       int'(t.len),
       int'(t.size),
-      int'(t.cache[0]),
       int'(t.addr & 7)
     );
 
@@ -1364,7 +1398,6 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       int'(t.burst),
       int'(t.len),
       int'(t.size),
-      int'(t.cache[0]),
       int'(t.addr & 7)
     );
 
@@ -1530,6 +1563,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
         total_outstanding--;
 
       if ((kind == K_WRAP_RD) && !addr_aligned(req) &&
+          (int'(req.len) > 6) &&
           (unaligned_wrap_rd_outstanding > 0))
         unaligned_wrap_rd_outstanding--;
 

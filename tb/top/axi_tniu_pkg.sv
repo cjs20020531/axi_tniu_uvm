@@ -71,6 +71,12 @@ package axi_tniu_pkg;
   `include "seq_rsp_order_high_firstflag.sv"
   `include "seq_watchdog_multi_timeout_cov.sv"
   `include "seq_watchdog_fifo_full_cov.sv"
+  `include "seq_funcov_incr_len_sweep.sv"
+  `include "seq_funcov_wrap_aligned_len_sweep.sv"
+  `include "seq_funcov_wrap_unaligned_len_sweep.sv"
+  `include "seq_funcov_wrap_short_len_sweep.sv"
+  `include "seq_funcov_b2b_mix_wrap_unaligned.sv"
+  `include "seq_funcov_b2b_mix_wrap_aligned.sv"
   `include "seq_mix.sv"
   `include "vseq_base.sv"
 
@@ -113,6 +119,12 @@ package axi_tniu_pkg;
   `include "test_rwrap_stresstest.sv"
   `include "test_rsp_order_deep_followers.sv"
   `include "test_rsp_order_high_firstflag.sv"
+  `include "test_funcov_incr_len_sweep.sv"
+  `include "test_funcov_wrap_aligned_len_sweep.sv"
+  `include "test_funcov_wrap_unaligned_len_sweep.sv"
+  `include "test_funcov_wrap_short_len_sweep.sv"
+  `include "test_funcov_b2b_mix_wrap_unaligned.sv"
+  `include "test_funcov_b2b_mix_wrap_aligned.sv"
   
 
 endpackage : axi_tniu_pkg

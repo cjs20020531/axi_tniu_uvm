@@ -333,7 +333,7 @@ endfunction
   // WRAP transfers: Len must be (2^n - 1)
   constraint c_wrap_len {
     (opc == axi_tniu_protocol_pkg::OPC_RDW || opc == axi_tniu_protocol_pkg::OPC_WRW) ->
-      len inside {8'h01,8'h03,8'h07,8'h0F,8'h1F,8'h3F,8'h7F,8'hFF};
+      len inside {8'h01,8'h03,8'h07,8'h0F,8'h1F,8'h3F,8'h7F};
   }
   // WRAP transfers:
   // The start address must be aligned to a 2-byte boundary.
