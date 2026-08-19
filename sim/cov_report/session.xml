@@ -1,6 +1,6 @@
-<session version="1.1" release="O-2018.09-SP2" timestp="2026-08-19 06:58:00 GMT">
+<session version="1.1" release="O-2018.09-SP2" timestp="2026-08-19 11:45:58 GMT">
   <info>
-    <attr name="datetime" value="Wed Aug 19 14:59:29 2026
+    <attr name="datetime" value="Wed Aug 19 19:46:03 2026
 "/>
     <attr name="command" value="urg -full64 -dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -elfile /home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el -report /home/ICer/RKNoC/axi_tniu_uvm/sim/cov_report"/>
     <attr name="top_instance" value="tb_top,uvm_custom_install_verdi_recording"/>
@@ -20,23 +20,17 @@
   <scope type="top" name="top">
     <metric name="Line" value="813/1203" />
     <metric name="Cond" value="996/1023" />
-    <metric name="Toggle" value="16992/17070" />
+    <metric name="Toggle" value="16994/17070" />
     <metric name="FSM" value="4/4" />
-    <metric name="Branch" value="845/889" />
+    <metric name="Branch" value="846/889" />
     <metric name="Assert" value="8/8" />
-    <metric name="Group" value="91.579%" />
+    <metric name="Group" value="96.1962%" />
   </scope>
   <scope type="instance" name="top">
   </scope>
   <scope type="group" name="top">
-    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_addr_overlap">
-      <metric name="Group" value="32.8175%" />
-    </scope>
     <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_timeout">
       <metric name="Group" value="81.25%" />
-    </scope>
-    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_multi_req">
-      <metric name="Group" value="86.3426%" />
     </scope>
     <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_axi_rsp">
       <metric name="Group" value="87.5%" />
@@ -50,11 +44,14 @@
     <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_rknp_rsp">
       <metric name="Group" value="95.3125%" />
     </scope>
-    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_special_req">
-      <metric name="Group" value="99.0741%" />
+    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_multi_req">
+      <metric name="Group" value="95.8912%" />
     </scope>
     <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_axi_addr">
-      <metric name="Group" value="100%" />
+      <metric name="Group" value="97.1428%" />
+    </scope>
+    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_special_req">
+      <metric name="Group" value="99.0741%" />
     </scope>
     <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_reset">
       <metric name="Group" value="100%" />
@@ -66,6 +63,9 @@
       <metric name="Group" value="100%" />
     </scope>
     <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_rsp_order">
+      <metric name="Group" value="100%" />
+    </scope>
+    <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_addr_overlap">
       <metric name="Group" value="100%" />
     </scope>
     <scope type="group" name="axi_tniu_pkg::axi_tniu_coverage::cg_stress">

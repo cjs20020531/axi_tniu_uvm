@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_err_wr +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_err_wr_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_err_wr.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 19 14:57 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 19 19:45 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -192,7 +192,7 @@ axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_stress"
   Covergroup Instance: tb_top.me.obj.cg_stress 
   Design hierarchy: axi_tniu_pkg
 
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
 
 RKNP-REQ 
  opc=OPC_WR 
@@ -207,7 +207,7 @@ RKNP-REQ
  user=0x078(rknp=0 axi=0 lock=0 port=0x7 cache=0x8) errc=EC_ADDR_DEC
 WR[0]:
     00-  00-  00-  c6  00-  00-  00-  00-
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 95000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 95000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
 
 RKNP-REQ 
  opc=OPC_WR 
@@ -264,7 +264,7 @@ RKNP-RSP
  ordkey=0x3f 
  addr=0x735991c4 
  lw=1 errc=EC_ADDR_DEC
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 515000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 505000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
 
 RKNP-REQ 
  opc=OPC_WR 
@@ -289,7 +289,17 @@ RKNP-RSP
  ordkey=0xa5 
  addr=0x91d74212 
  lw=1 errc=EC_ADDR_DEC
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(107) @ 535000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 545000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x2b7 
+ tid=0x3a5 
+ ordkey=0x78 
+ addr=0x1f4a021d 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 545000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
 
 RKNP-REQ 
  opc=OPC_WR 
@@ -323,16 +333,6 @@ WR[152]:
     3e  fa  2c  82  2b  16  f5  ed
     63  62  5b  62  ff  b9  ae  5c
     00-  00-  00-  00-  00-  00-  95  fd
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3 latency=N/A(no_axi_accept_time)
-
-RKNP-RSP 
- opc=RSP_OPC_WR 
- status=ST_ERR 
- iid=0x2b7 
- tid=0x3a5 
- ordkey=0x78 
- addr=0x1f4a021d 
- lw=1 errc=EC_ADDR_DEC
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 815000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4 latency=N/A(no_axi_accept_time)
 
 RKNP-RSP 
@@ -346,7 +346,7 @@ RKNP-RSP
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 825000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=4 response_packets=4 final_rsp(raw/matched)=4/4
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv(1808) @ 10825000: uvm_test_top.env.cov [COV_SUMMARY] Functional coverage summary:
   reset            = 33.33%
-  handshake        = 91.67%
+  handshake        = 87.50%
   request protocol = 33.02%
   request user/qos = 66.07%
   AXI address       = 0.00%
@@ -398,5 +398,5 @@ VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitor
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 10825000 ps
-CPU Time:      0.380 seconds;       Data structure size:   0.9Mb
-Wed Aug 19 14:57:51 2026
+CPU Time:      0.410 seconds;       Data structure size:   0.9Mb
+Wed Aug 19 19:45:48 2026

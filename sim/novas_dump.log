@@ -103,7 +103,7 @@ ANF: vhdi_node_ist_add_scsd_callback('./simv: undefined symbol: vhdi_node_ist_ad
 ANF: vhdi_node_ist_get_value_addr('./simv: undefined symbol: vhdi_node_ist_get_value_addr')
 VCS compile option:
  option[0]: ./simv
- option[1]: +UVM_TESTNAME=test_rwrap_stresstest
+ option[1]: +UVM_TESTNAME=test_mix
  option[2]: +UVM_VERBOSITY=UVM_MEDIUM
  option[3]: +ntb_random_seed=1
  option[4]: -cm
@@ -111,9 +111,9 @@ VCS compile option:
  option[6]: -cm_dir
  option[7]: /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb
  option[8]: -cm_name
- option[9]: test_rwrap_stresstest_1
+ option[9]: test_mix_1
  option[10]: -l
- option[11]: /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_rwrap_stresstest.log
+ option[11]: /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_mix.log
  option[12]: /home/synopsys/vcs/O-2018.09-SP2/linux64/bin/vcs1
  option[13]: -Mcc=gcc
  option[14]: -Mcplusplus=g++
@@ -277,7 +277,7 @@ DVE=/home/synopsys/vcs/O-2018.09-SP2/gui/dve
 SPECMAN_OUTPUT_TO_TTY=1
 Runtime command line arguments:
 argv[0]=./simv
-argv[1]=+UVM_TESTNAME=test_rwrap_stresstest
+argv[1]=+UVM_TESTNAME=test_mix
 argv[2]=+UVM_VERBOSITY=UVM_MEDIUM
 argv[3]=+ntb_random_seed=1
 argv[4]=-cm
@@ -285,12 +285,12 @@ argv[5]=line+cond+fsm+tgl+branch+assert
 argv[6]=-cm_dir
 argv[7]=/home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb
 argv[8]=-cm_name
-argv[9]=test_rwrap_stresstest_1
+argv[9]=test_mix_1
 argv[10]=-l
-argv[11]=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_rwrap_stresstest.log
+argv[11]=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_mix.log
 290 profile - 100
-          CPU/Mem usage: 0.050 sys,  0.220 user,  332.61M mem
-291 Wed Aug 19 15:38:16 2026
+          CPU/Mem usage: 0.060 sys,  0.180 user,  332.68M mem
+291 Wed Aug 19 19:45:56 2026
 292 pliAppInit
 293 FSDB_GATE is set.
 294 FSDB_RTL is set.
@@ -317,61 +317,61 @@ argv[11]=/home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_rwrap_stresstest.log
 315 *Verdi* : Enable +all dumping.
 316 *Verdi* : End of traversing.
 317 pliAppHDL_DumpVarComplete traverse var: profile - 
-          CPU/Mem usage: 0.060 sys,  0.220 user,  429.13M mem
-                   incr: 0.000 sys,  0.000 user,  8.69M mem
-                   accu: 0.000 sys,  0.000 user,  8.69M mem
-              accu incr: 0.000 sys,  0.000 user,  8.69M mem
+          CPU/Mem usage: 0.070 sys,  0.190 user,  429.20M mem
+                   incr: 0.010 sys,  0.010 user,  8.68M mem
+                   accu: 0.010 sys,  0.010 user,  8.68M mem
+              accu incr: 0.010 sys,  0.010 user,  8.68M mem
 
           Count usage: 1228 var,  1541 idcode,  480 callback
                  incr: 1228 var,  1541 idcode,  480 callback
                  accu: 1228 var,  1541 idcode,  480 callback
             accu incr: 1228 var,  1541 idcode,  480 callback
-318 Wed Aug 19 15:38:16 2026
+318 Wed Aug 19 19:45:56 2026
 319 pliAppHDL_DumpVarComplete: profile - 
-          CPU/Mem usage: 0.060 sys,  0.220 user,  430.18M mem
+          CPU/Mem usage: 0.070 sys,  0.190 user,  430.25M mem
                    incr: 0.000 sys,  0.000 user,  1.05M mem
-                   accu: 0.000 sys,  0.000 user,  9.74M mem
+                   accu: 0.010 sys,  0.010 user,  9.73M mem
               accu incr: 0.000 sys,  0.000 user,  1.05M mem
 
           Count usage: 1228 var,  1541 idcode,  480 callback
                  incr: 0 var,  0 idcode,  0 callback
                  accu: 1228 var,  1541 idcode,  480 callback
             accu incr: 0 var,  0 idcode,  0 callback
-320 Wed Aug 19 15:38:16 2026
+320 Wed Aug 19 19:45:56 2026
 321 sps_call_fsdbDumpMDA_vd_main at 0 : /home/ICer/RKNoC/axi_tniu_uvm/tb/top/tb_top.sv(275)
 322 *Verdi* : Begin traversing the MDAs, layer (0).
 323 *Verdi* : Enable +mda and +packedmda dumping.
 324 *Verdi* : End of traversing the MDAs.
 325 pliAppHDL_DumpVarComplete traverse var: profile - 
-          CPU/Mem usage: 0.070 sys,  0.250 user,  446.95M mem
-                   incr: 0.010 sys,  0.030 user,  16.77M mem
-                   accu: 0.010 sys,  0.030 user,  16.77M mem
-              accu incr: 0.010 sys,  0.030 user,  16.77M mem
+          CPU/Mem usage: 0.070 sys,  0.220 user,  447.02M mem
+                   incr: 0.000 sys,  0.030 user,  16.77M mem
+                   accu: 0.000 sys,  0.030 user,  16.77M mem
+              accu incr: 0.000 sys,  0.030 user,  16.77M mem
 
           Count usage: 1510 var,  1541 idcode,  480 callback
                  incr: 282 var,  0 idcode,  0 callback
                  accu: 282 var,  0 idcode,  0 callback
             accu incr: 282 var,  0 idcode,  0 callback
-326 Wed Aug 19 15:38:16 2026
+326 Wed Aug 19 19:45:57 2026
 327 pliAppHDL_DumpVarComplete: profile - 
-          CPU/Mem usage: 0.070 sys,  0.250 user,  446.95M mem
+          CPU/Mem usage: 0.070 sys,  0.220 user,  447.02M mem
                    incr: 0.000 sys,  0.000 user,  0.00M mem
-                   accu: 0.010 sys,  0.030 user,  16.77M mem
+                   accu: 0.000 sys,  0.030 user,  16.77M mem
               accu incr: 0.000 sys,  0.000 user,  0.00M mem
 
           Count usage: 1510 var,  1541 idcode,  480 callback
                  incr: 0 var,  0 idcode,  0 callback
                  accu: 282 var,  0 idcode,  0 callback
             accu incr: 0 var,  0 idcode,  0 callback
-328 Wed Aug 19 15:38:16 2026
-329 End of simulation at 95000
-330 Wed Aug 19 15:38:16 2026
+328 Wed Aug 19 19:45:57 2026
+329 End of simulation at 91675000
+330 Wed Aug 19 19:45:58 2026
 331 Begin FSDB profile info:
-332 FSDB Writer : bc1(431) bcn(1944) mtf/stf(0/0)
-FSDB Writer elapsed time : flush(0.003963) io wait(0.000000) theadpool wait(0.000000) target functin(0.000000)
+332 FSDB Writer : bc1(217479) bcn(333452) mtf/stf(0/0)
+FSDB Writer elapsed time : flush(0.123561) io wait(0.000000) theadpool wait(0.000000) target functin(0.000000)
 FSDB Writer cpu time : MT Compression : 0
 333 End FSDB profile info
-334 Parallel profile    -  Flush:4 Expand:0 ProduceWait:0 ConsumerWait:0 BlockUsed:0
-335                        ProduceTime:0.390950323 ConsumerTime:0.000000000 Buffer:64MB
+334 Parallel profile    -  Flush:4 Expand:0 ProduceWait:0 ConsumerWait:5 BlockUsed:5
+335                        ProduceTime:1.766915182 ConsumerTime:0.029198486 Buffer:64MB
 336 SimExit
 337 Sim process exit

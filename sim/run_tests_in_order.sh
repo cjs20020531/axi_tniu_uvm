@@ -30,6 +30,8 @@ TEST_SEQUENCE=(
   test_norm_rdw_narrow_noalign
   test_norm_wrw
   test_norm_wrw_narrow_noalign
+  # test_funcov_order_multi_read
+  # test_funcov_order_multi_write
   test_funcov_incr_len_sweep
   test_funcov_wrap_aligned_len_sweep
   test_funcov_wrap_unaligned_len_sweep

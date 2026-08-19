@@ -77,6 +77,8 @@ package axi_tniu_pkg;
   `include "seq_funcov_wrap_short_len_sweep.sv"
   `include "seq_funcov_b2b_mix_wrap_unaligned.sv"
   `include "seq_funcov_b2b_mix_wrap_aligned.sv"
+  `include "seq_funcov_order_multi_read.sv"
+  `include "seq_funcov_order_multi_write.sv"
   `include "seq_mix.sv"
   `include "vseq_base.sv"
 
@@ -125,6 +127,8 @@ package axi_tniu_pkg;
   `include "test_funcov_wrap_short_len_sweep.sv"
   `include "test_funcov_b2b_mix_wrap_unaligned.sv"
   `include "test_funcov_b2b_mix_wrap_aligned.sv"
+  `include "test_funcov_order_multi_read.sv"
+  `include "test_funcov_order_multi_write.sv"
   
 
 endpackage : axi_tniu_pkg
