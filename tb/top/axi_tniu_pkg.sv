@@ -79,6 +79,8 @@ package axi_tniu_pkg;
   `include "seq_funcov_b2b_mix_wrap_aligned.sv"
   `include "seq_funcov_order_multi_read.sv"
   `include "seq_funcov_order_multi_write.sv"
+  `include "seq_timeout_busy_context_same_axid.sv"
+  `include "seq_timeout_same_axid_prev_rsp.sv"
   `include "seq_mix.sv"
   `include "vseq_base.sv"
 
@@ -129,6 +131,8 @@ package axi_tniu_pkg;
   `include "test_funcov_b2b_mix_wrap_aligned.sv"
   `include "test_funcov_order_multi_read.sv"
   `include "test_funcov_order_multi_write.sv"
+  `include "test_timeout_busy_context_same_axid.sv"
+  `include "test_timeout_same_axid_prev_rsp.sv"
   
 
 endpackage : axi_tniu_pkg

@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_watchdog_1100 +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_watchdog_1100_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_watchdog_1100.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 19 19:45 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 19 20:41 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -205,6 +205,19 @@ RKNP-REQ
  len=198(=199B) 
  addr=0xd86b5bc9 
  user=0x14c(rknp=0 axi=1 lock=0 port=0x4 cache=0xc)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 55000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=7 
+ iid=0x10f 
+ tid=0x249 
+ subr=0x1 
+ ordkey=0xda 
+ status=ST_OK 
+ len=224(=225B) 
+ addr=0x8ee30f85 
+ user=0x29e(rknp=1 axi=0 lock=1 port=0x1 cache=0xe)
 UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 102725000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1 latency=10242 cycles (102420 ns)
 
 RKNP-RSP 
@@ -241,60 +254,100 @@ RD[199]:
     00  00  00  00  00  00  00  00
     00  00  00  00  00  00  00  00
     00  00  00  00  00  00  00  00
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 110595000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=1 response_packets=1 final_rsp(raw/matched)=1/1
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv(1808) @ 120595000: uvm_test_top.env.cov [COV_SUMMARY] Functional coverage summary:
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 103015000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2 latency=10266 cycles (102660 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_ERR 
+ iid=0x10f 
+ tid=0x249 
+ ordkey=0xda 
+ addr=0x8ee30f85 
+ lw=1 errc=EC_TIMEOUT
+RD[231]:
+    00  00  00  00-  00-  00-  00-  00-
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00  00  00  00  00  00  00  00
+    00-  00-  00  00  00  00  00  00
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 111235000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=2 response_packets=2 final_rsp(raw/matched)=2/2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv(1808) @ 121235000: uvm_test_top.env.cov [COV_SUMMARY] Functional coverage summary:
   reset            = 33.33%
   handshake        = 70.83%
-  request protocol = 19.19%
-  request user/qos = 27.68%
-  AXI address       = 36.31%
+  request protocol = 21.30%
+  request user/qos = 55.36%
+  AXI address       = 38.10%
   req->AXI map      = 40.24%
-  multi request     = 0.00%
+  multi request     = 30.03%
   address overlap   = 0.00%
-  special request   = 23.15%
+  special request   = 25.93%
   special mix       = 0.00%
-  RKNP response     = 30.73%
+  RKNP response     = 33.85%
   response ordering = 40.48%
-  AXI response      = 33.04%
+  AXI response      = 33.93%
   AXI W             = 0.00%
-  timeout           = 12.50%
-  stress            = 30.74%
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1312) @ 120595000: uvm_test_top.env.sb [SB] 
+  timeout           = 42.19%
+  stress            = 42.78%
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1312) @ 121235000: uvm_test_top.env.sb [SB] 
 ==== axi_tniu scoreboard summary ====
-  REQ=1  RSP_PKT=1  RSP_FINAL(raw/matched)=1/1
-  AW=0 AR=1 W=0 B=0/0 R=1/1
-  RKNP_READ_BODY(checked/expected)=1/1
+  REQ=2  RSP_PKT=2  RSP_FINAL(raw/matched)=2/2
+  AW=0 AR=2 W=0 B=0/0 R=2/2
+  RKNP_READ_BODY(checked/expected)=2/2
   ERR_req=0  AXI_SLVERR=0  WRAP=0  BUFFERABLE=0
   pending_AW=0 pending_AR=0 pending_R=0
   pending_exp_W=0 pending_obs_W=0
-  PASS=3  FAIL=0
+  PASS=6  FAIL=0
 =====================================
-UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(126) @ 120595000: uvm_test_top [RESULT] *** TEST PASSED ***
-UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 120595000: reporter [UVM/REPORT/SERVER] 
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(126) @ 121235000: uvm_test_top [RESULT] *** TEST PASSED ***
+UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 121235000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
-UVM_INFO :    8
+UVM_INFO :   10
 UVM_WARNING :    0
 UVM_ERROR :    0
 UVM_FATAL :    0
 ** Report counts by id
 [COV_SUMMARY]     1
 [RESULT]     1
-[RKNP_DRV_TX_PACKET]     1
-[RKNP_TXN]     1
+[RKNP_DRV_TX_PACKET]     2
+[RKNP_TXN]     2
 [RNTST]     1
 [RSP_DRAIN]     1
 [SB]     1
 [UVM/RELNOTES]     1
 
 $finish called from file "/home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh", line 527.
-$finish at simulation time            120595000
+$finish at simulation time            121235000
 
 ---------------------------------------------------------------------------
 VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 120595000 ps
-CPU Time:      0.420 seconds;       Data structure size:   0.9Mb
-Wed Aug 19 19:45:42 2026
+Time: 121235000 ps
+CPU Time:      0.490 seconds;       Data structure size:   0.9Mb
+Wed Aug 19 20:41:59 2026

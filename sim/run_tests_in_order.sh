@@ -43,6 +43,8 @@ TEST_SEQUENCE=(
   test_watchdog_1024
   test_watchdog_1100
   test_watchdog_normal_timeout
+  test_timeout_same_axid_prev_rsp
+  test_timeout_busy_context_same_axid
   test_watchdog_bufferable_1100
   test_watchdog_multi_timeout_cov
   test_watchdog_timer_wrap_cov
