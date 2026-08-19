@@ -1,0 +1,355 @@
+Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_sameaxid_buf_err_alt +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_sameaxid_buf_err_alt_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_sameaxid_buf_err_alt.log
+Chronologic VCS simulator copyright 1991-2018
+Contains Synopsys proprietary information.
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 19 22:16 2026
+UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
+----------------------------------------------------------------
+UVM-1.2.Synopsys
+(C) 2007-2014 Mentor Graphics Corporation
+(C) 2007-2014 Cadence Design Systems, Inc.
+(C) 2006-2014 Synopsys, Inc.
+(C) 2011-2013 Cypress Semiconductor Corp.
+(C) 2013-2014 NVIDIA Corporation
+----------------------------------------------------------------
+
+  ***********       IMPORTANT RELEASE NOTES         ************
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_OBJECT_DO_NOT_NEED_CONSTRUCTOR undefined.
+  See http://www.eda.org/svdb/view.php?id=3770 for more details.
+
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+
+UVM_INFO @ 0: reporter [RNTST] Running test test_sameaxid_buf_err_alt...
+*Verdi* Loading libsscore_vcs201809.so
+FSDB Dumper for VCS, Release Verdi_O-2018.09-SP2, Linux x86_64/64bit, 02/21/2019
+(C) 1996 - 2019 by Synopsys, Inc.
+*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi* : Create FSDB file 'wave.fsdb'
+*Verdi* : Begin traversing the scope (tb_top), layer (0).
+*Verdi* : Enable +all dumping.
+*Verdi* : End of traversing.
+*Verdi* : Begin traversing the MDAs, layer (0).
+*Verdi* : Enable +mda and +packedmda dumping.
+*Verdi* : End of traversing the MDAs.
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 181
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_reset"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_reset'
+  
+  Covergroup Instance: tb_top.me.obj.cg_reset 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 197
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_handshake"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_handshake'
+  
+  Covergroup Instance: tb_top.me.obj.cg_handshake 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 237
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_req_protocol"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_req_protocol'
+  
+  Covergroup Instance: tb_top.me.obj.cg_req_protocol 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 332
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_req_user_qos"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_req_user_qos'
+  
+  Covergroup Instance: tb_top.me.obj.cg_req_user_qos 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 360
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_axi_addr"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_axi_addr'
+  
+  Covergroup Instance: tb_top.me.obj.cg_axi_addr 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 416
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_req_axi_map"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_req_axi_map'
+  
+  Covergroup Instance: tb_top.me.obj.cg_req_axi_map 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 480
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_multi_req"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_multi_req'
+  
+  Covergroup Instance: tb_top.me.obj.cg_multi_req 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 528
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_addr_overlap"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_addr_overlap'
+  
+  Covergroup Instance: tb_top.me.obj.cg_addr_overlap 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 553
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_special_req"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_special_req'
+  
+  Covergroup Instance: tb_top.me.obj.cg_special_req 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 622
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_special_mix"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_special_mix'
+  
+  Covergroup Instance: tb_top.me.obj.cg_special_mix 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 648
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_rknp_rsp"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_rknp_rsp'
+  
+  Covergroup Instance: tb_top.me.obj.cg_rknp_rsp 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 705
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_rsp_order"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_rsp_order'
+  
+  Covergroup Instance: tb_top.me.obj.cg_rsp_order 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 746
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_axi_rsp"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_axi_rsp'
+  
+  Covergroup Instance: tb_top.me.obj.cg_axi_rsp 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 785
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_axi_w"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_axi_w'
+  
+  Covergroup Instance: tb_top.me.obj.cg_axi_w 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 820
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_timeout"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_timeout'
+  
+  Covergroup Instance: tb_top.me.obj.cg_timeout 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 870
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_stress"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_stress'
+  
+  Covergroup Instance: tb_top.me.obj.cg_stress 
+  Design hierarchy: axi_tniu_pkg
+
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_buf_err_alt.sv(59) @ 0: uvm_test_top [TEST_SAMEAXID_BUF_ERR_ALT] Run fixed OrderKey=0x55 -> AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_buf_err_alt.sv(124) @ 0: uvm_test_top.env.rknp_agt.sqr@@seq [SEQ_SAMEAXID_BUF_ERR_ALT] Start feature: fixed OrderKey=0x55 -> AXID=0x0; order=BUF,ERR,BUF,ERR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0x100 
+ tid=0x200 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x70000000 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    99  b0  fa  24  9a  e0  59  c6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 55000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
+
+RKNP-REQ 
+ opc=OPC_WRW 
+ qos=7 
+ iid=0x101 
+ tid=0x201 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x70000100 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    4b  37  18  7b  2a  0e  51  5c
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 65000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
+
+RKNP-REQ 
+ opc=OPC_WRW 
+ qos=2 
+ iid=0x102 
+ tid=0x202 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x70000200 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    3c  41  b8  dd  c6  9b  37  cc
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 75000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0x103 
+ tid=0x203 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x70000300 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    9c  6f  b4  7d  cd  9e  2d  d0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 85000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x100 
+ tid=0x200 
+ ordkey=0x55 
+ addr=0x70000000 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 95000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x101 
+ tid=0x201 
+ ordkey=0x55 
+ addr=0x70000100 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x102 
+ tid=0x202 
+ ordkey=0x55 
+ addr=0x70000200 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x103 
+ tid=0x203 
+ ordkey=0x55 
+ addr=0x70000300 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 145000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=4 response_packets=4 final_rsp(raw/matched)=4/4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv(1854) @ 10145000: uvm_test_top.env.cov [COV_SUMMARY] Functional coverage summary:
+  reset            = 33.33%
+  handshake        = 54.17%
+  request protocol = 40.94%
+  request user/qos = 34.82%
+  AXI address       = 49.88%
+  req->AXI map      = 56.67%
+  multi request     = 36.40%
+  address overlap   = 0.00%
+  special request   = 60.65%
+  special mix       = 34.90%
+  RKNP response     = 45.31%
+  response ordering = 47.62%
+  AXI response      = 21.88%
+  AXI W             = 35.42%
+  timeout           = 0.00%
+  stress            = 33.52%
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1312) @ 10145000: uvm_test_top.env.sb [SB] 
+==== axi_tniu scoreboard summary ====
+  REQ=4  RSP_PKT=4  RSP_FINAL(raw/matched)=4/4
+  AW=2 AR=0 W=2 B=2/2 R=0/0
+  RKNP_READ_BODY(checked/expected)=0/0
+  ERR_req=2  AXI_SLVERR=0  WRAP=2  BUFFERABLE=2
+  pending_AW=0 pending_AR=0 pending_R=0
+  pending_exp_W=0 pending_obs_W=0
+  PASS=8  FAIL=0
+=====================================
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(126) @ 10145000: uvm_test_top [RESULT] *** TEST PASSED ***
+UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 10145000: reporter [UVM/REPORT/SERVER] 
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :   16
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[COV_SUMMARY]     1
+[RESULT]     1
+[RKNP_DRV_TX_PACKET]     4
+[RKNP_TXN]     4
+[RNTST]     1
+[RSP_DRAIN]     1
+[SB]     1
+[SEQ_SAMEAXID_BUF_ERR_ALT]     1
+[TEST_SAMEAXID_BUF_ERR_ALT]     1
+[UVM/RELNOTES]     1
+
+$finish called from file "/home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh", line 527.
+$finish at simulation time             10145000
+
+---------------------------------------------------------------------------
+VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
+---------------------------------------------------------------------------
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 10145000 ps
+CPU Time:      0.400 seconds;       Data structure size:   0.9Mb
+Wed Aug 19 22:16:49 2026

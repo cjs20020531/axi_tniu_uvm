@@ -262,7 +262,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     // Testplan values for aligned WRAP.
     cp_wrap_align_len : coverpoint len
       iff (((kind == K_WRAP_RD) || (kind == K_WRAP_WR)) && aligned) {
-      bins plan_len[] = {7,15,23,31,39,47,55,63};
+      bins plan_len[] = {7,15,31,63,127};
       // Unlisted values are intentionally not coverage goals.
     }
 
@@ -270,7 +270,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     cp_wrap_ua_short_len : coverpoint len
       iff (((kind == K_WRAP_RD) || (kind == K_WRAP_WR)) &&
            !aligned && ((len + 1) < NBPW)) {
-      bins plan_len[] = {1,3,5};
+      bins plan_len[] = {1,3};
       // Unlisted values are intentionally not coverage goals.
     }
 
@@ -278,11 +278,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     cp_wrap_ua_long_len : coverpoint len
       iff (((kind == K_WRAP_RD) || (kind == K_WRAP_WR)) &&
            !aligned && ((len + 1) >= NBPW)) {
-      bins plan_len[] = {
-         7, 9,11,13,15,17,19,21,23,25,
-        27,29,31,33,35,37,39,41,43,45,
-        47,49,51,53,55,57,59,61,63
-      };
+      bins plan_len[] = {7,15,31,63,127};
       // Unlisted values are intentionally not coverage goals.
     }
 

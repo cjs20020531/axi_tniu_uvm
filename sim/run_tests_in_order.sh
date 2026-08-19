@@ -64,6 +64,9 @@ TEST_SEQUENCE=(
   test_buff_wrw
   test_buff_mix
   test_buff_mix_fixordkey
+
+  test_sameaxid_buf_err_alt
+  test_sameaxid_norm_buf_err_allpairs
   test_buff_err_mix
 
   test_addrol_waw
