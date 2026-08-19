@@ -77,3 +77,10 @@ wvZoomIn -win $_nWave5
 wvSetCursor -win $_nWave5 3785480.363554 -snap {("axi_vif(axi_if)" 41)}
 wvSelectSignal -win $_nWave5 {( "axi_vif(axi_if)" 39 )} 
 wvZoomOut -win $_nWave5
+wvDisplayGridCount -win $_nWave2 -off
+wvGetSignalClose -win $_nWave2
+wvDisplayGridCount -win $_nWave3 -off
+wvGetSignalClose -win $_nWave3
+wvDisplayGridCount -win $_nWave5 -off
+wvGetSignalClose -win $_nWave5
+wvReloadFile -win $_nWave5

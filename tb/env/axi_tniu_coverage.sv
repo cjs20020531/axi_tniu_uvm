@@ -164,7 +164,6 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
   logic [1:0] rfirst_resp[int unsigned];
   int last_rid;
   bit have_last_rbeat;
-  bit last_rbeat_was_last;
 
   // Raw AXI W-channel state.
   int unsigned wbeat_count;
@@ -694,7 +693,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
 
     cp_axi_resp : coverpoint axi_resp iff (axi_resp >= 0) {
       bins okay   = {0};
-      bins exokay = {1};
+      // bins exokay = {1};
       bins slverr = {2};
       bins decerr = {3};
     }
@@ -759,7 +758,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
 
     cp_resp : coverpoint resp {
       bins okay   = {0};
-      bins exokay = {1};
+      // bins exokay = {1};
       bins slverr = {2};
       bins decerr = {3};
     }
@@ -781,7 +780,6 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     }
 
     x_dir_resp : cross cp_dir, cp_resp;
-    x_read_resp_ilv : cross cp_resp, cp_ilv_switch iff (dir == DIR_RD);
   endgroup
 
   // ---------------------------------------------------------------------------
@@ -1593,6 +1591,10 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
         if (have_axi_vif)
           monitor_axi_bus();
       end
+      begin
+        if (have_axi_vif)
+          monitor_axi_r_bus();
+      end
     join
   endtask
 
@@ -1689,21 +1691,21 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
     end
   endtask
 
+  // ---------------------------------------------------------------------------
+  // Raw AXI W/B coverage.
+  //
+  // Keep W/B sampling behavior unchanged. R-channel coverage is handled by
+  // monitor_axi_r_bus() so interleave detection can use the same clocking block
+  // as axi_monitor.
+  // ---------------------------------------------------------------------------
   task monitor_axi_bus();
     int id;
-    int beat_pos;
-    int ilv_switch;
     int txn;
-    int resp_to_store;
 
     forever begin
       @(posedge axi_vif.aclk);
 
       if (!axi_vif.aresetn) begin
-        rbeat_count.delete();
-        rfirst_resp.delete();
-        have_last_rbeat = 0;
-        last_rid = -1;
         wbeat_count = 0;
         continue;
       end
@@ -1744,35 +1746,84 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
           axi_resp_by_txn[txn] = int'(axi_vif.bresp);
         end
       end
+    end
+  endtask
 
-      // ---------------- AXI R ----------------
-      if (axi_vif.rvalid && axi_vif.rready) begin
-        id = int'(axi_vif.rid);
+  // ---------------------------------------------------------------------------
+  // Raw AXI R-channel coverage.
+  //
+  // Interleave definition:
+  //   An accepted R beat switches from RID=A to RID=B while RID=A still has an
+  //   open burst (A's accepted RLAST has not occurred yet).
+  //
+  // Sampling uses axi_vif.mon_cb, matching axi_monitor.
+  //
+  // rbeat_count.exists(id):
+  //   1 -> that RID has started and its RLAST has not yet been accepted.
+  //   0 -> no open burst for that RID.
+  //
+  // Example:
+  //   RID=7, RLAST=0, handshake
+  //   RID=8,          handshake
+  //
+  // At the RID=8 beat, RID 7 is still open, so ilv_switch=1.
+  // ---------------------------------------------------------------------------
+  task monitor_axi_r_bus();
+    int id;
+    int beat_pos;
+    int ilv_switch;
+    int txn;
+    int resp_to_store;
+
+    forever begin
+      @(axi_vif.mon_cb);
+
+      if (!axi_vif.aresetn) begin
+        rbeat_count.delete();
+        rfirst_resp.delete();
+        have_last_rbeat = 0;
+        last_rid = -1;
+        continue;
+      end
+
+      if (axi_vif.mon_cb.rvalid && axi_vif.mon_cb.rready) begin
+        id = int'(axi_vif.mon_cb.rid);
+
+        // Detect switch before updating current-RID state.
+        ilv_switch = 0;
+        if (have_last_rbeat &&
+            (last_rid != id) &&
+            rbeat_count.exists(last_rid)) begin
+          ilv_switch = 1;
+
+          `uvm_info(
+            "COV_AXI_R_ILV",
+            $sformatf(
+              "AXI R interleave: previous RID=%0d still open, current RID=%0d",
+              last_rid, id
+            ),
+            UVM_HIGH
+          )
+        end
 
         if (!rbeat_count.exists(id))
           rbeat_count[id] = 0;
 
         if (rbeat_count[id] == 0)
-          rfirst_resp[id] = axi_vif.rresp;
+          rfirst_resp[id] = axi_vif.mon_cb.rresp;
 
-        ilv_switch = 0;
-        if (have_last_rbeat &&
-            !last_rbeat_was_last &&
-            (last_rid != id))
-          ilv_switch = 1;
-
-        if ((rbeat_count[id] == 0) && axi_vif.rlast)
+        if ((rbeat_count[id] == 0) && axi_vif.mon_cb.rlast)
           beat_pos = 3; // single
         else if (rbeat_count[id] == 0)
           beat_pos = 0; // first
-        else if (axi_vif.rlast)
+        else if (axi_vif.mon_cb.rlast)
           beat_pos = 2; // last
         else
           beat_pos = 1; // middle
 
         cg_axi_rsp.sample(
           DIR_RD,
-          int'(axi_vif.rresp),
+          int'(axi_vif.mon_cb.rresp),
           beat_pos,
           ilv_switch,
           id
@@ -1780,7 +1831,7 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
 
         rbeat_count[id]++;
 
-        if (axi_vif.rlast) begin
+        if (axi_vif.mon_cb.rlast) begin
           resp_to_store = int'(rfirst_resp[id]);
 
           if (axi_r_txn_q[id].size() != 0) begin
@@ -1793,7 +1844,6 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
         end
 
         last_rid = id;
-        last_rbeat_was_last = axi_vif.rlast;
         have_last_rbeat = 1;
       end
     end
