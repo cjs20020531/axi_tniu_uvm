@@ -138,3 +138,4 @@ gui_exclusion_file -save_all -file {/home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_e
 gui_exclusion_file -load -file {/home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclude.el} -bypass_checks
 gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.axi_vif  uvm_custom_install_verdi_recording   }
 gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} uvm_custom_install_verdi_recording  -column {} 
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { uvm_custom_install_verdi_recording  tb_top.dut.U_ADDR_MAP   }

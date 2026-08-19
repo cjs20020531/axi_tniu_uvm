@@ -1,8 +1,8 @@
-global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req __coverage_axi_tniu_coverage.cg_req unused_axi_tniu_coverage_cg_req_loop_label axi_tniu_pkg 0 1 0 0 0  ( 0 
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_reset __coverage_axi_tniu_coverage.cg_reset unused_axi_tniu_coverage_cg_reset_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
 )
  1 1
  57 /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv
- 50 0 0 0 1 0 0 0 0  1
+ 181 0 0 0 1 0 0 0 0  1
 0
 0 0
  0
@@ -24,7 +24,63 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req __coverage_axi_t
  0
  0
  0
- 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_a
+ 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_reset_fn_3
+0
+0
+0
+64
+0
+ 0
+
+1
+0
+0
+0
+ 14 cp_reset_event 183 0 0 0 0 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_reset_fn 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_reset_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 3 1 1 0 0 1 1 15 initial_release 184 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_reset_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 13 random_assert 185 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_reset_fn_1 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 14 random_release 186 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_reset_fn_2 0 0 0 0 0 0 0
+
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_handshake __coverage_axi_tniu_coverage.cg_handshake unused_axi_tniu_coverage_cg_handshake_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 197 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_f
 0
 0
 0
@@ -34,9 +90,152 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req __coverage_axi_t
 
 5
 0
+1
+0
+ 10 cp_channel 201 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 3 req 202 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 rsp 203 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_1 0 0 0 0 0 0 0
+
+ 5 cp_hs 206 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_2 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 2 64 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 3 1 1 0 0 1 1 5 stall 207 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 9 handshake 208 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_4 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 10 ready_idle 209 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_5 0 0 0 0 0 0 0
+
+ 7 cp_head 212 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_6 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_6 0 0 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_7 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 2 no 213 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 yes 214 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_1 0 0 0 0 0 0 0
+
+ 7 cp_tail 217 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_8 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_8 0 0 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_7 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 2 no 218 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 yes 219 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_1 0 0 0 0 0 0 0
+
+ 8 cp_stall 222 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_9 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_9 0 0 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_7 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 4 none 223 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 short 224 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_1 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_a 0 0 0 0 0
+ 1 1 0 0 1 1 3 mid 225 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_b 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_c 0 0 0 0 0
+ 1 1 0 0 1 1 4 long 226 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_d 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_handshake_fn_e 0 0 0 0 0
+
+ 12 x_channel_hs 0 229 0 0 0 0 2 0 1 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req_protocol __coverage_axi_tniu_coverage.cg_req_protocol unused_axi_tniu_coverage_cg_req_protocol_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 237 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_37
+0
+0
+0
+64
+0
+ 0
+
+12
+0
 3
 0
- 6 cp_opc 52 0 0 0 0 100 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn 100 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 7 4 1 32 axi_tniu_protocol_pkg::req_opc_e 0 0 0 1 0 0 0
+ 7 cp_kind 249 0 0 0 0 109 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn 109 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
  0
  0
@@ -51,12 +250,12 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req __coverage_axi_t
  0
  0
  0
- 4 1 1 0 0 1 1 2 rd 53 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_0 0 0 0 0 0 0 0
- 1 1 0 0 1 1 3 rdw 54 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_1 0 0 0 0 0 0 0
- 1 1 0 0 1 1 2 wr 55 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_2 0 0 0 0 0 0 0
- 1 1 0 0 1 1 3 wrw 56 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_3 0 0 0 0 0 0 0
+ 4 1 1 0 0 1 1 7 incr_rd 250 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 7 wrap_rd 251 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_1 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 7 incr_wr 252 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 7 wrap_wr 253 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_3 0 0 0 0 0 0 0
 
- 6 cp_qos 58 0 0 0 0 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_4 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_4 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 2 3 0 0 1 0 0 0
+ 11 cp_incr_len 258 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_4 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_4 0 0 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_5 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
  0
  0
@@ -71,9 +270,9 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req __coverage_axi_t
  0
  0
  0
- 1 1 1 1 0 1 1 1 q 58 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_5 0 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_6 0 0 0 0 0
+ 1 1 1 1 0 1 1 9 every_len 259 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_6 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_7 0 0 0 0 0
 
- 7 cp_wrap 59 0 0 0 0 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_7 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_7 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 2 1 0 0 1 0 0 0
+ 17 cp_wrap_align_len 264 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_4 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_4 0 0 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_8 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
  0
  0
@@ -88,24 +287,17 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req __coverage_axi_t
  0
  0
  0
- 0
- 6 cp_buf 60 0 0 0 0 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_8 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_8 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 2 1 0 0 1 0 0 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 6 cp_err 61 0 0 0 0 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_9 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_fn_9 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 2 1 0 0 1 0 0 0
+ 2 1 1 1 0 1 1 8 plan_len 265 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 8 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_9 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_a 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_b 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_c 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_d 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_e 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_f 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_10 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 other 266 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 8 0 0 0 0 0 0 0 0
+
+ 20 cp_wrap_ua_short_len 272 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_4 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_4 0 0 0 0 0 0 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_11 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
  0
  0
@@ -120,8 +312,186 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req __coverage_axi_t
  0
  0
  0
+ 2 1 1 1 0 1 1 8 plan_len 273 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 3 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_12 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_13 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_14 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 other 274 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 8 0 0 0 0 0 0 0 0
+
+ 19 cp_wrap_ua_long_len 280 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_4 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_4 0 0 0 0 0 0 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_15 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
- 9 x_opc_buf 0 62 0 0 0 0 2 0 3 -1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 1 0 1 1 8 plan_len 285 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 29 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_9 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_16 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_17 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_18 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_a 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_19 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_1a 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_1b 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_b 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_1c 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_1d 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_1e 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_c 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_1f 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_20 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_21 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_d 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_22 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_23 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_24 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_e 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_25 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_26 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_27 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_f 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_28 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_29 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2a 0 0 0 0 0 0 0
+ 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_10 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 other 286 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 8 0 0 0 0 0 0 0 0
+
+ 10 cp_aligned 289 0 0 0 0 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2b 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2b 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 9 unaligned 290 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_6 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 7 aligned 291 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_12 0 0 0 0 0 0 0
+
+ 8 cp_beats 294 0 0 0 0 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2c 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2c 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 5 beat1 295 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_6 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 multi 296 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_12 0 0 0 0 0 0 0
+
+ 13 cp_req_status 299 0 0 0 0 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2d 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2d 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 3 1 1 0 0 1 1 2 ok 300 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_6 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 err 301 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_12 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 other 302 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 8 0 0 0 0 0 0 0 0
+
+ 13 cp_bufferable 306 0 0 0 0 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2e 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2e 0 0 0 0 0 0 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_2f 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 14 non_bufferable 307 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_6 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 10 bufferable 308 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_12 0 0 0 0 0 0 0
+
+ 7 cp_axid 311 0 0 0 0 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_30 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_30 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 8 all_axid 312 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_6 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_a 0 0 0 0 0
+
+ 13 cp_first_type 315 0 0 0 0 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_31 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_31 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 5 first 316 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_12 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 follower 317 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_6 0 0 0 0 0 0 0
+
+ 13 cp_body_shape 320 0 0 0 0 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_32 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_32 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 4 full 321 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_33 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 lead_pad 322 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_34 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 tail_pad 323 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_35 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 both_pad 324 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 112 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_protocol_fn_36 0 0 0 0 0 0 0
+
+ 18 x_kind_align_beats 0 327 0 0 0 0 3 0 5 6 -1 0 0 0
  0
  0
  0
@@ -134,7 +504,7 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req __coverage_axi_t
  0
  0
  0
- 9 x_opc_err 0 63 0 0 0 0 2 0 4 -1 0 0 0
+ 13 x_kind_status 0 328 0 0 0 0 2 0 7 -1 0 0 0
  0
  0
  0
@@ -147,7 +517,7 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req __coverage_axi_t
  0
  0
  0
- 9 x_opc_qos 0 64 0 0 0 0 2 0 1 -1 0 0 0
+ 12 x_kind_first 0 329 0 0 0 0 2 0 10 -1 0 0 0
  0
  0
  0
@@ -161,9 +531,9 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req __coverage_axi_t
  0
  0
 end_coverage_group
-global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_axid __coverage_axi_tniu_coverage.cg_axid unused_axi_tniu_coverage_cg_axid_loop_label axi_tniu_pkg 0 1 0 0 0  ( 0 
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req_user_qos __coverage_axi_tniu_coverage.cg_req_user_qos unused_axi_tniu_coverage_cg_req_user_qos_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
 )
- 0 67 0 0 0 1 0 0 0 0  1
+ 0 335 0 0 0 1 0 0 0 0  1
 0
 0 0
  0
@@ -185,7 +555,7 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_axid __coverage_axi_
  0
  0
  0
- 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axid_fn_5
+ 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_c
 0
 0
 0
@@ -193,11 +563,11 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_axid __coverage_axi_
 0
  0
 
+8
+0
 2
 0
-1
-0
- 9 cp_ordkey 69 0 0 0 0 101 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axid_fn 101 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axid_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 2 8 0 0 1 0 0 0
+ 7 cp_kind 340 0 0 0 0 109 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn 109 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
  0
  0
@@ -212,9 +582,9 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_axid __coverage_axi_
  0
  0
  0
- 1 1 1 1 0 1 1 1 k 69 0 0 1 0 0 0 0 0 0 0 0 0 0 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axid_fn_0 0 -1 0 0 -1 0 0 1 1 1 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axid_fn_1 0 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axid_fn_2 0 0 0 0 0
+ 1 1 1 1 0 1 1 8 all_kind 341 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_1 0 0 0 0 0
 
- 7 cp_axid 70 0 0 0 0 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axid_fn_3 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axid_fn_3 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 2 4 0 0 1 0 0 0
+ 6 cp_qos 344 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_2 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
  0
  0
@@ -229,9 +599,127 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_axid __coverage_axi_
  0
  0
  0
- 1 1 1 1 0 1 1 1 a 70 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axid_fn_1 0 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axid_fn_4 0 0 0 0 0
+ 1 1 1 1 0 1 1 4 each 345 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_3 0 0 0 0 0
 
- 5 x_map 0 71 0 0 0 0 2 0 1 -1 0 0 0
+ 7 cp_subr 348 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_4 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_4 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 4 each 349 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_3 0 0 0 0 0
+
+ 12 cp_rknp_user 352 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_5 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_5 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 1 b 352 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 2 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_0 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_6 0 0 0 0 0 0 0
+
+ 11 cp_axi_user 353 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_7 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_7 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 1 b 353 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 2 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_0 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_6 0 0 0 0 0 0 0
+
+ 9 cp_axlock 354 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_8 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_8 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 1 b 354 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 2 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_0 0 0 0 0 0 0 0
+ 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_6 0 0 0 0 0 0 0
+
+ 9 cp_axport 356 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_9 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_9 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 4 each 357 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_3 0 0 0 0 0
+
+ 10 cp_axcache 360 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_a 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_a 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 4 each 361 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_user_qos_fn_b 0 0 0 0 0
+
+ 12 x_kind_cache 0 364 0 0 0 0 2 0 7 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 11 x_lock_port 0 365 0 0 0 0 2 5 6 -1 0 0 0
  0
  0
  0
@@ -245,9 +733,9 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_axid __coverage_axi_
  0
  0
 end_coverage_group
-global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_burst __coverage_axi_tniu_coverage.cg_burst unused_axi_tniu_coverage_cg_burst_loop_label axi_tniu_pkg 0 1 0 0 0  ( 0 
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_axi_addr __coverage_axi_tniu_coverage.cg_axi_addr unused_axi_tniu_coverage_cg_axi_addr_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
 )
- 0 74 0 0 0 1 0 0 0 0  1
+ 0 372 0 0 0 1 0 0 0 0  1
 0
 0 0
  0
@@ -269,7 +757,1530 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_burst __coverage_axi
  0
  0
  0
- 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_b
+ 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_13
+0
+0
+0
+64
+0
+ 0
+
+6
+0
+2
+0
+ 6 cp_dir 376 0 0 0 0 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 4 read 377 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 write 378 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_1 0 0 0 0 0 0 0
+
+ 8 cp_burst 381 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_2 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 3 1 1 0 0 1 1 4 incr 382 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 wrap 383 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_4 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 other 384 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 8 0 0 0 0 0 0 0 0
+
+ 8 cp_axlen 387 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_5 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_5 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 6 1 1 0 0 1 1 8 one_beat 388 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_6 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 beat_2_4 389 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_3 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_7 0 0 0 0 0
+ 1 1 0 0 1 1 8 beat_5_8 390 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_8 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_9 0 0 0 0 0
+ 1 1 0 0 1 1 9 beat_9_16 391 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_a 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_b 0 0 0 0 0
+ 1 1 0 0 1 1 10 beat_17_32 392 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_c 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_d 0 0 0 0 0
+ 1 1 0 0 1 1 9 beat_gt32 393 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_e 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_f 0 0 0 0 0
+
+ 7 cp_size 396 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_10 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_10 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 6 byte_8 397 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_7 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 other 398 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 8 0 0 0 0 0 0 0 0
+
+ 9 cp_cache0 401 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_11 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_11 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 4 zero 402 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_6 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 one 403 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_3 0 0 0 0 0 0 0
+
+ 11 cp_addr_low 406 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_12 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_12 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 4 lane 407 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_6 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_addr_fn_9 0 0 0 0 0
+
+ 11 x_dir_burst 0 410 0 0 0 0 2 0 1 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 11 x_burst_len 0 411 0 0 0 0 2 1 2 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_req_axi_map __coverage_axi_tniu_coverage.cg_req_axi_map unused_axi_tniu_coverage_cg_req_axi_map_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 425 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_18
+0
+0
+0
+64
+0
+ 0
+
+6
+0
+2
+0
+ 7 cp_kind 430 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 7 incr_rd 431 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 7 wrap_rd 432 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_1 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 7 incr_wr 433 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_2 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 7 wrap_wr 434 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_3 0 0 0 0 0 0 0
+
+ 7 cp_plan 437 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_4 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_4 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 5 1 1 0 0 1 1 8 non_wrap 438 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_5 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 12 aligned_wrap 439 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_6 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 13 ua_short_wrap 440 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_7 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 12 ua_long_wrap 441 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_8 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 10 other_wrap 442 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_9 0 0 0 0 0 0 0
+
+ 10 cp_aligned 445 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_a 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_a 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 2 no 446 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_b 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 yes 447 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_c 0 0 0 0 0 0 0
+
+ 12 cp_axi_burst 450 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_d 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_d 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 3 1 1 0 0 1 1 4 incr 451 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_c 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 wrap 452 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_e 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 other 453 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 8 0 0 0 0 0 0 0 0
+
+ 10 cp_axi_len 456 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_f 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_f 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 6 1 1 0 0 1 1 8 one_beat 457 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_b 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 beat_2_4 458 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_c 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_10 0 0 0 0 0
+ 1 1 0 0 1 1 8 beat_5_8 459 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_11 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_12 0 0 0 0 0
+ 1 1 0 0 1 1 9 beat_9_16 460 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_13 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_14 0 0 0 0 0
+ 1 1 0 0 1 1 10 beat_17_32 461 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_15 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_16 0 0 0 0 0
+ 1 1 0 0 1 1 5 other 462 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 8 0 0 0 0 0 0 0 0
+
+ 16 cp_addr_relation 465 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_17 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_17 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 4 same 466 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_b 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 12 aligned_down 467 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_c 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 10 aligned_up 468 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_e 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 other 469 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_req_axi_map_fn_10 0 0 0 0 0 0 0
+
+ 12 x_plan_burst 0 472 0 0 0 0 2 1 3 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 11 x_kind_plan 0 473 0 0 0 0 2 0 1 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_multi_req __coverage_axi_tniu_coverage.cg_multi_req unused_axi_tniu_coverage_cg_multi_req_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 481 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_d
+0
+0
+0
+64
+0
+ 0
+
+7
+0
+2
+0
+ 12 cp_prev_kind 487 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 4 kind 487 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_1 0 0 0 0 0
+
+ 11 cp_cur_kind 488 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_2 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 4 kind 488 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_1 0 0 0 0 0
+
+ 6 cp_gap 490 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_3 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_3 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 3 1 1 0 0 1 1 12 back_to_back 491 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_4 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 gap_1_10 492 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_5 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 gap_gt10 493 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_6 0 0 0 0 0 0 0
+
+ 13 cp_prev_beats 496 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_7 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_7 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 5 beat1 497 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 multi 498 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_8 0 0 0 0 0 0 0
+
+ 12 cp_cur_beats 501 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_9 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_9 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 5 beat1 502 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 multi 503 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_8 0 0 0 0 0 0 0
+
+ 12 cp_same_axid 506 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_a 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_a 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 9 different 507 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 same 508 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_8 0 0 0 0 0 0 0
+
+ 22 cp_wrap_pair_alignment 513 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_b 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_b 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 3 1 1 0 0 1 1 7 no_wrap 514 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 12 wrap_aligned 515 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_8 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 14 wrap_unaligned 516 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_multi_req_fn_c 0 0 0 0 0 0 0
+
+ 10 x_pair_gap 0 519 0 0 0 0 3 0 1 2 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 11 x_pair_beat 0 521 0 0 0 0 4 0 1 3 4 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_addr_overlap __coverage_axi_tniu_coverage.cg_addr_overlap unused_axi_tniu_coverage_cg_addr_overlap_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 529 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_6
+0
+0
+0
+64
+0
+ 0
+
+4
+0
+1
+0
+ 7 cp_flow 533 0 0 0 0 109 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn 109 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 3 waw 534 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 raw 535 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_1 0 0 0 0 0 0 0
+
+ 12 cp_prev_wrap 538 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_2 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 4 incr 538 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 wrap 538 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_1 0 0 0 0 0 0 0
+
+ 11 cp_cur_wrap 539 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_3 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_3 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 4 incr 539 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 wrap 539 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_1 0 0 0 0 0 0 0
+
+ 16 cp_overlap_bytes 541 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_4 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_4 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 12 each_overlap 542 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_1 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_addr_overlap_fn_5 0 0 0 0 0
+
+ 17 x_flow_burst_pair 0 545 0 0 0 0 3 0 1 2 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_special_req __coverage_axi_tniu_coverage.cg_special_req unused_axi_tniu_coverage_cg_special_req_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 554 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_12
+0
+0
+0
+64
+0
+ 0
+
+6
+0
+3
+0
+ 10 cp_special 559 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 6 normal 560 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 error 561 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_1 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 10 bufferable 562 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_2 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 20 error_and_bufferable 563 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_3 0 0 0 0 0 0 0
+
+ 7 cp_kind 566 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_4 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_4 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 4 kind 566 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_5 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_6 0 0 0 0 0
+
+ 8 cp_first 568 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_7 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_7 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 5 first 569 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_8 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 follower 570 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_5 0 0 0 0 0 0 0
+
+ 17 cp_same_axid_prev 573 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_9 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_9 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 9 different 574 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_5 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 same 575 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_8 0 0 0 0 0 0 0
+
+ 13 cp_body_shape 578 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_a 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_a 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 4 full 579 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_b 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 lead_pad 580 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_c 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 tail_pad 581 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_d 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 both_pad 582 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_e 0 0 0 0 0 0 0
+
+ 10 cp_errcode 586 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_f 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_f 0 0 0 0 0 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_10 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 4 each 587 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_5 0 111 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_req_fn_11 0 0 0 0 0
+
+ 14 x_special_kind 0 590 0 0 0 0 2 0 1 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 15 x_special_first 0 591 0 0 0 0 2 0 2 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 14 x_special_axid 0 592 0 0 0 0 2 0 3 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_special_mix __coverage_axi_tniu_coverage.cg_special_mix unused_axi_tniu_coverage_cg_special_mix_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 602 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_6
+0
+0
+0
+64
+0
+ 0
+
+4
+0
+2
+0
+ 8 cp_prev2 607 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 1 c 607 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_1 0 0 0 0 0
+
+ 7 cp_prev 608 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_2 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 1 c 608 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_1 0 0 0 0 0
+
+ 6 cp_cur 609 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_3 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_3 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 1 c 609 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_1 0 0 0 0 0
+
+ 12 cp_same_axid 611 0 0 0 0 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_4 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_4 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 9 different 612 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 same 613 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 110 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_special_mix_fn_5 0 0 0 0 0 0 0
+
+ 6 x_pair 0 616 0 0 0 0 3 1 2 3 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 8 x_triple 0 617 0 0 0 0 3 0 1 2 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_rknp_rsp __coverage_axi_tniu_coverage.cg_rknp_rsp unused_axi_tniu_coverage_cg_rknp_rsp_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 628 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_14
+0
+0
+0
+64
+0
+ 0
+
+8
+0
+3
+0
+ 7 cp_kind 633 0 0 0 0 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 4 kind 633 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_1 0 0 0 0 0
+
+ 9 cp_status 635 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_2 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 2 ok 636 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 err 637 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 cont 638 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_4 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 other 639 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 8 0 0 0 0 0 0 0 0
+
+ 10 cp_errcode 642 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_5 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_5 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 3 1 1 0 0 1 1 14 none_or_target 643 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 7 timeout 644 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_6 0 0 0 0 0 0 0
+ 1 1 1 0 1 1 5 other 645 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 2 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_3 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_7 0 0 0 0 0
+ 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_8 0 0 0 0 0 0 0
+
+ 13 cp_packet_pos 648 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_9 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_9 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 5 first 649 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 12 continuation 650 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_3 0 0 0 0 0 0 0
+
+ 13 cp_body_shape 653 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_a 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_a 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 4 full 654 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_b 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 lead_pad 655 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_c 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 tail_pad 656 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_d 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 both_pad 657 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_e 0 0 0 0 0 0 0
+
+ 14 cp_interleaved 660 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_f 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_f 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 2 no 661 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 yes 662 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_3 0 0 0 0 0 0 0
+
+ 6 cp_ooo 665 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_10 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_10 0 0 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_11 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 8 in_order 666 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 12 out_of_order 667 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_3 0 0 0 0 0 0 0
+
+ 11 cp_axi_resp 670 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_12 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_12 0 0 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_13 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 4 okay 671 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 6 exokay 672 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 6 slverr 673 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_4 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 6 decerr 674 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rknp_rsp_fn_1 0 0 0 0 0 0 0
+
+ 13 x_kind_status 0 677 0 0 0 0 2 0 1 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 10 x_kind_ilv 0 678 0 0 0 0 2 0 5 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 12 x_status_axi 0 679 0 0 0 0 2 1 7 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_rsp_order __coverage_axi_tniu_coverage.cg_rsp_order unused_axi_tniu_coverage_cg_rsp_order_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 686 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_9
+0
+0
+0
+64
+0
+ 0
+
+5
+0
+2
+0
+ 6 cp_dir 691 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 4 read 692 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 write 693 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_1 0 0 0 0 0 0 0
+
+ 6 cp_ooo 696 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_2 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 8 in_order 697 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 12 out_of_order 698 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_4 0 0 0 0 0 0 0
+
+ 14 cp_interleaved 701 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_5 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_5 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 2 no 702 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 yes 703 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_4 0 0 0 0 0 0 0
+
+ 10 cp_packets 706 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_6 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_6 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 3 1 1 0 0 1 1 3 one 707 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 two 708 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_4 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 many 709 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_7 0 0 0 0 0 0 0
+
+ 21 cp_same_axid_prev_rsp 712 0 0 0 0 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_8 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_8 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 9 different 713 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 same 714 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 108 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_rsp_order_fn_4 0 0 0 0 0 0 0
+
+ 9 x_dir_ooo 0 717 0 0 0 0 2 0 1 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 9 x_dir_ilv 0 718 0 0 0 0 2 0 2 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_axi_rsp __coverage_axi_tniu_coverage.cg_axi_rsp unused_axi_tniu_coverage_cg_axi_rsp_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 727 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_c
+0
+0
+0
+64
+0
+ 0
+
+5
+0
+2
+0
+ 6 cp_dir 731 0 0 0 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 4 read 732 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 write 733 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_1 0 0 0 0 0 0 0
+
+ 7 cp_resp 736 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_2 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 4 okay 737 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 6 exokay 738 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_4 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 6 slverr 739 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_5 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 6 decerr 740 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_6 0 0 0 0 0 0 0
+
+ 11 cp_beat_pos 743 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_7 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_7 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 5 first 744 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 6 middle 745 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_4 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 last 746 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_5 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 6 single 747 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_6 0 0 0 0 0 0 0
+
+ 13 cp_ilv_switch 750 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_8 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_8 0 0 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_9 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 2 no 751 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 yes 752 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_4 0 0 0 0 0 0 0
+
+ 5 cp_id 755 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_a 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_a 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 7 each_id 756 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_3 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_b 0 0 0 0 0
+
+ 10 x_dir_resp 0 759 0 0 0 0 2 0 1 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 15 x_read_resp_ilv 0 760 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_rsp_fn_9 0 2 1 3 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_axi_w __coverage_axi_tniu_coverage.cg_axi_w unused_axi_tniu_coverage_cg_axi_w_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 767 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_e
 0
 0
 0
@@ -281,7 +2292,7 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_burst __coverage_axi
 0
 1
 0
- 8 cp_burst 76 0 0 0 0 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 2 2 0 0 1 0 0 0
+ 8 cp_beats 771 0 0 0 0 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
  0
  0
@@ -296,10 +2307,14 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_burst __coverage_axi
  0
  0
  0
- 2 1 1 0 0 1 1 4 incr 76 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_0 0 0 0 0 0 0 0
- 1 1 0 0 1 1 4 wrap 76 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_1 0 0 0 0 0 0 0
+ 6 1 1 0 0 1 1 3 one 772 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 beat_2_4 773 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_1 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_2 0 0 0 0 0
+ 1 1 0 0 1 1 8 beat_5_8 774 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_3 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_4 0 0 0 0 0
+ 1 1 0 0 1 1 9 beat_9_16 775 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_5 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_6 0 0 0 0 0
+ 1 1 0 0 1 1 10 beat_17_32 776 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_7 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_8 0 0 0 0 0
+ 1 1 0 0 1 1 4 gt32 777 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_9 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_a 0 0 0 0 0
 
- 6 cp_len 77 0 0 0 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_2 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 2 8 0 0 1 0 0 0
+ 13 cp_first_strb 780 0 0 0 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_b 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_b 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
  0
  0
@@ -314,12 +2329,11 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_burst __coverage_axi
  0
  0
  0
- 4 1 1 0 0 1 1 4 len1 78 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_3 0 0 0 0 0 0 0
- 1 1 0 0 1 1 6 len_sm 79 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_4 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_5 0 0 0 0 0
- 1 1 0 0 1 1 6 len_md 80 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_6 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_7 0 0 0 0 0
- 1 1 0 0 1 1 6 len_lg 81 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_8 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_9 0 0 0 0 0
+ 3 1 1 0 0 1 1 4 zero 781 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_c 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 7 partial 782 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 full 783 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_1 0 0 0 0 0 0 0
 
- 7 cp_size 83 0 0 0 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_a 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_a 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 2 3 0 0 1 0 0 0
+ 12 cp_last_strb 786 0 0 0 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_d 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_d 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
  0
  0
@@ -334,9 +2348,11 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_burst __coverage_axi
  0
  0
  0
- 1 1 1 0 0 1 1 2 b8 83 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_burst_fn_5 0 0 0 0 0 0 0
+ 3 1 1 0 0 1 1 4 zero 787 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_c 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 7 partial 788 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 full 789 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_axi_w_fn_1 0 0 0 0 0 0 0
 
- 11 x_burst_len 0 84 0 0 0 0 2 0 1 -1 0 0 0
+ 17 x_first_last_strb 0 792 0 0 0 0 2 1 2 -1 0 0 0
  0
  0
  0
@@ -350,9 +2366,9 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_burst __coverage_axi
  0
  0
 end_coverage_group
-global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_err __coverage_axi_tniu_coverage.cg_err unused_axi_tniu_coverage_cg_err_loop_label axi_tniu_pkg 0 1 0 0 0  ( 0 
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_timeout __coverage_axi_tniu_coverage.cg_timeout unused_axi_tniu_coverage_cg_timeout_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
 )
- 0 87 0 0 0 1 0 0 0 0  1
+ 0 802 0 0 0 1 0 0 0 0  1
 0
 0 0
  0
@@ -374,7 +2390,7 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_err __coverage_axi_t
  0
  0
  0
- 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_err_fn_7
+ 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_14
 0
 0
 0
@@ -382,71 +2398,155 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_err __coverage_axi_t
 0
  0
 
-1
+6
 0
-0
-0
- 7 cp_errc 89 0 0 0 0 100 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_err_fn 100 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_err_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 7 3 1 32 axi_tniu_protocol_pkg::errcode_e 0 0 0 1 0 0 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 7 1 1 0 0 1 1 6 target 90 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_err_fn_0 0 0 0 0 0 0 0
- 1 1 0 0 1 1 8 addr_dec 91 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_err_fn_1 0 0 0 0 0 0 0
- 1 1 0 0 1 1 5 unsup 92 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_err_fn_2 0 0 0 0 0 0 0
- 1 1 0 0 1 1 7 disconn 93 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_err_fn_3 0 0 0 0 0 0 0
- 1 1 0 0 1 1 3 sec 94 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_err_fn_4 0 0 0 0 0 0 0
- 1 1 0 0 1 1 6 hidden 95 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_err_fn_5 0 0 0 0 0 0 0
- 1 1 0 0 1 1 7 timeout 96 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 102 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_err_fn_6 0 0 0 0 0 0 0
-
-end_coverage_group
-global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_resp __coverage_axi_tniu_coverage.cg_resp unused_axi_tniu_coverage_cg_resp_loop_label axi_tniu_pkg 0 1 0 0 0  ( 0 
-)
- 0 100 0 0 0 1 0 0 0 0  1
-0
-0 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0 0
- 0
- 0 0
- 0 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_resp_fn_6
-0
-0
-0
-64
-0
- 0
-
 2
 0
-1
+ 6 cp_dir 808 0 0 0 0 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn 104 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 4 read 809 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 write 810 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_1 0 0 0 0 0 0 0
+
+ 13 cp_body_shape 813 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_2 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 4 full 814 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_3 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 lead_pad 815 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_4 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 tail_pad 816 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_5 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 8 both_pad 817 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_6 0 0 0 0 0 0 0
+
+ 9 cp_streak 820 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_7 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_7 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 4 1 1 0 0 1 1 6 single 821 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_8 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 two 822 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_9 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 few 823 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_a 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_b 0 0 0 0 0
+ 1 1 0 0 1 1 13 eight_or_more 824 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_c 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_d 0 0 0 0 0
+
+ 19 cp_prev_timeout_dir 828 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_e 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_e 0 0 0 0 0 0 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_f 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 4 read 829 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 write 830 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_1 0 0 0 0 0 0 0
+
+ 15 cp_prev_rsp_dir 833 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_10 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_10 0 0 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_11 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 4 read 834 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 5 write 835 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_1 0 0 0 0 0 0 0
+
+ 21 cp_same_axid_prev_rsp 839 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_12 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_12 0 0 0 0 0 0 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_11 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 2 1 1 0 0 1 1 9 different 840 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 107 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_13 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 4 same 841 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 106 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_timeout_fn_8 0 0 0 0 0 0 0
+
+ 13 x_timeout_mix 0 844 0 0 0 0 2 3 0 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 14 x_busy_context 0 845 0 0 0 0 3 4 0 5 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group
+global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_stress __coverage_axi_tniu_coverage.cg_stress unused_axi_tniu_coverage_cg_stress_loop_label axi_tniu_pkg 0 0 0 0 0  ( 0 
+)
+ 0 852 0 0 0 1 0 0 0 0  1
 0
- 7 cp_ropc 102 0 0 0 0 101 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_resp_fn 101 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_resp_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 7 2 1 32 axi_tniu_protocol_pkg::rsp_opc_e 0 0 0 1 0 0 0
+0 0
+ 0
  0
  0
  0
@@ -455,16 +2555,29 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_resp __coverage_axi_
  0
  0 0
  0
+ 0 0
+ 0 0
  0
  0
  0
  0
  0
  0
- 2 1 1 0 0 1 1 2 rd 103 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_resp_fn_0 0 0 0 0 0 0 0
- 1 1 0 0 1 1 2 wr 104 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_resp_fn_1 0 0 0 0 0 0 0
+ 0
+ 0
+ 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_9
+0
+0
+0
+64
+0
+ 0
 
- 6 cp_rst 106 0 0 0 0 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_resp_fn_2 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_resp_fn_2 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 7 2 1 31 axi_tniu_protocol_pkg::status_e 0 0 0 1 0 0 0
+3
+0
+0
+0
+ 14 cp_outstanding 856 0 0 0 0 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
  0
  0
  0
@@ -479,15 +2592,36 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_resp __coverage_axi_
  0
  0
  0
- 3 1 1 0 0 1 1 2 ok 107 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_resp_fn_3 0 0 0 0 0 0 0
- 1 1 0 0 1 1 3 err 108 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_resp_fn_4 0 0 0 0 0 0 0
- 1 1 0 0 1 1 4 cont 109 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 103 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_resp_fn_5 0 0 0 0 0 0 0
+ 3 1 1 0 0 1 1 4 zero 857 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_0 0 0 0 0 0 0 0
+ 1 1 1 0 1 1 10 each_depth 858 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_1 0 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_2 0 0 0 0 0
+ 1 1 0 0 1 1 8 overflow 859 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_3 0 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_4 0 0 0 0 0
 
- 6 x_resp 0 111 0 0 0 0 2 0 1 -1 0 0 0
+ 13 cp_ua_wrap_rd 862 0 0 0 0 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_5 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_5 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
  0
  0
  0
  0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 3 1 1 0 0 1 1 4 zero 863 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_0 0 0 0 0 0 0 0
+ 1 1 1 0 1 1 5 depth 864 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_1 0 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_2 0 0 0 0 0
+ 1 1 0 0 1 1 8 overflow 865 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_3 0 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_4 0 0 0 0 0
+
+ 14 cp_timeout_run 868 0 0 0 0 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_6 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_6 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 1 32 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
  0 0
  0
  0
@@ -496,4 +2630,9 @@ global coverage_group 0 axi_tniu_pkg::axi_tniu_coverage::cg_resp __coverage_axi_
  0
  0
  0
+ 4 1 1 0 0 1 1 4 zero 869 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_0 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 3 one 870 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_1 0 0 0 0 0 0 0
+ 1 1 0 0 1 1 12 two_to_seven 871 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_7 0 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_8 0 0 0 0 0
+ 1 1 0 0 1 1 13 eight_or_more 872 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_2 0 105 axi_tniu_pkg_axi_tniu_coverage_11_0::axi_tniu_pkg_axi_tniu_coverage_11_0_axi_tniu_coverage_cg_stress_fn_4 0 0 0 0 0
+
 end_coverage_group
