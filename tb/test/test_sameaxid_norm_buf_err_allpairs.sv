@@ -1,215 +1,268 @@
-`ifndef SEQ_SAMEAXID_NORM_BUF_ERR_ALLPAIRS_SV
-`define SEQ_SAMEAXID_NORM_BUF_ERR_ALLPAIRS_SV
+`ifndef TEST_SAMEAXID_NORM_BUF_ERR_ALLPAIRS_SV
+`define TEST_SAMEAXID_NORM_BUF_ERR_ALLPAIRS_SV
 
 // =============================================================================
-// File        : seq_sameaxid_norm_buf_err_allpairs.sv
-// Description : ONE directed three-request combination for cg_special_mix
-//               x_triple closure.
+// File        : test_sameaxid_norm_buf_err_allpairs.sv
+// Description : Full 4^3 same-AXID triple traversal for cg_special_mix.x_triple.
 //
-// The paired test invokes this sequence 64 times and traverses all:
+// Traversal:
+//   prev2 = 0..3
+//     prev = 0..3
+//       cur = 0..3
 //
-//   cp_prev2 x cp_prev x cp_cur = 4 x 4 x 4 = 64
+// => 64 explicit ordered triples.
 //
-// special classes:
-//   0 = NORMAL : status=ST_OK,  non-bufferable
-//   1 = ERROR  : status=ST_ERR, non-bufferable
-//   2 = BUF    : status=ST_OK,  bufferable write
-//   3 = BOTH   : status=ST_ERR, bufferable write
+// IMPORTANT sequencing rule implemented here:
 //
-// NORMAL intentionally alternates between normal READ and normal WRITE across
-// the 64 combinations.  Thus "normal read/write" is represented without making
-// read-vs-write an additional dimension of x_triple.
+//   send combination N's 3 requests
+//          |
+//          v
+//   wait until all 3 final RKNP responses are scoreboard-matched
+//          |
+//          v
+//   wait until scoreboard traffic_drained()==1
+//   (important for bufferable writes whose early RKNP response may precede B)
+//          |
+//          v
+//   only then start combination N+1
 //
-// All three requests use the same fixed OrderKey, therefore the same mapped
-// AXID.  IID/TID are unique per request to keep response matching unambiguous.
-//
-// This sequence sends exactly THREE adjacent requests.  Waiting for their
-// responses is intentionally owned by the TEST, because the scoreboard is an
-// environment component and should not be reached from a leaf sequence.
+// Therefore no next combination is injected while the previous combination
+// still has an outstanding RKNP response or real AXI completion.
 // =============================================================================
 
-typedef enum int unsigned {
-  SAMEAXID_TRIPLE_NORMAL = 0,
-  SAMEAXID_TRIPLE_ERROR  = 1,
-  SAMEAXID_TRIPLE_BUF    = 2,
-  SAMEAXID_TRIPLE_BOTH   = 3
-} sameaxid_triple_class_e;
+class test_sameaxid_norm_buf_err_allpairs extends axi_tniu_base_test;
+  `uvm_component_utils(test_sameaxid_norm_buf_err_allpairs)
 
-class seq_sameaxid_norm_buf_err_allpairs extends rknp_base_seq;
-  `uvm_object_utils(seq_sameaxid_norm_buf_err_allpairs)
+  localparam axi_tniu_protocol_pkg::ordkey_t FIXED_ORDERKEY = 8'h55;
 
-  localparam int unsigned REQ_LEN = 7; // 8-byte request
+  localparam int unsigned CLASS_COUNT       = 4;
+  localparam int unsigned RSP_PER_COMBO     = 3;
+  localparam time         COMBO_WAIT_TIMEOUT = 200us;
 
-  // One invocation = one exact ordered triple.
-  sameaxid_triple_class_e class_prev2 = SAMEAXID_TRIPLE_NORMAL;
-  sameaxid_triple_class_e class_prev  = SAMEAXID_TRIPLE_NORMAL;
-  sameaxid_triple_class_e class_cur   = SAMEAXID_TRIPLE_NORMAL;
-
-  int unsigned combo_index = 0;
-
-  function new(string name = "seq_sameaxid_norm_buf_err_allpairs");
-    super.new(name);
-    num_txn = 3;
-
-    use_fixed_orderkey = 1'b1;
-    fixed_orderkey     = 8'h55;
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
   endfunction
 
-  protected function string class_name(sameaxid_triple_class_e cls);
+  virtual function void configure_cfg();
+    // This feature is about same-AXID request-class history, not AXI response
+    // reordering/interleaving.  Keep response behavior deterministic.
+    cfg.axi_ooo_en              = 1'b0;
+    cfg.axi_interleave_en       = 1'b0;
+    cfg.axi_force_interleave_en = 1'b0;
+
+    cfg.axi_ready_bp_en   = 1'b0;
+    cfg.rsp_ready_bp_en   = 1'b0;
+    cfg.rsp_ready_low_pct = 0;
+
+    cfg.axi_min_addr_delay = 0;
+    cfg.axi_max_addr_delay = 0;
+    cfg.axi_min_resp_delay = 0;
+    cfg.axi_max_resp_delay = 0;
+    cfg.axi_min_beat_gap   = 0;
+    cfg.axi_max_beat_gap   = 0;
+
+    // Request ERROR class is generated directly by ST_ERR/EC_ADDR_DEC.
+    // Do not add unrelated AXI-side error injection.
+    cfg.axi_error_rsp_en         = 1'b0;
+    cfg.axi_error_resp_random_en = 1'b0;
+    cfg.axi_slverr_pct           = 0;
+
+    // Keep the three requests of ONE triple adjacent.
+    cfg.req_min_gap = 0;
+    cfg.req_max_gap = 0;
+
+    // Final base-test drain is only a safety net; every combination is already
+    // fully drained inside run_testcase().
+    cfg.rsp_drain_timeout = 2ms;
+  endfunction
+
+  protected function string class_name(int unsigned cls);
     case (cls)
-      SAMEAXID_TRIPLE_NORMAL: return "NORMAL";
-      SAMEAXID_TRIPLE_ERROR : return "ERROR";
-      SAMEAXID_TRIPLE_BUF   : return "BUF";
-      SAMEAXID_TRIPLE_BOTH  : return "BOTH";
-      default:                return "ILLEGAL";
+      0: return "NORMAL";
+      1: return "ERROR";
+      2: return "BUF";
+      3: return "BOTH";
+      default: return "ILLEGAL";
     endcase
   endfunction
 
   // ---------------------------------------------------------------------------
-  // Build one request whose special_class_of() result is exactly cls.
+  // Wait for the PREVIOUSLY SENT combination to finish completely.
   //
-  // position = 0 / 1 / 2 corresponds to prev2 / prev / cur.
+  // start_rsp is sampled BEFORE sending its 3 requests, so the target is
+  // start_rsp+3 even if one or more responses return before seq.start() exits.
   // ---------------------------------------------------------------------------
-  protected task send_one(
-      sameaxid_triple_class_e cls,
-      int unsigned            position);
+  protected task wait_combo_complete(
+      int unsigned start_rsp,
+      int unsigned combo_index,
+      int unsigned c0,
+      int unsigned c1,
+      int unsigned c2);
 
-    rknp_seq_item it;
+    bit done;
 
-    axi_tniu_protocol_pkg::req_opc_e opc_v;
-    axi_tniu_protocol_pkg::status_e  status_v;
-    axi_tniu_protocol_pkg::errcode_e errcode_v;
+    done = 1'b0;
 
-    bit is_error_v;
-    bit is_bufferable_v;
-    bit normal_is_write_v;
+    fork : combo_wait
+      begin
+        // Poll the combined completion condition explicitly.
+        //
+        // This is important for bufferable writes:
+        // RKNP early responses can make n_rsp_matched_final reach the target
+        // before the real AXI B responses have drained.
+        //
+        // Using a direct wait() on traffic_drained() is fragile here because
+        // traffic_drained() is a zero-argument function and its real
+        // dependencies are scoreboard members hidden inside the function.
+        // Instead, re-evaluate both conditions periodically, matching the
+        // polling style already used by axi_tniu_base_test::drain_responses().
+        forever begin
+          if ((env.sb.n_rsp_matched_final >=
+               (start_rsp + RSP_PER_COMBO)) &&
+              env.sb.traffic_drained()) begin
+            done = 1'b1;
+            break;
+          end
 
-    logic [axi_tniu_protocol_pkg::IID_WITH-1:0]  iid_v;
-    logic [axi_tniu_protocol_pkg::TID_WITH-1:0]  tid_v;
-    logic [axi_tniu_protocol_pkg::ADDR_WITH-1:0] addr_v;
+          #10ns;
+        end
+      end
 
-    int unsigned global_index;
+      begin
+        #(COMBO_WAIT_TIMEOUT);
+      end
+    join_any
+    disable combo_wait;
 
-    global_index = combo_index * 3 + position;
+    // If completion and timeout occur in the same time slot, accept the
+    // completed scoreboard state rather than reporting a false timeout.
+    if (!done &&
+        (env.sb.n_rsp_matched_final >=
+         (start_rsp + RSP_PER_COMBO)) &&
+        env.sb.traffic_drained()) begin
+      done = 1'b1;
+    end
 
-    is_error_v      = (cls == SAMEAXID_TRIPLE_ERROR) ||
-                      (cls == SAMEAXID_TRIPLE_BOTH);
-    is_bufferable_v = (cls == SAMEAXID_TRIPLE_BUF) ||
-                      (cls == SAMEAXID_TRIPLE_BOTH);
-
-    status_v  = is_error_v
-              ? axi_tniu_protocol_pkg::ST_ERR
-              : axi_tniu_protocol_pkg::ST_OK;
-
-    errcode_v = is_error_v
-              ? axi_tniu_protocol_pkg::EC_ADDR_DEC
-              : axi_tniu_protocol_pkg::EC_TARGET;
-
-    // Only NORMAL has a read/write choice. Alternate deterministically so the
-    // complete 64-combination regression contains both normal reads and writes.
-    normal_is_write_v = ((combo_index + position) & 1) != 0;
-
-    case (cls)
-      SAMEAXID_TRIPLE_NORMAL:
-        opc_v = normal_is_write_v
-              ? axi_tniu_protocol_pkg::OPC_WR
-              : axi_tniu_protocol_pkg::OPC_RD;
-
-      SAMEAXID_TRIPLE_ERROR,
-      SAMEAXID_TRIPLE_BUF,
-      SAMEAXID_TRIPLE_BOTH:
-        opc_v = axi_tniu_protocol_pkg::OPC_WR;
-
-      default:
-        opc_v = axi_tniu_protocol_pkg::OPC_RD;
-    endcase
-
-    // There are 192 requests total.  These values remain within the current
-    // IID/TID widths and are unique inside this test.
-    iid_v = 10'h040 + global_index;
-    tid_v = 10'h180 + global_index;
-
-    // Separate, 8-byte-aligned addresses.  INCR is sufficient because WRAP/INCR
-    // is explicitly not a dimension of this feature.
-    addr_v = 32'h7200_0000 + global_index * 32'h0000_0020;
-
-    it = rknp_seq_item::type_id::create(
-           $sformatf("combo_%02d_pos%0d_%s",
-                     combo_index, position, class_name(cls)));
-
-    start_item(it);
-
-    if (!it.randomize() with {
-          opc      == local::opc_v;
-          status   == local::status_v;
-          errcode  == local::errcode_v;
-
-          len      == REQ_LEN;
-          addr     == local::addr_v;
-
-          iid      == local::iid_v;
-          tid      == local::tid_v;
-          orderkey == local::fixed_orderkey;
-
-          rknp_user == 1'b0;
-          axi_user  == 1'b0;
-          axlock    == 1'b0;
-          axport    == 3'b000;
-
-          // special_class_of() mapping:
-          //
-          // NORMAL: is_err=0, is_buf=0
-          // ERROR : is_err=1, is_buf=0
-          // BUF   : is_err=0, is_buf=1
-          // BOTH  : is_err=1, is_buf=1
-          //
-          // is_buf is only meaningful for writes, and BUF/BOTH are forced WR.
-          axcache[3:1] == 3'b000;
-          axcache[0]   == local::is_bufferable_v;
-        }) begin
+    if (!done) begin
       `uvm_fatal(
-        "SEQ_SAMEAXID_TRIPLE",
+        "TRIPLE_COMBO_WAIT",
         $sformatf(
-          "Randomization failed: combo=%0d pos=%0d class=%s OrderKey=0x%0h",
-          combo_index, position, class_name(cls), fixed_orderkey
+          {"combo=%0d %s->%s->%s did not complete in %0t; ",
+           "matched_final=%0d target=%0d traffic_drained=%0b"},
+          combo_index,
+          class_name(c0),
+          class_name(c1),
+          class_name(c2),
+          COMBO_WAIT_TIMEOUT,
+          env.sb.n_rsp_matched_final,
+          start_rsp + RSP_PER_COMBO,
+          env.sb.traffic_drained()
         )
       )
     end
 
-    complete_item(it, "SEQ_SAMEAXID_TRIPLE");
-  endtask
-
-  task body();
-    axi_tniu_protocol_pkg::axi_id_t axid;
-
-    if (!use_fixed_orderkey)
-      `uvm_fatal(
-        "SEQ_SAMEAXID_TRIPLE",
-        "x_triple same-AXID test requires use_fixed_orderkey=1"
-      )
-
-    axid = axi_tniu_protocol_pkg::map_ordkey_to_axid(fixed_orderkey);
-
     `uvm_info(
-      "SEQ_SAMEAXID_TRIPLE",
+      "TRIPLE_COMBO_DONE",
       $sformatf(
-        "combo=%0d : %s -> %s -> %s, OrderKey=0x%0h AXID=0x%0h",
+        "combo=%0d complete: %s -> %s -> %s; all 3 responses returned and traffic drained",
         combo_index,
-        class_name(class_prev2),
-        class_name(class_prev),
-        class_name(class_cur),
-        fixed_orderkey,
-        axid
+        class_name(c0),
+        class_name(c1),
+        class_name(c2)
       ),
       UVM_MEDIUM
     )
-
-    // These three requests are adjacent.  The test sets req gap=0.
-    send_one(class_prev2, 0);
-    send_one(class_prev,  1);
-    send_one(class_cur,   2);
   endtask
 
-endclass : seq_sameaxid_norm_buf_err_allpairs
+  virtual task run_testcase();
+    seq_sameaxid_norm_buf_err_allpairs seq;
+    axi_tniu_protocol_pkg::axi_id_t    axid;
 
-`endif // SEQ_SAMEAXID_NORM_BUF_ERR_ALLPAIRS_SV
+    int unsigned combo_index;
+    int unsigned rsp_start;
+
+    combo_index = 0;
+
+    axid = axi_tniu_protocol_pkg::map_ordkey_to_axid(FIXED_ORDERKEY);
+
+    `uvm_info(
+      "TEST_SAMEAXID_TRIPLE",
+      $sformatf(
+        "Start full 4^3 traversal: 64 triples, fixed OrderKey=0x%0h -> AXID=0x%0h",
+        FIXED_ORDERKEY,
+        axid
+      ),
+      UVM_LOW
+    )
+
+    for (int unsigned prev2 = 0; prev2 < CLASS_COUNT; prev2++) begin
+      for (int unsigned prev = 0; prev < CLASS_COUNT; prev++) begin
+        for (int unsigned cur = 0; cur < CLASS_COUNT; cur++) begin
+
+          // The previous combination has already been fully drained here.
+          // Snapshot the matched-response count BEFORE sending this combination.
+          rsp_start = env.sb.n_rsp_matched_final;
+
+          seq =
+            seq_sameaxid_norm_buf_err_allpairs::type_id::create(
+              $sformatf("seq_combo_%02d", combo_index));
+
+          seq.use_fixed_orderkey = 1'b1;
+          seq.fixed_orderkey     = FIXED_ORDERKEY;
+          seq.combo_index        = combo_index;
+
+          seq.class_prev2 =
+            sameaxid_triple_class_e'(prev2);
+          seq.class_prev =
+            sameaxid_triple_class_e'(prev);
+          seq.class_cur =
+            sameaxid_triple_class_e'(cur);
+
+          `uvm_info(
+            "TEST_SAMEAXID_TRIPLE",
+            $sformatf(
+              "SEND combo=%0d/%0d : %s -> %s -> %s",
+              combo_index + 1,
+              CLASS_COUNT*CLASS_COUNT*CLASS_COUNT,
+              class_name(prev2),
+              class_name(prev),
+              class_name(cur)
+            ),
+            UVM_LOW
+          )
+
+          // Sends exactly three adjacent requests.
+          start_rknp_sequence(seq);
+
+          // Do NOT start the next triple until this one's responses have all
+          // returned and its AXI-side traffic is completely drained.
+          wait_combo_complete(
+            rsp_start,
+            combo_index,
+            prev2,
+            prev,
+            cur
+          );
+
+          combo_index++;
+        end
+      end
+    end
+
+    if (combo_index != 64)
+      `uvm_fatal(
+        "TEST_SAMEAXID_TRIPLE",
+        $sformatf("Internal traversal error: expected 64 triples, got %0d",
+                  combo_index)
+      )
+
+    `uvm_info(
+      "TEST_SAMEAXID_TRIPLE",
+      "Completed all 64 same-AXID ordered triples",
+      UVM_LOW
+    )
+  endtask
+
+endclass : test_sameaxid_norm_buf_err_allpairs
+
+`endif // TEST_SAMEAXID_NORM_BUF_ERR_ALLPAIRS_SV

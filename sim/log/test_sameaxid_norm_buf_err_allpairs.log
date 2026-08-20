@@ -1,7 +1,7 @@
 Command: /home/ICer/RKNoC/axi_tniu_uvm/sim/./simv +UVM_TESTNAME=test_sameaxid_norm_buf_err_allpairs +UVM_VERBOSITY=UVM_MEDIUM +ntb_random_seed=1 -cm line+cond+fsm+tgl+branch+assert -cm_dir /home/ICer/RKNoC/axi_tniu_uvm/sim/cov.vdb -cm_name test_sameaxid_norm_buf_err_allpairs_1 -l /home/ICer/RKNoC/axi_tniu_uvm/sim/log/test_sameaxid_norm_buf_err_allpairs.log
 Chronologic VCS simulator copyright 1991-2018
 Contains Synopsys proprietary information.
-Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 19 22:16 2026
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Aug 19 22:39 2026
 UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -20,28 +20,5229 @@ UVM-1.2.Synopsys
 
       (Specify +UVM_NO_RELNOTES to turn off this notice)
 
-UVM_WARNING @ 0: reporter [BDTYP] Cannot create a component of type 'test_sameaxid_norm_buf_err_allpairs' because it is not registered with the factory.
-UVM_FATAL @ 0: reporter [INVTST] Requested test from command line +UVM_TESTNAME=test_sameaxid_norm_buf_err_allpairs not found.
-UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 0: reporter [UVM/REPORT/SERVER] 
+UVM_INFO @ 0: reporter [RNTST] Running test test_sameaxid_norm_buf_err_allpairs...
+*Verdi* Loading libsscore_vcs201809.so
+FSDB Dumper for VCS, Release Verdi_O-2018.09-SP2, Linux x86_64/64bit, 02/21/2019
+(C) 1996 - 2019 by Synopsys, Inc.
+*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi* : Create FSDB file 'wave.fsdb'
+*Verdi* : Begin traversing the scope (tb_top), layer (0).
+*Verdi* : Enable +all dumping.
+*Verdi* : End of traversing.
+*Verdi* : Begin traversing the MDAs, layer (0).
+*Verdi* : Enable +mda and +packedmda dumping.
+*Verdi* : End of traversing the MDAs.
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 181
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_reset"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_reset'
+  
+  Covergroup Instance: tb_top.me.obj.cg_reset 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 197
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_handshake"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_handshake'
+  
+  Covergroup Instance: tb_top.me.obj.cg_handshake 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 237
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_req_protocol"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_req_protocol'
+  
+  Covergroup Instance: tb_top.me.obj.cg_req_protocol 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 332
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_req_user_qos"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_req_user_qos'
+  
+  Covergroup Instance: tb_top.me.obj.cg_req_user_qos 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 360
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_axi_addr"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_axi_addr'
+  
+  Covergroup Instance: tb_top.me.obj.cg_axi_addr 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 416
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_req_axi_map"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_req_axi_map'
+  
+  Covergroup Instance: tb_top.me.obj.cg_req_axi_map 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 480
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_multi_req"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_multi_req'
+  
+  Covergroup Instance: tb_top.me.obj.cg_multi_req 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 528
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_addr_overlap"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_addr_overlap'
+  
+  Covergroup Instance: tb_top.me.obj.cg_addr_overlap 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 553
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_special_req"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_special_req'
+  
+  Covergroup Instance: tb_top.me.obj.cg_special_req 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 622
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_special_mix"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_special_mix'
+  
+  Covergroup Instance: tb_top.me.obj.cg_special_mix 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 648
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_rknp_rsp"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_rknp_rsp'
+  
+  Covergroup Instance: tb_top.me.obj.cg_rknp_rsp 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 705
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_rsp_order"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_rsp_order'
+  
+  Covergroup Instance: tb_top.me.obj.cg_rsp_order 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 746
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_axi_rsp"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_axi_rsp'
+  
+  Covergroup Instance: tb_top.me.obj.cg_axi_rsp 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 785
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_axi_w"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_axi_w'
+  
+  Covergroup Instance: tb_top.me.obj.cg_axi_w 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 820
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_timeout"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_timeout'
+  
+  Covergroup Instance: tb_top.me.obj.cg_timeout 
+  Design hierarchy: axi_tniu_pkg
+
+
+Note-[FCICIO] Instance coverage is ON
+/home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv, 870
+axi_tniu_pkg, "axi_tniu_pkg::axi_tniu_coverage::cg_stress"
+  Instance coverage is set (option.per_instance = 1) for covergroup 
+  'axi_tniu_pkg::axi_tniu_coverage::cg_stress'
+  
+  Covergroup Instance: tb_top.me.obj.cg_stress 
+  Design hierarchy: axi_tniu_pkg
+
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(188) @ 0: uvm_test_top [TEST_SAMEAXID_TRIPLE] Start full 4^3 traversal: 64 triples, fixed OrderKey=0x55 -> AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 0: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=1/64 : NORMAL -> NORMAL -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 0: uvm_test_top.env.rknp_agt.sqr@@seq_combo_00 [SEQ_SAMEAXID_TRIPLE] combo=0 : NORMAL -> NORMAL -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 45000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.1
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=5 
+ iid=0x40 
+ tid=0x180 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000000 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 55000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.2
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0x41 
+ tid=0x181 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000020 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    66  99  b0  fa  24  9a  e0  59
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 65000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.3
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=5 
+ iid=0x42 
+ tid=0x182 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000040 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 95000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.1 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x40 
+ tid=0x180 
+ ordkey=0x55 
+ addr=0x72000000 
+ lw=1
+RD[7]:
+    07  06  05  04  03  02  01  00
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.2 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x41 
+ tid=0x181 
+ ordkey=0x55 
+ addr=0x72000020 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.3 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x42 
+ tid=0x182 
+ ordkey=0x55 
+ addr=0x72000040 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 125000: uvm_test_top [TRIPLE_COMBO_DONE] combo=0 complete: NORMAL -> NORMAL -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 125000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=2/64 : NORMAL -> NORMAL -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 125000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_01 [SEQ_SAMEAXID_TRIPLE] combo=1 : NORMAL -> NORMAL -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 125000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.4
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0x43 
+ tid=0x183 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000060 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    17  8b  bc  38  e9  6b  14  5a
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 135000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.5
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=3 
+ iid=0x44 
+ tid=0x184 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000080 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 145000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.6
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0x45 
+ tid=0x185 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720000a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    57  cb  43  4d  c5  a2  d3  ad
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.4 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x43 
+ tid=0x183 
+ ordkey=0x55 
+ addr=0x72000060 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.6 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x45 
+ tid=0x185 
+ ordkey=0x55 
+ addr=0x720000a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 205000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.5 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x44 
+ tid=0x184 
+ ordkey=0x55 
+ addr=0x72000080 
+ lw=1
+RD[7]:
+    87  86  85  84  83  82  81  80
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 215000: uvm_test_top [TRIPLE_COMBO_DONE] combo=1 complete: NORMAL -> NORMAL -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 215000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=3/64 : NORMAL -> NORMAL -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 215000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_02 [SEQ_SAMEAXID_TRIPLE] combo=2 : NORMAL -> NORMAL -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 215000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.7
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=4 
+ iid=0x46 
+ tid=0x186 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720000c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 225000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.8
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0x47 
+ tid=0x187 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720000e0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    30  5c  27  6b  94  3a  f6  7b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 235000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.9
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0x48 
+ tid=0x188 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000100 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    67  9b  9c  45  78  b4  a1  b7
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 265000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.7 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x46 
+ tid=0x186 
+ ordkey=0x55 
+ addr=0x720000c0 
+ lw=1
+RD[7]:
+    c7  c6  c5  c4  c3  c2  c1  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 275000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.8 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x47 
+ tid=0x187 
+ ordkey=0x55 
+ addr=0x720000e0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 285000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.9 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x48 
+ tid=0x188 
+ ordkey=0x55 
+ addr=0x72000100 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 295000: uvm_test_top [TRIPLE_COMBO_DONE] combo=2 complete: NORMAL -> NORMAL -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 295000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=4/64 : NORMAL -> NORMAL -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 295000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_03 [SEQ_SAMEAXID_TRIPLE] combo=3 : NORMAL -> NORMAL -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 295000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.10
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x49 
+ tid=0x189 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000120 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    7c  8c  3b  26  e9  01  b0  f6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 305000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.11
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=2 
+ iid=0x4a 
+ tid=0x18a 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000140 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 315000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.12
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x4b 
+ tid=0x18b 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000160 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    29  88  e5  d9  48  2a  c2  f6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 345000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.10 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x49 
+ tid=0x189 
+ ordkey=0x55 
+ addr=0x72000120 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 355000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.12 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x4b 
+ tid=0x18b 
+ ordkey=0x55 
+ addr=0x72000160 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 375000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.11 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x4a 
+ tid=0x18a 
+ ordkey=0x55 
+ addr=0x72000140 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 385000: uvm_test_top [TRIPLE_COMBO_DONE] combo=3 complete: NORMAL -> NORMAL -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 385000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=5/64 : NORMAL -> ERROR -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 385000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_04 [SEQ_SAMEAXID_TRIPLE] combo=4 : NORMAL -> ERROR -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 385000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.13
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=7 
+ iid=0x4c 
+ tid=0x18c 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000180 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 395000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.14
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0x4d 
+ tid=0x18d 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720001a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    ea  a0  0c  f0  b3  5a  cf  11
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 405000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.15
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=7 
+ iid=0x4e 
+ tid=0x18e 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720001c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 435000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.14 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x4d 
+ tid=0x18d 
+ ordkey=0x55 
+ addr=0x720001a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 455000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.13 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x4c 
+ tid=0x18c 
+ ordkey=0x55 
+ addr=0x72000180 
+ lw=1
+RD[7]:
+    87  86  85  84  83  82  81  80
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 465000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.15 latency=4 cycles (40 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x4e 
+ tid=0x18e 
+ ordkey=0x55 
+ addr=0x720001c0 
+ lw=1
+RD[7]:
+    c7  c6  c5  c4  c3  c2  c1  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 475000: uvm_test_top [TRIPLE_COMBO_DONE] combo=4 complete: NORMAL -> ERROR -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 475000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=6/64 : NORMAL -> ERROR -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 475000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_05 [SEQ_SAMEAXID_TRIPLE] combo=5 : NORMAL -> ERROR -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 475000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.16
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0x4f 
+ tid=0x18f 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720001e0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    c2  60  b2  e2  1d  78  30  2c
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 485000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.17
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0x50 
+ tid=0x190 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000200 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    f5  a1  26  dd  ff  6f  f9  1e
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 495000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.18
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x51 
+ tid=0x191 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000220 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    e0  13  d7  e0  e2  34  34  42
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.16 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x4f 
+ tid=0x18f 
+ ordkey=0x55 
+ addr=0x720001e0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 535000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.17 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x50 
+ tid=0x190 
+ ordkey=0x55 
+ addr=0x72000200 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 545000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.18 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x51 
+ tid=0x191 
+ ordkey=0x55 
+ addr=0x72000220 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 555000: uvm_test_top [TRIPLE_COMBO_DONE] combo=5 complete: NORMAL -> ERROR -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 555000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=7/64 : NORMAL -> ERROR -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 555000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_06 [SEQ_SAMEAXID_TRIPLE] combo=6 : NORMAL -> ERROR -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 555000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.19
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=6 
+ iid=0x52 
+ tid=0x192 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000240 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 565000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.20
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x53 
+ tid=0x193 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000260 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    e7  1a  cf  23  e8  c5  e1  c1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 575000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.21
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x54 
+ tid=0x194 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000280 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    b8  9a  7b  5f  cb  b8  6f  1b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 605000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.20 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x53 
+ tid=0x193 
+ ordkey=0x55 
+ addr=0x72000260 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 615000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.21 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x54 
+ tid=0x194 
+ ordkey=0x55 
+ addr=0x72000280 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.19 latency=6 cycles (60 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x52 
+ tid=0x192 
+ ordkey=0x55 
+ addr=0x72000240 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 645000: uvm_test_top [TRIPLE_COMBO_DONE] combo=6 complete: NORMAL -> ERROR -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 645000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=8/64 : NORMAL -> ERROR -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 645000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_07 [SEQ_SAMEAXID_TRIPLE] combo=7 : NORMAL -> ERROR -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 645000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.22
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x55 
+ tid=0x195 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720002a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    70  72  0a  ed  df  9b  49  f3
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 655000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.23
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0x56 
+ tid=0x196 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720002c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    ee  2a  fc  99  47  1c  cd  de
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 665000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.24
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0x57 
+ tid=0x197 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720002e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    14  a6  06  d5  55  f6  b2  0a
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 695000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.22 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x55 
+ tid=0x195 
+ ordkey=0x55 
+ addr=0x720002a0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 705000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.23 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x56 
+ tid=0x196 
+ ordkey=0x55 
+ addr=0x720002c0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 715000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.24 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x57 
+ tid=0x197 
+ ordkey=0x55 
+ addr=0x720002e0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 725000: uvm_test_top [TRIPLE_COMBO_DONE] combo=7 complete: NORMAL -> ERROR -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 725000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=9/64 : NORMAL -> BUF -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 725000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_08 [SEQ_SAMEAXID_TRIPLE] combo=8 : NORMAL -> BUF -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 725000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.25
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=0 
+ iid=0x58 
+ tid=0x198 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000300 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 735000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.26
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0x59 
+ tid=0x199 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000320 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    5d  64  32  1a  be  6e  ab  e7
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 745000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.27
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=4 
+ iid=0x5a 
+ tid=0x19a 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000340 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 775000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.26 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x59 
+ tid=0x199 
+ ordkey=0x55 
+ addr=0x72000320 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 795000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.25 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x58 
+ tid=0x198 
+ ordkey=0x55 
+ addr=0x72000300 
+ lw=1
+RD[7]:
+    07  06  05  04  03  02  01  00
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 805000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.27 latency=4 cycles (40 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x5a 
+ tid=0x19a 
+ ordkey=0x55 
+ addr=0x72000340 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 815000: uvm_test_top [TRIPLE_COMBO_DONE] combo=8 complete: NORMAL -> BUF -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 815000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=10/64 : NORMAL -> BUF -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 815000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_09 [SEQ_SAMEAXID_TRIPLE] combo=9 : NORMAL -> BUF -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 815000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.28
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0x5b 
+ tid=0x19b 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000360 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    1e  ce  8b  3a  8c  ed  5e  da
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 825000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.29
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0x5c 
+ tid=0x19c 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000380 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    61  7e  79  69  98  22  5e  e5
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 835000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.30
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0x5d 
+ tid=0x19d 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720003a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    0d  8b  fe  24  a5  2e  f3  9d
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 865000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.28 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x5b 
+ tid=0x19b 
+ ordkey=0x55 
+ addr=0x72000360 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.29 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x5c 
+ tid=0x19c 
+ ordkey=0x55 
+ addr=0x72000380 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 885000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.30 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x5d 
+ tid=0x19d 
+ ordkey=0x55 
+ addr=0x720003a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 895000: uvm_test_top [TRIPLE_COMBO_DONE] combo=9 complete: NORMAL -> BUF -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 895000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=11/64 : NORMAL -> BUF -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 895000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_10 [SEQ_SAMEAXID_TRIPLE] combo=10 : NORMAL -> BUF -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 895000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.31
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=6 
+ iid=0x5e 
+ tid=0x19e 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720003c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 905000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.32
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0x5f 
+ tid=0x19f 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720003e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    82  66  27  9f  61  7c  b4  ec
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 915000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.33
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x60 
+ tid=0x1a0 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000400 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    1a  6a  96  d5  23  92  ce  50
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 945000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.32 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x5f 
+ tid=0x19f 
+ ordkey=0x55 
+ addr=0x720003e0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 955000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.33 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x60 
+ tid=0x1a0 
+ ordkey=0x55 
+ addr=0x72000400 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 975000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.31 latency=6 cycles (60 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x5e 
+ tid=0x19e 
+ ordkey=0x55 
+ addr=0x720003c0 
+ lw=1
+RD[7]:
+    c7  c6  c5  c4  c3  c2  c1  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 995000: uvm_test_top [TRIPLE_COMBO_DONE] combo=10 complete: NORMAL -> BUF -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 995000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=12/64 : NORMAL -> BUF -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 995000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_11 [SEQ_SAMEAXID_TRIPLE] combo=11 : NORMAL -> BUF -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 995000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.34
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x61 
+ tid=0x1a1 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000420 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    97  d4  c0  ad  1f  bd  d0  be
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1005000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.35
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0x62 
+ tid=0x1a2 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000440 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    37  31  02  6f  f1  98  98  68
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1015000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.36
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0x63 
+ tid=0x1a3 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000460 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    b9  c9  e9  5e  87  36  ee  67
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1045000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.34 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x61 
+ tid=0x1a1 
+ ordkey=0x55 
+ addr=0x72000420 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1055000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.35 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x62 
+ tid=0x1a2 
+ ordkey=0x55 
+ addr=0x72000440 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1065000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.36 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x63 
+ tid=0x1a3 
+ ordkey=0x55 
+ addr=0x72000460 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1075000: uvm_test_top [TRIPLE_COMBO_DONE] combo=11 complete: NORMAL -> BUF -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1075000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=13/64 : NORMAL -> BOTH -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1075000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_12 [SEQ_SAMEAXID_TRIPLE] combo=12 : NORMAL -> BOTH -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1075000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.37
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=3 
+ iid=0x64 
+ tid=0x1a4 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000480 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1085000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.38
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0x65 
+ tid=0x1a5 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720004a0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    78  e9  8c  9b  ea  56  b0  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1095000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.39
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=7 
+ iid=0x66 
+ tid=0x1a6 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720004c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.38 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x65 
+ tid=0x1a5 
+ ordkey=0x55 
+ addr=0x720004a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.37 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x64 
+ tid=0x1a4 
+ ordkey=0x55 
+ addr=0x72000480 
+ lw=1
+RD[7]:
+    87  86  85  84  83  82  81  80
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1155000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.39 latency=4 cycles (40 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x66 
+ tid=0x1a6 
+ ordkey=0x55 
+ addr=0x720004c0 
+ lw=1
+RD[7]:
+    c7  c6  c5  c4  c3  c2  c1  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1165000: uvm_test_top [TRIPLE_COMBO_DONE] combo=12 complete: NORMAL -> BOTH -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1165000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=14/64 : NORMAL -> BOTH -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1165000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_13 [SEQ_SAMEAXID_TRIPLE] combo=13 : NORMAL -> BOTH -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1165000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.40
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x67 
+ tid=0x1a7 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720004e0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    af  c0  05  0f  30  8d  44  ef
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1175000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.41
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0x68 
+ tid=0x1a8 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000500 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    fe  f4  30  3f  59  24  ec  5f
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1185000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.42
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0x69 
+ tid=0x1a9 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000520 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    dd  83  00  3e  4c  30  39  e1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1215000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.40 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x67 
+ tid=0x1a7 
+ ordkey=0x55 
+ addr=0x720004e0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1225000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.41 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x68 
+ tid=0x1a8 
+ ordkey=0x55 
+ addr=0x72000500 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1235000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.42 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x69 
+ tid=0x1a9 
+ ordkey=0x55 
+ addr=0x72000520 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1245000: uvm_test_top [TRIPLE_COMBO_DONE] combo=13 complete: NORMAL -> BOTH -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1245000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=15/64 : NORMAL -> BOTH -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1245000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_14 [SEQ_SAMEAXID_TRIPLE] combo=14 : NORMAL -> BOTH -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1245000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.43
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=5 
+ iid=0x6a 
+ tid=0x1aa 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000540 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1255000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.44
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0x6b 
+ tid=0x1ab 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000560 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    7b  f3  11  cf  75  0c  98  a6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1265000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.45
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x6c 
+ tid=0x1ac 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000580 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    24  b3  6e  b0  be  48  c5  90
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1295000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.44 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x6b 
+ tid=0x1ab 
+ ordkey=0x55 
+ addr=0x72000560 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1305000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.45 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x6c 
+ tid=0x1ac 
+ ordkey=0x55 
+ addr=0x72000580 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1325000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.43 latency=6 cycles (60 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x6a 
+ tid=0x1aa 
+ ordkey=0x55 
+ addr=0x72000540 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1335000: uvm_test_top [TRIPLE_COMBO_DONE] combo=14 complete: NORMAL -> BOTH -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1335000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=16/64 : NORMAL -> BOTH -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1335000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_15 [SEQ_SAMEAXID_TRIPLE] combo=15 : NORMAL -> BOTH -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1335000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.46
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0x6d 
+ tid=0x1ad 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720005a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    bc  5e  62  eb  cd  24  c1  22
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1345000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.47
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0x6e 
+ tid=0x1ae 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720005c0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    09  b9  59  05  25  42  03  57
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1355000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.48
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0x6f 
+ tid=0x1af 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720005e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    f5  a2  3d  cc  0d  23  d3  f0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1385000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.46 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x6d 
+ tid=0x1ad 
+ ordkey=0x55 
+ addr=0x720005a0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1395000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.47 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x6e 
+ tid=0x1ae 
+ ordkey=0x55 
+ addr=0x720005c0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.48 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x6f 
+ tid=0x1af 
+ ordkey=0x55 
+ addr=0x720005e0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1415000: uvm_test_top [TRIPLE_COMBO_DONE] combo=15 complete: NORMAL -> BOTH -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1415000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=17/64 : ERROR -> NORMAL -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1415000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_16 [SEQ_SAMEAXID_TRIPLE] combo=16 : ERROR -> NORMAL -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1415000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.49
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0x70 
+ tid=0x1b0 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000600 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    07  e1  25  56  b5  c6  1f  af
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1425000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.50
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x71 
+ tid=0x1b1 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000620 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    07  34  ce  d3  5e  ce  c9  45
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1435000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.51
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=2 
+ iid=0x72 
+ tid=0x1b2 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000640 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1455000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.49 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x70 
+ tid=0x1b0 
+ ordkey=0x55 
+ addr=0x72000600 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1475000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.50 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x71 
+ tid=0x1b1 
+ ordkey=0x55 
+ addr=0x72000620 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1485000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.51 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x72 
+ tid=0x1b2 
+ ordkey=0x55 
+ addr=0x72000640 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1495000: uvm_test_top [TRIPLE_COMBO_DONE] combo=16 complete: ERROR -> NORMAL -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1495000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=18/64 : ERROR -> NORMAL -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1495000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_17 [SEQ_SAMEAXID_TRIPLE] combo=17 : ERROR -> NORMAL -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1495000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.52
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0x73 
+ tid=0x1b3 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000660 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    21  af  4c  85  1a  db  3a  bc
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1505000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.53
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=0 
+ iid=0x74 
+ tid=0x1b4 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000680 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1515000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.54
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0x75 
+ tid=0x1b5 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720006a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    eb  e8  82  6b  d9  90  61  5b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1535000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.52 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x73 
+ tid=0x1b3 
+ ordkey=0x55 
+ addr=0x72000660 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.54 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x75 
+ tid=0x1b5 
+ ordkey=0x55 
+ addr=0x720006a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1575000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.53 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x74 
+ tid=0x1b4 
+ ordkey=0x55 
+ addr=0x72000680 
+ lw=1
+RD[7]:
+    87  86  85  84  83  82  81  80
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1585000: uvm_test_top [TRIPLE_COMBO_DONE] combo=17 complete: ERROR -> NORMAL -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1585000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=19/64 : ERROR -> NORMAL -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1585000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_18 [SEQ_SAMEAXID_TRIPLE] combo=18 : ERROR -> NORMAL -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1585000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.55
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x76 
+ tid=0x1b6 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720006c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    9b  de  7c  87  4b  39  8b  0f
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1595000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.56
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0x77 
+ tid=0x1b7 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720006e0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    b9  b5  31  4a  d7  14  08  7d
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1605000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.57
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0x78 
+ tid=0x1b8 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000700 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    e8  f5  90  a5  4c  bc  43  01
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1625000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.55 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x76 
+ tid=0x1b6 
+ ordkey=0x55 
+ addr=0x720006c0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1645000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.56 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x77 
+ tid=0x1b7 
+ ordkey=0x55 
+ addr=0x720006e0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1655000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.57 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x78 
+ tid=0x1b8 
+ ordkey=0x55 
+ addr=0x72000700 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1665000: uvm_test_top [TRIPLE_COMBO_DONE] combo=18 complete: ERROR -> NORMAL -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1665000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=20/64 : ERROR -> NORMAL -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1665000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_19 [SEQ_SAMEAXID_TRIPLE] combo=19 : ERROR -> NORMAL -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1665000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.58
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0x79 
+ tid=0x1b9 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000720 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    f5  06  40  2e  01  27  ed  b6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1675000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.59
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=6 
+ iid=0x7a 
+ tid=0x1ba 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000740 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1685000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.60
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x7b 
+ tid=0x1bb 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000760 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    40  27  3d  f0  6c  94  f0  5c
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1705000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.58 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x79 
+ tid=0x1b9 
+ ordkey=0x55 
+ addr=0x72000720 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1725000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.60 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x7b 
+ tid=0x1bb 
+ ordkey=0x55 
+ addr=0x72000760 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1745000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.59 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x7a 
+ tid=0x1ba 
+ ordkey=0x55 
+ addr=0x72000740 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1755000: uvm_test_top [TRIPLE_COMBO_DONE] combo=19 complete: ERROR -> NORMAL -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1755000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=21/64 : ERROR -> ERROR -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1755000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_20 [SEQ_SAMEAXID_TRIPLE] combo=20 : ERROR -> ERROR -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1755000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.61
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0x7c 
+ tid=0x1bc 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000780 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    40  0d  ac  74  5e  d8  15  04
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1765000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.62
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0x7d 
+ tid=0x1bd 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720007a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    a7  f7  66  82  84  a1  70  61
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1775000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.63
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=4 
+ iid=0x7e 
+ tid=0x1be 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720007c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1795000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.61 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x7c 
+ tid=0x1bc 
+ ordkey=0x55 
+ addr=0x72000780 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1805000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.62 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x7d 
+ tid=0x1bd 
+ ordkey=0x55 
+ addr=0x720007a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1825000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.63 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x7e 
+ tid=0x1be 
+ ordkey=0x55 
+ addr=0x720007c0 
+ lw=1
+RD[7]:
+    c7  c6  c5  c4  c3  c2  c1  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1835000: uvm_test_top [TRIPLE_COMBO_DONE] combo=20 complete: ERROR -> ERROR -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1835000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=22/64 : ERROR -> ERROR -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1835000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_21 [SEQ_SAMEAXID_TRIPLE] combo=21 : ERROR -> ERROR -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1835000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.64
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0x7f 
+ tid=0x1bf 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720007e0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    58  cb  61  4c  e3  bd  f8  59
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1845000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.65
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0x80 
+ tid=0x1c0 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000800 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    13  59  bf  c1  ed  7a  34  c8
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1855000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.66
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x81 
+ tid=0x1c1 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000820 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    da  b9  85  35  b4  0d  5d  df
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.64 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x7f 
+ tid=0x1bf 
+ ordkey=0x55 
+ addr=0x720007e0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1885000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.65 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x80 
+ tid=0x1c0 
+ ordkey=0x55 
+ addr=0x72000800 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1895000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.66 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x81 
+ tid=0x1c1 
+ ordkey=0x55 
+ addr=0x72000820 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1905000: uvm_test_top [TRIPLE_COMBO_DONE] combo=21 complete: ERROR -> ERROR -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1905000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=23/64 : ERROR -> ERROR -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1905000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_22 [SEQ_SAMEAXID_TRIPLE] combo=22 : ERROR -> ERROR -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1905000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.67
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x82 
+ tid=0x1c2 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000840 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    21  f2  be  c1  9d  a6  58  6c
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1915000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.68
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0x83 
+ tid=0x1c3 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000860 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    1c  20  24  1d  6c  dc  a4  e6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1925000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.69
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0x84 
+ tid=0x1c4 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000880 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    24  07  9a  c9  c1  af  60  cd
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1945000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.67 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x82 
+ tid=0x1c2 
+ ordkey=0x55 
+ addr=0x72000840 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1955000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.68 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x83 
+ tid=0x1c3 
+ ordkey=0x55 
+ addr=0x72000860 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 1965000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.69 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x84 
+ tid=0x1c4 
+ ordkey=0x55 
+ addr=0x72000880 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 1975000: uvm_test_top [TRIPLE_COMBO_DONE] combo=22 complete: ERROR -> ERROR -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 1975000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=24/64 : ERROR -> ERROR -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 1975000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_23 [SEQ_SAMEAXID_TRIPLE] combo=23 : ERROR -> ERROR -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1975000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.70
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0x85 
+ tid=0x1c5 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720008a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    b0  ca  d2  a7  09  43  dd  0b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1985000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.71
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0x86 
+ tid=0x1c6 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720008c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    35  8d  ba  8f  f7  c5  24  ec
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 1995000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.72
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0x87 
+ tid=0x1c7 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720008e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    33  7a  5b  77  f2  00  7a  a4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2015000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.70 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x85 
+ tid=0x1c5 
+ ordkey=0x55 
+ addr=0x720008a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2025000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.71 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x86 
+ tid=0x1c6 
+ ordkey=0x55 
+ addr=0x720008c0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2035000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.72 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x87 
+ tid=0x1c7 
+ ordkey=0x55 
+ addr=0x720008e0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2045000: uvm_test_top [TRIPLE_COMBO_DONE] combo=23 complete: ERROR -> ERROR -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2045000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=25/64 : ERROR -> BUF -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2045000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_24 [SEQ_SAMEAXID_TRIPLE] combo=24 : ERROR -> BUF -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2045000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.73
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x88 
+ tid=0x1c8 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000900 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    0d  90  26  ab  b4  d3  4e  f6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2055000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.74
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0x89 
+ tid=0x1c9 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000920 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    4a  28  11  56  9d  1e  ff  b6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2065000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.75
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=0 
+ iid=0x8a 
+ tid=0x1ca 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000940 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2085000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.73 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x88 
+ tid=0x1c8 
+ ordkey=0x55 
+ addr=0x72000900 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.74 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x89 
+ tid=0x1c9 
+ ordkey=0x55 
+ addr=0x72000920 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.75 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x8a 
+ tid=0x1ca 
+ ordkey=0x55 
+ addr=0x72000940 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2125000: uvm_test_top [TRIPLE_COMBO_DONE] combo=24 complete: ERROR -> BUF -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2125000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=26/64 : ERROR -> BUF -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2125000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_25 [SEQ_SAMEAXID_TRIPLE] combo=25 : ERROR -> BUF -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2125000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.76
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x8b 
+ tid=0x1cb 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000960 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    45  e6  11  af  25  19  f7  07
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2135000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.77
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0x8c 
+ tid=0x1cc 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000980 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    f5  57  fc  1d  d2  ba  a6  74
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2145000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.78
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0x8d 
+ tid=0x1cd 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720009a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    19  74  98  a4  35  d9  1f  a2
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2165000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.76 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x8b 
+ tid=0x1cb 
+ ordkey=0x55 
+ addr=0x72000960 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.77 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x8c 
+ tid=0x1cc 
+ ordkey=0x55 
+ addr=0x72000980 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2225000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.78 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x8d 
+ tid=0x1cd 
+ ordkey=0x55 
+ addr=0x720009a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2235000: uvm_test_top [TRIPLE_COMBO_DONE] combo=25 complete: ERROR -> BUF -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2235000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=27/64 : ERROR -> BUF -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2235000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_26 [SEQ_SAMEAXID_TRIPLE] combo=26 : ERROR -> BUF -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2235000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.79
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x8e 
+ tid=0x1ce 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720009c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    3f  b4  1b  14  99  b1  da  22
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2245000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.80
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x8f 
+ tid=0x1cf 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720009e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    94  ec  d5  9f  13  18  22  8b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2255000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.81
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0x90 
+ tid=0x1d0 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000a00 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    86  17  ba  0e  a1  06  83  91
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2275000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.79 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x8e 
+ tid=0x1ce 
+ ordkey=0x55 
+ addr=0x720009c0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2285000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.80 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x8f 
+ tid=0x1cf 
+ ordkey=0x55 
+ addr=0x720009e0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2295000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.81 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x90 
+ tid=0x1d0 
+ ordkey=0x55 
+ addr=0x72000a00 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2325000: uvm_test_top [TRIPLE_COMBO_DONE] combo=26 complete: ERROR -> BUF -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2325000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=28/64 : ERROR -> BUF -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2325000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_27 [SEQ_SAMEAXID_TRIPLE] combo=27 : ERROR -> BUF -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2325000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.82
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x91 
+ tid=0x1d1 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000a20 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    78  12  18  dc  41  da  da  1e
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2335000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.83
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0x92 
+ tid=0x1d2 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000a40 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    22  72  a3  9f  97  10  27  86
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2345000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.84
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0x93 
+ tid=0x1d3 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000a60 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    47  39  b9  6e  31  52  9f  cb
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2365000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.82 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x91 
+ tid=0x1d1 
+ ordkey=0x55 
+ addr=0x72000a20 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2375000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.83 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x92 
+ tid=0x1d2 
+ ordkey=0x55 
+ addr=0x72000a40 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2385000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.84 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x93 
+ tid=0x1d3 
+ ordkey=0x55 
+ addr=0x72000a60 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2395000: uvm_test_top [TRIPLE_COMBO_DONE] combo=27 complete: ERROR -> BUF -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2395000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=29/64 : ERROR -> BOTH -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2395000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_28 [SEQ_SAMEAXID_TRIPLE] combo=28 : ERROR -> BOTH -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2395000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.85
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0x94 
+ tid=0x1d4 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000a80 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    04  61  43  c6  2a  0e  d2  b0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2405000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.86
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0x95 
+ tid=0x1d5 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000aa0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    95  14  ea  fc  55  22  a2  e4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2415000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.87
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=3 
+ iid=0x96 
+ tid=0x1d6 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000ac0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2435000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.85 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x94 
+ tid=0x1d4 
+ ordkey=0x55 
+ addr=0x72000a80 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2445000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.86 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x95 
+ tid=0x1d5 
+ ordkey=0x55 
+ addr=0x72000aa0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2465000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.87 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0x96 
+ tid=0x1d6 
+ ordkey=0x55 
+ addr=0x72000ac0 
+ lw=1
+RD[7]:
+    c7  c6  c5  c4  c3  c2  c1  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2475000: uvm_test_top [TRIPLE_COMBO_DONE] combo=28 complete: ERROR -> BOTH -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2475000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=30/64 : ERROR -> BOTH -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2475000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_29 [SEQ_SAMEAXID_TRIPLE] combo=29 : ERROR -> BOTH -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2475000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.88
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0x97 
+ tid=0x1d7 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000ae0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    64  4e  6a  f0  2c  45  18  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2485000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.89
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0x98 
+ tid=0x1d8 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000b00 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    a3  f5  3d  ec  72  44  93  f8
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2495000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.90
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x99 
+ tid=0x1d9 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000b20 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    c0  34  1c  ea  88  80  58  ff
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2515000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.88 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x97 
+ tid=0x1d7 
+ ordkey=0x55 
+ addr=0x72000ae0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.89 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x98 
+ tid=0x1d8 
+ ordkey=0x55 
+ addr=0x72000b00 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2535000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.90 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x99 
+ tid=0x1d9 
+ ordkey=0x55 
+ addr=0x72000b20 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2545000: uvm_test_top [TRIPLE_COMBO_DONE] combo=29 complete: ERROR -> BOTH -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2545000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=31/64 : ERROR -> BOTH -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2545000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_30 [SEQ_SAMEAXID_TRIPLE] combo=30 : ERROR -> BOTH -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2545000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.91
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0x9a 
+ tid=0x1da 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000b40 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    5a  78  5a  8e  8a  4a  fc  2c
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2555000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.92
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0x9b 
+ tid=0x1db 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000b60 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    fe  82  08  15  50  3b  b9  08
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2565000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.93
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0x9c 
+ tid=0x1dc 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000b80 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    fa  eb  35  c0  66  af  88  a7
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2585000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.91 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x9a 
+ tid=0x1da 
+ ordkey=0x55 
+ addr=0x72000b40 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2595000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.92 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x9b 
+ tid=0x1db 
+ ordkey=0x55 
+ addr=0x72000b60 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2605000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.93 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0x9c 
+ tid=0x1dc 
+ ordkey=0x55 
+ addr=0x72000b80 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2615000: uvm_test_top [TRIPLE_COMBO_DONE] combo=30 complete: ERROR -> BOTH -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2615000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=32/64 : ERROR -> BOTH -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2615000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_31 [SEQ_SAMEAXID_TRIPLE] combo=31 : ERROR -> BOTH -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2615000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.94
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0x9d 
+ tid=0x1dd 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000ba0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    7f  98  9a  d7  14  4b  14  89
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2625000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.95
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0x9e 
+ tid=0x1de 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000bc0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    47  c7  96  6b  54  c6  29  6d
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2635000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.96
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0x9f 
+ tid=0x1df 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000be0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    93  13  2b  8a  ed  32  8d  df
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2655000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.94 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x9d 
+ tid=0x1dd 
+ ordkey=0x55 
+ addr=0x72000ba0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2665000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.95 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x9e 
+ tid=0x1de 
+ ordkey=0x55 
+ addr=0x72000bc0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2675000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.96 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0x9f 
+ tid=0x1df 
+ ordkey=0x55 
+ addr=0x72000be0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2685000: uvm_test_top [TRIPLE_COMBO_DONE] combo=31 complete: ERROR -> BOTH -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2685000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=33/64 : BUF -> NORMAL -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2685000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_32 [SEQ_SAMEAXID_TRIPLE] combo=32 : BUF -> NORMAL -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2685000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.97
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xa0 
+ tid=0x1e0 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000c00 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    d9  69  dd  24  5c  e2  26  0b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2695000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.98
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xa1 
+ tid=0x1e1 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000c20 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    46  95  5f  c2  54  a9  ef  08
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2705000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.99
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=6 
+ iid=0xa2 
+ tid=0x1e2 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000c40 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2725000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.97 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xa0 
+ tid=0x1e0 
+ ordkey=0x55 
+ addr=0x72000c00 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2755000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.99 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xa2 
+ tid=0x1e2 
+ ordkey=0x55 
+ addr=0x72000c40 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2765000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.98 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xa1 
+ tid=0x1e1 
+ ordkey=0x55 
+ addr=0x72000c20 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2775000: uvm_test_top [TRIPLE_COMBO_DONE] combo=32 complete: BUF -> NORMAL -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2775000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=34/64 : BUF -> NORMAL -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2775000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_33 [SEQ_SAMEAXID_TRIPLE] combo=33 : BUF -> NORMAL -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2775000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.100
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xa3 
+ tid=0x1e3 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000c60 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    cf  13  cb  e1  19  2c  76  9f
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2785000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.101
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=6 
+ iid=0xa4 
+ tid=0x1e4 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000c80 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2795000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.102
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0xa5 
+ tid=0x1e5 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000ca0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    a6  88  12  34  8b  ca  0d  76
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2815000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.100 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xa3 
+ tid=0x1e3 
+ ordkey=0x55 
+ addr=0x72000c60 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2835000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.102 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xa5 
+ tid=0x1e5 
+ ordkey=0x55 
+ addr=0x72000ca0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2855000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.101 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xa4 
+ tid=0x1e4 
+ ordkey=0x55 
+ addr=0x72000c80 
+ lw=1
+RD[7]:
+    87  86  85  84  83  82  81  80
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2865000: uvm_test_top [TRIPLE_COMBO_DONE] combo=33 complete: BUF -> NORMAL -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2865000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=35/64 : BUF -> NORMAL -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2865000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_34 [SEQ_SAMEAXID_TRIPLE] combo=34 : BUF -> NORMAL -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2865000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.103
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xa6 
+ tid=0x1e6 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000cc0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    8d  cc  a8  52  25  f9  57  17
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2875000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.104
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xa7 
+ tid=0x1e7 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000ce0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    6e  5b  ae  22  08  1d  74  ca
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2885000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.105
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xa8 
+ tid=0x1e8 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000d00 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    3b  89  3b  ce  59  bb  5d  bd
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2905000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.103 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xa6 
+ tid=0x1e6 
+ ordkey=0x55 
+ addr=0x72000cc0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2945000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.104 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xa7 
+ tid=0x1e7 
+ ordkey=0x55 
+ addr=0x72000ce0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 2955000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.105 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xa8 
+ tid=0x1e8 
+ ordkey=0x55 
+ addr=0x72000d00 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 2965000: uvm_test_top [TRIPLE_COMBO_DONE] combo=34 complete: BUF -> NORMAL -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 2965000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=36/64 : BUF -> NORMAL -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 2965000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_35 [SEQ_SAMEAXID_TRIPLE] combo=35 : BUF -> NORMAL -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2965000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.106
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0xa9 
+ tid=0x1e9 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000d20 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    d2  b7  a4  bf  70  f6  4c  5e
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2975000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.107
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=0 
+ iid=0xaa 
+ tid=0x1ea 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000d40 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 2985000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.108
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0xab 
+ tid=0x1eb 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000d60 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    1d  53  66  82  92  75  9a  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3005000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.106 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xa9 
+ tid=0x1e9 
+ ordkey=0x55 
+ addr=0x72000d20 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3025000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.108 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xab 
+ tid=0x1eb 
+ ordkey=0x55 
+ addr=0x72000d60 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3045000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.107 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xaa 
+ tid=0x1ea 
+ ordkey=0x55 
+ addr=0x72000d40 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3055000: uvm_test_top [TRIPLE_COMBO_DONE] combo=35 complete: BUF -> NORMAL -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3055000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=37/64 : BUF -> ERROR -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3055000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_36 [SEQ_SAMEAXID_TRIPLE] combo=36 : BUF -> ERROR -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3055000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.109
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0xac 
+ tid=0x1ec 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000d80 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    e4  ed  5f  a0  15  6c  44  e9
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3065000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.110
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xad 
+ tid=0x1ed 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000da0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    d9  38  04  07  56  9c  02  ff
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3075000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.111
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=6 
+ iid=0xae 
+ tid=0x1ee 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000dc0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.109 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xac 
+ tid=0x1ec 
+ ordkey=0x55 
+ addr=0x72000d80 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3105000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.110 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xad 
+ tid=0x1ed 
+ ordkey=0x55 
+ addr=0x72000da0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.111 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xae 
+ tid=0x1ee 
+ ordkey=0x55 
+ addr=0x72000dc0 
+ lw=1
+RD[7]:
+    c7  c6  c5  c4  c3  c2  c1  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3135000: uvm_test_top [TRIPLE_COMBO_DONE] combo=36 complete: BUF -> ERROR -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3135000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=38/64 : BUF -> ERROR -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3135000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_37 [SEQ_SAMEAXID_TRIPLE] combo=37 : BUF -> ERROR -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3135000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.112
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xaf 
+ tid=0x1ef 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000de0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    40  e7  de  e8  30  4c  ea  4e
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3145000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.113
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0xb0 
+ tid=0x1f0 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000e00 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    7c  97  12  e9  e9  27  96  ac
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3155000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.114
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0xb1 
+ tid=0x1f1 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000e20 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    4a  03  fb  9f  0a  4c  37  f7
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.112 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xaf 
+ tid=0x1ef 
+ ordkey=0x55 
+ addr=0x72000de0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.113 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xb0 
+ tid=0x1f0 
+ ordkey=0x55 
+ addr=0x72000e00 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3195000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.114 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xb1 
+ tid=0x1f1 
+ ordkey=0x55 
+ addr=0x72000e20 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3205000: uvm_test_top [TRIPLE_COMBO_DONE] combo=37 complete: BUF -> ERROR -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3205000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=39/64 : BUF -> ERROR -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3205000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_38 [SEQ_SAMEAXID_TRIPLE] combo=38 : BUF -> ERROR -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3205000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.115
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xb2 
+ tid=0x1f2 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000e40 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    8f  80  44  21  99  66  5a  82
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3215000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.116
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xb3 
+ tid=0x1f3 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000e60 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    5c  6d  be  6f  9e  83  ab  4a
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3225000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.117
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0xb4 
+ tid=0x1f4 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000e80 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    f2  10  d1  f7  8a  99  9c  88
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3245000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.115 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xb2 
+ tid=0x1f2 
+ ordkey=0x55 
+ addr=0x72000e40 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3255000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.116 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xb3 
+ tid=0x1f3 
+ ordkey=0x55 
+ addr=0x72000e60 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3265000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.117 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xb4 
+ tid=0x1f4 
+ ordkey=0x55 
+ addr=0x72000e80 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3295000: uvm_test_top [TRIPLE_COMBO_DONE] combo=38 complete: BUF -> ERROR -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3295000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=40/64 : BUF -> ERROR -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3295000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_39 [SEQ_SAMEAXID_TRIPLE] combo=39 : BUF -> ERROR -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3295000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.118
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0xb5 
+ tid=0x1f5 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000ea0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    c6  6e  d1  08  68  23  8c  ac
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3305000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.119
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xb6 
+ tid=0x1f6 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000ec0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    cb  9c  95  74  bb  32  36  cf
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3315000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.120
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xb7 
+ tid=0x1f7 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000ee0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    b9  f3  9b  32  6e  2b  aa  0b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3335000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.118 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xb5 
+ tid=0x1f5 
+ ordkey=0x55 
+ addr=0x72000ea0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3345000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.119 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xb6 
+ tid=0x1f6 
+ ordkey=0x55 
+ addr=0x72000ec0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3355000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.120 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xb7 
+ tid=0x1f7 
+ ordkey=0x55 
+ addr=0x72000ee0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3365000: uvm_test_top [TRIPLE_COMBO_DONE] combo=39 complete: BUF -> ERROR -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3365000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=41/64 : BUF -> BUF -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3365000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_40 [SEQ_SAMEAXID_TRIPLE] combo=40 : BUF -> BUF -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3365000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.121
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0xb8 
+ tid=0x1f8 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000f00 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    09  c2  27  fe  4f  90  92  cc
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3375000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.122
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0xb9 
+ tid=0x1f9 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000f20 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    c0  3c  7c  e0  34  68  e8  e5
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3405000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.121 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xb8 
+ tid=0x1f8 
+ ordkey=0x55 
+ addr=0x72000f00 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3425000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.123
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=0 
+ iid=0xba 
+ tid=0x1fa 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000f40 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3455000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.122 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xb9 
+ tid=0x1f9 
+ ordkey=0x55 
+ addr=0x72000f20 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3475000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.123 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xba 
+ tid=0x1fa 
+ ordkey=0x55 
+ addr=0x72000f40 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3485000: uvm_test_top [TRIPLE_COMBO_DONE] combo=40 complete: BUF -> BUF -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3485000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=42/64 : BUF -> BUF -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3485000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_41 [SEQ_SAMEAXID_TRIPLE] combo=41 : BUF -> BUF -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3485000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.124
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xbb 
+ tid=0x1fb 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000f60 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    53  62  18  34  b6  78  72  69
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3495000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.125
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xbc 
+ tid=0x1fc 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000f80 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    96  ea  16  99  11  0d  eb  7c
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3505000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.126
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xbd 
+ tid=0x1fd 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72000fa0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    b7  66  7b  4b  0e  a1  51  0b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3525000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.124 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xbb 
+ tid=0x1fb 
+ ordkey=0x55 
+ addr=0x72000f60 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3535000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.125 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xbc 
+ tid=0x1fc 
+ ordkey=0x55 
+ addr=0x72000f80 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3545000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.126 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xbd 
+ tid=0x1fd 
+ ordkey=0x55 
+ addr=0x72000fa0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3575000: uvm_test_top [TRIPLE_COMBO_DONE] combo=41 complete: BUF -> BUF -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3575000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=43/64 : BUF -> BUF -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3575000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_42 [SEQ_SAMEAXID_TRIPLE] combo=42 : BUF -> BUF -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3575000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.127
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xbe 
+ tid=0x1fe 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000fc0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    df  ca  8d  2b  44  d1  30  95
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3585000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.128
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xbf 
+ tid=0x1ff 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72000fe0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    cf  a0  6f  28  d8  49  a7  b7
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3595000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.129
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xc0 
+ tid=0x200 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001000 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    44  a6  e3  b9  67  87  46  f7
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3615000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.127 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xbe 
+ tid=0x1fe 
+ ordkey=0x55 
+ addr=0x72000fc0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3625000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.128 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xbf 
+ tid=0x1ff 
+ ordkey=0x55 
+ addr=0x72000fe0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.129 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xc0 
+ tid=0x200 
+ ordkey=0x55 
+ addr=0x72001000 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3685000: uvm_test_top [TRIPLE_COMBO_DONE] combo=42 complete: BUF -> BUF -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3685000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=44/64 : BUF -> BUF -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3685000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_43 [SEQ_SAMEAXID_TRIPLE] combo=43 : BUF -> BUF -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3685000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.130
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0xc1 
+ tid=0x201 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001020 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    55  ce  18  a7  56  a4  73  68
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3695000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.131
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xc2 
+ tid=0x202 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001040 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    af  af  90  16  c9  94  2e  ac
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3705000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.132
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0xc3 
+ tid=0x203 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001060 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    2f  22  7d  58  e1  f6  8e  36
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3725000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.130 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xc1 
+ tid=0x201 
+ ordkey=0x55 
+ addr=0x72001020 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3735000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.131 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xc2 
+ tid=0x202 
+ ordkey=0x55 
+ addr=0x72001040 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3745000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.132 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xc3 
+ tid=0x203 
+ ordkey=0x55 
+ addr=0x72001060 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3775000: uvm_test_top [TRIPLE_COMBO_DONE] combo=43 complete: BUF -> BUF -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3775000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=45/64 : BUF -> BOTH -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3775000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_44 [SEQ_SAMEAXID_TRIPLE] combo=44 : BUF -> BOTH -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3775000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.133
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xc4 
+ tid=0x204 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001080 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    9a  ff  7c  be  82  8e  3d  70
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3785000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.134
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0xc5 
+ tid=0x205 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720010a0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    26  15  68  66  be  f0  a3  1f
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3795000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.135
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=7 
+ iid=0xc6 
+ tid=0x206 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720010c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3815000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.133 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xc4 
+ tid=0x204 
+ ordkey=0x55 
+ addr=0x72001080 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3825000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.134 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xc5 
+ tid=0x205 
+ ordkey=0x55 
+ addr=0x720010a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3845000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.135 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xc6 
+ tid=0x206 
+ ordkey=0x55 
+ addr=0x720010c0 
+ lw=1
+RD[7]:
+    c7  c6  c5  c4  c3  c2  c1  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3855000: uvm_test_top [TRIPLE_COMBO_DONE] combo=44 complete: BUF -> BOTH -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3855000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=46/64 : BUF -> BOTH -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3855000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_45 [SEQ_SAMEAXID_TRIPLE] combo=45 : BUF -> BOTH -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3855000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.136
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xc7 
+ tid=0x207 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720010e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    e4  90  94  85  7b  0a  d3  24
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3865000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.137
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0xc8 
+ tid=0x208 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001100 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    6a  ec  c4  37  12  22  51  f3
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3875000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.138
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xc9 
+ tid=0x209 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001120 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    0b  03  c1  8d  24  39  60  9c
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3895000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.136 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xc7 
+ tid=0x207 
+ ordkey=0x55 
+ addr=0x720010e0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3905000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.137 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xc8 
+ tid=0x208 
+ ordkey=0x55 
+ addr=0x72001100 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3915000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.138 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xc9 
+ tid=0x209 
+ ordkey=0x55 
+ addr=0x72001120 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 3925000: uvm_test_top [TRIPLE_COMBO_DONE] combo=45 complete: BUF -> BOTH -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 3925000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=47/64 : BUF -> BOTH -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 3925000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_46 [SEQ_SAMEAXID_TRIPLE] combo=46 : BUF -> BOTH -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3925000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.139
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xca 
+ tid=0x20a 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001140 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    cb  bf  ef  fb  5f  cd  8d  2b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3935000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.140
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0xcb 
+ tid=0x20b 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001160 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    2d  42  2f  29  81  ec  a0  4f
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 3945000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.141
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xcc 
+ tid=0x20c 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001180 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    72  96  8c  f6  d9  39  1f  7a
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3965000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.139 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xca 
+ tid=0x20a 
+ ordkey=0x55 
+ addr=0x72001140 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3975000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.140 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xcb 
+ tid=0x20b 
+ ordkey=0x55 
+ addr=0x72001160 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 3985000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.141 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xcc 
+ tid=0x20c 
+ ordkey=0x55 
+ addr=0x72001180 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4015000: uvm_test_top [TRIPLE_COMBO_DONE] combo=46 complete: BUF -> BOTH -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4015000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=48/64 : BUF -> BOTH -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4015000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_47 [SEQ_SAMEAXID_TRIPLE] combo=47 : BUF -> BOTH -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4015000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.142
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xcd 
+ tid=0x20d 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720011a0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    21  01  f9  fd  2c  18  f8  e9
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4025000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.143
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0xce 
+ tid=0x20e 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720011c0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    b2  56  65  1e  2b  47  08  eb
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4035000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.144
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xcf 
+ tid=0x20f 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720011e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    f0  57  f0  3f  1d  64  97  85
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4055000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.142 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xcd 
+ tid=0x20d 
+ ordkey=0x55 
+ addr=0x720011a0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4065000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.143 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xce 
+ tid=0x20e 
+ ordkey=0x55 
+ addr=0x720011c0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4075000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.144 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xcf 
+ tid=0x20f 
+ ordkey=0x55 
+ addr=0x720011e0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4085000: uvm_test_top [TRIPLE_COMBO_DONE] combo=47 complete: BUF -> BOTH -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4085000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=49/64 : BOTH -> NORMAL -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4085000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_48 [SEQ_SAMEAXID_TRIPLE] combo=48 : BOTH -> NORMAL -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4085000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.145
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0xd0 
+ tid=0x210 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001200 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    0e  3b  38  fb  33  16  9c  67
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4095000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.146
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0xd1 
+ tid=0x211 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001220 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    fd  26  33  22  7f  dc  6e  49
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4105000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.147
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=2 
+ iid=0xd2 
+ tid=0x212 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001240 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4125000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.145 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xd0 
+ tid=0x210 
+ ordkey=0x55 
+ addr=0x72001200 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4145000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.146 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xd1 
+ tid=0x211 
+ ordkey=0x55 
+ addr=0x72001220 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4155000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.147 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xd2 
+ tid=0x212 
+ ordkey=0x55 
+ addr=0x72001240 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4165000: uvm_test_top [TRIPLE_COMBO_DONE] combo=48 complete: BOTH -> NORMAL -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4165000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=50/64 : BOTH -> NORMAL -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4165000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_49 [SEQ_SAMEAXID_TRIPLE] combo=49 : BOTH -> NORMAL -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4165000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.148
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0xd3 
+ tid=0x213 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001260 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    fc  97  ec  74  e9  ce  36  17
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4175000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.149
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=2 
+ iid=0xd4 
+ tid=0x214 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001280 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4185000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.150
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xd5 
+ tid=0x215 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720012a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    e8  e6  5a  cc  92  48  39  6b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4205000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.148 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xd3 
+ tid=0x213 
+ ordkey=0x55 
+ addr=0x72001260 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4225000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.150 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xd5 
+ tid=0x215 
+ ordkey=0x55 
+ addr=0x720012a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4245000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.149 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xd4 
+ tid=0x214 
+ ordkey=0x55 
+ addr=0x72001280 
+ lw=1
+RD[7]:
+    87  86  85  84  83  82  81  80
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4255000: uvm_test_top [TRIPLE_COMBO_DONE] combo=49 complete: BOTH -> NORMAL -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4255000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=51/64 : BOTH -> NORMAL -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4255000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_50 [SEQ_SAMEAXID_TRIPLE] combo=50 : BOTH -> NORMAL -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4255000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.151
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0xd6 
+ tid=0x216 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720012c0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    c6  55  50  d4  dc  e3  fc  b7
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4265000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.152
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0xd7 
+ tid=0x217 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720012e0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+WR[7]:
+    f8  f1  8b  03  94  db  bb  79
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4275000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.153
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0xd8 
+ tid=0x218 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001300 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    63  14  b1  cd  7e  f1  4c  c6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4295000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.151 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xd6 
+ tid=0x216 
+ ordkey=0x55 
+ addr=0x720012c0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4315000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.152 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xd7 
+ tid=0x217 
+ ordkey=0x55 
+ addr=0x720012e0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4325000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.153 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xd8 
+ tid=0x218 
+ ordkey=0x55 
+ addr=0x72001300 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4335000: uvm_test_top [TRIPLE_COMBO_DONE] combo=50 complete: BOTH -> NORMAL -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4335000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=52/64 : BOTH -> NORMAL -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4335000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_51 [SEQ_SAMEAXID_TRIPLE] combo=51 : BOTH -> NORMAL -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4335000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.154
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xd9 
+ tid=0x219 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001320 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    3e  05  ae  bd  0a  ca  53  f8
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4345000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.155
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=3 
+ iid=0xda 
+ tid=0x21a 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001340 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4355000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.156
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0xdb 
+ tid=0x21b 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001360 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    89  a9  01  69  45  99  50  6c
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4375000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.154 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xd9 
+ tid=0x219 
+ ordkey=0x55 
+ addr=0x72001320 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4395000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.156 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xdb 
+ tid=0x21b 
+ ordkey=0x55 
+ addr=0x72001360 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4415000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.155 latency=5 cycles (50 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xda 
+ tid=0x21a 
+ ordkey=0x55 
+ addr=0x72001340 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4425000: uvm_test_top [TRIPLE_COMBO_DONE] combo=51 complete: BOTH -> NORMAL -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4425000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=53/64 : BOTH -> ERROR -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4425000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_52 [SEQ_SAMEAXID_TRIPLE] combo=52 : BOTH -> ERROR -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4425000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.157
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xdc 
+ tid=0x21c 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001380 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    6d  01  52  21  8e  e6  12  71
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4435000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.158
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xdd 
+ tid=0x21d 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720013a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    35  7f  53  89  ff  2c  6b  9b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4445000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.159
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=2 
+ iid=0xde 
+ tid=0x21e 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720013c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4465000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.157 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xdc 
+ tid=0x21c 
+ ordkey=0x55 
+ addr=0x72001380 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4475000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.158 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xdd 
+ tid=0x21d 
+ ordkey=0x55 
+ addr=0x720013a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4495000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.159 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xde 
+ tid=0x21e 
+ ordkey=0x55 
+ addr=0x720013c0 
+ lw=1
+RD[7]:
+    c7  c6  c5  c4  c3  c2  c1  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4505000: uvm_test_top [TRIPLE_COMBO_DONE] combo=52 complete: BOTH -> ERROR -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4505000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=54/64 : BOTH -> ERROR -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4505000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_53 [SEQ_SAMEAXID_TRIPLE] combo=53 : BOTH -> ERROR -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4505000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.160
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0xdf 
+ tid=0x21f 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720013e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    04  be  84  07  b9  c8  bc  cd
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4515000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.161
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0xe0 
+ tid=0x220 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001400 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    92  98  d1  2e  32  83  14  6e
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4525000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.162
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xe1 
+ tid=0x221 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001420 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    70  b0  27  b9  1b  ee  cb  4d
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4545000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.160 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xdf 
+ tid=0x21f 
+ ordkey=0x55 
+ addr=0x720013e0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4555000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.161 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xe0 
+ tid=0x220 
+ ordkey=0x55 
+ addr=0x72001400 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4565000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.162 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xe1 
+ tid=0x221 
+ ordkey=0x55 
+ addr=0x72001420 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4575000: uvm_test_top [TRIPLE_COMBO_DONE] combo=53 complete: BOTH -> ERROR -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4575000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=55/64 : BOTH -> ERROR -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4575000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_54 [SEQ_SAMEAXID_TRIPLE] combo=54 : BOTH -> ERROR -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4575000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.163
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0xe2 
+ tid=0x222 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001440 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    b9  cb  43  7c  ba  0b  56  3b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4585000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.164
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=4 
+ iid=0xe3 
+ tid=0x223 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001460 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    c2  c7  af  5b  6b  a0  dc  61
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4595000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.165
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0xe4 
+ tid=0x224 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001480 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    d1  c2  18  eb  03  7a  3e  7c
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4615000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.163 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xe2 
+ tid=0x222 
+ ordkey=0x55 
+ addr=0x72001440 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4625000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.164 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xe3 
+ tid=0x223 
+ ordkey=0x55 
+ addr=0x72001460 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4635000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.165 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xe4 
+ tid=0x224 
+ ordkey=0x55 
+ addr=0x72001480 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4645000: uvm_test_top [TRIPLE_COMBO_DONE] combo=54 complete: BOTH -> ERROR -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4645000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=56/64 : BOTH -> ERROR -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4645000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_55 [SEQ_SAMEAXID_TRIPLE] combo=55 : BOTH -> ERROR -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4645000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.166
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0xe5 
+ tid=0x225 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720014a0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    29  dd  af  bd  ea  83  7c  e4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4655000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.167
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0xe6 
+ tid=0x226 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720014c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    0d  ac  7d  74  b4  1e  60  ff
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4665000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.168
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0xe7 
+ tid=0x227 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720014e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    8c  32  a1  c1  7e  2e  d3  7b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4685000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.166 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xe5 
+ tid=0x225 
+ ordkey=0x55 
+ addr=0x720014a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4695000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.167 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xe6 
+ tid=0x226 
+ ordkey=0x55 
+ addr=0x720014c0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4725000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.168 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xe7 
+ tid=0x227 
+ ordkey=0x55 
+ addr=0x720014e0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4735000: uvm_test_top [TRIPLE_COMBO_DONE] combo=55 complete: BOTH -> ERROR -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4735000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=57/64 : BOTH -> BUF -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4735000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_56 [SEQ_SAMEAXID_TRIPLE] combo=56 : BOTH -> BUF -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4735000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.169
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xe8 
+ tid=0x228 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001500 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    e2  51  7d  ec  3f  5c  af  8b
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4745000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.170
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xe9 
+ tid=0x229 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001520 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    a0  31  19  ee  06  c0  c3  19
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4755000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.171
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=1 
+ iid=0xea 
+ tid=0x22a 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001540 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4775000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.169 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xe8 
+ tid=0x228 
+ ordkey=0x55 
+ addr=0x72001500 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4785000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.170 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xe9 
+ tid=0x229 
+ ordkey=0x55 
+ addr=0x72001520 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4805000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.171 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xea 
+ tid=0x22a 
+ ordkey=0x55 
+ addr=0x72001540 
+ lw=1
+RD[7]:
+    47  46  45  44  43  42  41  40
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4815000: uvm_test_top [TRIPLE_COMBO_DONE] combo=56 complete: BOTH -> BUF -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4815000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=58/64 : BOTH -> BUF -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4815000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_57 [SEQ_SAMEAXID_TRIPLE] combo=57 : BOTH -> BUF -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4815000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.172
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0xeb 
+ tid=0x22b 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001560 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    87  37  1f  7e  17  c5  a2  d4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4825000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.173
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0xec 
+ tid=0x22c 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001580 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    49  84  1d  42  bd  9f  ba  6e
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4835000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.174
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0xed 
+ tid=0x22d 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720015a0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    a2  49  6c  f2  ac  54  c8  8a
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4855000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.172 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xeb 
+ tid=0x22b 
+ ordkey=0x55 
+ addr=0x72001560 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4865000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.173 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xec 
+ tid=0x22c 
+ ordkey=0x55 
+ addr=0x72001580 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4875000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.174 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xed 
+ tid=0x22d 
+ ordkey=0x55 
+ addr=0x720015a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4885000: uvm_test_top [TRIPLE_COMBO_DONE] combo=57 complete: BOTH -> BUF -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4885000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=59/64 : BOTH -> BUF -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4885000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_58 [SEQ_SAMEAXID_TRIPLE] combo=58 : BOTH -> BUF -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4885000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.175
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xee 
+ tid=0x22e 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720015c0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    0f  96  c4  13  2e  1a  f8  3e
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4895000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.176
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0xef 
+ tid=0x22f 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720015e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    c2  8e  8f  b4  8a  53  b3  a6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4905000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.177
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0xf0 
+ tid=0x230 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001600 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    53  6f  ae  d3  59  d7  2b  6e
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4925000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.175 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xee 
+ tid=0x22e 
+ ordkey=0x55 
+ addr=0x720015c0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4935000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.176 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xef 
+ tid=0x22f 
+ ordkey=0x55 
+ addr=0x720015e0 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 4945000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.177 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xf0 
+ tid=0x230 
+ ordkey=0x55 
+ addr=0x72001600 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 4975000: uvm_test_top [TRIPLE_COMBO_DONE] combo=58 complete: BOTH -> BUF -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 4975000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=60/64 : BOTH -> BUF -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 4975000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_59 [SEQ_SAMEAXID_TRIPLE] combo=59 : BOTH -> BUF -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4975000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.178
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xf1 
+ tid=0x231 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001620 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    18  58  e6  f8  cc  0a  16  a4
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4985000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.179
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=7 
+ iid=0xf2 
+ tid=0x232 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001640 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    c9  da  b0  76  b8  c6  65  27
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 4995000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.180
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=0 
+ iid=0xf3 
+ tid=0x233 
+ subr=0x3 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001660 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    2d  53  56  a9  08  d0  3d  e9
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5015000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.178 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xf1 
+ tid=0x231 
+ ordkey=0x55 
+ addr=0x72001620 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5025000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.179 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xf2 
+ tid=0x232 
+ ordkey=0x55 
+ addr=0x72001640 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5035000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.180 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xf3 
+ tid=0x233 
+ ordkey=0x55 
+ addr=0x72001660 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 5045000: uvm_test_top [TRIPLE_COMBO_DONE] combo=59 complete: BOTH -> BUF -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 5045000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=61/64 : BOTH -> BOTH -> NORMAL
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 5045000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_60 [SEQ_SAMEAXID_TRIPLE] combo=60 : BOTH -> BOTH -> NORMAL, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5045000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.181
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=1 
+ iid=0xf4 
+ tid=0x234 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001680 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    a5  c0  45  e3  86  aa  e4  fe
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5055000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.182
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xf5 
+ tid=0x235 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720016a0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    c2  df  c1  5b  b4  8c  da  74
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5065000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.183
+
+RKNP-REQ 
+ opc=OPC_RD 
+ qos=5 
+ iid=0xf6 
+ tid=0x236 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x720016c0 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0)
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5085000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.181 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xf4 
+ tid=0x234 
+ ordkey=0x55 
+ addr=0x72001680 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5095000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.182 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xf5 
+ tid=0x235 
+ ordkey=0x55 
+ addr=0x720016a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5115000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.183 latency=3 cycles (30 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_RD 
+ status=ST_OK 
+ iid=0xf6 
+ tid=0x236 
+ ordkey=0x55 
+ addr=0x720016c0 
+ lw=1
+RD[7]:
+    c7  c6  c5  c4  c3  c2  c1  c0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 5125000: uvm_test_top [TRIPLE_COMBO_DONE] combo=60 complete: BOTH -> BOTH -> NORMAL; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 5125000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=62/64 : BOTH -> BOTH -> ERROR
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 5125000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_61 [SEQ_SAMEAXID_TRIPLE] combo=61 : BOTH -> BOTH -> ERROR, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5125000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.184
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xf7 
+ tid=0x237 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720016e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    d1  1d  ac  84  ef  d7  5e  42
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5135000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.185
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0xf8 
+ tid=0x238 
+ subr=0x4 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001700 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    03  57  16  92  cc  49  51  b6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5145000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.186
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xf9 
+ tid=0x239 
+ subr=0x6 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001720 
+ user=0x000(rknp=0 axi=0 lock=0 port=0x0 cache=0x0) errc=EC_ADDR_DEC
+WR[7]:
+    9c  d1  88  9c  73  61  2f  1a
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5165000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.184 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xf7 
+ tid=0x237 
+ ordkey=0x55 
+ addr=0x720016e0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5175000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.185 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xf8 
+ tid=0x238 
+ ordkey=0x55 
+ addr=0x72001700 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5185000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.186 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xf9 
+ tid=0x239 
+ ordkey=0x55 
+ addr=0x72001720 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 5195000: uvm_test_top [TRIPLE_COMBO_DONE] combo=61 complete: BOTH -> BOTH -> ERROR; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 5195000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=63/64 : BOTH -> BOTH -> BUF
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 5195000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_62 [SEQ_SAMEAXID_TRIPLE] combo=62 : BOTH -> BOTH -> BUF, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5195000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.187
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=6 
+ iid=0xfa 
+ tid=0x23a 
+ subr=0x0 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001740 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    5f  c8  77  e4  c5  c9  ab  49
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5205000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.188
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0xfb 
+ tid=0x23b 
+ subr=0x1 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x72001760 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    a3  d2  32  fa  31  73  ce  29
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5215000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.189
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xfc 
+ tid=0x23c 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_OK 
+ len=7(=8B) 
+ addr=0x72001780 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1)
+WR[7]:
+    40  d9  8b  4f  d5  c7  2f  56
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5235000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.187 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xfa 
+ tid=0x23a 
+ ordkey=0x55 
+ addr=0x72001740 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5245000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.188 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xfb 
+ tid=0x23b 
+ ordkey=0x55 
+ addr=0x72001760 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5255000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.189 latency=2 cycles (20 ns)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_OK 
+ iid=0xfc 
+ tid=0x23c 
+ ordkey=0x55 
+ addr=0x72001780 
+ lw=1
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 5265000: uvm_test_top [TRIPLE_COMBO_DONE] combo=62 complete: BOTH -> BOTH -> BUF; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(221) @ 5265000: uvm_test_top [TEST_SAMEAXID_TRIPLE] SEND combo=64/64 : BOTH -> BOTH -> BOTH
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/seq_lib/seq_sameaxid_norm_buf_err_allpairs.sv(193) @ 5265000: uvm_test_top.env.rknp_agt.sqr@@seq_combo_63 [SEQ_SAMEAXID_TRIPLE] combo=63 : BOTH -> BOTH -> BOTH, OrderKey=0x55 AXID=0x0
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5265000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.190
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=2 
+ iid=0xfd 
+ tid=0x23d 
+ subr=0x2 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720017a0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    4b  e7  d5  48  fe  1e  f1  81
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5275000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.191
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=5 
+ iid=0xfe 
+ tid=0x23e 
+ subr=0x5 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720017c0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    e2  82  33  55  87  ea  d6  02
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_driver.sv(228) @ 5285000: uvm_test_top.env.rknp_agt.drv [RKNP_DRV_TX_PACKET]  No.192
+
+RKNP-REQ 
+ opc=OPC_WR 
+ qos=3 
+ iid=0xff 
+ tid=0x23f 
+ subr=0x7 
+ ordkey=0x55 
+ status=ST_ERR 
+ len=7(=8B) 
+ addr=0x720017e0 
+ user=0x001(rknp=0 axi=0 lock=0 port=0x0 cache=0x1) errc=EC_ADDR_DEC
+WR[7]:
+    4b  93  ee  65  e4  de  a6  a6
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5305000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.190 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xfd 
+ tid=0x23d 
+ ordkey=0x55 
+ addr=0x720017a0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5315000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.191 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xfe 
+ tid=0x23e 
+ ordkey=0x55 
+ addr=0x720017c0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/rknp_agent/rknp_monitor.sv(187) @ 5325000: uvm_test_top.env.rknp_agt.mon [RKNP_TXN]  No.192 latency=N/A(no_axi_accept_time)
+
+RKNP-RSP 
+ opc=RSP_OPC_WR 
+ status=ST_ERR 
+ iid=0xff 
+ tid=0x23f 
+ ordkey=0x55 
+ addr=0x720017e0 
+ lw=1 errc=EC_ADDR_DEC
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(164) @ 5335000: uvm_test_top [TRIPLE_COMBO_DONE] combo=63 complete: BOTH -> BOTH -> BOTH; all 3 responses returned and traffic drained
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/test_sameaxid_norm_buf_err_allpairs.sv(259) @ 5335000: uvm_test_top [TEST_SAMEAXID_TRIPLE] Completed all 64 same-AXID ordered triples
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(104) @ 5335000: uvm_test_top [RSP_DRAIN] All final RKNP responses received: requests=192 response_packets=192 final_rsp(raw/matched)=192/192
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_coverage.sv(1854) @ 15335000: uvm_test_top.env.cov [COV_SUMMARY] Functional coverage summary:
+  reset            = 33.33%
+  handshake        = 75.00%
+  request protocol = 38.78%
+  request user/qos = 52.68%
+  AXI address       = 47.02%
+  req->AXI map      = 43.81%
+  multi request     = 40.80%
+  address overlap   = 0.00%
+  special request   = 75.46%
+  special mix       = 83.33%
+  RKNP response     = 43.75%
+  response ordering = 61.90%
+  AXI response      = 41.32%
+  AXI W             = 35.42%
+  timeout           = 0.00%
+  stress            = 29.81%
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/env/axi_tniu_scoreboard.sv(1312) @ 15335000: uvm_test_top.env.sb [SB] 
+==== axi_tniu scoreboard summary ====
+  REQ=192  RSP_PKT=192  RSP_FINAL(raw/matched)=192/192
+  AW=64 AR=32 W=64 B=64/64 R=32/32
+  RKNP_READ_BODY(checked/expected)=32/32
+  ERR_req=96  AXI_SLVERR=0  WRAP=0  BUFFERABLE=96
+  pending_AW=0 pending_AR=0 pending_R=0
+  pending_exp_W=0 pending_obs_W=0
+  PASS=384  FAIL=0
+=====================================
+UVM_INFO /home/ICer/RKNoC/axi_tniu_uvm/tb/test/axi_tniu_base_test.sv(126) @ 15335000: uvm_test_top [RESULT] *** TEST PASSED ***
+UVM_INFO /home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_report_server.svh(894) @ 15335000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
-UVM_INFO :    1
-UVM_WARNING :    1
+UVM_INFO :  584
+UVM_WARNING :    0
 UVM_ERROR :    0
-UVM_FATAL :    1
+UVM_FATAL :    0
 ** Report counts by id
-[BDTYP]     1
-[INVTST]     1
+[COV_SUMMARY]     1
+[RESULT]     1
+[RKNP_DRV_TX_PACKET]   192
+[RKNP_TXN]   192
+[RNTST]     1
+[RSP_DRAIN]     1
+[SB]     1
+[SEQ_SAMEAXID_TRIPLE]    64
+[TEST_SAMEAXID_TRIPLE]    66
+[TRIPLE_COMBO_DONE]    64
 [UVM/RELNOTES]     1
 
-$finish called from file "/home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh", line 135.
-$finish at simulation time                    0
+$finish called from file "/home/synopsys/vcs/O-2018.09-SP2/etc/uvm-1.2/base/uvm_root.svh", line 527.
+$finish at simulation time             15335000
 
 ---------------------------------------------------------------------------
 VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 0 ps
-CPU Time:      0.320 seconds;       Data structure size:   0.8Mb
-Wed Aug 19 22:16:50 2026
+Time: 15335000 ps
+CPU Time:      0.770 seconds;       Data structure size:   0.9Mb
+Wed Aug 19 22:39:57 2026
