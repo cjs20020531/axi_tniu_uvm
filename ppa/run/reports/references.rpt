@@ -3,7 +3,7 @@
 Report : reference
 Design : axi_tniu
 Version: O-2018.06-SP1
-Date   : Fri Aug 21 16:51:19 2026
+Date   : Fri Aug 21 19:46:49 2026
 ****************************************
 
 Attributes:
@@ -24,13 +24,13 @@ CLKINVX1           typical        2.116800      18     38.102401
 addr_map_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AQOS_WITH3_0
                                 693.604822       1    693.604822  h
 ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_ELYRSP_TABLE_DEEP8_AUSER_WITH1_TAG_CNT_WITH3_DLY0_0
-                               2858.385653       1   2858.385653  h, n
+                               2883.787254       1   2883.787254  h, n
 req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0_0
-                              50134.997460       1  50134.997460  h, n
+                              50134.291860       1  50134.291860  h, n
 rreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0_0
                                 179.928006       1    179.928006  h
 rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0_0
-                              14690.592268       1  14690.592268  h, n
+                              14692.709068       1  14692.709068  h, n
 rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0_0
                                4064.256023       1   4064.256023  h, n
 watchdog_AXID_WITH4_TAG_CNT_WITH3_TIMOUT_VALUE10240_TIMOUT_TABLE_DEEP8_DLY0_0
@@ -42,7 +42,7 @@ wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET
 wreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0_0
                                 468.518414       1    468.518414  h, n
 -----------------------------------------------------------------------------
-Total 12 references                                 112771.110576
+Total 12 references                                 112797.923377
 
 ****************************************
 Design: addr_map_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AQOS_WITH3_0 
@@ -78,39 +78,37 @@ Design: ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_US
 Reference          Library       Unit Area   Count    Total Area   Attributes
 -----------------------------------------------------------------------------
 AND2XL             typical        3.528000       5     17.640001  
+AND3XL             typical        4.233600       1      4.233600  
 AO21XL             typical        4.939200       3     14.817600  
-AOI2BB1XL          typical        4.233600       1      4.233600  
-AOI21XL            typical        3.528000      23     81.144003  
+AOI2BB2XL          typical        5.644800       1      5.644800  
+AOI21XL            typical        3.528000      27     95.256003  
 AOI22XL            typical        4.233600      79    334.454411  
-AOI31XL            typical        4.233600       2      8.467200  
-AOI32XL            typical        4.939200       5     24.696000  
+AOI32XL            typical        4.939200       7     34.574399  
 AOI211X1           typical        4.233600       1      4.233600  
 AOI211XL           typical        4.233600      12     50.803202  
 AOI221XL           typical        5.644800       9     50.803202  
 AOI222XL           typical        6.350400       5     31.752000  
 CLKBUFX1           typical        2.822400      76    214.502407  
 DFFRQXL            typical       15.523200      72   1117.670403  n
-INVXL              typical        2.116800      50    105.840003  
-MXI2XL             typical        5.644800       1      5.644800  
-NAND2BXL           typical        3.528000       2      7.056000  
-NAND2XL            typical        2.822400      78    220.147207  
-NAND3BXL           typical        4.939200       4     19.756800  
-NAND3XL            typical        3.528000       2      7.056000  
+INVXL              typical        2.116800      52    110.073604  
+NAND2BXL           typical        3.528000       5     17.640001  
+NAND2XL            typical        2.822400      77    217.324807  
+NAND3BXL           typical        4.939200       1      4.939200  
+NAND3XL            typical        3.528000       4     14.112000  
 NAND4XL            typical        4.939200       2      9.878400  
-NOR2BXL            typical        3.528000       3     10.584000  
-NOR2XL             typical        2.822400      16     45.158401  
-NOR3BXL            typical        4.233600       3     12.700800  
-NOR3XL             typical        3.528000       7     24.696001  
-NOR4XL             typical        4.233600       1      4.233600  
+NOR2BXL            typical        3.528000       4     14.112000  
+NOR2XL             typical        2.822400      18     50.803202  
+NOR3BXL            typical        4.233600       4     16.934401  
+NOR3XL             typical        3.528000       6     21.168001  
 OAI2B1XL           typical        4.939200       8     39.513599  
 OAI2BB1XL          typical        4.233600       1      4.233600  
-OAI21XL            typical        3.528000       7     24.696001  
-OAI22XL            typical        4.233600      12     50.803202  
-OAI31XL            typical        4.233600       2      8.467200  
-OAI32XL            typical        4.939200       3     14.817600  
-OAI211XL           typical        4.233600      68    287.884809  
+OAI21XL            typical        3.528000       6     21.168001  
+OAI22XL            typical        4.233600      13     55.036802  
+OAI32XL            typical        4.939200       4     19.756800  
+OAI211XL           typical        4.233600      67    283.651209  
+OAI222XL           typical        7.056000       1      7.056000  
 -----------------------------------------------------------------------------
-Total 32 references                                  2858.385653
+Total 30 references                                  2883.787254
 
 ****************************************
 Design: req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0_0 
@@ -134,11 +132,11 @@ AOI32XL            typical        4.939200     119    587.764791
 AOI211XL           typical        4.233600      49    207.446407  
 AOI221XL           typical        5.644800      70    395.136013  
 AOI222XL           typical        6.350400      10     63.504000  
-CLKBUFX1           typical        2.822400     109    307.641610  
+CLKBUFX1           typical        2.822400     108    304.819210  
 CLKINVX1           typical        2.116800     102    215.913607  
 DFFRQXL            typical       15.523200    1617  25101.014457  n
 EDFFXL             typical       19.051201      64   1219.276855  n
-INVXL              typical        2.116800     836   1769.644858  
+INVXL              typical        2.116800     837   1771.761658  
 MX2XL              typical        6.350400      76    482.630398  
 NAND2BXL           typical        3.528000      91    321.048011  
 NAND2X1            typical        2.822400       1      2.822400  
@@ -175,7 +173,7 @@ addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE1_COUNT_MODE
 addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE64_COUNT_MODE0_0
                                 492.508791       1    492.508791  h
 -----------------------------------------------------------------------------
-Total 55 references                                 50134.997460
+Total 55 references                                 50134.291860
 
 ****************************************
 Design: addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE1_COUNT_MODE1_0 
@@ -245,7 +243,7 @@ AOI222XL           typical        6.350400      12     76.204800
 CLKBUFX1           typical        2.822400     179    505.209617  
 CLKINVX1           typical        2.116800       5     10.584000  
 DFFRQXL            typical       15.523200     275   4268.880010  n
-INVXL              typical        2.116800     348    736.646424  
+INVXL              typical        2.116800     349    738.763224  
 MX2XL              typical        6.350400      69    438.177598  
 MXI2XL             typical        5.644800       4     22.579201  
 NAND2BXL           typical        3.528000       3     10.584000  
@@ -278,7 +276,7 @@ TLATXL             typical        9.172800     157   1440.129610  n
 XNOR2XL            typical        5.644800       4     22.579201  
 XOR2XL             typical        5.644800       1      5.644800  
 -----------------------------------------------------------------------------
-Total 50 references                                 14690.592268
+Total 50 references                                 14692.709068
 
 ****************************************
 Design: rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0_0 

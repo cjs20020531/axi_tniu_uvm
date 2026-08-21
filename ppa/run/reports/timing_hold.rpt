@@ -10,7 +10,7 @@ Report : timing
         -capacitance
 Design : axi_tniu
 Version: O-2018.06-SP1
-Date   : Fri Aug 21 16:51:18 2026
+Date   : Fri Aug 21 19:46:49 2026
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -29,22 +29,22 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 r
-  rknp_rxreq_head (in)                                              0.20      0.00       0.00 r
-  rknp_rxreq_head (net)                         4         0.01                0.00       0.00 r
+  input external delay                                                        0.50       0.50 r
+  rknp_rxreq_head (in)                                              0.20      0.00       0.50 r
+  rknp_rxreq_head (net)                         4         0.01                0.00       0.50 r
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_head (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 r
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_head (net)              0.01                0.00       0.00 r
-  genblk1.U_WRAP_ALIGN/U65/Y (AND4XL)                               0.07      0.12       0.12 r
-  genblk1.U_WRAP_ALIGN/n242 (net)               3         0.00                0.00       0.12 r
-  genblk1.U_WRAP_ALIGN/U107/Y (NOR2BX2)                             0.14      0.10       0.22 f
+                                                                              0.00       0.50 r
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_head (net)              0.01                0.00       0.50 r
+  genblk1.U_WRAP_ALIGN/U65/Y (AND4XL)                               0.07      0.12       0.62 r
+  genblk1.U_WRAP_ALIGN/n242 (net)               3         0.00                0.00       0.62 r
+  genblk1.U_WRAP_ALIGN/U105/Y (NOR2BX2)                             0.14      0.10       0.72 f
   genblk1.U_WRAP_ALIGN/wa2rknp_xx_ready (net)
-                                                2         0.05                0.00       0.22 f
+                                                2         0.05                0.00       0.72 f
   genblk1.U_WRAP_ALIGN/wa2rknp_xx_ready (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.22 f
-  rknp_rxreq_ready (net)                                  0.05                0.00       0.22 f
-  rknp_rxreq_ready (out)                                            0.14      0.00       0.22 f
-  data arrival time                                                                      0.22
+                                                                              0.00       0.72 f
+  rknp_rxreq_ready (net)                                  0.05                0.00       0.72 f
+  rknp_rxreq_ready (out)                                            0.14      0.00       0.72 f
+  data arrival time                                                                      0.72
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -53,9 +53,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.10
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.10
-  data arrival time                                                                     -0.22
+  data arrival time                                                                     -0.72
   ----------------------------------------------------------------------------------------------
-  slack (MET)                                                                            0.12
+  slack (MET)                                                                            0.62
 
 
   Startpoint: rknp_rxreq_valid
@@ -69,22 +69,22 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 r
-  rknp_rxreq_valid (in)                                             0.20      0.00       0.00 r
-  rknp_rxreq_valid (net)                        3         0.00                0.00       0.00 r
+  input external delay                                                        0.50       0.50 r
+  rknp_rxreq_valid (in)                                             0.20      0.00       0.50 r
+  rknp_rxreq_valid (net)                        3         0.00                0.00       0.50 r
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_valid (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 r
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_valid (net)             0.00                0.00       0.00 r
-  genblk1.U_WRAP_ALIGN/U65/Y (AND4XL)                               0.07      0.12       0.12 r
-  genblk1.U_WRAP_ALIGN/n242 (net)               3         0.00                0.00       0.12 r
-  genblk1.U_WRAP_ALIGN/U107/Y (NOR2BX2)                             0.14      0.10       0.22 f
+                                                                              0.00       0.50 r
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_valid (net)             0.00                0.00       0.50 r
+  genblk1.U_WRAP_ALIGN/U65/Y (AND4XL)                               0.07      0.12       0.62 r
+  genblk1.U_WRAP_ALIGN/n242 (net)               3         0.00                0.00       0.62 r
+  genblk1.U_WRAP_ALIGN/U105/Y (NOR2BX2)                             0.14      0.10       0.72 f
   genblk1.U_WRAP_ALIGN/wa2rknp_xx_ready (net)
-                                                2         0.05                0.00       0.22 f
+                                                2         0.05                0.00       0.72 f
   genblk1.U_WRAP_ALIGN/wa2rknp_xx_ready (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.22 f
-  rknp_rxreq_ready (net)                                  0.05                0.00       0.22 f
-  rknp_rxreq_ready (out)                                            0.14      0.00       0.22 f
-  data arrival time                                                                      0.22
+                                                                              0.00       0.72 f
+  rknp_rxreq_ready (net)                                  0.05                0.00       0.72 f
+  rknp_rxreq_ready (out)                                            0.14      0.00       0.72 f
+  data arrival time                                                                      0.72
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -93,9 +93,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.10
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.10
-  data arrival time                                                                     -0.22
+  data arrival time                                                                     -0.72
   ----------------------------------------------------------------------------------------------
-  slack (MET)                                                                            0.12
+  slack (MET)                                                                            0.62
 
 
   Startpoint: rknp_rxreq_head
@@ -109,38 +109,38 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 r
-  rknp_rxreq_head (in)                                              0.20      0.00       0.00 r
-  rknp_rxreq_head (net)                         4         0.01                0.00       0.00 r
+  input external delay                                                        0.50       0.50 r
+  rknp_rxreq_head (in)                                              0.20      0.00       0.50 r
+  rknp_rxreq_head (net)                         4         0.01                0.00       0.50 r
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_head (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 r
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_head (net)              0.01                0.00       0.00 r
-  genblk1.U_WRAP_ALIGN/U254/Y (INVXL)                               0.05      0.03       0.03 f
-  genblk1.U_WRAP_ALIGN/n226 (net)               1         0.00                0.00       0.03 f
-  genblk1.U_WRAP_ALIGN/U255/Y (AOI221XL)                            0.14      0.13       0.15 r
-  genblk1.U_WRAP_ALIGN/wa2reqo_head (net)       2         0.00                0.00       0.15 r
+                                                                              0.00       0.50 r
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_head (net)              0.01                0.00       0.50 r
+  genblk1.U_WRAP_ALIGN/U253/Y (INVXL)                               0.05      0.03       0.53 f
+  genblk1.U_WRAP_ALIGN/n226 (net)               1         0.00                0.00       0.53 f
+  genblk1.U_WRAP_ALIGN/U254/Y (AOI221XL)                            0.14      0.13       0.65 r
+  genblk1.U_WRAP_ALIGN/wa2reqo_head (net)       2         0.00                0.00       0.65 r
   genblk1.U_WRAP_ALIGN/wa2reqo_head (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.15 r
-  rknp_xx2reqo_head (net)                                 0.00                0.00       0.15 r
+                                                                              0.00       0.65 r
+  rknp_xx2reqo_head (net)                                 0.00                0.00       0.65 r
   U_REQ_ORDER/rknp_xx2reqo_head (req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0_0)
-                                                                              0.00       0.15 r
-  U_REQ_ORDER/rknp_xx2reqo_head (net)                     0.00                0.00       0.15 r
-  U_REQ_ORDER/U5/Y (AOI21XL)                                        0.06      0.10       0.25 f
-  U_REQ_ORDER/reqo2rknp_xx_ready (net)          5         0.01                0.00       0.25 f
+                                                                              0.00       0.65 r
+  U_REQ_ORDER/rknp_xx2reqo_head (net)                     0.00                0.00       0.65 r
+  U_REQ_ORDER/U5/Y (AOI21XL)                                        0.06      0.10       0.75 f
+  U_REQ_ORDER/reqo2rknp_xx_ready (net)          5         0.01                0.00       0.75 f
   U_REQ_ORDER/reqo2rknp_xx_ready (req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0_0)
-                                                                              0.00       0.25 f
-  genblk1.reqo2wa_ready (net)                             0.01                0.00       0.25 f
+                                                                              0.00       0.75 f
+  genblk1.reqo2wa_ready (net)                             0.01                0.00       0.75 f
   genblk1.U_WRAP_ALIGN/reqo2wa_ready (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.25 f
-  genblk1.U_WRAP_ALIGN/reqo2wa_ready (net)                0.01                0.00       0.25 f
-  genblk1.U_WRAP_ALIGN/U107/Y (NOR2BX2)                             0.14      0.14       0.39 f
+                                                                              0.00       0.75 f
+  genblk1.U_WRAP_ALIGN/reqo2wa_ready (net)                0.01                0.00       0.75 f
+  genblk1.U_WRAP_ALIGN/U105/Y (NOR2BX2)                             0.14      0.14       0.89 f
   genblk1.U_WRAP_ALIGN/wa2rknp_xx_ready (net)
-                                                2         0.05                0.00       0.39 f
+                                                2         0.05                0.00       0.89 f
   genblk1.U_WRAP_ALIGN/wa2rknp_xx_ready (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.39 f
-  rknp_rxreq_ready (net)                                  0.05                0.00       0.39 f
-  rknp_rxreq_ready (out)                                            0.14      0.00       0.39 f
-  data arrival time                                                                      0.39
+                                                                              0.00       0.89 f
+  rknp_rxreq_ready (net)                                  0.05                0.00       0.89 f
+  rknp_rxreq_ready (out)                                            0.14      0.00       0.89 f
+  data arrival time                                                                      0.89
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -149,9 +149,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.10
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.10
-  data arrival time                                                                     -0.39
+  data arrival time                                                                     -0.89
   ----------------------------------------------------------------------------------------------
-  slack (MET)                                                                            0.29
+  slack (MET)                                                                            0.79
 
 
   Startpoint: rknp_txrsp_ready
@@ -165,16 +165,16 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 r
-  rknp_txrsp_ready (in)                                             0.20      0.00       0.00 r
-  rknp_txrsp_ready (net)                        3         0.00                0.00       0.00 r
+  input external delay                                                        0.50       0.50 r
+  rknp_txrsp_ready (in)                                             0.20      0.00       0.50 r
+  rknp_txrsp_ready (net)                        3         0.00                0.00       0.50 r
   genblk1.U_WRAP_ADJUST/rknp_xx2wad_ready (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 r
-  genblk1.U_WRAP_ADJUST/rknp_xx2wad_ready (net)           0.00                0.00       0.00 r
-  genblk1.U_WRAP_ADJUST/U2874/Y (OAI21XL)                           0.05      0.04       0.04 f
-  genblk1.U_WRAP_ADJUST/n482 (net)              1         0.00                0.00       0.04 f
-  genblk1.U_WRAP_ADJUST/append_pending_reg/D (DFFRQXL)              0.05      0.00       0.04 f
-  data arrival time                                                                      0.04
+                                                                              0.00       0.50 r
+  genblk1.U_WRAP_ADJUST/rknp_xx2wad_ready (net)           0.00                0.00       0.50 r
+  genblk1.U_WRAP_ADJUST/U2874/Y (OAI21XL)                           0.05      0.04       0.54 f
+  genblk1.U_WRAP_ADJUST/n482 (net)              1         0.00                0.00       0.54 f
+  genblk1.U_WRAP_ADJUST/append_pending_reg/D (DFFRQXL)              0.05      0.00       0.54 f
+  data arrival time                                                                      0.54
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -184,9 +184,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.04
+  data arrival time                                                                     -0.54
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.08
+  slack (MET)                                                                            0.41
 
 
   Startpoint: axi_m_wready
@@ -200,18 +200,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  axi_m_wready (in)                                                 0.20      0.00       0.00 f
-  axi_m_wready (net)                            2         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  axi_m_wready (in)                                                 0.20      0.00       0.50 f
+  axi_m_wready (net)                            2         0.00                0.00       0.50 f
   U_WREQ_TRANS/axi_m_wready (wreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0_0)
-                                                                              0.00       0.00 f
-  U_WREQ_TRANS/axi_m_wready (net)                         0.00                0.00       0.00 f
-  U_WREQ_TRANS/U153/Y (NAND3XL)                                     0.03      0.05       0.05 r
-  U_WREQ_TRANS/n11 (net)                        1         0.00                0.00       0.05 r
-  U_WREQ_TRANS/U154/Y (OAI2BB1XL)                                   0.03      0.03       0.08 f
-  U_WREQ_TRANS/n2 (net)                         1         0.00                0.00       0.08 f
-  U_WREQ_TRANS/head_w_done_reg/D (DFFRQXL)                          0.03      0.00       0.08 f
-  data arrival time                                                                      0.08
+                                                                              0.00       0.50 f
+  U_WREQ_TRANS/axi_m_wready (net)                         0.00                0.00       0.50 f
+  U_WREQ_TRANS/U153/Y (NAND3XL)                                     0.03      0.05       0.55 r
+  U_WREQ_TRANS/n11 (net)                        1         0.00                0.00       0.55 r
+  U_WREQ_TRANS/U154/Y (OAI2BB1XL)                                   0.03      0.03       0.58 f
+  U_WREQ_TRANS/n2 (net)                         1         0.00                0.00       0.58 f
+  U_WREQ_TRANS/head_w_done_reg/D (DFFRQXL)                          0.03      0.00       0.58 f
+  data arrival time                                                                      0.58
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -221,9 +221,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.08
+  data arrival time                                                                     -0.58
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.05
+  slack (MET)                                                                            0.45
 
 
   Startpoint: rknp_rxreq_data[104]
@@ -237,18 +237,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[104] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[104] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[104] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[104] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[104] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[104] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U2050/Y (INVXL)                              0.05      0.04       0.04 r
-  genblk1.U_WRAP_ALIGN/n1590 (net)              1         0.00                0.00       0.04 r
-  genblk1.U_WRAP_ALIGN/U2051/Y (AOI2BB2XL)                          0.03      0.03       0.08 f
-  genblk1.U_WRAP_ALIGN/n106 (net)               1         0.00                0.00       0.08 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[104]/D (DFFRQXL)            0.03      0.00       0.08 f
-  data arrival time                                                                      0.08
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[104] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U2050/Y (INVXL)                              0.05      0.04       0.54 r
+  genblk1.U_WRAP_ALIGN/n1590 (net)              1         0.00                0.00       0.54 r
+  genblk1.U_WRAP_ALIGN/U2051/Y (AOI2BB2XL)                          0.03      0.03       0.58 f
+  genblk1.U_WRAP_ALIGN/n106 (net)               1         0.00                0.00       0.58 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[104]/D (DFFRQXL)            0.03      0.00       0.58 f
+  data arrival time                                                                      0.58
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -258,9 +258,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.08
+  data arrival time                                                                     -0.58
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.05
+  slack (MET)                                                                            0.45
 
 
   Startpoint: axi_m_awready
@@ -274,18 +274,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  axi_m_awready (in)                                                0.20      0.00       0.00 f
-  axi_m_awready (net)                           2         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  axi_m_awready (in)                                                0.20      0.00       0.50 f
+  axi_m_awready (net)                           2         0.00                0.00       0.50 f
   U_WREQ_TRANS/axi_m_awready (wreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0_0)
-                                                                              0.00       0.00 f
-  U_WREQ_TRANS/axi_m_awready (net)                        0.00                0.00       0.00 f
-  U_WREQ_TRANS/U151/Y (NAND3XL)                                     0.03      0.06       0.06 r
-  U_WREQ_TRANS/n9 (net)                         1         0.00                0.00       0.06 r
-  U_WREQ_TRANS/U152/Y (OAI2BB1XL)                                   0.03      0.03       0.08 f
-  U_WREQ_TRANS/n1 (net)                         1         0.00                0.00       0.08 f
-  U_WREQ_TRANS/head_aw_done_reg/D (DFFRQXL)                         0.03      0.00       0.08 f
-  data arrival time                                                                      0.08
+                                                                              0.00       0.50 f
+  U_WREQ_TRANS/axi_m_awready (net)                        0.00                0.00       0.50 f
+  U_WREQ_TRANS/U151/Y (NAND3XL)                                     0.03      0.06       0.56 r
+  U_WREQ_TRANS/n9 (net)                         1         0.00                0.00       0.56 r
+  U_WREQ_TRANS/U152/Y (OAI2BB1XL)                                   0.03      0.03       0.58 f
+  U_WREQ_TRANS/n1 (net)                         1         0.00                0.00       0.58 f
+  U_WREQ_TRANS/head_aw_done_reg/D (DFFRQXL)                         0.03      0.00       0.58 f
+  data arrival time                                                                      0.58
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -295,9 +295,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.08
+  data arrival time                                                                     -0.58
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.05
+  slack (MET)                                                                            0.45
 
 
   Startpoint: rknp_rxreq_data[118]
@@ -311,18 +311,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[118] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[118] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[118] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[118] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[118] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[118] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1499/Y (INVXL)                              0.06      0.05       0.05 r
-  genblk1.U_WRAP_ALIGN/n1934 (net)              2         0.00                0.00       0.05 r
-  genblk1.U_WRAP_ALIGN/U1501/Y (AOI22XL)                            0.04      0.03       0.09 f
-  genblk1.U_WRAP_ALIGN/n120 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[118]/D (DFFRQXL)            0.04      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[118] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1498/Y (INVXL)                              0.06      0.05       0.55 r
+  genblk1.U_WRAP_ALIGN/n1934 (net)              2         0.00                0.00       0.55 r
+  genblk1.U_WRAP_ALIGN/U1500/Y (AOI22XL)                            0.04      0.03       0.59 f
+  genblk1.U_WRAP_ALIGN/n120 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[118]/D (DFFRQXL)            0.04      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -332,9 +332,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[56]
@@ -348,18 +348,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[56] (in)                                          0.20      0.00       0.00 f
-  rknp_rxreq_data[56] (net)                     2         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[56] (in)                                          0.20      0.00       0.50 f
+  rknp_rxreq_data[56] (net)                     2         0.00                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[56] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[56] (net)          0.00                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1530/Y (INVXL)                              0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n2685 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U2863/Y (AOI22XL)                            0.04      0.03       0.09 f
-  genblk1.U_WRAP_ALIGN/n59 (net)                1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[56]/D (DFFRQXL)             0.04      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[56] (net)          0.00                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1529/Y (INVXL)                              0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n2685 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U2863/Y (AOI22XL)                            0.04      0.03       0.59 f
+  genblk1.U_WRAP_ALIGN/n59 (net)                1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[56]/D (DFFRQXL)             0.04      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -369,9 +369,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[51]
@@ -385,18 +385,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[51] (in)                                          0.20      0.00       0.00 f
-  rknp_rxreq_data[51] (net)                     2         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[51] (in)                                          0.20      0.00       0.50 f
+  rknp_rxreq_data[51] (net)                     2         0.00                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[51] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[51] (net)          0.00                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U311/Y (INVXL)                               0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n1053 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U1505/Y (AOI22XL)                            0.04      0.03       0.09 f
-  genblk1.U_WRAP_ALIGN/n54 (net)                1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[51]/D (DFFRQXL)             0.04      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[51] (net)          0.00                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U310/Y (INVXL)                               0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n1053 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U1504/Y (AOI22XL)                            0.04      0.03       0.59 f
+  genblk1.U_WRAP_ALIGN/n54 (net)                1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[51]/D (DFFRQXL)             0.04      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -406,9 +406,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[55]
@@ -422,18 +422,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[55] (in)                                          0.20      0.00       0.00 f
-  rknp_rxreq_data[55] (net)                     2         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[55] (in)                                          0.20      0.00       0.50 f
+  rknp_rxreq_data[55] (net)                     2         0.00                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[55] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[55] (net)          0.00                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U296/Y (INVXL)                               0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n2682 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U2862/Y (AOI22XL)                            0.04      0.03       0.09 f
-  genblk1.U_WRAP_ALIGN/n58 (net)                1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[55]/D (DFFRQXL)             0.04      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[55] (net)          0.00                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U295/Y (INVXL)                               0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n2682 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U2862/Y (AOI22XL)                            0.04      0.03       0.59 f
+  genblk1.U_WRAP_ALIGN/n58 (net)                1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[55]/D (DFFRQXL)             0.04      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -443,9 +443,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[54]
@@ -459,18 +459,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[54] (in)                                          0.20      0.00       0.00 f
-  rknp_rxreq_data[54] (net)                     2         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[54] (in)                                          0.20      0.00       0.50 f
+  rknp_rxreq_data[54] (net)                     2         0.00                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[54] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[54] (net)          0.00                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U290/Y (INVXL)                               0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n2680 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U2861/Y (AOI22XL)                            0.04      0.03       0.09 f
-  genblk1.U_WRAP_ALIGN/n57 (net)                1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[54]/D (DFFRQXL)             0.04      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[54] (net)          0.00                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U289/Y (INVXL)                               0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n2680 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U2861/Y (AOI22XL)                            0.04      0.03       0.59 f
+  genblk1.U_WRAP_ALIGN/n57 (net)                1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[54]/D (DFFRQXL)             0.04      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -480,9 +480,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[43]
@@ -496,18 +496,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[43] (in)                                          0.20      0.00       0.00 f
-  rknp_rxreq_data[43] (net)                     2         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[43] (in)                                          0.20      0.00       0.50 f
+  rknp_rxreq_data[43] (net)                     2         0.00                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[43] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[43] (net)          0.00                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U211/Y (INVXL)                               0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n2676 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U2855/Y (AOI22XL)                            0.04      0.03       0.09 f
-  genblk1.U_WRAP_ALIGN/n46 (net)                1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[43]/D (DFFRQXL)             0.04      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[43] (net)          0.00                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U210/Y (INVXL)                               0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n2676 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U2855/Y (AOI22XL)                            0.04      0.03       0.59 f
+  genblk1.U_WRAP_ALIGN/n46 (net)                1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[43]/D (DFFRQXL)             0.04      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -517,9 +517,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[131]
@@ -533,18 +533,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[131] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[131] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[131] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[131] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[131] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[131] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U2063/Y (INVXL)                              0.06      0.05       0.05 r
-  genblk1.U_WRAP_ALIGN/n2078 (net)              2         0.00                0.00       0.05 r
-  genblk1.U_WRAP_ALIGN/U2064/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n133 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[131]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[131] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U2060/Y (INVXL)                              0.06      0.05       0.55 r
+  genblk1.U_WRAP_ALIGN/n2078 (net)              2         0.00                0.00       0.55 r
+  genblk1.U_WRAP_ALIGN/U2061/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n133 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[131]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -554,9 +554,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[112]
@@ -570,18 +570,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[112] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[112] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[112] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[112] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[112] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[112] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U217/Y (INVXL)                               0.06      0.05       0.05 r
-  genblk1.U_WRAP_ALIGN/n1593 (net)              2         0.00                0.00       0.05 r
-  genblk1.U_WRAP_ALIGN/U2055/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n114 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[112]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[112] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U216/Y (INVXL)                               0.06      0.05       0.55 r
+  genblk1.U_WRAP_ALIGN/n1593 (net)              2         0.00                0.00       0.55 r
+  genblk1.U_WRAP_ALIGN/U2053/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n114 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[112]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -591,9 +591,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[111]
@@ -607,18 +607,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[111] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[111] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[111] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[111] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[111] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[111] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U656/Y (INVXL)                               0.06      0.05       0.05 r
-  genblk1.U_WRAP_ALIGN/n1060 (net)              2         0.00                0.00       0.05 r
-  genblk1.U_WRAP_ALIGN/U1520/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n113 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[111]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[111] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U844/Y (INVXL)                               0.06      0.05       0.55 r
+  genblk1.U_WRAP_ALIGN/n1060 (net)              2         0.00                0.00       0.55 r
+  genblk1.U_WRAP_ALIGN/U1519/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n113 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[111]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -628,9 +628,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[110]
@@ -644,18 +644,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[110] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[110] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[110] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[110] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[110] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[110] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U802/Y (INVXL)                               0.06      0.05       0.05 r
-  genblk1.U_WRAP_ALIGN/n1592 (net)              2         0.00                0.00       0.05 r
-  genblk1.U_WRAP_ALIGN/U2052/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n112 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[110]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[110] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U797/Y (INVXL)                               0.06      0.05       0.55 r
+  genblk1.U_WRAP_ALIGN/n1592 (net)              2         0.00                0.00       0.55 r
+  genblk1.U_WRAP_ALIGN/U2052/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n112 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[110]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -665,9 +665,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[169]
@@ -681,18 +681,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[169] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[169] (net)                    3         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[169] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[169] (net)                    3         0.00                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[169] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[169] (net)         0.00                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1512/Y (INVXL)                              0.06      0.05       0.05 r
-  genblk1.U_WRAP_ALIGN/n2568 (net)              2         0.00                0.00       0.05 r
-  genblk1.U_WRAP_ALIGN/U1513/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n171 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[169]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[169] (net)         0.00                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1512/Y (INVXL)                              0.06      0.05       0.55 r
+  genblk1.U_WRAP_ALIGN/n2569 (net)              2         0.00                0.00       0.55 r
+  genblk1.U_WRAP_ALIGN/U1513/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n171 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[169]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -702,9 +702,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[168]
@@ -718,18 +718,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[168] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[168] (net)                    3         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[168] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[168] (net)                    3         0.00                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[168] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[168] (net)         0.00                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U2056/Y (INVXL)                              0.06      0.05       0.05 r
-  genblk1.U_WRAP_ALIGN/n2552 (net)              2         0.00                0.00       0.05 r
-  genblk1.U_WRAP_ALIGN/U2057/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n170 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[168]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[168] (net)         0.00                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U2063/Y (INVXL)                              0.06      0.05       0.55 r
+  genblk1.U_WRAP_ALIGN/n2553 (net)              2         0.00                0.00       0.55 r
+  genblk1.U_WRAP_ALIGN/U2064/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n170 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[168]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -739,9 +739,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[167]
@@ -755,18 +755,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[167] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[167] (net)                    3         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[167] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[167] (net)                    3         0.00                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[167] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[167] (net)         0.00                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U2061/Y (INVXL)                              0.06      0.05       0.05 r
-  genblk1.U_WRAP_ALIGN/n2537 (net)              2         0.00                0.00       0.05 r
-  genblk1.U_WRAP_ALIGN/U2062/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n169 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[167]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[167] (net)         0.00                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U2056/Y (INVXL)                              0.06      0.05       0.55 r
+  genblk1.U_WRAP_ALIGN/n2538 (net)              2         0.00                0.00       0.55 r
+  genblk1.U_WRAP_ALIGN/U2057/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n169 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[167]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -776,9 +776,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[161]
@@ -792,18 +792,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[161] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[161] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[161] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[161] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[161] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[161] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U999/Y (INVXL)                               0.06      0.05       0.05 r
-  genblk1.U_WRAP_ALIGN/n1595 (net)              2         0.00                0.00       0.05 r
-  genblk1.U_WRAP_ALIGN/U2059/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n163 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[161]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[161] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1176/Y (INVXL)                              0.06      0.05       0.55 r
+  genblk1.U_WRAP_ALIGN/n1595 (net)              2         0.00                0.00       0.55 r
+  genblk1.U_WRAP_ALIGN/U2062/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n163 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[161]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -813,9 +813,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: axi_m_rlast
@@ -829,18 +829,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  axi_m_rlast (in)                                                  0.20      0.00       0.00 f
-  axi_m_rlast (net)                             2         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  axi_m_rlast (in)                                                  0.20      0.00       0.50 f
+  axi_m_rlast (net)                             2         0.00                0.00       0.50 f
   genblk2.U_RSP_TRANS/axi_m_rlast (rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk2.U_RSP_TRANS/axi_m_rlast (net)                   0.00                0.00       0.00 f
-  genblk2.U_RSP_TRANS/U8/Y (INVXL)                                  0.06      0.06       0.06 r
-  genblk2.U_RSP_TRANS/n172 (net)                2         0.00                0.00       0.06 r
-  genblk2.U_RSP_TRANS/U65/Y (AOI2BB2XL)                             0.03      0.04       0.09 f
-  genblk2.U_RSP_TRANS/n166 (net)                1         0.00                0.00       0.09 f
-  genblk2.U_RSP_TRANS/rbuf1_rlast_reg/D (DFFRQXL)                   0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk2.U_RSP_TRANS/axi_m_rlast (net)                   0.00                0.00       0.50 f
+  genblk2.U_RSP_TRANS/U62/Y (INVXL)                                 0.06      0.06       0.56 r
+  genblk2.U_RSP_TRANS/n172 (net)                2         0.00                0.00       0.56 r
+  genblk2.U_RSP_TRANS/U65/Y (AOI2BB2XL)                             0.03      0.04       0.59 f
+  genblk2.U_RSP_TRANS/n166 (net)                1         0.00                0.00       0.59 f
+  genblk2.U_RSP_TRANS/rbuf1_rlast_reg/D (DFFRQXL)                   0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -850,9 +850,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: axi_m_rlast
@@ -866,18 +866,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  axi_m_rlast (in)                                                  0.20      0.00       0.00 f
-  axi_m_rlast (net)                             2         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  axi_m_rlast (in)                                                  0.20      0.00       0.50 f
+  axi_m_rlast (net)                             2         0.00                0.00       0.50 f
   genblk2.U_RSP_TRANS/axi_m_rlast (rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk2.U_RSP_TRANS/axi_m_rlast (net)                   0.00                0.00       0.00 f
-  genblk2.U_RSP_TRANS/U8/Y (INVXL)                                  0.06      0.06       0.06 r
-  genblk2.U_RSP_TRANS/n172 (net)                2         0.00                0.00       0.06 r
-  genblk2.U_RSP_TRANS/U63/Y (AOI2BB2XL)                             0.03      0.04       0.09 f
-  genblk2.U_RSP_TRANS/n18 (net)                 1         0.00                0.00       0.09 f
-  genblk2.U_RSP_TRANS/prev_rbeat_last_reg/D (DFFRQXL)               0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk2.U_RSP_TRANS/axi_m_rlast (net)                   0.00                0.00       0.50 f
+  genblk2.U_RSP_TRANS/U62/Y (INVXL)                                 0.06      0.06       0.56 r
+  genblk2.U_RSP_TRANS/n172 (net)                2         0.00                0.00       0.56 r
+  genblk2.U_RSP_TRANS/U63/Y (AOI2BB2XL)                             0.03      0.04       0.59 f
+  genblk2.U_RSP_TRANS/n18 (net)                 1         0.00                0.00       0.59 f
+  genblk2.U_RSP_TRANS/prev_rbeat_last_reg/D (DFFRQXL)               0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -887,9 +887,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[170]
@@ -903,18 +903,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[170] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[170] (net)                    3         0.00                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[170] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[170] (net)                    3         0.00                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[170] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[170] (net)         0.00                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1510/Y (INVXL)                              0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n2590 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U1511/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n172 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[170]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[170] (net)         0.00                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1509/Y (INVXL)                              0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n2591 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U1510/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n172 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[170]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -924,9 +924,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[158]
@@ -940,18 +940,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[158] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[158] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[158] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[158] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[158] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[158] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1521/Y (INVXL)                              0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n2397 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U1522/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n160 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[158]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[158] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1520/Y (INVXL)                              0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n2398 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U1521/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n160 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[158]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -961,9 +961,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[133]
@@ -977,18 +977,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[133] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[133] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[133] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[133] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[133] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[133] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1516/Y (INVXL)                              0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n1359 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U1518/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n135 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[133]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[133] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1515/Y (INVXL)                              0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n1227 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U1517/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n135 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[133]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -998,9 +998,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[130]
@@ -1014,18 +1014,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[130] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[130] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[130] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[130] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[130] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[130] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U2053/Y (INVXL)                              0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n2052 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U2054/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n132 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[130]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[130] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U2058/Y (INVXL)                              0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n2052 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U2059/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n132 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[130]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -1035,9 +1035,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[126]
@@ -1051,18 +1051,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[126] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[126] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[126] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[126] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[126] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[126] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U214/Y (INVXL)                               0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n2036 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U2060/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n128 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[126]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[126] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U213/Y (INVXL)                               0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n2036 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U2054/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n128 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[126]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -1072,9 +1072,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[109]
@@ -1088,18 +1088,18 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[109] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[109] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[109] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[109] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[109] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[109] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1296/Y (INVXL)                              0.06      0.06       0.06 r
-  genblk1.U_WRAP_ALIGN/n1594 (net)              2         0.00                0.00       0.06 r
-  genblk1.U_WRAP_ALIGN/U2058/Y (AOI2BB2XL)                          0.03      0.04       0.09 f
-  genblk1.U_WRAP_ALIGN/n111 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[109]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[109] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U332/Y (INVXL)                               0.06      0.06       0.56 r
+  genblk1.U_WRAP_ALIGN/n1594 (net)              2         0.00                0.00       0.56 r
+  genblk1.U_WRAP_ALIGN/U2055/Y (AOI2BB2XL)                          0.03      0.04       0.59 f
+  genblk1.U_WRAP_ALIGN/n111 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[109]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -1109,9 +1109,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[151]
@@ -1125,16 +1125,16 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[151] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[151] (net)                    6         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[151] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[151] (net)                    6         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[151] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[151] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1995/Y (AOI2BB2XL)                          0.03      0.09       0.09 f
-  genblk1.U_WRAP_ALIGN/n153 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[151]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[151] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1993/Y (AOI2BB2XL)                          0.03      0.09       0.59 f
+  genblk1.U_WRAP_ALIGN/n153 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[151]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -1144,9 +1144,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[119]
@@ -1160,16 +1160,16 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[119] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[119] (net)                    6         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[119] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[119] (net)                    6         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[119] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[119] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1994/Y (AOI2BB2XL)                          0.03      0.09       0.09 f
-  genblk1.U_WRAP_ALIGN/n121 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[119]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[119] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1991/Y (AOI2BB2XL)                          0.03      0.09       0.59 f
+  genblk1.U_WRAP_ALIGN/n121 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[119]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -1179,9 +1179,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[150]
@@ -1195,16 +1195,16 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[150] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[150] (net)                    6         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[150] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[150] (net)                    6         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[150] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[150] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1993/Y (AOI2BB2XL)                          0.03      0.09       0.09 f
-  genblk1.U_WRAP_ALIGN/n152 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[150]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[150] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1992/Y (AOI2BB2XL)                          0.03      0.09       0.59 f
+  genblk1.U_WRAP_ALIGN/n152 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[150]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -1214,9 +1214,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: rknp_rxreq_data[165]
@@ -1230,16 +1230,16 @@ Wire Load Model Mode: top
   ----------------------------------------------------------------------------------------------
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
-  input external delay                                                        0.00       0.00 f
-  rknp_rxreq_data[165] (in)                                         0.20      0.00       0.00 f
-  rknp_rxreq_data[165] (net)                    5         0.01                0.00       0.00 f
+  input external delay                                                        0.50       0.50 f
+  rknp_rxreq_data[165] (in)                                         0.20      0.00       0.50 f
+  rknp_rxreq_data[165] (net)                    5         0.01                0.00       0.50 f
   genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[165] (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
-                                                                              0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[165] (net)         0.01                0.00       0.00 f
-  genblk1.U_WRAP_ALIGN/U1989/Y (AOI2BB2XL)                          0.03      0.09       0.09 f
-  genblk1.U_WRAP_ALIGN/n167 (net)               1         0.00                0.00       0.09 f
-  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[165]/D (DFFRQXL)            0.03      0.00       0.09 f
-  data arrival time                                                                      0.09
+                                                                              0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/rknp_xx2wa_data[165] (net)         0.01                0.00       0.50 f
+  genblk1.U_WRAP_ALIGN/U1987/Y (AOI2BB2XL)                          0.03      0.09       0.59 f
+  genblk1.U_WRAP_ALIGN/n167 (net)               1         0.00                0.00       0.59 f
+  genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[165]/D (DFFRQXL)            0.03      0.00       0.59 f
+  data arrival time                                                                      0.59
 
   clock aclk (rise edge)                                                      0.00       0.00
   clock network delay (ideal)                                                 0.00       0.00
@@ -1249,9 +1249,9 @@ Wire Load Model Mode: top
   data required time                                                                     0.13
   ----------------------------------------------------------------------------------------------
   data required time                                                                     0.13
-  data arrival time                                                                     -0.09
+  data arrival time                                                                     -0.59
   ----------------------------------------------------------------------------------------------
-  slack (VIOLATED)                                                                      -0.04
+  slack (MET)                                                                            0.46
 
 
   Startpoint: U_WREQ_TRANS/head_aw_done_reg
@@ -1302,7 +1302,7 @@ Wire Load Model Mode: top
   genblk2.U_RSP_TRANS/bvalid_reg/CK (DFFRQXL)                       0.10      0.00 #     0.00 r
   genblk2.U_RSP_TRANS/bvalid_reg/Q (DFFRQXL)                        0.07      0.16       0.16 r
   genblk2.U_RSP_TRANS/bvalid (net)              3         0.00                0.00       0.16 r
-  genblk2.U_RSP_TRANS/U30/Y (NOR2X2)                                0.14      0.09       0.26 f
+  genblk2.U_RSP_TRANS/U29/Y (NOR2X2)                                0.14      0.09       0.26 f
   genblk2.U_RSP_TRANS/axi_m_bready (net)        2         0.05                0.00       0.26 f
   genblk2.U_RSP_TRANS/axi_m_bready (rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0_0)
                                                                               0.00       0.26 f
@@ -1336,7 +1336,7 @@ Wire Load Model Mode: top
   genblk2.U_RSP_TRANS/rbuf_count_reg[1]/CK (DFFRQXL)                0.10      0.00 #     0.00 r
   genblk2.U_RSP_TRANS/rbuf_count_reg[1]/Q (DFFRQXL)                 0.07      0.17       0.17 r
   genblk2.U_RSP_TRANS/rbuf_count[1] (net)       4         0.01                0.00       0.17 r
-  genblk2.U_RSP_TRANS/U26/Y (NOR2X2)                                0.14      0.10       0.26 f
+  genblk2.U_RSP_TRANS/U25/Y (NOR2X2)                                0.14      0.10       0.26 f
   genblk2.U_RSP_TRANS/axi_m_rready (net)        2         0.05                0.00       0.26 f
   genblk2.U_RSP_TRANS/axi_m_rready (rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0_0)
                                                                               0.00       0.26 f
@@ -1405,8 +1405,8 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[38]/Q (DFFRQXL)        0.03      0.17       0.17 f
   genblk1.U_WRAP_ADJUST/pending_rsp_head[38] (net)
                                                 1         0.00                0.00       0.17 f
-  genblk1.U_WRAP_ADJUST/U181/Y (INVXL)                              0.05      0.03       0.20 r
-  genblk1.U_WRAP_ADJUST/n2670 (net)             2         0.00                0.00       0.20 r
+  genblk1.U_WRAP_ADJUST/U180/Y (INVXL)                              0.05      0.03       0.20 r
+  genblk1.U_WRAP_ADJUST/n2671 (net)             2         0.00                0.00       0.20 r
   genblk1.U_WRAP_ADJUST/U13/Y (AOI22X2)                             0.24      0.14       0.35 f
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[38] (net)
                                                 1         0.05                0.00       0.35 f
@@ -1444,7 +1444,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head[37] (net)
                                                 1         0.00                0.00       0.17 f
   genblk1.U_WRAP_ADJUST/U1745/Y (INVXL)                             0.05      0.03       0.20 r
-  genblk1.U_WRAP_ADJUST/n2668 (net)             2         0.00                0.00       0.20 r
+  genblk1.U_WRAP_ADJUST/n2669 (net)             2         0.00                0.00       0.20 r
   genblk1.U_WRAP_ADJUST/U12/Y (AOI22X2)                             0.24      0.14       0.35 f
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[37] (net)
                                                 1         0.05                0.00       0.35 f
@@ -1482,7 +1482,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ALIGN/rwrap_cnt[2] (net)       3         0.00                0.00       0.16 r
   genblk1.U_WRAP_ALIGN/U65/Y (AND4XL)                               0.07      0.11       0.26 r
   genblk1.U_WRAP_ALIGN/n242 (net)               3         0.00                0.00       0.26 r
-  genblk1.U_WRAP_ALIGN/U107/Y (NOR2BX2)                             0.14      0.10       0.36 f
+  genblk1.U_WRAP_ALIGN/U105/Y (NOR2BX2)                             0.14      0.10       0.36 f
   genblk1.U_WRAP_ALIGN/wa2rknp_xx_ready (net)
                                                 2         0.05                0.00       0.36 f
   genblk1.U_WRAP_ALIGN/wa2rknp_xx_ready (wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0)
@@ -1518,7 +1518,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[22]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[22] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1731/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1737/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[22] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[22] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1554,7 +1554,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[21]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[21] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1739/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1730/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[21] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[21] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1590,7 +1590,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[20]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[20] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1730/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1724/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[20] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[20] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1626,7 +1626,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[19]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[19] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1733/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1726/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[19] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[19] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1662,7 +1662,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[18]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[18] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1734/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1727/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[18] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[18] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1698,7 +1698,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[17]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[17] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1737/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1739/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[17] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[17] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1734,7 +1734,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[16]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[16] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1735/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1736/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[16] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[16] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1770,7 +1770,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[15]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[15] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1722/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1712/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[15] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[15] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1806,7 +1806,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[14]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[14] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1720/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1710/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[14] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[14] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1842,7 +1842,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[13]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[13] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1721/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1719/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[13] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[13] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1878,7 +1878,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[12]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[12] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1712/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1711/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[12] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[12] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1914,7 +1914,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[11]/Q (DFFRQXL)        0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[11] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1709/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1716/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[11] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[11] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -1986,7 +1986,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[9]/Q (DFFRQXL)         0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[9] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1715/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1709/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[9] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[9] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -2022,7 +2022,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[8]/Q (DFFRQXL)         0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[8] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1716/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1721/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[8] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[8] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -2058,7 +2058,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[7]/Q (DFFRQXL)         0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[7] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1718/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1717/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[7] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[7] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -2094,7 +2094,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[6]/Q (DFFRQXL)         0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[6] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1719/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1714/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[6] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[6] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -2130,7 +2130,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[5]/Q (DFFRQXL)         0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[5] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1710/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1722/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[5] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[5] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -2166,7 +2166,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[4]/Q (DFFRQXL)         0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[4] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1711/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1720/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[4] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[4] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -2238,7 +2238,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[2]/Q (DFFRQXL)         0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[2] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1717/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1718/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[2] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[2] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -2310,7 +2310,7 @@ Wire Load Model Mode: top
   genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[0]/Q (DFFRQXL)         0.05      0.15       0.15 r
   genblk1.U_WRAP_ADJUST/pending_rsp_head[0] (net)
                                                 2         0.00                0.00       0.15 r
-  genblk1.U_WRAP_ADJUST/U1714/Y (MX2X1)                             0.35      0.23       0.38 r
+  genblk1.U_WRAP_ADJUST/U1715/Y (MX2X1)                             0.35      0.23       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[0] (net)
                                                 1         0.05                0.00       0.38 r
   genblk1.U_WRAP_ADJUST/wad2rknp_xx_data[0] (wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0)
@@ -2443,7 +2443,7 @@ Wire Load Model Mode: top
   U_WATCHDOG/timer_cnt_reg[8]/CK (DFFRQXL)                          0.10      0.00 #     0.00 r
   U_WATCHDOG/timer_cnt_reg[8]/Q (DFFRQXL)                           0.05      0.16       0.16 r
   U_WATCHDOG/rsp_timnot[8] (net)                3         0.00                0.00       0.16 r
-  U_WATCHDOG/U656/Y (OAI31XL)                                       0.04      0.04       0.19 f
+  U_WATCHDOG/U657/Y (OAI31XL)                                       0.04      0.04       0.19 f
   U_WATCHDOG/n129 (net)                         1         0.00                0.00       0.19 f
   U_WATCHDOG/timer_cnt_reg[8]/D (DFFRQXL)                           0.04      0.00       0.19 f
   data arrival time                                                                      0.19
@@ -2475,7 +2475,7 @@ Wire Load Model Mode: top
   genblk2.U_RSP_ORDER/flit_cnt_reg[7]/CK (DFFRQXL)                  0.10      0.00 #     0.00 r
   genblk2.U_RSP_ORDER/flit_cnt_reg[7]/Q (DFFRQXL)                   0.07      0.17       0.17 r
   genblk2.U_RSP_ORDER/flit_cnt[7] (net)         4         0.01                0.00       0.17 r
-  genblk2.U_RSP_ORDER/U2226/Y (OAI31XL)                             0.03      0.03       0.20 f
+  genblk2.U_RSP_ORDER/U2227/Y (OAI31XL)                             0.03      0.03       0.20 f
   genblk2.U_RSP_ORDER/n263 (net)                1         0.00                0.00       0.20 f
   genblk2.U_RSP_ORDER/flit_cnt_reg[7]/D (DFFRQXL)                   0.03      0.00       0.20 f
   data arrival time                                                                      0.20
@@ -2667,7 +2667,7 @@ Wire Load Model Mode: top
   genblk2.U_RSP_ORDER/flit_cnt_reg[4]/CK (DFFRQXL)                  0.10      0.00 #     0.00 r
   genblk2.U_RSP_ORDER/flit_cnt_reg[4]/Q (DFFRQXL)                   0.07      0.17       0.17 r
   genblk2.U_RSP_ORDER/flit_cnt[4] (net)         4         0.01                0.00       0.17 r
-  genblk2.U_RSP_ORDER/U1530/Y (OAI32XL)                             0.04      0.04       0.21 f
+  genblk2.U_RSP_ORDER/U1534/Y (OAI32XL)                             0.04      0.04       0.21 f
   genblk2.U_RSP_ORDER/n260 (net)                1         0.00                0.00       0.21 f
   genblk2.U_RSP_ORDER/flit_cnt_reg[4]/D (DFFRQXL)                   0.04      0.00       0.21 f
   data arrival time                                                                      0.21
@@ -2699,7 +2699,7 @@ Wire Load Model Mode: top
   U_WATCHDOG/timer_cnt_reg[10]/CK (DFFRQXL)                         0.10      0.00 #     0.00 r
   U_WATCHDOG/timer_cnt_reg[10]/Q (DFFRQXL)                          0.08      0.17       0.17 r
   U_WATCHDOG/rsp_timnot[10] (net)               5         0.01                0.00       0.17 r
-  U_WATCHDOG/U660/Y (OAI31XL)                                       0.04      0.04       0.21 f
+  U_WATCHDOG/U661/Y (OAI31XL)                                       0.04      0.04       0.21 f
   U_WATCHDOG/n131 (net)                         1         0.00                0.00       0.21 f
   U_WATCHDOG/timer_cnt_reg[10]/D (DFFRQXL)                          0.04      0.00       0.21 f
   data arrival time                                                                      0.21
@@ -2731,7 +2731,7 @@ Wire Load Model Mode: top
   genblk2.U_RSP_ORDER/flit_cnt_reg[2]/CK (DFFRQXL)                  0.10      0.00 #     0.00 r
   genblk2.U_RSP_ORDER/flit_cnt_reg[2]/Q (DFFRQXL)                   0.05      0.16       0.16 r
   genblk2.U_RSP_ORDER/flit_cnt[2] (net)         3         0.00                0.00       0.16 r
-  genblk2.U_RSP_ORDER/U2224/Y (AOI32XL)                             0.04      0.06       0.22 f
+  genblk2.U_RSP_ORDER/U2225/Y (AOI32XL)                             0.04      0.06       0.22 f
   genblk2.U_RSP_ORDER/n258 (net)                1         0.00                0.00       0.22 f
   genblk2.U_RSP_ORDER/flit_cnt_reg[2]/D (DFFRQXL)                   0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -2795,7 +2795,7 @@ Wire Load Model Mode: top
   genblk2.U_RSP_ORDER/flit_cnt_reg[5]/CK (DFFRQXL)                  0.10      0.00 #     0.00 r
   genblk2.U_RSP_ORDER/flit_cnt_reg[5]/Q (DFFRQXL)                   0.08      0.17       0.17 r
   genblk2.U_RSP_ORDER/flit_cnt[5] (net)         5         0.01                0.00       0.17 r
-  genblk2.U_RSP_ORDER/U1535/Y (OAI32XL)                             0.04      0.05       0.22 f
+  genblk2.U_RSP_ORDER/U1537/Y (OAI32XL)                             0.04      0.05       0.22 f
   genblk2.U_RSP_ORDER/n261 (net)                1         0.00                0.00       0.22 f
   genblk2.U_RSP_ORDER/flit_cnt_reg[5]/D (DFFRQXL)                   0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -2827,9 +2827,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[2]/CK (DFFRQXL)                 0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[2]/Q (DFFRQXL)                  0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_iid[2] (net)        2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5279/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n4938 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5280/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5282/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n4937 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5283/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n934 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[2]/D (DFFRQXL)                  0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -2861,9 +2861,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[0]/CK (DFFRQXL)              0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[0]/Q (DFFRQXL)               0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_ordkey[0] (net)     2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5422/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n5070 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5423/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5423/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n5069 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5424/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n954 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[0]/D (DFFRQXL)               0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -2895,9 +2895,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[1]/CK (DFFRQXL)              0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[1]/Q (DFFRQXL)               0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_ordkey[1] (net)     2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5415/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n5062 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5416/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5416/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n5061 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5417/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n953 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[1]/D (DFFRQXL)               0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -2929,9 +2929,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[2]/CK (DFFRQXL)              0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[2]/Q (DFFRQXL)               0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_ordkey[2] (net)     2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5408/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n5053 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5409/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5409/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n5052 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5410/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n952 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[2]/D (DFFRQXL)               0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -2963,9 +2963,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[3]/CK (DFFRQXL)              0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[3]/Q (DFFRQXL)               0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_ordkey[3] (net)     2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5401/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n5045 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5402/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U1186/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n5044 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5403/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n951 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[3]/D (DFFRQXL)               0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -2997,9 +2997,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[4]/CK (DFFRQXL)              0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[4]/Q (DFFRQXL)               0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_ordkey[4] (net)     2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5393/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n5038 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5394/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5395/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n5037 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5396/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n950 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_ordkey_reg[4]/D (DFFRQXL)               0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -3031,9 +3031,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[0]/CK (DFFRQXL)                 0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[0]/Q (DFFRQXL)                  0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_iid[0] (net)        2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U1185/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n4951 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5293/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U1184/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n4950 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5296/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n936 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[0]/D (DFFRQXL)                  0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -3065,9 +3065,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[1]/CK (DFFRQXL)                 0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[1]/Q (DFFRQXL)                  0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_iid[1] (net)        2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5286/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n4944 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5287/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5289/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n4943 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5290/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n935 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[1]/D (DFFRQXL)                  0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -3099,9 +3099,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[3]/CK (DFFRQXL)                 0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[3]/Q (DFFRQXL)                  0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_iid[3] (net)        2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5272/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n4932 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5273/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5275/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n4931 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5276/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n933 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[3]/D (DFFRQXL)                  0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -3133,9 +3133,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[4]/CK (DFFRQXL)                 0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[4]/Q (DFFRQXL)                  0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_iid[4] (net)        2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5265/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n4924 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5266/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5268/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n4923 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5269/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n932 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[4]/D (DFFRQXL)                  0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -3167,9 +3167,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[5]/CK (DFFRQXL)                 0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[5]/Q (DFFRQXL)                  0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_iid[5] (net)        2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U1184/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n4917 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5258/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U1183/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n4916 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5261/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n931 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[5]/D (DFFRQXL)                  0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -3201,9 +3201,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[6]/CK (DFFRQXL)                 0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[6]/Q (DFFRQXL)                  0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_iid[6] (net)        2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5251/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n4911 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5252/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5254/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n4910 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5255/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n930 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[6]/D (DFFRQXL)                  0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -3235,9 +3235,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[7]/CK (DFFRQXL)                 0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[7]/Q (DFFRQXL)                  0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_iid[7] (net)        2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5244/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n4904 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5245/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5247/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n4903 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5248/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n929 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[7]/D (DFFRQXL)                  0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -3269,9 +3269,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[8]/CK (DFFRQXL)                 0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[8]/Q (DFFRQXL)                  0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_iid[8] (net)        2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5236/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n4897 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5237/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5239/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n4896 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5240/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n928 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[8]/D (DFFRQXL)                  0.04      0.00       0.22 f
   data arrival time                                                                      0.22
@@ -3303,9 +3303,9 @@ Wire Load Model Mode: top
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[9]/CK (DFFRQXL)                 0.10      0.00 #     0.00 r
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[9]/Q (DFFRQXL)                  0.04      0.17       0.17 f
   U_REQ_ORDER/reqo2rspo_rsp_iid[9] (net)        2         0.00                0.00       0.17 f
-  U_REQ_ORDER/U5229/Y (INVXL)                                       0.02      0.02       0.20 r
-  U_REQ_ORDER/n4891 (net)                       1         0.00                0.00       0.20 r
-  U_REQ_ORDER/U5230/Y (AOI32XL)                                     0.04      0.03       0.22 f
+  U_REQ_ORDER/U5232/Y (INVXL)                                       0.02      0.02       0.20 r
+  U_REQ_ORDER/n4890 (net)                       1         0.00                0.00       0.20 r
+  U_REQ_ORDER/U5233/Y (AOI32XL)                                     0.04      0.03       0.22 f
   U_REQ_ORDER/n927 (net)                        1         0.00                0.00       0.22 f
   U_REQ_ORDER/reqo2rspo_rsp_iid_reg[9]/D (DFFRQXL)                  0.04      0.00       0.22 f
   data arrival time                                                                      0.22
