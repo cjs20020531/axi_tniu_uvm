@@ -193,7 +193,7 @@ wire                              rspt2rspo_tail           ;
 wire                              rspt2rspo_valid          ;                                             
 wire                              rspo2rspt_ready          ;                                             
 wire [AXID_WITH-1:0]              rspt2rspo_axid           ;                                            
-wire [AUSER_WITH:0]               rspt2rspo_auser          ;                                            
+wire [AUSER_WITH-1:0]             rspt2rspo_auser          ;                                            
 wire [1:0]                        rspt2rspo_opc            ;                                           
 wire [2:0]                        rspt2rspo_errcode        ;  
 wire [1:0]                        rspt2rspo_status         ;                                             
@@ -835,7 +835,7 @@ generate
         wire                    rspt2erd_valid  ;
         wire                    erd2rspt_ready  ;
         wire [AXID_WITH-1:0]    rspt2erd_axid   ;
-        wire [AUSER_WITH:0]     rspt2erd_auser  ;
+        wire [AUSER_WITH-1:0]   rspt2erd_auser  ;
         wire [1:0]              rspt2erd_opc    ;
         wire [2:0]              rspt2erd_errcode;
         wire [1:0]              rspt2erd_status ;
@@ -848,7 +848,7 @@ generate
         wire                    erd2rspo_valid  ;
         wire                    rspo2erd_ready  ;   // 注意：这是下游给模块的ready，测试平台作为下游驱动这个信号
         wire [AXID_WITH-1:0]    erd2rspo_axid   ;
-        wire [AUSER_WITH:0]     erd2rspo_auser  ;
+        wire [AUSER_WITH-1:0]   erd2rspo_auser  ;
         wire [1:0]              erd2rspo_opc    ;
         wire [2:0]              erd2rspo_errcode;
         wire [1:0]              erd2rspo_status ;

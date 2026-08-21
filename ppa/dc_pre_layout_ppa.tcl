@@ -72,7 +72,7 @@ set SCRIPT_DIR [file dirname [file normalize [info script]]]
 set REPO_ROOT  [file normalize [file join $SCRIPT_DIR ..]]
 set RUN_STAMP  [clock format [clock seconds] -format "%Y%m%d_%H%M%S"]
 
-set DEFAULT_RUN_DIR [file join $SCRIPT_DIR runs "dc_$RUN_STAMP"]
+set DEFAULT_RUN_DIR [file join $SCRIPT_DIR run]
 set RUN_DIR         [file normalize [env_or_default PPA_RUN_DIR $DEFAULT_RUN_DIR]]
 set REPORT_DIR      [file join $RUN_DIR reports]
 set OUTPUT_DIR      [file join $RUN_DIR outputs]

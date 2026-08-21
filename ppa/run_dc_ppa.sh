@@ -25,13 +25,42 @@ if [[ ! -f $TCL_SCRIPT ]]; then
   exit 2
 fi
 
+# Use one stable result directory by default.  A marker prevents an accidental
+# recursive deletion if PPA_RUN_DIR is pointed at an unrelated directory.
 if [[ -z ${PPA_RUN_DIR:-} ]]; then
-  RUN_STAMP=$(date +%Y%m%d_%H%M%S)
-  PPA_RUN_DIR=$SCRIPT_DIR/runs/dc_$RUN_STAMP
-  export PPA_RUN_DIR
+  PPA_RUN_DIR=$SCRIPT_DIR/run
+fi
+export PPA_RUN_DIR
+
+RUN_MARKER=$PPA_RUN_DIR/.axi_tniu_dc_ppa_run_dir
+
+if [[ -e $PPA_RUN_DIR && ! -d $PPA_RUN_DIR ]]; then
+  printf 'ERROR: PPA_RUN_DIR exists but is not a directory: %s\n' \
+         "$PPA_RUN_DIR" >&2
+  exit 2
 fi
 
 mkdir -p "$PPA_RUN_DIR"
+
+if [[ -f $RUN_MARKER ]]; then
+  # Remove only entries inside a directory previously created by this flow.
+  # Keep the marker itself so subsequent invocations remain protected.
+  if ! find "$PPA_RUN_DIR" -mindepth 1 -maxdepth 1 \
+            ! -name "$(basename "$RUN_MARKER")" \
+            -exec rm -rf -- {} +; then
+    printf 'ERROR: failed to clear previous PPA results: %s\n' \
+           "$PPA_RUN_DIR" >&2
+    exit 2
+  fi
+elif [[ -n $(find "$PPA_RUN_DIR" -mindepth 1 -maxdepth 1 -print -quit) ]]; then
+  printf 'ERROR: refusing to overwrite an unmarked non-empty directory: %s\n' \
+         "$PPA_RUN_DIR" >&2
+  printf 'Choose an empty PPA_RUN_DIR or use the default ppa/run directory.\n' >&2
+  exit 2
+else
+  : > "$RUN_MARKER"
+fi
+
 LOG_FILE=$PPA_RUN_DIR/dc_shell.log
 
 printf 'Design Compiler executable : %s\n' "$(command -v "$DC_BIN")"

@@ -28,7 +28,7 @@ module ely_rsp_detect#(
     ,input                              rspt2erd_valid
     ,output                             erd2rspt_ready
     ,input      [AXID_WITH-1:0]         rspt2erd_axid
-    ,input      [AUSER_WITH:0]          rspt2erd_auser
+    ,input      [AUSER_WITH-1:0]        rspt2erd_auser
     ,input      [1:0]                   rspt2erd_opc
     ,input      [2:0]                   rspt2erd_errcode
     ,input      [1:0]                   rspt2erd_status

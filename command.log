@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version O-2018.06-SP1 for linux64 -- Jul 19, 2018
-#@ # Date:   Fri Aug 21 16:21:45 2026
+#@ # Date:   Fri Aug 21 16:41:24 2026
 #@ # Run by: ICer@IC_EDA
 #@ 
 
@@ -7299,7 +7299,7 @@ source -echo -verbose /home/ICer/RKNoC/axi_tniu_uvm/ppa/dc_pre_layout_ppa.tcl
 #@ # -- End source /home/synopsys/syn/O-2018.06-SP1/auxx/tcllib/lib/tcl8.6/msgcat/msgcat.tcl
 
 #@ 
-#@ set DEFAULT_RUN_DIR [file join $SCRIPT_DIR runs "dc_$RUN_STAMP"]
+#@ set DEFAULT_RUN_DIR [file join $SCRIPT_DIR run]
 #@ set RUN_DIR         [file normalize [env_or_default PPA_RUN_DIR $DEFAULT_RUN_DIR]]
 #@ set REPORT_DIR      [file join $RUN_DIR reports]
 #@ set OUTPUT_DIR      [file join $RUN_DIR outputs]
@@ -7500,4 +7500,32 @@ source -echo -verbose /home/ICer/RKNoC/axi_tniu_uvm/ppa/dc_pre_layout_ppa.tcl
 #@ 
 #@ if {![link]} {
 #@   fatal "link failed; inspect unresolved references and target_library"
+#@ }
+#@ 
+#@ # Operating conditions are a design attribute, so apply them only after a
+#@ # current design exists and technology references have been linked.
+#@ if {[catch {set_operating_conditions $OPERATING_CONDITION} oc_error]} {
+#@   fatal "failed to select operating condition '$OPERATING_CONDITION': $oc_error"
+#@ }
+#@ 
+#@ # Give every parameterized instance a unique implementation before optimization.
+#@ uniquify -force
+#@ 
+#@ redirect -file [file join $REPORT_DIR check_design_precompile.rpt] {
+#@   check_design
+#@ }
+#@ 
+#@ # Explicitly reject black boxes: area, timing and power are not meaningful when
+#@ # an RTL submodule or technology reference is unresolved.
+#@ set black_box_count 0
+#@ if {![catch {
+#@   set black_boxes [get_cells -hierarchical -filter "is_black_box == true" -quiet]
+#@   set black_box_count [sizeof_collection $black_boxes]
+#@ }]} {
+#@   if {$black_box_count > 0} {
+#@     redirect -file [file join $REPORT_DIR black_boxes.rpt] {
+#@       report_cell $black_boxes
+#@     }
+#@     fatal "design contains $black_box_count black-box cells; see black_boxes.rpt"
+#@   }
 #@ }
