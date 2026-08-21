@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version O-2018.06-SP1 for linux64 -- Jul 19, 2018
-#@ # Date:   Fri Aug 21 16:41:24 2026
+#@ # Date:   Fri Aug 21 16:48:35 2026
 #@ # Run by: ICer@IC_EDA
 #@ 
 
@@ -7515,17 +7515,319 @@ source -echo -verbose /home/ICer/RKNoC/axi_tniu_uvm/ppa/dc_pre_layout_ppa.tcl
 #@   check_design
 #@ }
 #@ 
-#@ # Explicitly reject black boxes: area, timing and power are not meaningful when
-#@ # an RTL submodule or technology reference is unresolved.
-#@ set black_box_count 0
-#@ if {![catch {
-#@   set black_boxes [get_cells -hierarchical -filter "is_black_box == true" -quiet]
-#@   set black_box_count [sizeof_collection $black_boxes]
-#@ }]} {
-#@   if {$black_box_count > 0} {
-#@     redirect -file [file join $REPORT_DIR black_boxes.rpt] {
-#@       report_cell $black_boxes
-#@     }
-#@     fatal "design contains $black_box_count black-box cells; see black_boxes.rpt"
+#@ # Explicitly reject unresolved black-box designs: area, timing and power are not
+#@ # meaningful when an RTL submodule is missing.  Query design objects rather
+#@ # than cells here.  Before mapping, DC 2018 marks normal GTECH/DesignWare
+#@ # operators such as *MUX_OP and *ADD_UNS_OP with is_black_box on the cell
+#@ # object; treating those synthetic, unmapped operators as unresolved modules
+#@ # produces hundreds of false positives.
+#@ set black_box_design_count 0
+#@ if {[catch {
+#@   set black_box_designs       [get_designs -quiet -filter "is_black_box == true" *]
+#@   set black_box_design_count [sizeof_collection $black_box_designs]
+#@ } black_box_query_error]} {
+#@   puts "WARNING: could not query black-box design objects"
+#@   puts "         $black_box_query_error"
+#@ } elseif {$black_box_design_count > 0} {
+#@   set black_box_report       [open [file join $REPORT_DIR black_box_designs.rpt] w]
+#@   puts $black_box_report "Unresolved black-box designs:"
+#@   foreach_in_collection black_box_design $black_box_designs {
+#@     puts $black_box_report "  [get_object_name $black_box_design]"
+#@   }
+#@   close $black_box_report
+#@   fatal "design contains $black_box_design_count unresolved black-box designs; see black_box_designs.rpt"
+#@ }
+#@ 
+#@ write -format ddc -hierarchy       -output [file join $DATABASE_DIR "${TOP_DESIGN}_elaborated.ddc"]
+#@ 
+#@ # -----------------------------------------------------------------------------
+#@ # Timing and electrical constraints
+#@ # -----------------------------------------------------------------------------
+#@ set clock_port_obj [get_ports $CLOCK_PORT -quiet]
+#@ if {[sizeof_collection $clock_port_obj] != 1} {
+#@   fatal "expected exactly one clock port named '$CLOCK_PORT'"
+#@ }
+#@ 
+#@ set reset_port_obj [get_ports $RESET_PORT -quiet]
+#@ if {[sizeof_collection $reset_port_obj] != 1} {
+#@   fatal "expected exactly one reset port named '$RESET_PORT'"
+#@ }
+#@ 
+#@ create_clock -name $CLOCK_NAME -period $CLOCK_PERIOD $clock_port_obj
+#@ set_clock_uncertainty $CLOCK_UNCERTAINTY [get_clocks $CLOCK_NAME]
+#@ set_clock_transition  $CLOCK_TRANSITION  [get_clocks $CLOCK_NAME]
+#@ set_dont_touch_network $clock_port_obj
+#@ 
+#@ # All top-level interfaces are assumed synchronous to aclk for this first
+#@ # block-level estimate.  Replace these budgets when chip-level timing contracts
+#@ # become available.
+#@ set excluded_inputs [get_ports [list $CLOCK_PORT $RESET_PORT] -quiet]
+#@ set data_inputs     [remove_from_collection [all_inputs] $excluded_inputs]
+#@ set data_outputs    [all_outputs]
+#@ 
+#@ if {[collection_nonempty $data_inputs]} {
+#@   set_input_delay -max $INPUT_DELAY_MAX -clock $CLOCK_NAME $data_inputs
+#@   set_input_delay -min $INPUT_DELAY_MIN -clock $CLOCK_NAME $data_inputs
+#@   set_input_transition $INPUT_TRANSITION $data_inputs
+#@ }
+#@ 
+#@ if {[collection_nonempty $data_outputs]} {
+#@   set_output_delay -max $OUTPUT_DELAY_MAX -clock $CLOCK_NAME $data_outputs
+#@   set_output_delay -min $OUTPUT_DELAY_MIN -clock $CLOCK_NAME $data_outputs
+#@   if {$OUTPUT_LOAD > 0.0} {
+#@     set_load $OUTPUT_LOAD $data_outputs
 #@   }
 #@ }
+#@ 
+#@ # Asynchronous reset is not a data path.  Recovery/removal signoff requires a
+#@ # physical clock tree and is outside this pre-layout block estimate.
+#@ set_false_path -from $reset_port_obj
+#@ 
+#@ # Electrical and area objectives.  MAX_AREA=0 asks DC to recover area while
+#@ # still respecting timing; it is not a literal zero-area requirement.
+#@ if {$MAX_TRANSITION > 0.0} {
+#@   set_max_transition $MAX_TRANSITION [current_design]
+#@ }
+#@ if {$MAX_FANOUT > 0.0} {
+#@   set_max_fanout $MAX_FANOUT [current_design]
+#@ }
+#@ set_max_area $MAX_AREA
+#@ set_critical_range $CRITICAL_RANGE [current_design]
+#@ 
+#@ # Pre-layout wire-load estimation.  DC will use the library's available model;
+#@ # the report records the selected model.  If the .db has no wire-load data,
+#@ # interconnect delay remains optimistic and that limitation must be reported.
+#@ if {[catch {set_app_var auto_wire_load_selection true} wireload_error]} {
+#@   puts "WARNING: automatic wire-load selection unavailable: $wireload_error"
+#@ }
+#@ if {[catch {set_wire_load_mode top} wireload_mode_error]} {
+#@   puts "WARNING: could not set top wire-load mode: $wireload_mode_error"
+#@ }
+#@ 
+#@ # Separate path groups prevent a difficult I/O path from hiding register-to-
+#@ # register optimization, and make the final timing report easier to interpret.
+#@ set all_regs [all_registers]
+#@ if {[collection_nonempty $all_regs]} {
+#@   group_path -name REG2REG -from $all_regs -to $all_regs              -critical_range $CRITICAL_RANGE
+#@   if {[collection_nonempty $data_inputs]} {
+#@     group_path -name IN2REG -from $data_inputs -to $all_regs                -critical_range $CRITICAL_RANGE
+#@   }
+#@   if {[collection_nonempty $data_outputs]} {
+#@     group_path -name REG2OUT -from $all_regs -to $data_outputs                -critical_range $CRITICAL_RANGE
+#@   }
+#@ }
+#@ if {[collection_nonempty $data_inputs] && [collection_nonempty $data_outputs]} {
+#@   group_path -name IN2OUT -from $data_inputs -to $data_outputs              -critical_range $CRITICAL_RANGE
+#@ }
+#@ 
+#@ redirect -file [file join $REPORT_DIR clocks_precompile.rpt] {
+#@   report_clock
+#@ }
+#@ redirect -file [file join $REPORT_DIR constraints_precompile.rpt] {
+#@   report_constraint -all_violators -verbose
+#@ }
+#@ redirect -file [file join $REPORT_DIR check_timing_precompile.rpt] {
+#@   check_timing -verbose
+#@ }
+#@ 
+#@ # Prevent constant drivers and multiply-connected nets from leaking into the
+#@ # final mapped Verilog netlist.
+#@ set_fix_multiple_port_nets -all -buffer_constants [get_designs $TOP_DESIGN]
+#@ 
+#@ # -----------------------------------------------------------------------------
+#@ # Mapped synthesis
+#@ # -----------------------------------------------------------------------------
+#@ puts "INFO: starting mapped synthesis ($COMPILE_MODE mode)"
+#@ 
+#@ if {$COMPILE_MODE eq "ultra"} {
+#@   if {[catch {compile_ultra -no_autoungroup} compile_error]} {
+#@     fatal "compile_ultra failed: $compile_error\nSet DC_COMPILE_MODE=standard if a DC-Ultra license is unavailable."
+#@   }
+#@ 
+#@   if {$RUN_INCREMENTAL} {
+#@     puts "INFO: running incremental timing/area recovery"
+#@     if {[catch {compile_ultra -incremental -no_autoungroup} incremental_error]} {
+#@       puts "WARNING: incremental compile failed; keeping first mapped result"
+#@       puts "         $incremental_error"
+#@     }
+#@   }
+#@ } else {
+#@   if {[catch {compile -map_effort high -area_effort high} compile_error]} {
+#@     fatal "standard compile failed: $compile_error"
+#@   }
+#@ }
+#@ 
+#@ current_design $TOP_DESIGN
+#@ update_timing
+#@ 
+#@ redirect -file [file join $REPORT_DIR check_design_postcompile.rpt] {
+#@   check_design
+#@ }
+#@ redirect -file [file join $REPORT_DIR check_timing_postcompile.rpt] {
+#@   check_timing -verbose
+#@ }
+#@ 
+#@ # -----------------------------------------------------------------------------
+#@ # Power activity annotation
+#@ # -----------------------------------------------------------------------------
+#@ set POWER_ACTIVITY_MODE vectorless
+#@ set activity_loaded 0
+#@ 
+#@ if {$SAIF_FILE ne ""} {
+#@   set SAIF_FILE [file normalize $SAIF_FILE]
+#@   require_file $SAIF_FILE "SAIF activity file"
+#@   puts "INFO: reading SAIF activity: $SAIF_FILE"
+#@   if {[catch {
+#@     read_saif -input $SAIF_FILE -instance_name $ACTIVITY_SCOPE
+#@   } saif_error]} {
+#@     fatal "SAIF annotation failed: $saif_error"
+#@   }
+#@   set POWER_ACTIVITY_MODE saif
+#@   set activity_loaded 1
+#@ } elseif {$VCD_FILE ne ""} {
+#@   set VCD_FILE [file normalize $VCD_FILE]
+#@   require_file $VCD_FILE "VCD activity file"
+#@   puts "INFO: reading VCD activity: $VCD_FILE"
+#@   if {[catch {
+#@     read_vcd -strip_path $ACTIVITY_SCOPE $VCD_FILE
+#@   } vcd_error]} {
+#@     fatal "VCD annotation failed: $vcd_error"
+#@   }
+#@   set POWER_ACTIVITY_MODE vcd
+#@   set activity_loaded 1
+#@ }
+#@ 
+#@ if {!$activity_loaded} {
+#@   puts "INFO: no SAIF/VCD supplied; using vectorless input activity assumptions"
+#@   if {[collection_nonempty $data_inputs]} {
+#@     set_switching_activity       -static_probability $INPUT_STATIC_PROB       -toggle_rate $INPUT_TOGGLE_RATE       -base_clock [get_clocks $CLOCK_NAME]       $data_inputs
+#@   }
+#@ 
+#@   # Reset is assumed deasserted for almost the entire functional power window.
+#@   set_switching_activity -static_probability 1.0 -toggle_rate 0.0                          $reset_port_obj
+#@ }
+#@ 
+#@ if {[catch {update_power} power_update_error]} {
+#@   puts "WARNING: update_power failed or Power Compiler license unavailable"
+#@   puts "         $power_update_error"
+#@ }
+#@ 
+#@ # -----------------------------------------------------------------------------
+#@ # PPA, QoR and diagnostic reports
+#@ # -----------------------------------------------------------------------------
+#@ redirect -file [file join $REPORT_DIR qor.rpt] {
+#@   report_qor
+#@ }
+#@ 
+#@ redirect -file [file join $REPORT_DIR timing_setup.rpt] {
+#@   report_timing -delay_type max -path full -max_paths $TIMING_MAX_PATHS                 -nworst 3 -nets -transition_time -capacitance
+#@ }
+#@ 
+#@ redirect -file [file join $REPORT_DIR timing_hold.rpt] {
+#@   report_timing -delay_type min -path full -max_paths $TIMING_MAX_PATHS                 -nworst 3 -nets -transition_time -capacitance
+#@ }
+#@ 
+#@ redirect -file [file join $REPORT_DIR area_hier.rpt] {
+#@   report_area -hierarchy
+#@ }
+#@ 
+#@ redirect -file [file join $REPORT_DIR area_flat.rpt] {
+#@   report_area
+#@ }
+#@ 
+#@ redirect -file [file join $REPORT_DIR constraints_all_violators.rpt] {
+#@   report_constraint -all_violators -verbose
+#@ }
+#@ 
+#@ redirect -file [file join $REPORT_DIR design.rpt] {
+#@   report_design
+#@ }
+#@ 
+#@ optional_report [file join $REPORT_DIR references.rpt] {
+#@   report_reference -hierarchy
+#@ }
+#@ optional_report [file join $REPORT_DIR resources.rpt] {
+#@   report_resources -hierarchy
+#@ }
+#@ optional_report [file join $REPORT_DIR power_hier.rpt] {
+#@   report_power -hierarchy
+#@ }
+#@ optional_report [file join $REPORT_DIR power_flat.rpt] {
+#@   report_power
+#@ }
+#@ optional_report [file join $REPORT_DIR wire_load.rpt] {
+#@   report_wire_load
+#@ }
+#@ optional_report [file join $REPORT_DIR high_fanout.rpt] {
+#@   report_net_fanout -threshold $MAX_FANOUT
+#@ }
+#@ 
+#@ # -----------------------------------------------------------------------------
+#@ # Save synthesized deliverables
+#@ # -----------------------------------------------------------------------------
+#@ change_names -rules verilog -hierarchy
+#@ 
+#@ write -format ddc -hierarchy       -output [file join $DATABASE_DIR "${TOP_DESIGN}_mapped.ddc"]
+#@ write -format verilog -hierarchy       -output [file join $OUTPUT_DIR "${TOP_DESIGN}_mapped.v"]
+#@ write_sdc [file join $OUTPUT_DIR "${TOP_DESIGN}_mapped.sdc"]
+#@ write_sdf -version 3.0 [file join $OUTPUT_DIR "${TOP_DESIGN}_mapped.sdf"]
+#@ 
+#@ # Compact machine-readable summary.  The detailed source of truth remains
+#@ # qor.rpt, timing_setup.rpt, area_hier.rpt and power_hier.rpt.
+#@ set mapped_area N/A
+#@ set leaf_cell_count N/A
+#@ set worst_setup_slack N/A
+#@ 
+#@ catch {
+#@   set mapped_area [get_attribute [get_designs $TOP_DESIGN] area]
+#@ }
+#@ catch {
+#@   set leaf_cells [get_cells -hierarchical -filter "is_hierarchical == false"]
+#@   set leaf_cell_count [sizeof_collection $leaf_cells]
+#@ }
+#@ catch {
+#@   set worst_path [get_timing_paths -delay_type max -max_paths 1]
+#@   if {[sizeof_collection $worst_path] > 0} {
+#@     set worst_setup_slack [get_attribute $worst_path slack]
+#@   }
+#@ }
+#@ 
+#@ set summary_file [open [file join $REPORT_DIR ppa_summary.rpt] w]
+#@ puts $summary_file "axi_tniu pre-layout PPA summary"
+#@ puts $summary_file "================================"
+#@ puts $summary_file "top_design          : $TOP_DESIGN"
+#@ puts $summary_file "target_library      : $TARGET_LIBRARY"
+#@ puts $summary_file "operating_condition : $OPERATING_CONDITION"
+#@ puts $summary_file "clock_period_ns      : $CLOCK_PERIOD"
+#@ puts $summary_file "clock_frequency_mhz  : [format %.3f [expr {1000.0 / $CLOCK_PERIOD}]]"
+#@ puts $summary_file "compile_mode         : $COMPILE_MODE"
+#@ puts $summary_file "mapped_area          : $mapped_area"
+#@ puts $summary_file "leaf_cell_count      : $leaf_cell_count"
+#@ puts $summary_file "worst_setup_slack_ns : $worst_setup_slack"
+#@ puts $summary_file "power_activity_mode  : $POWER_ACTIVITY_MODE"
+#@ puts $summary_file ""
+#@ puts $summary_file "Detailed reports:"
+#@ puts $summary_file "  QoR         : qor.rpt"
+#@ puts $summary_file "  Setup       : timing_setup.rpt"
+#@ puts $summary_file "  Area        : area_hier.rpt"
+#@ puts $summary_file "  Power       : power_hier.rpt"
+#@ puts $summary_file "  Violations  : constraints_all_violators.rpt"
+#@ close $summary_file
+#@ 
+#@ set_svf -off
+#@ 
+#@ puts ""
+#@ puts "=============================================================================="
+#@ puts " PRE-LAYOUT PPA FLOW COMPLETED"
+#@ puts "=============================================================================="
+#@ puts " Summary       : [file join $REPORT_DIR ppa_summary.rpt]"
+#@ puts " QoR           : [file join $REPORT_DIR qor.rpt]"
+#@ puts " Setup timing  : [file join $REPORT_DIR timing_setup.rpt]"
+#@ puts " Area          : [file join $REPORT_DIR area_hier.rpt]"
+#@ puts " Power         : [file join $REPORT_DIR power_hier.rpt]"
+#@ puts " Mapped netlist: [file join $OUTPUT_DIR "${TOP_DESIGN}_mapped.v"]"
+#@ puts " Run directory : $RUN_DIR"
+#@ puts "=============================================================================="
+#@ puts ""
+#@ 
+#@ quit

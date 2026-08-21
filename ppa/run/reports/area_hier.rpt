@@ -1,0 +1,58 @@
+ 
+****************************************
+Report : area
+Design : axi_tniu
+Version: O-2018.06-SP1
+Date   : Fri Aug 21 16:51:18 2026
+****************************************
+
+Library(s) Used:
+
+    typical (File: /home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db)
+
+Number of ports:                         4256
+Number of nets:                         23068
+Number of cells:                        19245
+Number of combinational cells:          16021
+Number of sequential cells:              3211
+Number of macros/black boxes:               0
+Number of buf/inv:                       3412
+Number of references:                      12
+
+Combinational area:              65204.497608
+Buf/Inv area:                     7868.851460
+Noncombinational area:           47566.612967
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:                112771.110576
+Total area:                 undefined
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area             Local cell area
+                                  --------------------  ------------------------------ 
+Hierarchical cell                 Absolute     Percent  Combi-      Noncombi-   Black-
+                                  Total        Total    national    national    boxes   Design
+--------------------------------  -----------  -------  ----------  ----------  ------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+axi_tniu                          112771.1106    100.0     46.5696      0.0000  0.0000  axi_tniu
+U_ADDR_MAP                           693.6048      0.6    693.6048      0.0000  0.0000  addr_map_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AQOS_WITH3_0
+U_REQ_ORDER                        50134.9975     44.5  22880.4918  26320.2913  0.0000  req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0_0
+U_REQ_ORDER/U_ADDR_BORDER_COUNT_RSP
+                                     441.7056      0.4    441.7056      0.0000  0.0000  addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE1_COUNT_MODE1_0
+U_REQ_ORDER/genblk24.U_ADDR_BORDER_COUNT_REQ
+                                     492.5088      0.4    492.5088      0.0000  0.0000  addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE64_COUNT_MODE0_0
+U_RREQ_TRANS                         179.9280      0.2    179.9280      0.0000  0.0000  rreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0_0
+U_WATCHDOG                          6440.0113      5.7   2882.3761   2094.2208  0.0000  watchdog_AXID_WITH4_TAG_CNT_WITH3_TIMOUT_VALUE10240_TIMOUT_TABLE_DEEP8_DLY0_0
+U_WATCHDOG/U_SYNC_FIFO_TIMOUT       1463.4144      1.3    594.1152    869.2992  0.0000  sync_fifo_DATA_WIDTH6_DATA_DEPTH8_DLY0_0
+U_WREQ_TRANS                         468.5184      0.4    437.4720     31.0464  0.0000  wreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0_0
+genblk1.U_WRAP_ADJUST              18930.5427     16.8  12674.6931   6255.8496  0.0000  wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0
+genblk1.U_WRAP_ALIGN               14263.7043     12.6  11547.1443   2716.5600  0.0000  wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0
+genblk2.U_ELY_RSP_DETECT            2858.3857      2.5   1740.7153   1117.6704  0.0000  ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_ELYRSP_TABLE_DEEP8_AUSER_WITH1_TAG_CNT_WITH3_DLY0_0
+genblk2.U_RSP_ORDER                14690.5923     13.0   8981.5826   5709.0096  0.0000  rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0_0
+genblk2.U_RSP_TRANS                 4064.2560      3.6   1611.5904   2452.6656  0.0000  rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0_0
+--------------------------------  -----------  -------  ----------  ----------  ------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                   65204.4976  47566.6130  0.0000
+
+1

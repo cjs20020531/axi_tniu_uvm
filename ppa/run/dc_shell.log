@@ -87,7 +87,7 @@ set SCRIPT_DIR [file dirname [file normalize [info script]]]
 set REPO_ROOT  [file normalize [file join $SCRIPT_DIR ..]]
 /home/ICer/RKNoC/axi_tniu_uvm
 set RUN_STAMP  [clock format [clock seconds] -format "%Y%m%d_%H%M%S"]
-20260821_164124
+20260821_164835
 set DEFAULT_RUN_DIR [file join $SCRIPT_DIR run]
 /home/ICer/RKNoC/axi_tniu_uvm/ppa/run
 set RUN_DIR         [file normalize [env_or_default PPA_RUN_DIR $DEFAULT_RUN_DIR]]
@@ -1082,27 +1082,775 @@ Information: Uniquified 1 instances of design 'sync_fifo_DATA_WIDTH6_DATA_DEPTH8
 redirect -file [file join $REPORT_DIR check_design_precompile.rpt] {
   check_design
 }
-# Explicitly reject black boxes: area, timing and power are not meaningful when
-# an RTL submodule or technology reference is unresolved.
-set black_box_count 0
+# Explicitly reject unresolved black-box designs: area, timing and power are not
+# meaningful when an RTL submodule is missing.  Query design objects rather
+# than cells here.  Before mapping, DC 2018 marks normal GTECH/DesignWare
+# operators such as *MUX_OP and *ADD_UNS_OP with is_black_box on the cell
+# object; treating those synthetic, unmapped operators as unresolved modules
+# produces hundreds of false positives.
+set black_box_design_count 0
 0
-if {![catch {
-  set black_boxes [get_cells -hierarchical -filter "is_black_box == true" -quiet]
-  set black_box_count [sizeof_collection $black_boxes]
-}]} {
-  if {$black_box_count > 0} {
-    redirect -file [file join $REPORT_DIR black_boxes.rpt] {
-      report_cell $black_boxes
-    }
-    fatal "design contains $black_box_count black-box cells; see black_boxes.rpt"
+if {[catch {
+  set black_box_designs       [get_designs -quiet -filter "is_black_box == true" *]
+  set black_box_design_count [sizeof_collection $black_box_designs]
+} black_box_query_error]} {
+  puts "WARNING: could not query black-box design objects"
+  puts "         $black_box_query_error"
+} elseif {$black_box_design_count > 0} {
+  set black_box_report       [open [file join $REPORT_DIR black_box_designs.rpt] w]
+  puts $black_box_report "Unresolved black-box designs:"
+  foreach_in_collection black_box_design $black_box_designs {
+    puts $black_box_report "  [get_object_name $black_box_design]"
+  }
+  close $black_box_report
+  fatal "design contains $black_box_design_count unresolved black-box designs; see black_box_designs.rpt"
+}
+write -format ddc -hierarchy       -output [file join $DATABASE_DIR "${TOP_DESIGN}_elaborated.ddc"]
+Writing ddc file '/home/ICer/RKNoC/axi_tniu_uvm/ppa/run/database/axi_tniu_elaborated.ddc'.
+1
+# -----------------------------------------------------------------------------
+# Timing and electrical constraints
+# -----------------------------------------------------------------------------
+set clock_port_obj [get_ports $CLOCK_PORT -quiet]
+{aclk}
+if {[sizeof_collection $clock_port_obj] != 1} {
+  fatal "expected exactly one clock port named '$CLOCK_PORT'"
+}
+set reset_port_obj [get_ports $RESET_PORT -quiet]
+{aresetn}
+if {[sizeof_collection $reset_port_obj] != 1} {
+  fatal "expected exactly one reset port named '$RESET_PORT'"
+}
+create_clock -name $CLOCK_NAME -period $CLOCK_PERIOD $clock_port_obj
+1
+set_clock_uncertainty $CLOCK_UNCERTAINTY [get_clocks $CLOCK_NAME]
+1
+set_clock_transition  $CLOCK_TRANSITION  [get_clocks $CLOCK_NAME]
+1
+set_dont_touch_network $clock_port_obj
+1
+# All top-level interfaces are assumed synchronous to aclk for this first
+# block-level estimate.  Replace these budgets when chip-level timing contracts
+# become available.
+set excluded_inputs [get_ports [list $CLOCK_PORT $RESET_PORT] -quiet]
+{aclk aresetn}
+set data_inputs     [remove_from_collection [all_inputs] $excluded_inputs]
+{rknp_rxreq_head rknp_rxreq_tail rknp_rxreq_valid rknp_rxreq_data[174] rknp_rxreq_data[173] rknp_rxreq_data[172] rknp_rxreq_data[171] rknp_rxreq_data[170] rknp_rxreq_data[169] rknp_rxreq_data[168] rknp_rxreq_data[167] rknp_rxreq_data[166] rknp_rxreq_data[165] rknp_rxreq_data[164] rknp_rxreq_data[163] rknp_rxreq_data[162] rknp_rxreq_data[161] rknp_rxreq_data[160] rknp_rxreq_data[159] rknp_rxreq_data[158] rknp_rxreq_data[157] rknp_rxreq_data[156] rknp_rxreq_data[155] rknp_rxreq_data[154] rknp_rxreq_data[153] rknp_rxreq_data[152] rknp_rxreq_data[151] rknp_rxreq_data[150] rknp_rxreq_data[149] rknp_rxreq_data[148] rknp_rxreq_data[147] rknp_rxreq_data[146] rknp_rxreq_data[145] rknp_rxreq_data[144] rknp_rxreq_data[143] rknp_rxreq_data[142] rknp_rxreq_data[141] rknp_rxreq_data[140] rknp_rxreq_data[139] rknp_rxreq_data[138] rknp_rxreq_data[137] rknp_rxreq_data[136] rknp_rxreq_data[135] rknp_rxreq_data[134] rknp_rxreq_data[133] rknp_rxreq_data[132] rknp_rxreq_data[131] rknp_rxreq_data[130] rknp_rxreq_data[129] rknp_rxreq_data[128] rknp_rxreq_data[127] rknp_rxreq_data[126] rknp_rxreq_data[125] rknp_rxreq_data[124] rknp_rxreq_data[123] rknp_rxreq_data[122] rknp_rxreq_data[121] rknp_rxreq_data[120] rknp_rxreq_data[119] rknp_rxreq_data[118] rknp_rxreq_data[117] rknp_rxreq_data[116] rknp_rxreq_data[115] rknp_rxreq_data[114] rknp_rxreq_data[113] rknp_rxreq_data[112] rknp_rxreq_data[111] rknp_rxreq_data[110] rknp_rxreq_data[109] rknp_rxreq_data[108] rknp_rxreq_data[107] rknp_rxreq_data[106] rknp_rxreq_data[105] rknp_rxreq_data[104] rknp_rxreq_data[103] rknp_rxreq_data[102] rknp_rxreq_data[101] rknp_rxreq_data[100] rknp_rxreq_data[99] rknp_rxreq_data[98] rknp_rxreq_data[97] rknp_rxreq_data[96] rknp_rxreq_data[95] rknp_rxreq_data[94] rknp_rxreq_data[93] rknp_rxreq_data[92] rknp_rxreq_data[91] rknp_rxreq_data[90] rknp_rxreq_data[89] rknp_rxreq_data[88] rknp_rxreq_data[87] rknp_rxreq_data[86] rknp_rxreq_data[85] rknp_rxreq_data[84] rknp_rxreq_data[83] rknp_rxreq_data[82] rknp_rxreq_data[81] rknp_rxreq_data[80] rknp_rxreq_data[79] rknp_rxreq_data[78] ...}
+set data_outputs    [all_outputs]
+{rknp_rxreq_ready rknp_txrsp_head rknp_txrsp_tail rknp_txrsp_valid rknp_txrsp_data[156] rknp_txrsp_data[155] rknp_txrsp_data[154] rknp_txrsp_data[153] rknp_txrsp_data[152] rknp_txrsp_data[151] rknp_txrsp_data[150] rknp_txrsp_data[149] rknp_txrsp_data[148] rknp_txrsp_data[147] rknp_txrsp_data[146] rknp_txrsp_data[145] rknp_txrsp_data[144] rknp_txrsp_data[143] rknp_txrsp_data[142] rknp_txrsp_data[141] rknp_txrsp_data[140] rknp_txrsp_data[139] rknp_txrsp_data[138] rknp_txrsp_data[137] rknp_txrsp_data[136] rknp_txrsp_data[135] rknp_txrsp_data[134] rknp_txrsp_data[133] rknp_txrsp_data[132] rknp_txrsp_data[131] rknp_txrsp_data[130] rknp_txrsp_data[129] rknp_txrsp_data[128] rknp_txrsp_data[127] rknp_txrsp_data[126] rknp_txrsp_data[125] rknp_txrsp_data[124] rknp_txrsp_data[123] rknp_txrsp_data[122] rknp_txrsp_data[121] rknp_txrsp_data[120] rknp_txrsp_data[119] rknp_txrsp_data[118] rknp_txrsp_data[117] rknp_txrsp_data[116] rknp_txrsp_data[115] rknp_txrsp_data[114] rknp_txrsp_data[113] rknp_txrsp_data[112] rknp_txrsp_data[111] rknp_txrsp_data[110] rknp_txrsp_data[109] rknp_txrsp_data[108] rknp_txrsp_data[107] rknp_txrsp_data[106] rknp_txrsp_data[105] rknp_txrsp_data[104] rknp_txrsp_data[103] rknp_txrsp_data[102] rknp_txrsp_data[101] rknp_txrsp_data[100] rknp_txrsp_data[99] rknp_txrsp_data[98] rknp_txrsp_data[97] rknp_txrsp_data[96] rknp_txrsp_data[95] rknp_txrsp_data[94] rknp_txrsp_data[93] rknp_txrsp_data[92] rknp_txrsp_data[91] rknp_txrsp_data[90] rknp_txrsp_data[89] rknp_txrsp_data[88] rknp_txrsp_data[87] rknp_txrsp_data[86] rknp_txrsp_data[85] rknp_txrsp_data[84] rknp_txrsp_data[83] rknp_txrsp_data[82] rknp_txrsp_data[81] rknp_txrsp_data[80] rknp_txrsp_data[79] rknp_txrsp_data[78] rknp_txrsp_data[77] rknp_txrsp_data[76] rknp_txrsp_data[75] rknp_txrsp_data[74] rknp_txrsp_data[73] rknp_txrsp_data[72] rknp_txrsp_data[71] rknp_txrsp_data[70] rknp_txrsp_data[69] rknp_txrsp_data[68] rknp_txrsp_data[67] rknp_txrsp_data[66] rknp_txrsp_data[65] rknp_txrsp_data[64] rknp_txrsp_data[63] rknp_txrsp_data[62] rknp_txrsp_data[61] ...}
+if {[collection_nonempty $data_inputs]} {
+  set_input_delay -max $INPUT_DELAY_MAX -clock $CLOCK_NAME $data_inputs
+  set_input_delay -min $INPUT_DELAY_MIN -clock $CLOCK_NAME $data_inputs
+  set_input_transition $INPUT_TRANSITION $data_inputs
+}
+1
+if {[collection_nonempty $data_outputs]} {
+  set_output_delay -max $OUTPUT_DELAY_MAX -clock $CLOCK_NAME $data_outputs
+  set_output_delay -min $OUTPUT_DELAY_MIN -clock $CLOCK_NAME $data_outputs
+  if {$OUTPUT_LOAD > 0.0} {
+    set_load $OUTPUT_LOAD $data_outputs
   }
 }
+1
+# Asynchronous reset is not a data path.  Recovery/removal signoff requires a
+# physical clock tree and is outside this pre-layout block estimate.
+set_false_path -from $reset_port_obj
+1
+# Electrical and area objectives.  MAX_AREA=0 asks DC to recover area while
+# still respecting timing; it is not a literal zero-area requirement.
+if {$MAX_TRANSITION > 0.0} {
+  set_max_transition $MAX_TRANSITION [current_design]
+}
+Current design is 'axi_tniu'.
+1
+if {$MAX_FANOUT > 0.0} {
+  set_max_fanout $MAX_FANOUT [current_design]
+}
+Current design is 'axi_tniu'.
+1
+set_max_area $MAX_AREA
+1
+set_critical_range $CRITICAL_RANGE [current_design]
+Current design is 'axi_tniu'.
+1
+# Pre-layout wire-load estimation.  DC will use the library's available model;
+# the report records the selected model.  If the .db has no wire-load data,
+# interconnect delay remains optimistic and that limitation must be reported.
+if {[catch {set_app_var auto_wire_load_selection true} wireload_error]} {
+  puts "WARNING: automatic wire-load selection unavailable: $wireload_error"
+}
+if {[catch {set_wire_load_mode top} wireload_mode_error]} {
+  puts "WARNING: could not set top wire-load mode: $wireload_mode_error"
+}
+# Separate path groups prevent a difficult I/O path from hiding register-to-
+# register optimization, and make the final timing report easier to interpret.
+set all_regs [all_registers]
+{genblk2.U_RSP_ORDER/spec_rsp_phase_reg genblk2.U_RSP_ORDER/rspt2rspo_valid_d_reg genblk2.U_RSP_ORDER/rspt2rspo_tail_d_reg genblk2.U_RSP_ORDER/rspt2rspo_head_d_reg genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[0] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[1] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[2] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[3] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[4] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[5] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[6] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[7] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[8] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[9] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[10] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[11] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[12] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[13] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[14] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[15] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[16] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[17] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[18] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[19] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[20] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[21] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[22] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[23] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[24] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[25] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[26] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[27] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[28] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[29] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[30] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[31] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[32] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[33] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[34] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[35] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[36] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[37] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[38] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[39] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[40] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[41] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[42] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[43] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[44] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[45] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[46] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[47] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[48] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[49] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[50] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[51] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[52] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[53] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[54] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[55] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[56] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[57] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[58] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[59] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[60] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[61] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[62] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[63] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[64] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[65] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[66] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[67] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[68] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[69] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[70] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[71] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[72] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[73] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[74] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[75] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[76] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[77] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[78] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[79] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[80] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[81] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[82] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[83] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[84] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[85] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[86] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[87] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[88] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[89] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[90] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[91] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[92] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[93] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[94] genblk2.U_RSP_ORDER/rspo2rknp_xx_data_reg[95] ...}
+if {[collection_nonempty $all_regs]} {
+  group_path -name REG2REG -from $all_regs -to $all_regs              -critical_range $CRITICAL_RANGE
+  if {[collection_nonempty $data_inputs]} {
+    group_path -name IN2REG -from $data_inputs -to $all_regs                -critical_range $CRITICAL_RANGE
+  }
+  if {[collection_nonempty $data_outputs]} {
+    group_path -name REG2OUT -from $all_regs -to $data_outputs                -critical_range $CRITICAL_RANGE
+  }
+}
+1
+if {[collection_nonempty $data_inputs] && [collection_nonempty $data_outputs]} {
+  group_path -name IN2OUT -from $data_inputs -to $data_outputs              -critical_range $CRITICAL_RANGE
+}
+1
+redirect -file [file join $REPORT_DIR clocks_precompile.rpt] {
+  report_clock
+}
+redirect -file [file join $REPORT_DIR constraints_precompile.rpt] {
+  report_constraint -all_violators -verbose
+}
+redirect -file [file join $REPORT_DIR check_timing_precompile.rpt] {
+  check_timing -verbose
+}
+Error: Errors detected during redirect
+	Use error_info for more info. (CMD-013)
+# Prevent constant drivers and multiply-connected nets from leaking into the
+# final mapped Verilog netlist.
+set_fix_multiple_port_nets -all -buffer_constants [get_designs $TOP_DESIGN]
+1
+# -----------------------------------------------------------------------------
+# Mapped synthesis
+# -----------------------------------------------------------------------------
+puts "INFO: starting mapped synthesis ($COMPILE_MODE mode)"
+INFO: starting mapped synthesis (ultra mode)
+if {$COMPILE_MODE eq "ultra"} {
+  if {[catch {compile_ultra -no_autoungroup} compile_error]} {
+    fatal "compile_ultra failed: $compile_error\nSet DC_COMPILE_MODE=standard if a DC-Ultra license is unavailable."
+  }
 
-FATAL: design contains 865 black-box cells; see black_boxes.rpt
+  if {$RUN_INCREMENTAL} {
+    puts "INFO: running incremental timing/area recovery"
+    if {[catch {compile_ultra -incremental -no_autoungroup} incremental_error]} {
+      puts "WARNING: incremental compile failed; keeping first mapped result"
+      puts "         $incremental_error"
+    }
+  }
+} else {
+  if {[catch {compile -map_effort high -area_effort high} compile_error]} {
+    fatal "standard compile failed: $compile_error"
+  }
+}
+Loading db file '/home/synopsys/syn/O-2018.06-SP1/libraries/syn/dw_foundation.sldb'
+Warning: DesignWare synthetic library dw_foundation.sldb is added to the synthetic_library in the current command. (UISN-40)
+Information: Performing power optimization. (PWR-850)
+Analyzing: "/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db"
+Library analysis succeeded.
+Information: Running optimization using a maximum of 4 cores. (OPT-1500)
+Warning: DesignWare synthetic library dw_foundation.sldb is added to the synthetic_library in the current command. (UISN-40)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | O-2018.06-DWBB_201806.1 |     *     |
+| Licensed DW Building Blocks        | O-2018.06-DWBB_201806.1 |     *     |
+============================================================================
+
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 911 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+  Simplifying Design 'axi_tniu'
+
+Loaded alib file '/home/ICer/RKNoC/axi_tniu_uvm/ppa/run/alib/alib-52/typical.db.alib'
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0_0'
+Warning: The design named req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0_0 has 1681 out of 2904 cells marked size-only, which may limit optimization. (OPT-301)
+Information: Added key list 'DesignWare' to design 'req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0_0'. (DDB-72)
+ Implement Synthetic for 'req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0_0'.
+Memory usage for J1 task 309 Mbytes -- main task 309 Mbytes.
+  Processing 'rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0_0'
+Information: Added key list 'DesignWare' to design 'rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0_0'. (DDB-72)
+Information: The register 'rsp_opc_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rsp_errcode_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rsp_errcode_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rsp_errcode_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rsp_status_reg[1]' is a constant and will be removed. (OPT-1206)
+ Implement Synthetic for 'rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0_0'.
+Memory usage for J2 task 309 Mbytes -- main task 309 Mbytes.
+  Processing 'wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0'
+Warning: The design named wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0 has 405 out of 563 cells marked size-only, which may limit optimization. (OPT-301)
+Information: Added key list 'DesignWare' to design 'wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0'. (DDB-72)
+ Implement Synthetic for 'wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0_0'.
+Memory usage for J3 task 309 Mbytes -- main task 309 Mbytes.
+  Processing 'watchdog_AXID_WITH4_TAG_CNT_WITH3_TIMOUT_VALUE10240_TIMOUT_TABLE_DEEP8_DLY0_0'
+Information: Added key list 'DesignWare' to design 'watchdog_AXID_WITH4_TAG_CNT_WITH3_TIMOUT_VALUE10240_TIMOUT_TABLE_DEEP8_DLY0_0'. (DDB-72)
+ Implement Synthetic for 'watchdog_AXID_WITH4_TAG_CNT_WITH3_TIMOUT_VALUE10240_TIMOUT_TABLE_DEEP8_DLY0_0'.
+  Processing 'rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0_0'
+Warning: The design named rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0_0 has 158 out of 249 cells marked size-only, which may limit optimization. (OPT-301)
+Information: Added key list 'DesignWare' to design 'rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0_0'. (DDB-72)
+Memory usage for J4 task 309 Mbytes -- main task 309 Mbytes.
+  Processing 'ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_ELYRSP_TABLE_DEEP8_AUSER_WITH1_TAG_CNT_WITH3_DLY0_0'
+Information: Added key list 'DesignWare' to design 'ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_ELYRSP_TABLE_DEEP8_AUSER_WITH1_TAG_CNT_WITH3_DLY0_0'. (DDB-72)
+ Implement Synthetic for 'ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_ELYRSP_TABLE_DEEP8_AUSER_WITH1_TAG_CNT_WITH3_DLY0_0'.
+  Processing 'wreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0_0'
+Information: Added key list 'DesignWare' to design 'wreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0_0'. (DDB-72)
+Memory usage for J5 task 309 Mbytes -- main task 309 Mbytes.
+  Processing 'wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0'
+Warning: The design named wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0 has 179 out of 464 cells marked size-only, which may limit optimization. (OPT-301)
+Information: Added key list 'DesignWare' to design 'wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0'. (DDB-72)
+ Implement Synthetic for 'wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0_0'.
+  Processing 'addr_map_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AQOS_WITH3_0'
+ Implement Synthetic for 'addr_map_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AQOS_WITH3_0'.
+Information: Added key list 'DesignWare' to design 'addr_map_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AQOS_WITH3_0'. (DDB-72)
+  Processing 'addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE64_COUNT_MODE0_0'
+ Implement Synthetic for 'addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE64_COUNT_MODE0_0'.
+  Processing 'rreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0_0'
+Information: Added key list 'DesignWare' to design 'rreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0_0'. (DDB-72)
+Memory usage for J6 task 309 Mbytes -- main task 309 Mbytes.
+  Processing 'axi_tniu'
+  Processing 'sync_fifo_DATA_WIDTH6_DATA_DEPTH8_DLY0_0'
+Warning: The design named sync_fifo_DATA_WIDTH6_DATA_DEPTH8_DLY0_0 has 56 out of 109 cells marked size-only, which may limit optimization. (OPT-301)
+Information: Added key list 'DesignWare' to design 'sync_fifo_DATA_WIDTH6_DATA_DEPTH8_DLY0_0'. (DDB-72)
+  Processing 'addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE1_COUNT_MODE1_0'
+ Implement Synthetic for 'addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE1_COUNT_MODE1_0'.
+Memory usage for J7 task 309 Mbytes -- main task 309 Mbytes.
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'HOLDX1' in the library 'typical' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+Information: The register 'genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[59]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[58]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1.U_WRAP_ALIGN/wwrap_buffer_reg[57]' is a constant and will be removed. (OPT-1206)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Memory usage for J8 task 309 Mbytes -- main task 309 Mbytes.
+Memory usage for J9 task 309 Mbytes -- main task 309 Mbytes.
+Memory usage for J10 task 309 Mbytes -- main task 309 Mbytes.
+Memory usage for J11 task 309 Mbytes -- main task 309 Mbytes.
+  Mapping Optimization (Phase 1)
+Memory usage for J12 task 309 Mbytes -- main task 309 Mbytes.
+Information: Added key list 'DesignWare' to design 'addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE1_COUNT_MODE1_0'. (DDB-72)
+Information: Added key list 'DesignWare' to design 'addr_border_cout_ADDR_WITH32_LEN_WITH8_NBYTEPERWORD8_ADDR_BLOCK_SIZE64_COUNT_MODE0_0'. (DDB-72)
+Information: The register 'genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[36]' is a constant and will be removed. (OPT-1206)
+Information: The register 'genblk1.U_WRAP_ADJUST/pending_rsp_head_reg[35]' is a constant and will be removed. (OPT-1206)
+
+  Beginning Constant Register Removal
+  -----------------------------------
+
+  Beginning Global Optimizations
+  ------------------------------
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:30  125637.7      0.00       0.0     345.8                           188859792.0000
+    0:00:30  125637.7      0.00       0.0     345.8                           188859792.0000
+    0:00:30  125637.7      0.00       0.0     345.8                           188859792.0000
+    0:00:30  125637.7      0.00       0.0     345.8                           188859792.0000
+Memory usage for J13 task 309 Mbytes -- main task 309 Mbytes.
+Memory usage for J14 task 309 Mbytes -- main task 309 Mbytes.
+Memory usage for J15 task 309 Mbytes -- main task 309 Mbytes.
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+Memory usage for J16 task 309 Mbytes -- main task 309 Mbytes.
+Memory usage for J17 task 309 Mbytes -- main task 309 Mbytes.
+Memory usage for J18 task 309 Mbytes -- main task 309 Mbytes.
+    0:00:39  124547.6      0.00       0.0     344.8                           183331904.0000
+    0:00:39  124482.0      0.00       0.0     344.8                           183157568.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
 
 
-Memory usage for main task 253 Mbytes.
-Memory usage for this session 253 Mbytes.
-CPU usage for this session 6 seconds ( 0.00 hours ).
+  Beginning Design Rule Fixing  (max_transition)  (max_fanout)
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:47  112485.3      0.00       0.0     350.9                           119341928.0000
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+    0:00:49  113092.2      0.00       0.0       1.0 genblk2.U_RSP_ORDER/reqo2rspo_tag_name[26] 119890584.0000
+    0:00:49  113094.3      0.00       0.0       0.0                           119892504.0000
+    0:00:49  113094.3      0.00       0.0       0.0                           119892504.0000
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:49  113094.3      0.00       0.0       0.0                           119892504.0000
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+    0:00:52  112829.7      0.00       0.0       0.0                           109402536.0000
+    0:00:52  112829.7      0.00       0.0       0.0                           109402536.0000
+    0:00:52  112829.7      0.00       0.0       0.0                           109402536.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112817.0      0.00       0.0       6.1                           109230256.0000
+    0:00:57  112855.1      0.00       0.0       6.1                           109301000.0000
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:58  112855.1      0.00       0.0       6.1                           109301000.0000
+    0:01:03  112764.1      0.00       0.0       6.1                           109446792.0000
+    0:01:03  112764.1      0.00       0.0       6.1                           109446792.0000
+    0:01:03  112764.1      0.00       0.0       6.1                           109446792.0000
+    0:01:08  112764.1      0.00       0.0       6.1                           109413800.0000
+    0:01:10  112763.3      0.00       0.0       6.1                           109408456.0000
+    0:01:11  112804.3      0.00       0.0       0.0                           109486032.0000
+    0:01:11  112804.3      0.00       0.0       0.0                           109486032.0000
+    0:01:11  112804.3      0.00       0.0       0.0                           109486032.0000
+    0:01:11  112804.3      0.00       0.0       0.0                           109486032.0000
+    0:01:11  112776.8      0.00       0.0       0.0                           109536224.0000
+Loading db file '/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'axi_tniu' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'U_WATCHDOG/U_SYNC_FIFO_TIMOUT/clk': 2957 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+INFO: running incremental timing/area recovery
+Warning: DesignWare synthetic library dw_foundation.sldb is added to the synthetic_library in the current command. (UISN-40)
+Information: Performing power optimization. (PWR-850)
+Alib files are up-to-date.
+Information: Running optimization using a maximum of 4 cores. (OPT-1500)
+
+Information: There are 280 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+Loaded alib file '/home/ICer/RKNoC/axi_tniu_uvm/ppa/run/alib/alib-52/typical.db.alib'
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping  (Incremental)
+  ------------------------
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'HOLDX1' in the library 'typical' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:02  112776.8      0.00       0.0       0.0                           109536224.0000
+    0:00:02  112776.8      0.00       0.0       0.0                           109536224.0000
+
+  Beginning Mapping Optimizations  (Ultra High effort)  (Incremental)
+  -------------------------------
+
+  Beginning Incremental Implementation Selection
+  ----------------------------------------------
+    0:00:04  112738.7      0.00       0.0       0.0                           109489264.0000
+    0:00:04  112738.7      0.00       0.0       0.0                           109489264.0000
+    0:00:04  112738.7      0.00       0.0       0.0                           109489264.0000
+    0:00:04  112738.7      0.00       0.0       0.0                           109489264.0000
+  Global Optimization (Phase 49)
+  Global Optimization (Phase 50)
+  Global Optimization (Phase 51)
+  Global Optimization (Phase 52)
+
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:05  112738.7      0.00       0.0       0.0                           109489264.0000
+    0:00:05  112738.7      0.00       0.0       0.0                           109489264.0000
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+
+
+  Beginning Design Rule Fixing  (max_transition)
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:10  112730.9      0.00       0.0       5.6                           109279296.0000
+    0:00:11  112742.9      0.00       0.0       0.0                           109412976.0000
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+
+
+  Beginning Critical Range Optimization
+  -------------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:16  112739.4      0.00       0.0       5.3                           109283416.0000
+    0:00:18  112735.1      0.00       0.0       5.3                           109279664.0000
+    0:00:23  112735.1      0.00       0.0       5.3                           109279664.0000
+    0:00:23  112735.1      0.00       0.0       5.3                           109279664.0000
+    0:00:23  112735.1      0.00       0.0       5.3                           109279664.0000
+    0:00:23  112735.1      0.00       0.0       5.3                           109279664.0000
+    0:00:23  112735.1      0.00       0.0       5.3                           109279664.0000
+    0:00:23  112735.1      0.00       0.0       5.3                           109279664.0000
+    0:00:23  112735.1      0.00       0.0       5.3                           109279664.0000
+    0:00:23  112735.1      0.00       0.0       5.3                           109279664.0000
+    0:00:23  112735.1      0.00       0.0       5.3                           109279664.0000
+    0:00:23  112773.2      0.00       0.0       5.3                           109320128.0000
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:23  112773.2      0.00       0.0       5.3                           109320128.0000
+    0:00:28  112773.2      0.00       0.0       5.3                           109320128.0000
+    0:00:30  112773.2      0.00       0.0       5.3                           109319768.0000
+    0:00:31  112810.6      0.00       0.0       0.0                           109362672.0000
+    0:00:31  112810.6      0.00       0.0       0.0                           109362672.0000
+    0:00:31  112771.1      0.00       0.0       0.0                           109452208.0000
+Loading db file '/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'axi_tniu' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'U_WATCHDOG/U_SYNC_FIFO_TIMOUT/clk': 2957 load(s), 1 driver(s)
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+current_design $TOP_DESIGN
+Current design is 'axi_tniu'.
+{axi_tniu}
+update_timing
+Information: Updating design information... (UID-85)
+Warning: Design 'axi_tniu' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+1
+redirect -file [file join $REPORT_DIR check_design_postcompile.rpt] {
+  check_design
+}
+redirect -file [file join $REPORT_DIR check_timing_postcompile.rpt] {
+  check_timing -verbose
+}
+Error: Errors detected during redirect
+	Use error_info for more info. (CMD-013)
+# -----------------------------------------------------------------------------
+# Power activity annotation
+# -----------------------------------------------------------------------------
+set POWER_ACTIVITY_MODE vectorless
+vectorless
+set activity_loaded 0
+0
+if {$SAIF_FILE ne ""} {
+  set SAIF_FILE [file normalize $SAIF_FILE]
+  require_file $SAIF_FILE "SAIF activity file"
+  puts "INFO: reading SAIF activity: $SAIF_FILE"
+  if {[catch {
+    read_saif -input $SAIF_FILE -instance_name $ACTIVITY_SCOPE
+  } saif_error]} {
+    fatal "SAIF annotation failed: $saif_error"
+  }
+  set POWER_ACTIVITY_MODE saif
+  set activity_loaded 1
+} elseif {$VCD_FILE ne ""} {
+  set VCD_FILE [file normalize $VCD_FILE]
+  require_file $VCD_FILE "VCD activity file"
+  puts "INFO: reading VCD activity: $VCD_FILE"
+  if {[catch {
+    read_vcd -strip_path $ACTIVITY_SCOPE $VCD_FILE
+  } vcd_error]} {
+    fatal "VCD annotation failed: $vcd_error"
+  }
+  set POWER_ACTIVITY_MODE vcd
+  set activity_loaded 1
+}
+if {!$activity_loaded} {
+  puts "INFO: no SAIF/VCD supplied; using vectorless input activity assumptions"
+  if {[collection_nonempty $data_inputs]} {
+    set_switching_activity       -static_probability $INPUT_STATIC_PROB       -toggle_rate $INPUT_TOGGLE_RATE       -base_clock [get_clocks $CLOCK_NAME]       $data_inputs
+  }
+
+  # Reset is assumed deasserted for almost the entire functional power window.
+  set_switching_activity -static_probability 1.0 -toggle_rate 0.0                          $reset_port_obj
+}
+INFO: no SAIF/VCD supplied; using vectorless input activity assumptions
+Warning: Given -base_clock argument '_sel29' does not exist. (PWR-410)
+1
+if {[catch {update_power} power_update_error]} {
+  puts "WARNING: update_power failed or Power Compiler license unavailable"
+  puts "         $power_update_error"
+}
+Error: unknown command 'update_power' (CMD-005)
+WARNING: update_power failed or Power Compiler license unavailable
+         
+# -----------------------------------------------------------------------------
+# PPA, QoR and diagnostic reports
+# -----------------------------------------------------------------------------
+redirect -file [file join $REPORT_DIR qor.rpt] {
+  report_qor
+}
+redirect -file [file join $REPORT_DIR timing_setup.rpt] {
+  report_timing -delay_type max -path full -max_paths $TIMING_MAX_PATHS                 -nworst 3 -nets -transition_time -capacitance
+}
+redirect -file [file join $REPORT_DIR timing_hold.rpt] {
+  report_timing -delay_type min -path full -max_paths $TIMING_MAX_PATHS                 -nworst 3 -nets -transition_time -capacitance
+}
+redirect -file [file join $REPORT_DIR area_hier.rpt] {
+  report_area -hierarchy
+}
+redirect -file [file join $REPORT_DIR area_flat.rpt] {
+  report_area
+}
+redirect -file [file join $REPORT_DIR constraints_all_violators.rpt] {
+  report_constraint -all_violators -verbose
+}
+redirect -file [file join $REPORT_DIR design.rpt] {
+  report_design
+}
+optional_report [file join $REPORT_DIR references.rpt] {
+  report_reference -hierarchy
+}
+optional_report [file join $REPORT_DIR resources.rpt] {
+  report_resources -hierarchy
+}
+optional_report [file join $REPORT_DIR power_hier.rpt] {
+  report_power -hierarchy
+}
+optional_report [file join $REPORT_DIR power_flat.rpt] {
+  report_power
+}
+optional_report [file join $REPORT_DIR wire_load.rpt] {
+  report_wire_load
+}
+optional_report [file join $REPORT_DIR high_fanout.rpt] {
+  report_net_fanout -threshold $MAX_FANOUT
+}
+# -----------------------------------------------------------------------------
+# Save synthesized deliverables
+# -----------------------------------------------------------------------------
+change_names -rules verilog -hierarchy
+1
+write -format ddc -hierarchy       -output [file join $DATABASE_DIR "${TOP_DESIGN}_mapped.ddc"]
+Writing ddc file '/home/ICer/RKNoC/axi_tniu_uvm/ppa/run/database/axi_tniu_mapped.ddc'.
+1
+write -format verilog -hierarchy       -output [file join $OUTPUT_DIR "${TOP_DESIGN}_mapped.v"]
+Writing verilog file '/home/ICer/RKNoC/axi_tniu_uvm/ppa/run/outputs/axi_tniu_mapped.v'.
+1
+write_sdc [file join $OUTPUT_DIR "${TOP_DESIGN}_mapped.sdc"]
+1
+write_sdf -version 3.0 [file join $OUTPUT_DIR "${TOP_DESIGN}_mapped.sdf"]
+Information: Annotated 'cell' delays are assumed to include load delay. (UID-282)
+Information: Writing timing information to file '/home/ICer/RKNoC/axi_tniu_uvm/ppa/run/outputs/axi_tniu_mapped.sdf'. (WT-3)
+1
+# Compact machine-readable summary.  The detailed source of truth remains
+# qor.rpt, timing_setup.rpt, area_hier.rpt and power_hier.rpt.
+set mapped_area N/A
+N/A
+set leaf_cell_count N/A
+N/A
+set worst_setup_slack N/A
+N/A
+catch {
+  set mapped_area [get_attribute [get_designs $TOP_DESIGN] area]
+}
+Warning: Attribute 'area' does not exist on design 'axi_tniu'. (UID-101)
+0
+catch {
+  set leaf_cells [get_cells -hierarchical -filter "is_hierarchical == false"]
+  set leaf_cell_count [sizeof_collection $leaf_cells]
+}
+0
+catch {
+  set worst_path [get_timing_paths -delay_type max -max_paths 1]
+  if {[sizeof_collection $worst_path] > 0} {
+    set worst_setup_slack [get_attribute $worst_path slack]
+  }
+}
+0
+set summary_file [open [file join $REPORT_DIR ppa_summary.rpt] w]
+file11
+puts $summary_file "axi_tniu pre-layout PPA summary"
+puts $summary_file "================================"
+puts $summary_file "top_design          : $TOP_DESIGN"
+puts $summary_file "target_library      : $TARGET_LIBRARY"
+puts $summary_file "operating_condition : $OPERATING_CONDITION"
+puts $summary_file "clock_period_ns      : $CLOCK_PERIOD"
+puts $summary_file "clock_frequency_mhz  : [format %.3f [expr {1000.0 / $CLOCK_PERIOD}]]"
+puts $summary_file "compile_mode         : $COMPILE_MODE"
+puts $summary_file "mapped_area          : $mapped_area"
+puts $summary_file "leaf_cell_count      : $leaf_cell_count"
+puts $summary_file "worst_setup_slack_ns : $worst_setup_slack"
+puts $summary_file "power_activity_mode  : $POWER_ACTIVITY_MODE"
+puts $summary_file ""
+puts $summary_file "Detailed reports:"
+puts $summary_file "  QoR         : qor.rpt"
+puts $summary_file "  Setup       : timing_setup.rpt"
+puts $summary_file "  Area        : area_hier.rpt"
+puts $summary_file "  Power       : power_hier.rpt"
+puts $summary_file "  Violations  : constraints_all_violators.rpt"
+close $summary_file
+set_svf -off
+1
+puts ""
+
+puts "=============================================================================="
+==============================================================================
+puts " PRE-LAYOUT PPA FLOW COMPLETED"
+ PRE-LAYOUT PPA FLOW COMPLETED
+puts "=============================================================================="
+==============================================================================
+puts " Summary       : [file join $REPORT_DIR ppa_summary.rpt]"
+ Summary       : /home/ICer/RKNoC/axi_tniu_uvm/ppa/run/reports/ppa_summary.rpt
+puts " QoR           : [file join $REPORT_DIR qor.rpt]"
+ QoR           : /home/ICer/RKNoC/axi_tniu_uvm/ppa/run/reports/qor.rpt
+puts " Setup timing  : [file join $REPORT_DIR timing_setup.rpt]"
+ Setup timing  : /home/ICer/RKNoC/axi_tniu_uvm/ppa/run/reports/timing_setup.rpt
+puts " Area          : [file join $REPORT_DIR area_hier.rpt]"
+ Area          : /home/ICer/RKNoC/axi_tniu_uvm/ppa/run/reports/area_hier.rpt
+puts " Power         : [file join $REPORT_DIR power_hier.rpt]"
+ Power         : /home/ICer/RKNoC/axi_tniu_uvm/ppa/run/reports/power_hier.rpt
+puts " Mapped netlist: [file join $OUTPUT_DIR "${TOP_DESIGN}_mapped.v"]"
+ Mapped netlist: /home/ICer/RKNoC/axi_tniu_uvm/ppa/run/outputs/axi_tniu_mapped.v
+puts " Run directory : $RUN_DIR"
+ Run directory : /home/ICer/RKNoC/axi_tniu_uvm/ppa/run
+puts "=============================================================================="
+==============================================================================
+puts ""
+
+quit
+
+Memory usage for main task 498 Mbytes.
+Memory usage for this session 498 Mbytes.
+CPU usage for this session 210 seconds ( 0.06 hours ).
 
 Thank you...

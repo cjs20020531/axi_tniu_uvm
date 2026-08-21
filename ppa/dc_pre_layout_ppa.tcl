@@ -308,19 +308,29 @@ redirect -file [file join $REPORT_DIR check_design_precompile.rpt] {
   check_design
 }
 
-# Explicitly reject black boxes: area, timing and power are not meaningful when
-# an RTL submodule or technology reference is unresolved.
-set black_box_count 0
-if {![catch {
-  set black_boxes [get_cells -hierarchical -filter "is_black_box == true" -quiet]
-  set black_box_count [sizeof_collection $black_boxes]
-}]} {
-  if {$black_box_count > 0} {
-    redirect -file [file join $REPORT_DIR black_boxes.rpt] {
-      report_cell $black_boxes
-    }
-    fatal "design contains $black_box_count black-box cells; see black_boxes.rpt"
+# Explicitly reject unresolved black-box designs: area, timing and power are not
+# meaningful when an RTL submodule is missing.  Query design objects rather
+# than cells here.  Before mapping, DC 2018 marks normal GTECH/DesignWare
+# operators such as *MUX_OP and *ADD_UNS_OP with is_black_box on the cell
+# object; treating those synthetic, unmapped operators as unresolved modules
+# produces hundreds of false positives.
+set black_box_design_count 0
+if {[catch {
+  set black_box_designs \
+      [get_designs -quiet -filter "is_black_box == true" *]
+  set black_box_design_count [sizeof_collection $black_box_designs]
+} black_box_query_error]} {
+  puts "WARNING: could not query black-box design objects"
+  puts "         $black_box_query_error"
+} elseif {$black_box_design_count > 0} {
+  set black_box_report \
+      [open [file join $REPORT_DIR black_box_designs.rpt] w]
+  puts $black_box_report "Unresolved black-box designs:"
+  foreach_in_collection black_box_design $black_box_designs {
+    puts $black_box_report "  [get_object_name $black_box_design]"
   }
+  close $black_box_report
+  fatal "design contains $black_box_design_count unresolved black-box designs; see black_box_designs.rpt"
 }
 
 write -format ddc -hierarchy \
