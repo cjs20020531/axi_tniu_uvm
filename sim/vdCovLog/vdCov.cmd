@@ -139,3 +139,40 @@ gui_exclusion_file -load -file {/home/ICer/RKNoC/axi_tniu_uvm/sim/coverage_exclu
 gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.axi_vif  uvm_custom_install_verdi_recording   }
 gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} uvm_custom_install_verdi_recording  -column {} 
 gui_list_select -id CoverageTable.1 -list covtblInstancesList { uvm_custom_install_verdi_recording  tb_top.dut.U_ADDR_MAP   }
+gui_list_select -id CovDetail.1 -list tgl { hooks_version_flag  enable_tlm2_port_recording   }
+gui_list_select -id CovDetail.1 -list tgl { enable_tlm2_port_recording  enable_imp_port_recording   }
+gui_list_select -id CovDetail.1 -list tgl { enable_imp_port_recording  enable_port_recording   }
+gui_list_select -id CovDetail.1 -list tgl { enable_port_recording  enable_verdi_debug   }
+gui_list_select -id CovDetail.1 -list tgl { enable_verdi_debug  plusargs_tested   }
+gui_list_select -id CovDetail.1 -list tgl { plusargs_tested   }
+gui_list_select -id CovDetail.1 -list tgl { enable_imp_port_recording   }
+gui_list_select -id CovDetail.1 -list tgl { enable_imp_port_recording   }
+gui_list_select -id CovDetail.1 -list tgl { enable_tlm2_port_recording   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_ADDR_MAP  tb_top.dut.U_RREQ_TRANS   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_RREQ_TRANS  tb_top.dut.U_WREQ_TRANS   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_WREQ_TRANS  tb_top.dut.genblk1.U_WRAP_ADJUST   }
+gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} tb_top.dut.genblk1.U_WRAP_ADJUST  -column {Line} 
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.genblk1.U_WRAP_ADJUST  tb_top.dut.U_WATCHDOG   }
+gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} tb_top.dut.U_WATCHDOG  -column {Toggle} 
+gui_list_select -id CovDetail.1 -list tgl { {rsp_timnot_tamp[15:0]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[15]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[15]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[15]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[15]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[15]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[15]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[15]}   }
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[15]}   }
+gui_exclude_conn_signals_begin -signal tb_top.dut.U_WATCHDOG.rsp_timnot_tamp[15]
+gui_exclude_conn_signals_add -signal tb_top.dut.U_WATCHDOG.rsp_timnot_tamp[15]
+gui_exclude_conn_signals_end
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[15]}   }
+gui_exclude_items -id  CovDetail.1  -list { tglDetail }  -include { {rsp_timnot_tamp[15]} }
+gui_exclude_items -id  CovDetail.1  -list { tglDetail } { {rsp_timnot_tamp[15]} }
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[15]}  {rsp_timnot_tamp[14:0]}   }
+gui_exclude_items -id  CovDetail.1  -list { tglDetail } { {rsp_timnot_tamp[14:0]} }
+gui_exclude_items -id  CovDetail.1  -list { tglDetail }  -include { {rsp_timnot_tamp[14:0]} }
+gui_list_select -id CovDetail.1 -list tglDetail { {rsp_timnot_tamp[14:0]}   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_WATCHDOG  tb_top.dut.U_WREQ_TRANS   }
+gui_list_select -id CoverageTable.1 -list covtblInstancesList { tb_top.dut.U_WREQ_TRANS  tb_top.dut.genblk1.U_WRAP_ALIGN   }
+gui_list_action -id  CoverageTable.1 -list {covtblInstancesList} tb_top.dut.genblk1.U_WRAP_ALIGN  -column {Branch} 

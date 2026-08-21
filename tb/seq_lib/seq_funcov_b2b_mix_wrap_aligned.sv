@@ -21,6 +21,7 @@
 //   l. WRAP_RD -> WRAP_WR  beat=1
 //   m. INCR_WR -> INCR_RD  beat>1
 //   n. INCR_WR -> INCR_RD  beat>1   (kept exactly as listed in the testplan)
+//   o. WRAP_WR -> INCR_RD   beat=1   (closes x_pair_gap B2B kind_3->kind_0)
 //
 // Beat selection with NBYTEPERWORD=8:
 //   beat=1  : LEN=7,  aligned start
@@ -179,8 +180,16 @@ class seq_funcov_b2b_mix_wrap_aligned extends rknp_base_seq;
     send_pair(13, "n", axi_tniu_protocol_pkg::OPC_WR,
                        axi_tniu_protocol_pkg::OPC_RD, 31);
 
+    // o: close cg_multi_req.x_pair_gap
+    //      WRAP_WR -> INCR_RD -> back_to_back.
+    // send_pair() fixes the first request at LEN=7.  With the aligned address
+    // used by this sequence, the WRAP write occupies exactly one RKNP flit;
+    // therefore test req_gap=0 produces consecutive request HEAD handshakes.
+    send_pair(14, "o", axi_tniu_protocol_pkg::OPC_WRW,
+                       axi_tniu_protocol_pkg::OPC_RD, LEN_BEAT1);
+
     `uvm_info("SEQ_B2B_MIX_ALIGN",
-              "Completed 14 aligned mixed-request pairs (28 requests)",
+              "Completed 15 aligned mixed-request pairs (30 requests)",
               UVM_LOW)
   endtask
 

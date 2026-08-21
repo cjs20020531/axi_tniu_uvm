@@ -83,6 +83,7 @@ package axi_tniu_pkg;
   `include "seq_timeout_same_axid_prev_rsp.sv"
   `include "seq_sameaxid_buf_err_alt.sv"
   `include "seq_sameaxid_norm_buf_err_allpairs.sv"
+  `include "seq_funcov_multi_req_gap_holes.sv"
   `include "seq_mix.sv"
   `include "vseq_base.sv"
 
@@ -137,6 +138,7 @@ package axi_tniu_pkg;
   `include "test_timeout_same_axid_prev_rsp.sv"
   `include "test_sameaxid_buf_err_alt.sv"
   `include "test_sameaxid_norm_buf_err_allpairs.sv"
+  `include "test_funcov_multi_req_gap_holes.sv"
   
 
 endpackage : axi_tniu_pkg

@@ -3,7 +3,8 @@
 
 // =============================================================================
 // File        : test_funcov_b2b_mix_wrap_aligned.sv
-// Description : Runs the aligned-WRAP adjacent mixed-request matrix.
+// Description : Runs the aligned-WRAP adjacent mixed-request matrix, including
+//               WRAP_WR->INCR_RD with true HEAD-to-HEAD back-to-back timing.
 // =============================================================================
 
 class test_funcov_b2b_mix_wrap_aligned extends axi_tniu_base_test;
@@ -52,7 +53,8 @@ class test_funcov_b2b_mix_wrap_aligned extends axi_tniu_base_test;
     seq = seq_funcov_b2b_mix_wrap_aligned::type_id::create("seq");
 
     `uvm_info("TEST_B2B_MIX_ALIGN",
-              "Run 14 adjacent mixed-request pairs with all WRAP addresses 8B aligned",
+              {"Run 15 adjacent mixed-request pairs with all WRAP addresses ",
+               "8B aligned; includes WRAP_WR->INCR_RD B2B closure"},
               UVM_LOW)
 
     start_rknp_sequence(seq);

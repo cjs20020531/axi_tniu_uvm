@@ -44,18 +44,18 @@ module axi_tniu#(
     ,parameter AQOS_WITH = 3
     
     //watchdog计数器配置参数
-    ,parameter TIMOUT_VALUE = 1024          //可配置最大超时值（限制大于3，默认值为1024）  
+    ,parameter TIMOUT_VALUE = 10240          //可配置最大超时值（限制大于3，默认值为10240）  
 
     //模式配置参数
     ,parameter SUP_REQ_NUM = 8  //支持最大请求个数
     ,parameter ADDR_BLOCK_SIZE = 64
     ,parameter ADDR_BP_TYPE = 1  // 0:无同地址反压  1:写后读/写后写同地址反压   2:写后读/写后写/读后写同地址反压
-    ,parameter EARLY_RSP_MODE = 0 // 0：关闭early response模式    1：开启early response模式
+    ,parameter EARLY_RSP_MODE = 1 // 0：关闭early response模式    1：开启early response模式
     ,parameter WRAP_ALIGN_MODE = 1 // 0：关闭wrap align模式    1：开启wrap align模式
     ,parameter RWRAP_CNT_MAX = 4
     ,parameter PS_SWITCH = 0      //0:并行输出，1：串行输出
 
-    ,parameter DLY = 1
+    ,parameter DLY = 0
 )(
      input                                aclk
     ,input                                aresetn
