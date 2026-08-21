@@ -390,7 +390,6 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       bins beat_2_4   = {[1:3]};
       bins beat_5_8   = {[4:7]};
       bins beat_9_16  = {[8:15]};
-      bins beat_17_32 = {[16:31]};
       ignore_bins impossible = {[32:255]};
     }
 
@@ -659,10 +658,15 @@ class axi_tniu_coverage extends uvm_subscriber #(rknp_seq_item);
       // Unlisted values are intentionally not coverage goals.
     }
 
-    cp_errcode : coverpoint rsp_errcode {
-      bins none_or_target = {0};
-      bins timeout        = {6};
-      bins other[]        = {[1:5],7};
+    // ErrorCode is meaningful only for an error response.  The current RKNP
+    // response definition supports two ErrorCode values:
+    //   EC_ADDR_DEC : locally generated request error
+    //   EC_TIMEOUT  : watchdog timeout response
+    // All other enum values are intentionally not coverage goals.
+    cp_errcode : coverpoint rsp_errcode
+      iff (rsp_status == axi_tniu_protocol_pkg::ST_ERR) {
+      bins addr_dec = {axi_tniu_protocol_pkg::EC_ADDR_DEC};
+      bins timeout  = {axi_tniu_protocol_pkg::EC_TIMEOUT};
     }
 
     cp_packet_pos : coverpoint packet_pos {

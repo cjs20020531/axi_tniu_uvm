@@ -139,6 +139,8 @@ package axi_tniu_pkg;
   `include "test_sameaxid_buf_err_alt.sv"
   `include "test_sameaxid_norm_buf_err_allpairs.sv"
   `include "test_funcov_multi_req_gap_holes.sv"
+  `include "test_timeout_busy_rd_rsp_to_wr_timeout.sv"
+  `include "test_timeout_busy_wr_rsp_to_rd_timeout.sv"
   
 
 endpackage : axi_tniu_pkg

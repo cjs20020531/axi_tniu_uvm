@@ -74,18 +74,29 @@ parameter W = 2'b01;
 //-----------------------------------------------------------------
 //  地址译码表
 //-----------------------------------------------------------------
-reg [AADDR_WITH-1:0] addr_map_table [7:0];
+// reg [AADDR_WITH-1:0] addr_map_table [7:0];
 
-initial begin
-    addr_map_table[0] = 40'h08_0000_0000;
-    addr_map_table[1] = 40'h10_0000_0000;
-    addr_map_table[2] = 40'h18_0000_0000;
-    addr_map_table[3] = 40'h20_0000_0000;
-    addr_map_table[4] = 40'h28_0000_0000;
-    addr_map_table[5] = 40'h30_0000_0000;
-    addr_map_table[6] = 40'h38_0000_0000;
-    addr_map_table[7] = 40'h40_0000_0000;
-end
+// initial begin
+//     addr_map_table[0] = 40'h08_0000_0000;
+//     addr_map_table[1] = 40'h10_0000_0000;
+//     addr_map_table[2] = 40'h18_0000_0000;
+//     addr_map_table[3] = 40'h20_0000_0000;
+//     addr_map_table[4] = 40'h28_0000_0000;
+//     addr_map_table[5] = 40'h30_0000_0000;
+//     addr_map_table[6] = 40'h38_0000_0000;
+//     addr_map_table[7] = 40'h40_0000_0000;
+// end
+
+wire [AADDR_WITH-1:0] addr_map_table [0:7];
+
+assign addr_map_table[0] = 40'h08_0000_0000;
+assign addr_map_table[1] = 40'h10_0000_0000;
+assign addr_map_table[2] = 40'h18_0000_0000;
+assign addr_map_table[3] = 40'h20_0000_0000;
+assign addr_map_table[4] = 40'h28_0000_0000;
+assign addr_map_table[5] = 40'h30_0000_0000;
+assign addr_map_table[6] = 40'h38_0000_0000;
+assign addr_map_table[7] = 40'h40_0000_0000;
 
 
 //-----------------------------------------------------------------
