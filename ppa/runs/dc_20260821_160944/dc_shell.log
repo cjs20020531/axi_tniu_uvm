@@ -1,0 +1,528 @@
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+               Version O-2018.06-SP1 for linux64 - Jul 19, 2018 
+
+                    Copyright (c) 1988 - 2018 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+            or distribution of this software is strictly prohibited.
+Initializing...
+# =============================================================================
+# File        : dc_pre_layout_ppa.tcl
+# Purpose     : Reproducible pre-layout PPA synthesis flow for axi_tniu
+# Tool        : Synopsys Design Compiler / dc_shell (tested syntax target: 2018.x)
+#
+# What this flow does
+#   1. Loads the TSMC 90 nm standard-cell timing/power library.
+#   2. Analyzes and elaborates RTL only (no UVM/testbench sources).
+#   3. Applies block-level clock, I/O and design-rule constraints.
+#   4. Runs mapped synthesis using compile_ultra or compile.
+#   5. Optionally annotates SAIF/VCD activity; otherwise uses vectorless activity.
+#   6. Saves DDC, mapped Verilog, SDC and SDF outputs.
+#   7. Generates timing, area, power, QoR and consistency reports.
+#
+# Recommended invocation
+#   ./ppa/run_dc_ppa.sh
+#
+# Important
+#   This is a pre-layout estimate.  Interconnect, clock-tree and routed
+#   parasitics are not available, so the results are not post-layout signoff.
+# =============================================================================
+# -----------------------------------------------------------------------------
+# Small Tcl helpers
+# -----------------------------------------------------------------------------
+proc env_or_default {name default_value} {
+  global env
+  if {[info exists env($name)] && $env($name) ne ""} {
+    return $env($name)
+  }
+  return $default_value
+}
+proc fatal {message} {
+  puts stderr "\nFATAL: $message\n"
+  exit 2
+}
+proc require_file {path description} {
+  if {![file exists $path] || ![file isfile $path]} {
+    fatal "$description not found: $path"
+  }
+}
+proc require_number {name value} {
+  if {![string is double -strict $value]} {
+    fatal "$name must be numeric, got: $value"
+  }
+}
+proc collection_nonempty {collection_object} {
+  if {[catch {sizeof_collection $collection_object} count]} {
+    return 0
+  }
+  return [expr {$count > 0}]
+}
+# Run a non-essential report without aborting an otherwise valid synthesis.
+proc optional_report {report_path report_body} {
+  if {[catch {
+    uplevel 1 [list redirect -file $report_path $report_body]
+  } report_error]} {
+    puts "WARNING: optional report failed: $report_path"
+    puts "         $report_error"
+  }
+}
+# -----------------------------------------------------------------------------
+# Paths and run directory
+# -----------------------------------------------------------------------------
+set SCRIPT_DIR [file dirname [file normalize [info script]]]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa
+set REPO_ROOT  [file normalize [file join $SCRIPT_DIR ..]]
+/home/ICer/RKNoC/axi_tniu_uvm
+set RUN_STAMP  [clock format [clock seconds] -format "%Y%m%d_%H%M%S"]
+20260821_160944
+set DEFAULT_RUN_DIR [file join $SCRIPT_DIR runs "dc_$RUN_STAMP"]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_160944
+set RUN_DIR         [file normalize [env_or_default PPA_RUN_DIR $DEFAULT_RUN_DIR]]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_160944
+set REPORT_DIR      [file join $RUN_DIR reports]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_160944/reports
+set OUTPUT_DIR      [file join $RUN_DIR outputs]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_160944/outputs
+set DATABASE_DIR    [file join $RUN_DIR database]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_160944/database
+set WORK_DIR        [file join $RUN_DIR work]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_160944/work
+set ALIB_DIR        [file join $RUN_DIR alib]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_160944/alib
+foreach directory [list $RUN_DIR $REPORT_DIR $OUTPUT_DIR                         $DATABASE_DIR $WORK_DIR $ALIB_DIR] {
+  file mkdir $directory
+}
+# -----------------------------------------------------------------------------
+# User-overridable flow configuration
+#
+# Override any value from the shell, for example:
+#   DC_CLOCK_PERIOD_NS=5.0 DC_COMPILE_MODE=ultra ./ppa/run_dc_ppa.sh
+# -----------------------------------------------------------------------------
+set TOP_DESIGN          [env_or_default DC_TOP_DESIGN          axi_tniu]
+axi_tniu
+set RTL_DIR             [file normalize [env_or_default DC_RTL_DIR                                            [file join $REPO_ROOT rtl]]]
+/home/ICer/RKNoC/axi_tniu_uvm/rtl
+set LIB_DIR             [file normalize [env_or_default DC_LIB_DIR                                            /home/ic_libs/TSMC.90/aci/sc-x/libspm]]
+/home/ic_libs/TSMC.90/aci/sc-x/libspm
+set TARGET_LIBRARY      [file normalize [env_or_default DC_TARGET_LIBRARY                                            [file join $LIB_DIR typical.db]]]
+/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db
+set OPERATING_CONDITION [env_or_default DC_OPERATING_CONDITION typical]
+typical
+set CLOCK_PORT          [env_or_default DC_CLOCK_PORT          aclk]
+aclk
+set CLOCK_NAME          [env_or_default DC_CLOCK_NAME          aclk]
+aclk
+set RESET_PORT          [env_or_default DC_RESET_PORT          aresetn]
+aresetn
+set CLOCK_PERIOD        [env_or_default DC_CLOCK_PERIOD_NS     10.0]
+10.0
+set CLOCK_UNCERTAINTY   [env_or_default DC_CLOCK_UNCERTAINTY_NS 0.10]
+0.10
+set CLOCK_TRANSITION    [env_or_default DC_CLOCK_TRANSITION_NS  0.10]
+0.10
+set INPUT_DELAY_MAX     [env_or_default DC_INPUT_DELAY_MAX_NS   1.00]
+1.00
+set INPUT_DELAY_MIN     [env_or_default DC_INPUT_DELAY_MIN_NS   0.00]
+0.00
+set OUTPUT_DELAY_MAX    [env_or_default DC_OUTPUT_DELAY_MAX_NS  1.00]
+1.00
+set OUTPUT_DELAY_MIN    [env_or_default DC_OUTPUT_DELAY_MIN_NS  0.00]
+0.00
+set INPUT_TRANSITION    [env_or_default DC_INPUT_TRANSITION_NS  0.20]
+0.20
+set OUTPUT_LOAD         [env_or_default DC_OUTPUT_LOAD_PF       0.05]
+0.05
+set MAX_TRANSITION      [env_or_default DC_MAX_TRANSITION_NS    0.80]
+0.80
+set MAX_FANOUT          [env_or_default DC_MAX_FANOUT           16]
+16
+set CRITICAL_RANGE      [env_or_default DC_CRITICAL_RANGE_NS    0.50]
+0.50
+set MAX_AREA            [env_or_default DC_MAX_AREA             0]
+0
+set COMPILE_MODE        [string tolower [env_or_default DC_COMPILE_MODE ultra]]
+ultra
+set RUN_INCREMENTAL     [env_or_default DC_RUN_INCREMENTAL 1]
+1
+set MAX_CORES           [env_or_default DC_MAX_CORES       4]
+4
+set TIMING_MAX_PATHS    [env_or_default DC_TIMING_MAX_PATHS 30]
+30
+# Optional activity inputs.  Priority: SAIF, then VCD, then vectorless defaults.
+set SAIF_FILE           [env_or_default DC_SAIF_FILE ""]
+set VCD_FILE            [env_or_default DC_VCD_FILE  ""]
+set ACTIVITY_SCOPE      [env_or_default DC_ACTIVITY_SCOPE tb_top/dut]
+tb_top/dut
+set INPUT_STATIC_PROB   [env_or_default DC_INPUT_STATIC_PROBABILITY 0.5]
+0.5
+set INPUT_TOGGLE_RATE   [env_or_default DC_INPUT_TOGGLE_RATE        0.10]
+0.10
+foreach numeric_setting {
+  CLOCK_PERIOD CLOCK_UNCERTAINTY CLOCK_TRANSITION
+  INPUT_DELAY_MAX INPUT_DELAY_MIN OUTPUT_DELAY_MAX OUTPUT_DELAY_MIN
+  INPUT_TRANSITION OUTPUT_LOAD MAX_TRANSITION MAX_FANOUT CRITICAL_RANGE
+  MAX_AREA MAX_CORES TIMING_MAX_PATHS INPUT_STATIC_PROB INPUT_TOGGLE_RATE
+} {
+  require_number $numeric_setting [set $numeric_setting]
+}
+if {$CLOCK_PERIOD <= 0.0} {
+  fatal "DC_CLOCK_PERIOD_NS must be greater than zero"
+}
+if {$COMPILE_MODE ne "ultra" && $COMPILE_MODE ne "standard"} {
+  fatal "DC_COMPILE_MODE must be 'ultra' or 'standard', got: $COMPILE_MODE"
+}
+require_file $TARGET_LIBRARY "target library"
+# Keep this list explicit and RTL-only.  This prevents accidental synthesis of
+# UVM, interfaces, assertions or the simulation clock/reset generator.
+set RTL_FILES [list   [file join $RTL_DIR axi_tniu.v]   [file join $RTL_DIR wrap_align.v]   [file join $RTL_DIR wrap_adjust.v]   [file join $RTL_DIR req_order.v]   [file join $RTL_DIR rsp_order.v]   [file join $RTL_DIR addr_map.v]   [file join $RTL_DIR rreq_trans.v]   [file join $RTL_DIR wreq_trans.v]   [file join $RTL_DIR rsp_trans.v]   [file join $RTL_DIR watchdog.v]   [file join $RTL_DIR ely_rsp_detect.v]   [file join $RTL_DIR addr_border_count.v]   [file join $RTL_DIR syn_fifo.v] ]
+/home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/addr_map.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/rreq_trans.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/wreq_trans.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_trans.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/watchdog.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/ely_rsp_detect.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/addr_border_count.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/syn_fifo.v
+foreach rtl_file $RTL_FILES {
+  require_file $rtl_file "RTL source"
+}
+# Save the resolved settings so every PPA result can be reproduced later.
+set config_file [open [file join $RUN_DIR resolved_configuration.txt] w]
+file11
+puts $config_file "run_stamp=$RUN_STAMP"
+puts $config_file "repo_root=$REPO_ROOT"
+puts $config_file "top_design=$TOP_DESIGN"
+puts $config_file "rtl_dir=$RTL_DIR"
+puts $config_file "target_library=$TARGET_LIBRARY"
+puts $config_file "operating_condition=$OPERATING_CONDITION"
+puts $config_file "clock_port=$CLOCK_PORT"
+puts $config_file "clock_name=$CLOCK_NAME"
+puts $config_file "clock_period_ns=$CLOCK_PERIOD"
+puts $config_file "clock_uncertainty_ns=$CLOCK_UNCERTAINTY"
+puts $config_file "input_delay_max_ns=$INPUT_DELAY_MAX"
+puts $config_file "output_delay_max_ns=$OUTPUT_DELAY_MAX"
+puts $config_file "output_load_pf=$OUTPUT_LOAD"
+puts $config_file "compile_mode=$COMPILE_MODE"
+puts $config_file "run_incremental=$RUN_INCREMENTAL"
+puts $config_file "saif_file=$SAIF_FILE"
+puts $config_file "vcd_file=$VCD_FILE"
+puts $config_file "activity_scope=$ACTIVITY_SCOPE"
+close $config_file
+puts ""
+
+puts "=============================================================================="
+==============================================================================
+puts " axi_tniu pre-layout PPA flow"
+ axi_tniu pre-layout PPA flow
+puts "=============================================================================="
+==============================================================================
+puts " Top design       : $TOP_DESIGN"
+ Top design       : axi_tniu
+puts " RTL directory    : $RTL_DIR"
+ RTL directory    : /home/ICer/RKNoC/axi_tniu_uvm/rtl
+puts " Target library   : $TARGET_LIBRARY"
+ Target library   : /home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db
+puts " PVT condition    : $OPERATING_CONDITION"
+ PVT condition    : typical
+puts " Clock            : $CLOCK_PORT, period=${CLOCK_PERIOD}ns"
+ Clock            : aclk, period=10.0ns
+puts " Compile mode     : $COMPILE_MODE"
+ Compile mode     : ultra
+puts " Run directory    : $RUN_DIR"
+ Run directory    : /home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_160944
+puts "=============================================================================="
+==============================================================================
+puts ""
+
+# -----------------------------------------------------------------------------
+# Design Compiler setup and technology libraries
+# -----------------------------------------------------------------------------
+set_app_var search_path [concat [get_app_var search_path]                                 [list $RTL_DIR $LIB_DIR]]
+. /home/synopsys/syn/O-2018.06-SP1/libraries/syn /home/synopsys/syn/O-2018.06-SP1/minpower/syn /home/synopsys/syn/O-2018.06-SP1/dw/syn_ver /home/synopsys/syn/O-2018.06-SP1/dw/sim_ver /home/ICer/RKNoC/axi_tniu_uvm/rtl /home/ic_libs/TSMC.90/aci/sc-x/libspm
+set_app_var target_library [list $TARGET_LIBRARY]
+/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db
+set_app_var link_library   [concat "*" [list $TARGET_LIBRARY]]
+* /home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db
+set_app_var alib_library_analysis_path $ALIB_DIR
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_160944/alib
+# Keep generated netlists legal and deterministic.
+set_app_var verilogout_no_tri true
+true
+set_app_var bus_naming_style {%s[%d]}
+%s[%d]
+# Use available CPU cores without changing synthesis semantics.
+if {[catch {set_host_options -max_cores $MAX_CORES} host_error]} {
+  puts "WARNING: could not set max cores: $host_error"
+}
+define_design_lib WORK -path $WORK_DIR
+1
+set_svf [file join $DATABASE_DIR "${TOP_DESIGN}.svf"]
+1
+# Read the .db now so library/PVT errors occur before RTL analysis.
+if {[catch {read_db $TARGET_LIBRARY} library_error]} {
+  fatal "failed to read target library: $library_error"
+}
+Loading db file '/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db'
+Loading db file '/home/synopsys/syn/O-2018.06-SP1/libraries/syn/gtech.db'
+Loading db file '/home/synopsys/syn/O-2018.06-SP1/libraries/syn/standard.sldb'
+  Loading link library 'typical'
+  Loading link library 'gtech'
+Loading db file '/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db'
+Warning: Overwriting design file '/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db'. (DDB-24)
+Loaded 0 designs.
+redirect -file [file join $REPORT_DIR library.rpt] {
+  report_lib [get_libs *]
+}
+optional_report [file join $REPORT_DIR units.rpt] {
+  report_units
+}
+# -----------------------------------------------------------------------------
+# RTL analysis, elaboration and structural checks
+# -----------------------------------------------------------------------------
+puts "INFO: analyzing [llength $RTL_FILES] RTL files"
+INFO: analyzing 13 RTL files
+if {[catch {analyze -format verilog -library WORK $RTL_FILES} analyze_error]} {
+  fatal "RTL analyze failed: $analyze_error"
+}
+Running PRESTO HDLC
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:272: A unnamed generate block with an LRM-defined name 'genblk1' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:272: A unnamed generate block with an LRM-defined name 'genblk1' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:670: A unnamed generate block with an LRM-defined name 'genblk2' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:670: A unnamed generate block with an LRM-defined name 'genblk2' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:53: Parameter keyword used in local parameter declaration. (VER-329)
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:123: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:126: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:129: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:131: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:134: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:151: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:153: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:162: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:164: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:166: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:56: Parameter keyword used in local parameter declaration. (VER-329)
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:91: A unnamed generate block with an LRM-defined name 'genblk1' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:101: A unnamed generate block with an LRM-defined name 'genblk2' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:107: A unnamed generate block with an LRM-defined name 'genblk1' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:106: A unnamed generate block with an LRM-defined name 'genblk3' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:113: A unnamed generate block with an LRM-defined name 'genblk4' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:180: A unnamed generate block with an LRM-defined name 'genblk5' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:189: A unnamed generate block with an LRM-defined name 'genblk6' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:195: A unnamed generate block with an LRM-defined name 'genblk1' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:194: A unnamed generate block with an LRM-defined name 'genblk7' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:201: A unnamed generate block with an LRM-defined name 'genblk8' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:158: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:159: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:160: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:161: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:164: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:166: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:167: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:168: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:169: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:213: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:217: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:225: Intraassignment delays for nonblocking assignments are ignored. (VER-130)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v:108: Parameter keyword used in local parameter declaration. (VER-329)
+Error:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v:412: The construct ''0' is not supported in this language. (VER-720)
+Error:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v:419: The construct 'post-increment assignment operator ++' is not supported in this language. (VER-720)
+Error:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v:420: The construct ''0' is not supported in this language. (VER-720)
+Error:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v:424: The construct ''0' is not supported in this language. (VER-720)
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:150: Parameter keyword used in local parameter declaration. (VER-329)
+Error:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:1219: The register symbol 'a' has already been defined. (VER-954)
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/addr_map.v
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/addr_map.v:69: Parameter keyword used in local parameter declaration. (VER-329)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/addr_map.v:173: the undeclared symbol 'am2rreqt_urg' assumed to have the default net type, which is 'wire'. (VER-936)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/addr_map.v:191: the undeclared symbol 'am2wreqt_urg' assumed to have the default net type, which is 'wire'. (VER-936)
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/rreq_trans.v
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/wreq_trans.v
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_trans.v
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_trans.v:54: Parameter keyword used in local parameter declaration. (VER-329)
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/watchdog.v
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/ely_rsp_detect.v
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/addr_border_count.v
+Compiling source file /home/ICer/RKNoC/axi_tniu_uvm/rtl/syn_fifo.v
+*** Presto compilation terminated with 5 errors. ***
+if {[catch {elaborate $TOP_DESIGN -library WORK} elaborate_error]} {
+  fatal "elaboration failed: $elaborate_error"
+}
+Running PRESTO HDLC
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_arvalid connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_arid connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_araddr connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_arlen connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_arsize connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_arburst connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_arlock connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_arcache connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_arprot connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_arqos connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:553: Net axi_m_aruser connected to instance U_RREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:599: Net axi_m_wvalid connected to instance U_WREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:599: Net axi_m_wlast connected to instance U_WREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:599: Net axi_m_wid connected to instance U_WREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:599: Net axi_m_wdata connected to instance U_WREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v:599: Net axi_m_wstrb connected to instance U_WREQ_TRANS is declared as reg data type but is not driven by an always block. (VER-1004)
+Presto compilation completed successfully.
+Elaborated 1 design.
+Current design is now 'axi_tniu'.
+Information: Building the design 'wrap_align' instantiated from design 'axi_tniu' with
+	the parameters "REQ_HEAD_LEN_OFFSET=102,ADDR_WITH=32,REQ_OPC_OFFSET=43,REQ_STATUS_OFFSET=47,REQ_LEN_OFFSET=49,REQ_ADDR_OFFSET=57,REQ_USER_OFFSET=89,NBYTEPERWORD=8,REQ_FLIT_WITH=175,RWRAP_CNT_MAX=4,DLY=0". (HDL-193)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:203: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 121 in file
+	'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           125            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+	in routine wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0 line 121 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    rwrap_cnt_reg    | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0 line 149 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  wwrap_buffer_reg   | Flip-flop |  175  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0 line 160 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| rknp_xx2wa_head_d_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+Presto compilation completed successfully.
+Information: Building the design 'wrap_adjust' instantiated from design 'axi_tniu' with
+	the parameters "RSP_FLIT_WITH=157,NBYTEPERWORD=8,USER_WITH=10,ADDR_WITH=32,AXID_WITH=4,RWRAP_CNT_MAX=4,DLY=0". (HDL-193)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:240: signed to unsigned conversion occurs. (VER-318)
+
+Inferred memory devices in process
+	in routine wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0 line 156 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+|  pending_offset_reg  | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   pending_axid_reg   | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+| pending_rsp_head_reg | Flip-flop |  84   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  append_pending_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+	in routine wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0 line 210 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  rwrap_buffer_reg   | Flip-flop |  308  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Statistics for MUX_OPs
+===========================================================================================================================================
+|                                           block name/line                                             | Inputs | Outputs | # sel inputs |
+===========================================================================================================================================
+| wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0/248 |   4    |   72    |      2       |
+===========================================================================================================================================
+Presto compilation completed successfully.
+Information: Building the design 'req_order' instantiated from design 'axi_tniu' with
+	the parameters "REQ_FLIT_WITH=175,URGE_WITH=7,SUBR_WITH=8,IID_WITH=10,TID_WITH=10,ADDR_WITH=32,AXID_WITH=4,ORDKEY_WITH=8,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,TAG_CNT_WITH=3,REQ_SUBR_OFFSET=27,REQ_IID_OFFSET=7,REQ_TID_OFFSET=17,REQ_ORDKEY_OFFSET=35,REQ_OPC_OFFSET=43,REQ_STATUS_OFFSET=47,REQ_LEN_OFFSET=49,REQ_ADDR_OFFSET=57,REQ_USER_OFFSET=89,REQ_ERRC_OFFSET=99,REQ_HEAD_LEN_OFFSET=102,HEAD_BUFF_DEEP=8,ADDR_BLOCK_SIZE=64,ADDR_BP_TYPE=1,EARLY_RSP_MODE=1,DLY=0". (HDL-193)
+Warning: Cannot find the design 'req_order' in the library 'WORK'. (LBR-1)
+Information: Building the design 'addr_map' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,ADDR_WITH=32,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,AADDR_WITH=40,AQOS_WITH=3". (HDL-193)
+Warning: Cannot find the design 'addr_map' in the library 'WORK'. (LBR-1)
+Information: Building the design 'rreq_trans' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,AADDR_WITH=40,AUSER_WITH=1,AQOS_WITH=3,DLY=0". (HDL-193)
+Warning: Cannot find the design 'rreq_trans' in the library 'WORK'. (LBR-1)
+Information: Building the design 'wreq_trans' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,AADDR_WITH=40,AUSER_WITH=1,AQOS_WITH=3,DLY=0". (HDL-193)
+Warning: Cannot find the design 'wreq_trans' in the library 'WORK'. (LBR-1)
+Information: Building the design 'watchdog' instantiated from design 'axi_tniu' with
+	the parameters "AXID_WITH=4,TAG_CNT_WITH=3,TIMOUT_VALUE=10240,TIMOUT_TABLE_DEEP=8,DLY=0". (HDL-193)
+Warning: Cannot find the design 'watchdog' in the library 'WORK'. (LBR-1)
+Information: Building the design 'rsp_trans' instantiated from design 'axi_tniu' with
+	the parameters "AXID_WITH=4,USER_WITH=10,NBYTEPERWORD=8,AUSER_WITH=1,DLY=0". (HDL-193)
+Warning: Cannot find the design 'rsp_trans' in the library 'WORK'. (LBR-1)
+Information: Building the design 'ely_rsp_detect' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,ADDR_WITH=32,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,ELYRSP_TABLE_DEEP=8,AUSER_WITH=1,TAG_CNT_WITH=3,DLY=0". (HDL-193)
+Warning: Cannot find the design 'ely_rsp_detect' in the library 'WORK'. (LBR-1)
+Information: Building the design 'rsp_order' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,IID_WITH=10,TID_WITH=10,ADDR_WITH=32,AXID_WITH=4,ORDKEY_WITH=8,LEN_WITH=8,USER_WITH=10,RSP_IID_OFFSET=7,RSP_TID_OFFSET=17,RSP_ORDKEY_OFFSET=27,RSP_OPC_OFFSET=35,RSP_STATUS_OFFSET=37,RSP_ADDR_OFFSET=39,RSP_USER_OFFSET=71,RSP_ERRC_OFFSET=81,NBYTEPERWORD=8,TAG_CNT_WITH=3,SPEC_REQ_BUFF_DEEP=8,ADDR_BLOCK_SIZE=64,ADDR_BP_TYPE=1,AUSER_WITH=1,EARLY_RSP_MODE=1,DLY=0". (HDL-193)
+Warning: Cannot find the design 'rsp_order' in the library 'WORK'. (LBR-1)
+Warning: Design 'axi_tniu' has '8' unresolved references. For more detailed information, use the "link" command. (UID-341)
+current_design $TOP_DESIGN
+Current design is 'axi_tniu'.
+{axi_tniu}
+if {![link]} {
+  fatal "link failed; inspect unresolved references and target_library"
+}
+
+  Linking design 'axi_tniu'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (3 designs)               /home/ICer/RKNoC/axi_tniu_uvm/axi_tniu.db, etc
+  typical (library)           /home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db
+
+Information: Building the design 'req_order' instantiated from design 'axi_tniu' with
+	the parameters "REQ_FLIT_WITH=175,URGE_WITH=7,SUBR_WITH=8,IID_WITH=10,TID_WITH=10,ADDR_WITH=32,AXID_WITH=4,ORDKEY_WITH=8,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,TAG_CNT_WITH=3,REQ_SUBR_OFFSET=27,REQ_IID_OFFSET=7,REQ_TID_OFFSET=17,REQ_ORDKEY_OFFSET=35,REQ_OPC_OFFSET=43,REQ_STATUS_OFFSET=47,REQ_LEN_OFFSET=49,REQ_ADDR_OFFSET=57,REQ_USER_OFFSET=89,REQ_ERRC_OFFSET=99,REQ_HEAD_LEN_OFFSET=102,HEAD_BUFF_DEEP=8,ADDR_BLOCK_SIZE=64,ADDR_BP_TYPE=1,EARLY_RSP_MODE=1,DLY=0". (HDL-193)
+Warning: Cannot find the design 'req_order' in the library 'WORK'. (LBR-1)
+Information: Building the design 'addr_map' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,ADDR_WITH=32,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,AADDR_WITH=40,AQOS_WITH=3". (HDL-193)
+Warning: Cannot find the design 'addr_map' in the library 'WORK'. (LBR-1)
+Information: Building the design 'rreq_trans' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,AADDR_WITH=40,AUSER_WITH=1,AQOS_WITH=3,DLY=0". (HDL-193)
+Warning: Cannot find the design 'rreq_trans' in the library 'WORK'. (LBR-1)
+Information: Building the design 'wreq_trans' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,AADDR_WITH=40,AUSER_WITH=1,AQOS_WITH=3,DLY=0". (HDL-193)
+Warning: Cannot find the design 'wreq_trans' in the library 'WORK'. (LBR-1)
+Information: Building the design 'watchdog' instantiated from design 'axi_tniu' with
+	the parameters "AXID_WITH=4,TAG_CNT_WITH=3,TIMOUT_VALUE=10240,TIMOUT_TABLE_DEEP=8,DLY=0". (HDL-193)
+Warning: Cannot find the design 'watchdog' in the library 'WORK'. (LBR-1)
+Information: Building the design 'rsp_trans' instantiated from design 'axi_tniu' with
+	the parameters "AXID_WITH=4,USER_WITH=10,NBYTEPERWORD=8,AUSER_WITH=1,DLY=0". (HDL-193)
+Warning: Cannot find the design 'rsp_trans' in the library 'WORK'. (LBR-1)
+Information: Building the design 'ely_rsp_detect' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,ADDR_WITH=32,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,ELYRSP_TABLE_DEEP=8,AUSER_WITH=1,TAG_CNT_WITH=3,DLY=0". (HDL-193)
+Warning: Cannot find the design 'ely_rsp_detect' in the library 'WORK'. (LBR-1)
+Information: Building the design 'rsp_order' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,IID_WITH=10,TID_WITH=10,ADDR_WITH=32,AXID_WITH=4,ORDKEY_WITH=8,LEN_WITH=8,USER_WITH=10,RSP_IID_OFFSET=7,RSP_TID_OFFSET=17,RSP_ORDKEY_OFFSET=27,RSP_OPC_OFFSET=35,RSP_STATUS_OFFSET=37,RSP_ADDR_OFFSET=39,RSP_USER_OFFSET=71,RSP_ERRC_OFFSET=81,NBYTEPERWORD=8,TAG_CNT_WITH=3,SPEC_REQ_BUFF_DEEP=8,ADDR_BLOCK_SIZE=64,ADDR_BP_TYPE=1,AUSER_WITH=1,EARLY_RSP_MODE=1,DLY=0". (HDL-193)
+Warning: Cannot find the design 'rsp_order' in the library 'WORK'. (LBR-1)
+Warning: Unable to resolve reference 'req_order' in 'axi_tniu'. (LINK-5)
+Warning: Unable to resolve reference 'addr_map' in 'axi_tniu'. (LINK-5)
+Warning: Unable to resolve reference 'rreq_trans' in 'axi_tniu'. (LINK-5)
+Warning: Unable to resolve reference 'wreq_trans' in 'axi_tniu'. (LINK-5)
+Warning: Unable to resolve reference 'watchdog' in 'axi_tniu'. (LINK-5)
+Warning: Unable to resolve reference 'rsp_trans' in 'axi_tniu'. (LINK-5)
+Warning: Unable to resolve reference 'ely_rsp_detect' in 'axi_tniu'. (LINK-5)
+Warning: Unable to resolve reference 'rsp_order' in 'axi_tniu'. (LINK-5)
+
+FATAL: link failed; inspect unresolved references and target_library
+
+
+Memory usage for main task 215 Mbytes.
+Memory usage for this session 215 Mbytes.
+CPU usage for this session 0 seconds ( 0.00 hours ).
+
+Thank you...
