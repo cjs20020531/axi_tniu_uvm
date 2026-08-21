@@ -1216,7 +1216,7 @@ assign rspo2reqo_timout = (timout_fifo_rden == 1'd1) ? 1'd1 : 1'd0;
 //  3、rsp_order提示req_order更改head addr信息
 //  4、分eraly response模式和非early response模式
 //------------------------------------------------------
-reg [2:0] a;
+
 generate
     if(EARLY_RSP_MODE == 0) begin
         always @(*) begin

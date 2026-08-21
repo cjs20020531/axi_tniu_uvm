@@ -1,0 +1,1080 @@
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+               Version O-2018.06-SP1 for linux64 - Jul 19, 2018 
+
+                    Copyright (c) 1988 - 2018 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+            or distribution of this software is strictly prohibited.
+Initializing...
+# =============================================================================
+# File        : dc_pre_layout_ppa.tcl
+# Purpose     : Reproducible pre-layout PPA synthesis flow for axi_tniu
+# Tool        : Synopsys Design Compiler / dc_shell (tested syntax target: 2018.x)
+#
+# What this flow does
+#   1. Loads the TSMC 90 nm standard-cell timing/power library.
+#   2. Analyzes and elaborates RTL only (no UVM/testbench sources).
+#   3. Applies block-level clock, I/O and design-rule constraints.
+#   4. Runs mapped synthesis using compile_ultra or compile.
+#   5. Optionally annotates SAIF/VCD activity; otherwise uses vectorless activity.
+#   6. Saves DDC, mapped Verilog, SDC and SDF outputs.
+#   7. Generates timing, area, power, QoR and consistency reports.
+#
+# Recommended invocation
+#   ./ppa/run_dc_ppa.sh
+#
+# Important
+#   This is a pre-layout estimate.  Interconnect, clock-tree and routed
+#   parasitics are not available, so the results are not post-layout signoff.
+# =============================================================================
+# -----------------------------------------------------------------------------
+# Small Tcl helpers
+# -----------------------------------------------------------------------------
+proc env_or_default {name default_value} {
+  global env
+  if {[info exists env($name)] && $env($name) ne ""} {
+    return $env($name)
+  }
+  return $default_value
+}
+proc fatal {message} {
+  puts stderr "\nFATAL: $message\n"
+  exit 2
+}
+proc require_file {path description} {
+  if {![file exists $path] || ![file isfile $path]} {
+    fatal "$description not found: $path"
+  }
+}
+proc require_number {name value} {
+  if {![string is double -strict $value]} {
+    fatal "$name must be numeric, got: $value"
+  }
+}
+proc collection_nonempty {collection_object} {
+  if {[catch {sizeof_collection $collection_object} count]} {
+    return 0
+  }
+  return [expr {$count > 0}]
+}
+# Run a non-essential report without aborting an otherwise valid synthesis.
+proc optional_report {report_path report_body} {
+  if {[catch {
+    uplevel 1 [list redirect -file $report_path $report_body]
+  } report_error]} {
+    puts "WARNING: optional report failed: $report_path"
+    puts "         $report_error"
+  }
+}
+# -----------------------------------------------------------------------------
+# Paths and run directory
+# -----------------------------------------------------------------------------
+set SCRIPT_DIR [file dirname [file normalize [info script]]]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa
+set REPO_ROOT  [file normalize [file join $SCRIPT_DIR ..]]
+/home/ICer/RKNoC/axi_tniu_uvm
+set RUN_STAMP  [clock format [clock seconds] -format "%Y%m%d_%H%M%S"]
+20260821_162145
+set DEFAULT_RUN_DIR [file join $SCRIPT_DIR runs "dc_$RUN_STAMP"]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145
+set RUN_DIR         [file normalize [env_or_default PPA_RUN_DIR $DEFAULT_RUN_DIR]]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145
+set REPORT_DIR      [file join $RUN_DIR reports]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145/reports
+set OUTPUT_DIR      [file join $RUN_DIR outputs]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145/outputs
+set DATABASE_DIR    [file join $RUN_DIR database]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145/database
+set WORK_DIR        [file join $RUN_DIR work]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145/work
+set ALIB_DIR        [file join $RUN_DIR alib]
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145/alib
+foreach directory [list $RUN_DIR $REPORT_DIR $OUTPUT_DIR                         $DATABASE_DIR $WORK_DIR $ALIB_DIR] {
+  file mkdir $directory
+}
+# -----------------------------------------------------------------------------
+# User-overridable flow configuration
+#
+# Override any value from the shell, for example:
+#   DC_CLOCK_PERIOD_NS=5.0 DC_COMPILE_MODE=ultra ./ppa/run_dc_ppa.sh
+# -----------------------------------------------------------------------------
+set TOP_DESIGN          [env_or_default DC_TOP_DESIGN          axi_tniu]
+axi_tniu
+set RTL_DIR             [file normalize [env_or_default DC_RTL_DIR                                            [file join $REPO_ROOT rtl]]]
+/home/ICer/RKNoC/axi_tniu_uvm/rtl
+set HDL_FORMAT          [string tolower [env_or_default DC_HDL_FORMAT sverilog]]
+sverilog
+set LIB_DIR             [file normalize [env_or_default DC_LIB_DIR                                            /home/ic_libs/TSMC.90/aci/sc-x/libspm]]
+/home/ic_libs/TSMC.90/aci/sc-x/libspm
+set TARGET_LIBRARY      [file normalize [env_or_default DC_TARGET_LIBRARY                                            [file join $LIB_DIR typical.db]]]
+/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db
+set OPERATING_CONDITION [env_or_default DC_OPERATING_CONDITION typical]
+typical
+set CLOCK_PORT          [env_or_default DC_CLOCK_PORT          aclk]
+aclk
+set CLOCK_NAME          [env_or_default DC_CLOCK_NAME          aclk]
+aclk
+set RESET_PORT          [env_or_default DC_RESET_PORT          aresetn]
+aresetn
+set CLOCK_PERIOD        [env_or_default DC_CLOCK_PERIOD_NS     10.0]
+10.0
+set CLOCK_UNCERTAINTY   [env_or_default DC_CLOCK_UNCERTAINTY_NS 0.10]
+0.10
+set CLOCK_TRANSITION    [env_or_default DC_CLOCK_TRANSITION_NS  0.10]
+0.10
+set INPUT_DELAY_MAX     [env_or_default DC_INPUT_DELAY_MAX_NS   1.00]
+1.00
+set INPUT_DELAY_MIN     [env_or_default DC_INPUT_DELAY_MIN_NS   0.00]
+0.00
+set OUTPUT_DELAY_MAX    [env_or_default DC_OUTPUT_DELAY_MAX_NS  1.00]
+1.00
+set OUTPUT_DELAY_MIN    [env_or_default DC_OUTPUT_DELAY_MIN_NS  0.00]
+0.00
+set INPUT_TRANSITION    [env_or_default DC_INPUT_TRANSITION_NS  0.20]
+0.20
+set OUTPUT_LOAD         [env_or_default DC_OUTPUT_LOAD_PF       0.05]
+0.05
+set MAX_TRANSITION      [env_or_default DC_MAX_TRANSITION_NS    0.80]
+0.80
+set MAX_FANOUT          [env_or_default DC_MAX_FANOUT           16]
+16
+set CRITICAL_RANGE      [env_or_default DC_CRITICAL_RANGE_NS    0.50]
+0.50
+set MAX_AREA            [env_or_default DC_MAX_AREA             0]
+0
+set COMPILE_MODE        [string tolower [env_or_default DC_COMPILE_MODE ultra]]
+ultra
+set RUN_INCREMENTAL     [env_or_default DC_RUN_INCREMENTAL 1]
+1
+set MAX_CORES           [env_or_default DC_MAX_CORES       4]
+4
+set TIMING_MAX_PATHS    [env_or_default DC_TIMING_MAX_PATHS 30]
+30
+# Optional activity inputs.  Priority: SAIF, then VCD, then vectorless defaults.
+set SAIF_FILE           [env_or_default DC_SAIF_FILE ""]
+set VCD_FILE            [env_or_default DC_VCD_FILE  ""]
+set ACTIVITY_SCOPE      [env_or_default DC_ACTIVITY_SCOPE tb_top/dut]
+tb_top/dut
+set INPUT_STATIC_PROB   [env_or_default DC_INPUT_STATIC_PROBABILITY 0.5]
+0.5
+set INPUT_TOGGLE_RATE   [env_or_default DC_INPUT_TOGGLE_RATE        0.10]
+0.10
+foreach numeric_setting {
+  CLOCK_PERIOD CLOCK_UNCERTAINTY CLOCK_TRANSITION
+  INPUT_DELAY_MAX INPUT_DELAY_MIN OUTPUT_DELAY_MAX OUTPUT_DELAY_MIN
+  INPUT_TRANSITION OUTPUT_LOAD MAX_TRANSITION MAX_FANOUT CRITICAL_RANGE
+  MAX_AREA MAX_CORES TIMING_MAX_PATHS INPUT_STATIC_PROB INPUT_TOGGLE_RATE
+} {
+  require_number $numeric_setting [set $numeric_setting]
+}
+if {$CLOCK_PERIOD <= 0.0} {
+  fatal "DC_CLOCK_PERIOD_NS must be greater than zero"
+}
+if {$COMPILE_MODE ne "ultra" && $COMPILE_MODE ne "standard"} {
+  fatal "DC_COMPILE_MODE must be 'ultra' or 'standard', got: $COMPILE_MODE"
+}
+if {$HDL_FORMAT ne "sverilog" && $HDL_FORMAT ne "verilog"} {
+  fatal "DC_HDL_FORMAT must be 'sverilog' or 'verilog', got: $HDL_FORMAT"
+}
+require_file $TARGET_LIBRARY "target library"
+# Keep this list explicit and RTL-only.  This prevents accidental synthesis of
+# UVM, interfaces, assertions or the simulation clock/reset generator.
+set RTL_FILES [list   [file join $RTL_DIR axi_tniu.v]   [file join $RTL_DIR wrap_align.v]   [file join $RTL_DIR wrap_adjust.v]   [file join $RTL_DIR req_order.v]   [file join $RTL_DIR rsp_order.v]   [file join $RTL_DIR addr_map.v]   [file join $RTL_DIR rreq_trans.v]   [file join $RTL_DIR wreq_trans.v]   [file join $RTL_DIR rsp_trans.v]   [file join $RTL_DIR watchdog.v]   [file join $RTL_DIR ely_rsp_detect.v]   [file join $RTL_DIR addr_border_count.v]   [file join $RTL_DIR syn_fifo.v] ]
+/home/ICer/RKNoC/axi_tniu_uvm/rtl/axi_tniu.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/addr_map.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/rreq_trans.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/wreq_trans.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_trans.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/watchdog.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/ely_rsp_detect.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/addr_border_count.v /home/ICer/RKNoC/axi_tniu_uvm/rtl/syn_fifo.v
+foreach rtl_file $RTL_FILES {
+  require_file $rtl_file "RTL source"
+}
+# Save the resolved settings so every PPA result can be reproduced later.
+set config_file [open [file join $RUN_DIR resolved_configuration.txt] w]
+file11
+puts $config_file "run_stamp=$RUN_STAMP"
+puts $config_file "repo_root=$REPO_ROOT"
+puts $config_file "top_design=$TOP_DESIGN"
+puts $config_file "rtl_dir=$RTL_DIR"
+puts $config_file "hdl_format=$HDL_FORMAT"
+puts $config_file "target_library=$TARGET_LIBRARY"
+puts $config_file "operating_condition=$OPERATING_CONDITION"
+puts $config_file "clock_port=$CLOCK_PORT"
+puts $config_file "clock_name=$CLOCK_NAME"
+puts $config_file "clock_period_ns=$CLOCK_PERIOD"
+puts $config_file "clock_uncertainty_ns=$CLOCK_UNCERTAINTY"
+puts $config_file "input_delay_max_ns=$INPUT_DELAY_MAX"
+puts $config_file "output_delay_max_ns=$OUTPUT_DELAY_MAX"
+puts $config_file "output_load_pf=$OUTPUT_LOAD"
+puts $config_file "compile_mode=$COMPILE_MODE"
+puts $config_file "run_incremental=$RUN_INCREMENTAL"
+puts $config_file "saif_file=$SAIF_FILE"
+puts $config_file "vcd_file=$VCD_FILE"
+puts $config_file "activity_scope=$ACTIVITY_SCOPE"
+close $config_file
+puts ""
+
+puts "=============================================================================="
+==============================================================================
+puts " axi_tniu pre-layout PPA flow"
+ axi_tniu pre-layout PPA flow
+puts "=============================================================================="
+==============================================================================
+puts " Top design       : $TOP_DESIGN"
+ Top design       : axi_tniu
+puts " RTL directory    : $RTL_DIR"
+ RTL directory    : /home/ICer/RKNoC/axi_tniu_uvm/rtl
+puts " HDL format       : $HDL_FORMAT"
+ HDL format       : sverilog
+puts " Target library   : $TARGET_LIBRARY"
+ Target library   : /home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db
+puts " PVT condition    : $OPERATING_CONDITION"
+ PVT condition    : typical
+puts " Clock            : $CLOCK_PORT, period=${CLOCK_PERIOD}ns"
+ Clock            : aclk, period=10.0ns
+puts " Compile mode     : $COMPILE_MODE"
+ Compile mode     : ultra
+puts " Run directory    : $RUN_DIR"
+ Run directory    : /home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145
+puts "=============================================================================="
+==============================================================================
+puts ""
+
+# -----------------------------------------------------------------------------
+# Design Compiler setup and technology libraries
+# -----------------------------------------------------------------------------
+set_app_var search_path [concat [get_app_var search_path]                                 [list $RTL_DIR $LIB_DIR]]
+. /home/synopsys/syn/O-2018.06-SP1/libraries/syn /home/synopsys/syn/O-2018.06-SP1/minpower/syn /home/synopsys/syn/O-2018.06-SP1/dw/syn_ver /home/synopsys/syn/O-2018.06-SP1/dw/sim_ver /home/ICer/RKNoC/axi_tniu_uvm/rtl /home/ic_libs/TSMC.90/aci/sc-x/libspm
+set_app_var target_library [list $TARGET_LIBRARY]
+/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db
+set_app_var link_library   [concat "*" [list $TARGET_LIBRARY]]
+* /home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db
+set_app_var alib_library_analysis_path $ALIB_DIR
+/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145/alib
+# Keep generated netlists legal and deterministic.
+set_app_var verilogout_no_tri true
+true
+set_app_var bus_naming_style {%s[%d]}
+%s[%d]
+# Use available CPU cores without changing synthesis semantics.
+if {[catch {set_host_options -max_cores $MAX_CORES} host_error]} {
+  puts "WARNING: could not set max cores: $host_error"
+}
+define_design_lib WORK -path $WORK_DIR
+1
+set_svf [file join $DATABASE_DIR "${TOP_DESIGN}.svf"]
+1
+# Read the .db now so library/PVT errors occur before RTL analysis.
+if {[catch {read_db $TARGET_LIBRARY} library_error]} {
+  fatal "failed to read target library: $library_error"
+}
+Loading db file '/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db'
+Loading db file '/home/synopsys/syn/O-2018.06-SP1/libraries/syn/gtech.db'
+Loading db file '/home/synopsys/syn/O-2018.06-SP1/libraries/syn/standard.sldb'
+  Loading link library 'typical'
+  Loading link library 'gtech'
+Loading db file '/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db'
+Warning: Overwriting design file '/home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db'. (DDB-24)
+Loaded 0 designs.
+redirect -file [file join $REPORT_DIR library.rpt] {
+  report_lib [get_libs *]
+}
+optional_report [file join $REPORT_DIR units.rpt] {
+  report_units
+}
+# -----------------------------------------------------------------------------
+# RTL analysis, elaboration and structural checks
+# -----------------------------------------------------------------------------
+puts "INFO: analyzing [llength $RTL_FILES] RTL files as $HDL_FORMAT"
+INFO: analyzing 13 RTL files as sverilog
+# Analyze one source at a time.  A batch analyze can return false after the
+# first syntax/front-end error without raising a Tcl exception; if that return
+# value is ignored, the later link step only reports many misleading missing
+# modules.  Per-file analysis identifies the first real failing source and
+# preserves its complete diagnostic output in reports/analyze_<file>.rpt.
+foreach rtl_file $RTL_FILES {
+  set rtl_stem    [file rootname [file tail $rtl_file]]
+  set analyze_log [file join $REPORT_DIR "analyze_${rtl_stem}.rpt"]
+  set analyze_ok  0
+
+  puts "INFO: analyze [file tail $rtl_file]"
+  if {[catch {
+    redirect -file $analyze_log {
+      set analyze_ok [analyze -format $HDL_FORMAT -library WORK                               [list $rtl_file]]
+    }
+  } analyze_error]} {
+    fatal "RTL analyze raised an error for '$rtl_file': $analyze_error\nSee: $analyze_log"
+  }
+
+  if {!$analyze_ok} {
+    fatal "RTL analyze failed for '$rtl_file'\nSee: $analyze_log"
+  }
+}
+INFO: analyze axi_tniu.v
+INFO: analyze wrap_align.v
+INFO: analyze wrap_adjust.v
+INFO: analyze req_order.v
+INFO: analyze rsp_order.v
+INFO: analyze addr_map.v
+INFO: analyze rreq_trans.v
+INFO: analyze wreq_trans.v
+INFO: analyze rsp_trans.v
+INFO: analyze watchdog.v
+INFO: analyze ely_rsp_detect.v
+INFO: analyze addr_border_count.v
+INFO: analyze syn_fifo.v
+optional_report [file join $REPORT_DIR analyzed_design_library.rpt] {
+  report_design_lib WORK
+}
+set elaborate_ok 0
+0
+if {[catch {
+  set elaborate_ok [elaborate $TOP_DESIGN -library WORK]
+} elaborate_error]} {
+  fatal "elaboration failed: $elaborate_error"
+}
+Running PRESTO HDLC
+Presto compilation completed successfully.
+Elaborated 1 design.
+Current design is now 'axi_tniu'.
+Information: Building the design 'wrap_align' instantiated from design 'axi_tniu' with
+	the parameters "REQ_HEAD_LEN_OFFSET=102,ADDR_WITH=32,REQ_OPC_OFFSET=43,REQ_STATUS_OFFSET=47,REQ_LEN_OFFSET=49,REQ_ADDR_OFFSET=57,REQ_USER_OFFSET=89,NBYTEPERWORD=8,REQ_FLIT_WITH=175,RWRAP_CNT_MAX=4,DLY=0". (HDL-193)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v:203: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block at line 121 in file
+	'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           125            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+	in routine wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0 line 121 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    rwrap_cnt_reg    | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0 line 149 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  wwrap_buffer_reg   | Flip-flop |  175  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine wrap_align_REQ_HEAD_LEN_OFFSET102_ADDR_WITH32_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_NBYTEPERWORD8_REQ_FLIT_WITH175_RWRAP_CNT_MAX4_DLY0 line 160 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_align.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| rknp_xx2wa_head_d_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+Presto compilation completed successfully.
+Information: Building the design 'wrap_adjust' instantiated from design 'axi_tniu' with
+	the parameters "RSP_FLIT_WITH=157,NBYTEPERWORD=8,USER_WITH=10,ADDR_WITH=32,AXID_WITH=4,RWRAP_CNT_MAX=4,DLY=0". (HDL-193)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v:240: signed to unsigned conversion occurs. (VER-318)
+
+Inferred memory devices in process
+	in routine wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0 line 156 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+| pending_rsp_head_reg | Flip-flop |  84   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  append_pending_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  pending_offset_reg  | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   pending_axid_reg   | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+	in routine wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0 line 210 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wrap_adjust.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  rwrap_buffer_reg   | Flip-flop |  308  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Statistics for MUX_OPs
+===========================================================================================================================================
+|                                           block name/line                                             | Inputs | Outputs | # sel inputs |
+===========================================================================================================================================
+| wrap_adjust_RSP_FLIT_WITH157_NBYTEPERWORD8_USER_WITH10_ADDR_WITH32_AXID_WITH4_RWRAP_CNT_MAX4_DLY0/248 |   4    |   72    |      2       |
+===========================================================================================================================================
+Presto compilation completed successfully.
+Information: Building the design 'req_order' instantiated from design 'axi_tniu' with
+	the parameters "REQ_FLIT_WITH=175,URGE_WITH=7,SUBR_WITH=8,IID_WITH=10,TID_WITH=10,ADDR_WITH=32,AXID_WITH=4,ORDKEY_WITH=8,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,TAG_CNT_WITH=3,REQ_SUBR_OFFSET=27,REQ_IID_OFFSET=7,REQ_TID_OFFSET=17,REQ_ORDKEY_OFFSET=35,REQ_OPC_OFFSET=43,REQ_STATUS_OFFSET=47,REQ_LEN_OFFSET=49,REQ_ADDR_OFFSET=57,REQ_USER_OFFSET=89,REQ_ERRC_OFFSET=99,REQ_HEAD_LEN_OFFSET=102,HEAD_BUFF_DEEP=8,ADDR_BLOCK_SIZE=64,ADDR_BP_TYPE=1,EARLY_RSP_MODE=1,DLY=0". (HDL-193)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v:623: signed to unsigned conversion occurs. (VER-318)
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 178 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+|  reqo2rspo_user_reg   | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   reqo2rspo_urg_reg   | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  reqo2rspo_subr_reg   | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  reqo2rspo_addr_reg   | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  reqo2rspo_axid_reg   | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   reqo2rspo_opc_reg   | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   reqo2rspo_len_reg   | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+| reqo2rspo_errcode_reg | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+| reqo2rspo_status_reg  | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 204 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| reqo2rspo_head_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 215 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| reqo2rspo_tail_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 227 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| reqo2rspo_valid_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 237 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| reqo2rspo_data_reg  | Flip-flop |  73   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 366 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     tag_cnt_reg     | Flip-flop |  24   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 417 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    tag_name_reg     | Flip-flop |  56   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 590 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   head_buffer_reg   | Flip-flop |  864  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 673 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+=========================================================================================
+|         Register Name         |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=========================================================================================
+|     reqo2rspo_timout_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     reqo2rspo_rsp_urg_reg     | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    reqo2rspo_rsp_addr_reg     | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   reqo2rspo_rsp_ordkey_reg    | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     reqo2rspo_rsp_len_reg     | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    reqo2rspo_rsp_user_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     reqo2rspo_rsp_iid_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     reqo2rspo_rsp_tid_reg     | Flip-flop |  10   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   reqo2rspo_rsp_status_reg    | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+| reqo2rspo_rsp_offset_addr_reg | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+=========================================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 702 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  fir_req_flag_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 720 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| reqo2rspo_tag_cnt_reg | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 764 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+|    subr_buffer_reg    | Flip-flop |  64   |  Y  | N  | N  | N  | N  | N  | N  |
+|  addr_end_buffer_reg  | Flip-flop |  208  |  Y  | N  | Y  | N  | N  | N  | N  |
+| addr_begin_buffer_reg | Flip-flop |  208  |  Y  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 846 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   reqo2wd_opc_reg   | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  reqo2wd_axid_reg   | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 856 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| reqo2wd_tag_cnt_reg | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0 line 876 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+| reqo2wd_timon_en_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+Statistics for MUX_OPs
+=====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|                                                                                                                                                                                                                block name/line                                                                                                                                                                                                                  | Inputs | Outputs | # sel inputs |
+=====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+| req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0/377 |   8    |    3    |      3       |
+| req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0/372 |   8    |    3    |      3       |
+| req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0/557 |   8    |   24    |      3       |
+| req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0/557 |   8    |   32    |      3       |
+| req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0/557 |   8    |    4    |      3       |
+| req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0/578 |   8    |    3    |      3       |
+| req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0/686 |   8    |    7    |      3       |
+| req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0/690 |   8    |   30    |      3       |
+| req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0/695 |   8    |    1    |      3       |
+=====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v:388: Netlist for always block is empty. (ELAB-985)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/req_order.v:568: Netlist for always block is empty. (ELAB-985)
+Presto compilation completed successfully.
+Warning: Filename too long >255 chars. Renaming file:
+'/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145/work/REQ_ORDER_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0.mr'
+to
+'/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145/work/REQ_ORDER_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR__F613F4D4645EAD9B7F9A65A64A5FF9A612D4B8D1BCCE78B9_000.mr'
+Information: Building the design 'addr_map' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,ADDR_WITH=32,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,AADDR_WITH=40,AQOS_WITH=3". (HDL-193)
+
+Statistics for case statements in always block at line 148 in file
+	'/home/ICer/RKNoC/axi_tniu_uvm/rtl/addr_map.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           149            |    auto/auto     |
+===============================================
+Statistics for MUX_OPs
+===========================================================================================================================================================
+|                                                   block name/line                                                     | Inputs | Outputs | # sel inputs |
+===========================================================================================================================================================
+| addr_map_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AQOS_WITH3/177 |   8    |   16    |      3       |
+===========================================================================================================================================================
+Presto compilation completed successfully.
+Information: Building the design 'rreq_trans' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,AADDR_WITH=40,AUSER_WITH=1,AQOS_WITH=3,DLY=0". (HDL-193)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rreq_trans.v:73: signed to unsigned assignment occurs. (VER-318)
+Presto compilation completed successfully.
+Information: Building the design 'wreq_trans' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,AADDR_WITH=40,AUSER_WITH=1,AQOS_WITH=3,DLY=0". (HDL-193)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/wreq_trans.v:114: signed to unsigned assignment occurs. (VER-318)
+
+Inferred memory devices in process
+	in routine wreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0 line 77 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wreq_trans.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  head_aw_done_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine wreq_trans_URGE_WITH7_SUBR_WITH8_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_AADDR_WITH40_AUSER_WITH1_AQOS_WITH3_DLY0 line 87 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/wreq_trans.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   head_w_done_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'watchdog' instantiated from design 'axi_tniu' with
+	the parameters "AXID_WITH=4,TAG_CNT_WITH=3,TIMOUT_VALUE=10240,TIMOUT_TABLE_DEEP=8,DLY=0". (HDL-193)
+
+Inferred memory devices in process
+	in routine watchdog_AXID_WITH4_TAG_CNT_WITH3_TIMOUT_VALUE10240_TIMOUT_TABLE_DEEP8_DLY0 line 51 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/watchdog.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    timer_cnt_reg    | Flip-flop |  14   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    timer_cnt_reg    | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine watchdog_AXID_WITH4_TAG_CNT_WITH3_TIMOUT_VALUE10240_TIMOUT_TABLE_DEEP8_DLY0 line 183 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/watchdog.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  tim_not_table_reg  | Flip-flop |  120  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Statistics for MUX_OPs
+=====================================================================================================================
+|                                block name/line                                  | Inputs | Outputs | # sel inputs |
+=====================================================================================================================
+| watchdog_AXID_WITH4_TAG_CNT_WITH3_TIMOUT_VALUE10240_TIMOUT_TABLE_DEEP8_DLY0/210 |   8    |    6    |      3       |
+=====================================================================================================================
+Presto compilation completed successfully.
+Information: Building the design 'rsp_trans' instantiated from design 'axi_tniu' with
+	the parameters "AXID_WITH=4,USER_WITH=10,NBYTEPERWORD=8,AUSER_WITH=1,DLY=0". (HDL-193)
+
+Statistics for case statements in always block at line 111 in file
+	'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_trans.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           134            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 254 in file
+	'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_trans.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           256            |    auto/auto     |
+|           271            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+	in routine rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0 line 111 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_trans.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    prev_rid_reg     | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   rbuf_count_reg    | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    rbuf0_rid_reg    | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   rbuf0_rdata_reg   | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   rbuf0_rresp_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   rbuf0_ruser_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   rbuf0_rlast_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   rbuf0_rhead_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|    rbuf1_rid_reg    | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   rbuf1_rdata_reg   | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   rbuf1_rresp_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   rbuf1_ruser_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   rbuf1_rlast_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   rbuf1_rhead_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+| prev_rbeat_last_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0 line 204 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_trans.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      buser_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|       bid_reg       | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      bresp_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0 line 216 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_trans.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     bvalid_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Error: Width mismatch on port 'rspt2rspo_auser' of reference to 'rsp_trans' in 'axi_tniu'. (LINK-3)
+Error: Unable to match ports of cell genblk2.U_RSP_TRANS ('rsp_trans') to 'rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0'. (LINK-25)
+Information: Building the design 'ely_rsp_detect' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,ADDR_WITH=32,AXID_WITH=4,LEN_WITH=8,USER_WITH=10,NBYTEPERWORD=8,ELYRSP_TABLE_DEEP=8,AUSER_WITH=1,TAG_CNT_WITH=3,DLY=0". (HDL-193)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/ely_rsp_detect.v:184: signed to unsigned conversion occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/ely_rsp_detect.v:184: signed to unsigned conversion occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/ely_rsp_detect.v:187: signed to unsigned conversion occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/ely_rsp_detect.v:196: signed to unsigned conversion occurs. (VER-318)
+
+Inferred memory devices in process
+	in routine ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_ELYRSP_TABLE_DEEP8_AUSER_WITH1_TAG_CNT_WITH3_DLY0 line 175 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/ely_rsp_detect.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  ely_rsp_table_reg  | Flip-flop |  72   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Statistics for MUX_OPs
+===========================================================================================================================================================================================
+|                                                                   block name/line                                                                     | Inputs | Outputs | # sel inputs |
+===========================================================================================================================================================================================
+| ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_ELYRSP_TABLE_DEEP8_AUSER_WITH1_TAG_CNT_WITH3_DLY0/155 |   8    |    1    |      3       |
+| ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_ELYRSP_TABLE_DEEP8_AUSER_WITH1_TAG_CNT_WITH3_DLY0/245 |   8    |    3    |      3       |
+===========================================================================================================================================================================================
+Presto compilation completed successfully.
+Error: Width mismatch on port 'erd2rspo_auser' of reference to 'ely_rsp_detect' in 'axi_tniu'. (LINK-3)
+Error: Unable to match ports of cell genblk2.U_ELY_RSP_DETECT ('ely_rsp_detect') to 'ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_ELYRSP_TABLE_DEEP8_AUSER_WITH1_TAG_CNT_WITH3_DLY0'. (LINK-25)
+Information: Building the design 'rsp_order' instantiated from design 'axi_tniu' with
+	the parameters "URGE_WITH=7,SUBR_WITH=8,IID_WITH=10,TID_WITH=10,ADDR_WITH=32,AXID_WITH=4,ORDKEY_WITH=8,LEN_WITH=8,USER_WITH=10,RSP_IID_OFFSET=7,RSP_TID_OFFSET=17,RSP_ORDKEY_OFFSET=27,RSP_OPC_OFFSET=35,RSP_STATUS_OFFSET=37,RSP_ADDR_OFFSET=39,RSP_USER_OFFSET=71,RSP_ERRC_OFFSET=81,NBYTEPERWORD=8,TAG_CNT_WITH=3,SPEC_REQ_BUFF_DEEP=8,ADDR_BLOCK_SIZE=64,ADDR_BP_TYPE=1,AUSER_WITH=1,EARLY_RSP_MODE=1,DLY=0". (HDL-193)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:515: signed to unsigned assignment occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:517: signed to unsigned assignment occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:543: signed to unsigned conversion occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:550: signed to unsigned conversion occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:602: signed to unsigned assignment occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:715: signed to unsigned conversion occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:717: signed to unsigned conversion occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:749: signed to unsigned conversion occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:831: signed to unsigned conversion occurs. (VER-318)
+Warning:  /home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v:1256: unsigned to signed assignment occurs. (VER-318)
+
+Statistics for case statements in always block at line 1005 in file
+	'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1006           |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 1038 in file
+	'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1039           |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 1141 in file
+	'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1142           |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 293 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===================================================================================
+|      Register Name      |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===================================================================================
+|   fir_req_flag_d_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  reqo2rspo_axid_d_reg   | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   reqo2rspo_opc_d_reg   | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+| reqo2rspo_tag_cnt_d_reg | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+| reqo2rspo_errcode_d_reg | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+| reqo2rspo_status_d_reg  | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+===================================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 358 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| spec_req_buffer_reg | Flip-flop |  128  |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 490 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+| tag_name_index_d_reg | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 532 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     tag_cnt_reg     | Flip-flop |  24   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 627 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   rsp_status_reg    | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    rsp_axid_reg     | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    rsp_user_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|     rsp_opc_reg     | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   rsp_errcode_reg   | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 643 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    rsp_data_reg     | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 722 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    flit_cnt_reg     | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 758 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| rspt2rspo_lw_d_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 783 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   rhead_en_d_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 791 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+============================================================================================
+|          Register Name           |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+============================================================================================
+| high_byte_disable_position_d_reg | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+| low_byte_disable_position_d_reg  | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+============================================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 878 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  buff_index_d_reg   | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 896 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+| spec_rsp_errcode_reg | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+| spec_rsp_status_reg  | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   spec_rsp_opc_reg   | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 947 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| rspt2rspo_lw_d2_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 957 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| rsp_phase_temp_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 997 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    cur_state_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 1027 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| buff_rsp_flag_d_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 1038 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+=============================================================================
+|     Register Name     | Type  | Width | Bus | MB | AR | AS | SR | SS | ST |
+=============================================================================
+| rspo2rknp_xx_data_reg | Latch |  157  |  Y  | N  | N  | N  | -  | -  | -  |
+=============================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 1098 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+| rspt2rspo_head_d_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 1108 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+| rspt2rspo_tail_d_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 1118 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| rspt2rspo_valid_d_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+	in routine rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0 line 1129 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/rsp_order.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| spec_rsp_phase_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Statistics for MUX_OPs
+===========================================================================================================================================================================================================================================================================================================================================================================================================================
+|                                                                                                                                                                                   block name/line                                                                                                                                                                                     | Inputs | Outputs | # sel inputs |
+===========================================================================================================================================================================================================================================================================================================================================================================================================================
+| rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0/513  |   8    |    6    |      3       |
+| rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0/543  |   8    |    3    |      3       |
+| rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0/550  |   8    |    3    |      3       |
+| rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0/622  |   8    |    3    |      3       |
+| rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0/622  |   8    |    3    |      3       |
+| rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0/911  |   8    |    3    |      3       |
+| rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0/913  |   8    |    4    |      3       |
+| rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0/1260 |   8    |    3    |      3       |
+| rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0/1266 |   8    |    9    |      3       |
+===========================================================================================================================================================================================================================================================================================================================================================================================================================
+Presto compilation completed successfully.
+Warning: Filename too long >255 chars. Renaming file:
+'/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145/work/RSP_ORDER_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0.mr'
+to
+'/home/ICer/RKNoC/axi_tniu_uvm/ppa/runs/dc_20260821_162145/work/RSP_ORDER_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET_DDAF39C8BF80AE251A202AB828E62A18B18585282EE50472_000.mr'
+Error: Width mismatch on port 'rspt2rspo_auser' of reference to 'rsp_order' in 'axi_tniu'. (LINK-3)
+Error: Unable to match ports of cell genblk2.U_RSP_ORDER ('rsp_order') to 'rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0'. (LINK-25)
+Information: Building the design 'addr_border_cout' instantiated from design 'req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0' with
+	the parameters "ADDR_WITH=32,LEN_WITH=8,NBYTEPERWORD=8,ADDR_BLOCK_SIZE=1,COUNT_MODE=1". (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'addr_border_cout' instantiated from design 'req_order_REQ_FLIT_WITH175_URGE_WITH7_IID_WITH10_TID_WITH10_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_TAG_CNT_WITH3_REQ_IID_OFFSET7_REQ_TID_OFFSET17_REQ_SUBR_OFFSET27_REQ_ORDKEY_OFFSET35_REQ_OPC_OFFSET43_REQ_STATUS_OFFSET47_REQ_LEN_OFFSET49_REQ_ADDR_OFFSET57_REQ_USER_OFFSET89_REQ_ERRC_OFFSET99_REQ_HEAD_LEN_OFFSET102_HEAD_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_EARLY_RSP_MODE1_DLY0' with
+	the parameters "ADDR_WITH=32,LEN_WITH=8,NBYTEPERWORD=8,ADDR_BLOCK_SIZE=64,COUNT_MODE=0". (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'sync_fifo' instantiated from design 'watchdog_AXID_WITH4_TAG_CNT_WITH3_TIMOUT_VALUE10240_TIMOUT_TABLE_DEEP8_DLY0' with
+	the parameters "DATA_WIDTH=6,DATA_DEPTH=8,DLY=0". (HDL-193)
+
+Inferred memory devices in process
+	in routine sync_fifo_DATA_WIDTH6_DATA_DEPTH8_DLY0 line 45 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/syn_fifo.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     rd_ptr_reg      | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine sync_fifo_DATA_WIDTH6_DATA_DEPTH8_DLY0 line 54 in file
+		'/home/ICer/RKNoC/axi_tniu_uvm/rtl/syn_fifo.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   fifo_buffer_reg   | Flip-flop |  48   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     wr_ptr_reg      | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Statistics for MUX_OPs
+===============================================================================
+|             block name/line               | Inputs | Outputs | # sel inputs |
+===============================================================================
+| sync_fifo_DATA_WIDTH6_DATA_DEPTH8_DLY0/73 |   8    |    6    |      3       |
+===============================================================================
+Presto compilation completed successfully.
+if {!$elaborate_ok} {
+  fatal "elaboration returned failure for '$TOP_DESIGN'; inspect the analyze reports"
+}
+current_design $TOP_DESIGN
+Current design is 'axi_tniu'.
+{axi_tniu}
+if {![link]} {
+  fatal "link failed; inspect unresolved references and target_library"
+}
+
+  Linking design 'axi_tniu'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (14 designs)              /home/ICer/RKNoC/axi_tniu_uvm/axi_tniu.db, etc
+  typical (library)           /home/ic_libs/TSMC.90/aci/sc-x/libspm/typical.db
+
+Error: Width mismatch on port 'rspt2rspo_auser' of reference to 'rsp_trans' in 'axi_tniu'. (LINK-3)
+Error: Unable to match ports of cell genblk2.U_RSP_TRANS ('rsp_trans') to 'rsp_trans_AXID_WITH4_USER_WITH10_NBYTEPERWORD8_AUSER_WITH1_DLY0'. (LINK-25)
+Error: Width mismatch on port 'erd2rspo_auser' of reference to 'ely_rsp_detect' in 'axi_tniu'. (LINK-3)
+Error: Unable to match ports of cell genblk2.U_ELY_RSP_DETECT ('ely_rsp_detect') to 'ely_rsp_detect_URGE_WITH7_SUBR_WITH8_ADDR_WITH32_AXID_WITH4_LEN_WITH8_USER_WITH10_NBYTEPERWORD8_ELYRSP_TABLE_DEEP8_AUSER_WITH1_TAG_CNT_WITH3_DLY0'. (LINK-25)
+Error: Width mismatch on port 'rspt2rspo_auser' of reference to 'rsp_order' in 'axi_tniu'. (LINK-3)
+Error: Unable to match ports of cell genblk2.U_RSP_ORDER ('rsp_order') to 'rsp_order_URGE_WITH7_SUBR_WITH8_IID_WITH10_TID_WITH10_ADDR_WITH32_AXID_WITH4_ORDKEY_WITH8_LEN_WITH8_USER_WITH10_RSP_IID_OFFSET7_RSP_TID_OFFSET17_RSP_ORDKEY_OFFSET27_RSP_OPC_OFFSET35_RSP_STATUS_OFFSET37_RSP_ADDR_OFFSET39_RSP_USER_OFFSET71_RSP_ERRC_OFFSET81_NBYTEPERWORD8_TAG_CNT_WITH3_SPEC_REQ_BUFF_DEEP8_ADDR_BLOCK_SIZE64_ADDR_BP_TYPE1_AUSER_WITH1_EARLY_RSP_MODE1_DLY0'. (LINK-25)
+
+FATAL: link failed; inspect unresolved references and target_library
+
+
+Memory usage for main task 215 Mbytes.
+Memory usage for this session 215 Mbytes.
+CPU usage for this session 2 seconds ( 0.00 hours ).
+
+Thank you...

@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version O-2018.06-SP1 for linux64 -- Jul 19, 2018
-#@ # Date:   Fri Aug 21 16:15:41 2026
+#@ # Date:   Fri Aug 21 16:21:45 2026
 #@ # Run by: ICer@IC_EDA
 #@ 
 
@@ -7480,4 +7480,24 @@ source -echo -verbose /home/ICer/RKNoC/axi_tniu_uvm/ppa/dc_pre_layout_ppa.tcl
 #@   if {!$analyze_ok} {
 #@     fatal "RTL analyze failed for '$rtl_file'\nSee: $analyze_log"
 #@   }
+#@ }
+#@ 
+#@ optional_report [file join $REPORT_DIR analyzed_design_library.rpt] {
+#@   report_design_lib WORK
+#@ }
+#@ 
+#@ set elaborate_ok 0
+#@ if {[catch {
+#@   set elaborate_ok [elaborate $TOP_DESIGN -library WORK]
+#@ } elaborate_error]} {
+#@   fatal "elaboration failed: $elaborate_error"
+#@ }
+#@ if {!$elaborate_ok} {
+#@   fatal "elaboration returned failure for '$TOP_DESIGN'; inspect the analyze reports"
+#@ }
+#@ 
+#@ current_design $TOP_DESIGN
+#@ 
+#@ if {![link]} {
+#@   fatal "link failed; inspect unresolved references and target_library"
 #@ }
